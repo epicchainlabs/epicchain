@@ -13,7 +13,7 @@ Welcome to EpicChain Main Core! This repository contains the central components 
 ## Getting Started
 To get started with EpicChain Main Core, follow these steps:
 
-1. **Clone the Repository:** Clone this repository to your local machine using `git clone https://github.com/EpicChain/main-core.git`.
+1. **Clone the Repository:** Clone this repository to your local machine using `git clone https://github.com/epicchainlabs/epicchain.git`.
 2. **Install Dependencies:** Navigate to the project directory and install the necessary dependencies using your preferred package manager.
 3. **Build the Project:** Run the build command to compile the source code.
 4. **Configure the Node:** Configure your EpicChain node according to your preferences, including network settings and data storage options.
@@ -36,9 +36,9 @@ We welcome contributions from the community! If you'd like to contribute to Epic
 ## Support
 If you have any questions or need assistance with EpicChain Main Core, please don't hesitate to reach out to us:
 
-- **Email:** support@epicchain.com
-- **Community Forum:** [EpicChain Forum](https://forum.epicchain.com)
-- **Telegram:** [EpicChain Telegram](https://t.me/epicchain)
+- **Email:** support@epic-chain.com
+- **Community Forum:** [EpicChain Forum](https://forum.epic-chain.org)
+- **Telegram:** [EpicChain Telegram](https://t.me/epicchainlab)
 
 ## License
 EpicChain Main Core is released under the [MIT License](LICENSE).
