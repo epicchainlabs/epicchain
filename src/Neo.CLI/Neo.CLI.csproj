@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <AssemblyTitle>Neo.CLI</AssemblyTitle>
-    <AssemblyName>neo-cli</AssemblyName>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+    <AssemblyTitle>epicchain.cli</AssemblyTitle>
+    <AssemblyName>epicchain-cli</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>Neo.CLI</PackageId>
-    <RootNamespace>Neo</RootNamespace>
-    <Product>Neo.CLI</Product>
-    <ApplicationIcon>neo.ico</ApplicationIcon>
+    <PackageId>epicchain.cli</PackageId>
+    <RootNamespace>epicchain</RootNamespace>
+    <Product>epicchain.cli</Product>
+    <ApplicationIcon>epicchain.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="neo.ico" />
+    <Content Include="epicchain.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,12 +5,8 @@
       "ConsoleOutput": false,
       "Active": false
     },
-    "Storage": {
-      "Engine": "LevelDBStore", // Candidates [MemoryStore, LevelDBStore, RocksDBStore]
-      "Path": "Data_LevelDB_{0}" // {0} is a placeholder for the network id
-    },
     "P2P": {
-      "Port": 20333,
+      "Port": 20111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -20,16 +16,13 @@
       "Password": "",
       "IsActive": false
     },
-    "Contracts": {
-      "NeoNameService": "0x50ac1c37690cc2cfc594472833cf57505d5f46de"
-    },
     "Plugins": {
       "DownloadUrl": "https://api.github.com/repos/neo-project/neo-modules/releases"
     }
   },
   "ProtocolConfiguration": {
     "Network": 894710606,
-    "AddressVersion": 53,
+    "AddressVersion": 50,
     "MillisecondsPerBlock": 15000,
     "MaxTransactionsPerBlock": 5000,
     "MemoryPoolMaxTransactions": 50000,
@@ -64,11 +57,11 @@
       "03184b018d6b2bc093e535519732b3fd3f7551c8cffaf4621dd5a0b89482ca66c9"
     ],
     "SeedList": [
-      "seed1t5.neo.org:20333",
-      "seed2t5.neo.org:20333",
-      "seed3t5.neo.org:20333",
-      "seed4t5.neo.org:20333",
-      "seed5t5.neo.org:20333"
+      "testnet1-seed.epic-chain.org:20111",
+      "testnet2-seed.epic-chain.org:20111",
+      "testnet3-seed.epic-chain.org:20111",
+      "testnet4-seed.epic-chain.org:20111",
+      "testnet5-seed.epic-chain.org:20111"
     ]
   }
 }

@@ -5,12 +5,8 @@
       "ConsoleOutput": false,
       "Active": false
     },
-    "Storage": {
-      "Engine": "LevelDBStore", // Candidates [MemoryStore, LevelDBStore, RocksDBStore]
-      "Path": "Data_LevelDB_{0}" // {0} is a placeholder for the network id
-    },
     "P2P": {
-      "Port": 40333,
+      "Port": 60111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -46,13 +42,13 @@
       "031f4d9c66f2ec348832c48fd3a16dfaeb59e85f557ae1e07f6696d0375c64f97b"
     ],
     "SeedList": [
-      "morph1.fs.neo.org:40333",
-      "morph2.fs.neo.org:40333",
-      "morph3.fs.neo.org:40333",
-      "morph4.fs.neo.org:40333",
-      "morph5.fs.neo.org:40333",
-      "morph6.fs.neo.org:40333",
-      "morph7.fs.neo.org:40333"
+      "morph1.fs.epic-chain.org:60111",
+      "morph2.fs.epic-chain.org:60111",
+      "morph3.fs.epic-chain.org:60111",
+      "morph4.fs.epic-chain.org:60111",
+      "morph5.fs.epic-chain.org:60111",
+      "morph6.fs.epic-chain.org:60111",
+      "morph7.fs.epic-chain.org:60111"
     ]
   }
 }
