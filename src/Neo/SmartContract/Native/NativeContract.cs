@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2021-2024 The Neo Project.
 //
 // NativeContract.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -49,11 +14,8 @@ using Neo.SmartContract.Manifest;
 using Neo.VM;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Neo.SmartContract.Native
 {
@@ -62,33 +24,9 @@ namespace Neo.SmartContract.Native
     /// </summary>
     public abstract class NativeContract
     {
-        private class NativeContractsCache
-        {
-            public class CacheEntry
-            {
-                public Dictionary<int, ContractMethodMetadata> Methods { get; set; }
-                public byte[] Script { get; set; }
-            }
-
-            internal Dictionary<int, CacheEntry> NativeContracts { get; set; } = new Dictionary<int, CacheEntry>();
-
-            public CacheEntry GetAllowedMethods(NativeContract native, ApplicationEngine engine)
-            {
-                if (NativeContracts.TryGetValue(native.Id, out var value)) return value;
-
-                uint index = engine.PersistingBlock is null ? Ledger.CurrentIndex(engine.Snapshot) : engine.PersistingBlock.Index;
-                CacheEntry methods = native.GetAllowedMethods(engine.ProtocolSettings.IsHardforkEnabled, index);
-                NativeContracts[native.Id] = methods;
-                return methods;
-            }
-        }
-
-        public delegate bool IsHardforkEnabledDelegate(Hardfork hf, uint index);
         private static readonly List<NativeContract> contractsList = new();
         private static readonly Dictionary<UInt160, NativeContract> contractsDictionary = new();
-        private readonly ImmutableHashSet<Hardfork> usedHardforks;
-        private readonly ReadOnlyCollection<ContractMethodMetadata> methodDescriptors;
-        private readonly ReadOnlyCollection<ContractEventAttribute> eventsDescriptors;
+        private readonly Dictionary<int, ContractMethodMetadata> methods = new();
         private static int id_counter = 0;
 
         #region Named Native Contracts
@@ -156,6 +94,11 @@ namespace Neo.SmartContract.Native
         public virtual Hardfork? ActiveIn { get; } = null;
 
         /// <summary>
+        /// The nef of the native contract.
+        /// </summary>
+        public NefFile Nef { get; }
+
+        /// <summary>
         /// The hash of the native contract.
         /// </summary>
         public UInt160 Hash { get; }
@@ -166,57 +109,27 @@ namespace Neo.SmartContract.Native
         public int Id { get; } = --id_counter;
 
         /// <summary>
+        /// The manifest of the native contract.
+        /// </summary>
+        public ContractManifest Manifest { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="NativeContract"/> class.
         /// </summary>
         protected NativeContract()
         {
-            this.Hash = Helper.GetContractHash(UInt160.Zero, 0, Name);
-
-            // Reflection to get the methods
-
-            List<ContractMethodMetadata> listMethods = new();
+            List<ContractMethodMetadata> descriptors = new();
             foreach (MemberInfo member in GetType().GetMembers(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
             {
                 ContractMethodAttribute attribute = member.GetCustomAttribute<ContractMethodAttribute>();
                 if (attribute is null) continue;
-                listMethods.Add(new ContractMethodMetadata(member, attribute));
+                descriptors.Add(new ContractMethodMetadata(member, attribute));
             }
-            methodDescriptors = listMethods.OrderBy(p => p.Name, StringComparer.Ordinal).ThenBy(p => p.Parameters.Length).ToList().AsReadOnly();
-
-            // Reflection to get the events
-            eventsDescriptors =
-                GetType().GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, Array.Empty<Type>(), null)?.
-                GetCustomAttributes<ContractEventAttribute>().
-                OrderBy(p => p.Order).ToList().AsReadOnly();
-
-            // Calculate the initializations forks
-            usedHardforks =
-                methodDescriptors.Select(u => u.ActiveIn)
-                .Concat(eventsDescriptors.Select(u => u.ActiveIn))
-                .Concat(new Hardfork?[] { ActiveIn })
-                .Where(u => u is not null)
-                .OrderBy(u => (byte)u)
-                .Cast<Hardfork>().ToImmutableHashSet();
-
-            contractsList.Add(this);
-            contractsDictionary.Add(Hash, this);
-        }
-
-        /// <summary>
-        /// The allowed methods and his offsets.
-        /// </summary>
-        /// <param name="hfChecker">Hardfork checker</param>
-        /// <param name="index">Block index</param>
-        /// <returns>The <see cref="NativeContractsCache"/>.</returns>
-        private NativeContractsCache.CacheEntry GetAllowedMethods(IsHardforkEnabledDelegate hfChecker, uint index)
-        {
-            Dictionary<int, ContractMethodMetadata> methods = new();
-
-            // Reflection to get the ContractMethods
+            descriptors = descriptors.OrderBy(p => p.Name, StringComparer.Ordinal).ThenBy(p => p.Parameters.Length).ToList();
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                foreach (ContractMethodMetadata method in methodDescriptors.Where(u => u.ActiveIn is null || hfChecker(u.ActiveIn.Value, index)))
+                foreach (ContractMethodMetadata method in descriptors)
                 {
                     method.Descriptor.Offset = sb.Length;
                     sb.EmitPush(0); //version
@@ -226,108 +139,49 @@ namespace Neo.SmartContract.Native
                 }
                 script = sb.ToArray();
             }
-
-            return new NativeContractsCache.CacheEntry() { Methods = methods, Script = script };
-        }
-
-        /// <summary>
-        /// The <see cref="ContractState"/> of the native contract.
-        /// </summary>
-        /// <param name="settings">The <see cref="ProtocolSettings"/> where the HardForks are configured.</param>
-        /// <param name="index">Block index</param>
-        /// <returns>The <see cref="ContractState"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ContractState GetContractState(ProtocolSettings settings, uint index) => GetContractState(settings.IsHardforkEnabled, index);
-
-        /// <summary>
-        /// The <see cref="ContractState"/> of the native contract.
-        /// </summary>
-        /// <param name="hfChecker">Hardfork checker</param>
-        /// <param name="index">Block index</param>
-        /// <returns>The <see cref="ContractState"/>.</returns>
-        public ContractState GetContractState(IsHardforkEnabledDelegate hfChecker, uint index)
-        {
-            // Get allowed methods and nef script
-            var allowedMethods = GetAllowedMethods(hfChecker, index);
-
-            // Compose nef file
-            var nef = new NefFile()
+            this.Nef = new NefFile
             {
                 Compiler = "neo-core-v3.0",
                 Source = string.Empty,
                 Tokens = Array.Empty<MethodToken>(),
-                Script = allowedMethods.Script
+                Script = script
             };
-            nef.CheckSum = NefFile.ComputeChecksum(nef);
-
-            // Compose manifest
-            var manifest = new ContractManifest()
+            this.Nef.CheckSum = NefFile.ComputeChecksum(Nef);
+            this.Hash = Helper.GetContractHash(UInt160.Zero, 0, Name);
+            this.Manifest = new ContractManifest
             {
                 Name = Name,
                 Groups = Array.Empty<ContractGroup>(),
                 SupportedStandards = Array.Empty<string>(),
                 Abi = new ContractAbi()
                 {
-                    Events = eventsDescriptors
-                        .Where(u => u.ActiveIn is null || hfChecker(u.ActiveIn.Value, index))
-                        .Select(p => p.Descriptor).ToArray(),
-                    Methods = allowedMethods.Methods.Values
-                        .Select(p => p.Descriptor).ToArray()
+                    Events = Array.Empty<ContractEventDescriptor>(),
+                    Methods = descriptors.Select(p => p.Descriptor).ToArray()
                 },
                 Permissions = new[] { ContractPermission.DefaultPermission },
                 Trusts = WildcardContainer<ContractPermissionDescriptor>.Create(),
                 Extra = null
             };
-
-            OnManifestCompose(manifest);
-
-            // Return ContractState
-            return new ContractState
-            {
-                Id = Id,
-                Nef = nef,
-                Hash = Hash,
-                Manifest = manifest
-            };
+            contractsList.Add(this);
+            contractsDictionary.Add(Hash, this);
         }
-
-        protected virtual void OnManifestCompose(ContractManifest manifest) { }
 
         /// <summary>
         /// It is the initialize block
         /// </summary>
         /// <param name="settings">The <see cref="ProtocolSettings"/> where the HardForks are configured.</param>
         /// <param name="index">Block index</param>
-        /// <param name="hardfork">Active hardfork</param>
         /// <returns>True if the native contract must be initialized</returns>
-        internal bool IsInitializeBlock(ProtocolSettings settings, uint index, out Hardfork? hardfork)
+        internal bool IsInitializeBlock(ProtocolSettings settings, uint index)
         {
-            // If is not configured, the Genesis is the a initialized block
-            if (index == 0 && ActiveIn is null)
+            if (ActiveIn is null) return index == 0;
+
+            if (!settings.Hardforks.TryGetValue(ActiveIn.Value, out var activeIn))
             {
-                hardfork = null;
-                return true;
+                return false;
             }
 
-            // If is in the hardfork height, return true
-            foreach (Hardfork hf in usedHardforks)
-            {
-                if (!settings.Hardforks.TryGetValue(hf, out var activeIn))
-                {
-                    // If is not set in the configuration is treated as enabled from the genesis
-                    activeIn = 0;
-                }
-
-                if (activeIn == index)
-                {
-                    hardfork = hf;
-                    return true;
-                }
-            }
-
-            // Initialized not required
-            hardfork = null;
-            return false;
+            return activeIn == index;
         }
 
         /// <summary>
@@ -342,8 +196,7 @@ namespace Neo.SmartContract.Native
 
             if (!settings.Hardforks.TryGetValue(ActiveIn.Value, out var activeIn))
             {
-                // If is not set in the configuration is treated as enabled from the genesis
-                activeIn = 0;
+                return false;
             }
 
             return activeIn <= index;
@@ -382,14 +235,8 @@ namespace Neo.SmartContract.Native
             {
                 if (version != 0)
                     throw new InvalidOperationException($"The native contract of version {version} is not active.");
-                // Get native contracts invocation cache
-                NativeContractsCache nativeContracts = engine.GetState(() => new NativeContractsCache());
-                NativeContractsCache.CacheEntry currentAllowedMethods = nativeContracts.GetAllowedMethods(this, engine);
-                // Check if the method is allowed
                 ExecutionContext context = engine.CurrentContext;
-                ContractMethodMetadata method = currentAllowedMethods.Methods[context.InstructionPointer];
-                if (method.ActiveIn is not null && !engine.IsHardforkEnabled(method.ActiveIn.Value))
-                    throw new InvalidOperationException($"Cannot call this method before hardfork {method.ActiveIn}.");
+                ContractMethodMetadata method = methods[context.InstructionPointer];
                 ExecutionContextState state = context.GetState<ExecutionContextState>();
                 if (!state.CallFlags.HasFlag(method.RequiredCallFlags))
                     throw new InvalidOperationException($"Cannot call this method with the flag {state.CallFlags}.");
@@ -430,7 +277,7 @@ namespace Neo.SmartContract.Native
             return contractsDictionary.ContainsKey(hash);
         }
 
-        internal virtual ContractTask Initialize(ApplicationEngine engine, Hardfork? hardFork)
+        internal virtual ContractTask Initialize(ApplicationEngine engine)
         {
             return ContractTask.CompletedTask;
         }
