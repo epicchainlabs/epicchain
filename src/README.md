@@ -1,25 +1,37 @@
-## Overview
-This repository contain main classes of the [Neo](https://www.neo.org) blockchain.
-Visit the [documentation](https://docs.neo.org/docs/en-us/index.html) to get started.
+# EpicChain
 
-## Related projects
-Code references are provided for all platform building blocks. That includes the base library, the VM, a command line application and the compiler. 
+EpicChain is a decentralized blockchain network designed to revolutionize the way digital assets are managed, traded, and secured. Built with scalability and security in mind, EpicChain offers a robust platform for developing decentralized applications (dApps) and managing digital assets.
 
-- [neo:](https://github.com/neo-project/neo/) Neo core library, contains base classes, including ledger, p2p and IO modules.
-- [neo-modules:](https://github.com/neo-project/neo-modules/) Neo modules include additional tools and plugins to be used with Neo.
-- [neo-devpack-dotnet:](https://github.com/neo-project/neo-devpack-dotnet/) These are the official tools used to convert a C# smart-contract into a *neo executable file*.
+## Features
 
-## Opening a new issue
-Please feel free to create new issues to suggest features or ask questions.
+- **Scalability:** EpicChain utilizes a scalable architecture that can handle high transaction volumes, making it suitable for a wide range of applications.
+- **Security:** With advanced security features, including encryption and consensus mechanisms, EpicChain ensures the integrity and security of transactions.
+- **Smart Contracts:** EpicChain supports smart contracts, enabling developers to create complex, self-executing contracts that run on the blockchain.
+- **Token Support:** EpicChain supports the creation and management of custom tokens, allowing users to tokenize assets and create new digital assets.
+- **Decentralized Governance:** EpicChain implements decentralized governance mechanisms, allowing stakeholders to participate in the decision-making process.
+- **Cross-Chain Compatibility:** EpicChain is compatible with other blockchain networks, facilitating interoperability and the exchange of assets across different chains.
 
-- [Feature request](https://github.com/neo-project/neo/issues/new?assignees=&labels=discussion&template=feature-or-enhancement-request.md&title=)
-- [Bug report](https://github.com/neo-project/neo/issues/new?assignees=&labels=&template=bug_report.md&title=)
-- [Questions](https://github.com/neo-project/neo/issues/new?assignees=&labels=question&template=questions.md&title=)
+## Getting Started
 
-If you found a security issue, please refer to our [security policy](https://github.com/neo-project/neo/security/policy).
+To get started with EpicChain, follow these steps:
 
-## Bounty program
-You can be rewarded by finding security issues. Please refer to our [bounty program page](https://neo.org/bounty) for more information.
+1. **Clone the Repository:** Clone the EpicChain repository to your local machine.
+2. **Install Dependencies:** Install the necessary dependencies for building and running EpicChain.
+3. **Build EpicChain:** Build the EpicChain core source code using the provided build scripts.
+4. **Run EpicChain:** Run the EpicChain node on your local machine or deploy it to a test network.
+
+For detailed instructions on building and running EpicChain, refer to the [Documentation](link-to-documentation).
+
+## Contributing
+
+We welcome contributions from the community to help improve EpicChain. If you're interested in contributing, please follow our [Contribution Guidelines](link-to-contribution-guidelines).
 
 ## License
-The NEO project is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
+
+EpicChain is licensed under the [EpicChain Software License](link-to-license), which is a custom license designed to promote the free and open development of the EpicChain network.
+
+## Contact
+
+For more information about EpicChain, please contact us at [email address].
+
+---
