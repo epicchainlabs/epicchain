@@ -19,8 +19,8 @@ namespace Neo.SmartContract.Native
     /// </summary>
     public sealed class GasToken : FungibleToken<AccountState>
     {
-        public override string Symbol => "XPRP";
-        public override byte Decimals => 8;
+        public override string Symbol => "XPP";
+        public override byte Decimals => 3;
 
         internal GasToken()
         {
