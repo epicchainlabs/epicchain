@@ -1,4 +1,4 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// Copyright (C) 2021-2024 The Neo Project.
 //
 // MainService.Contracts.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -46,10 +46,10 @@ namespace Neo.CLI
             UInt160 hash = SmartContract.Helper.GetContractHash(tx.Sender, nef.CheckSum, manifest.Name);
 
             ConsoleHelper.Info("Contract hash: ", $"{hash}");
-            ConsoleHelper.Info("Gas consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)}");
+            ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)}");
             ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}");
-            ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
-            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
+            ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
             {
                 return;
             }
@@ -108,10 +108,10 @@ namespace Neo.CLI
             {
                 ConsoleHelper.Info("Contract hash: ", $"{scriptHash}");
                 ConsoleHelper.Info("Updated times: ", $"{contract.UpdateCounter}");
-                ConsoleHelper.Info("Gas consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)}");
+                ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)}");
                 ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}");
-                ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
-                if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
+                ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+                if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
                 {
                     return;
                 }
@@ -178,8 +178,8 @@ namespace Neo.CLI
             ConsoleHelper.Info("Network fee: ",
                 $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
-            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes())
             {
                 return;
             }

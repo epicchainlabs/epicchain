@@ -1,4 +1,4 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// Copyright (C) 2021-2024 The Neo Project.
 //
 // MainService.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -17,6 +17,7 @@ using Neo.Json;
 using Neo.Ledger;
 using Neo.Network.P2P;
 using Neo.Network.P2P.Payloads;
+using Neo.Persistence;
 using Neo.Plugins;
 using Neo.SmartContract;
 using Neo.SmartContract.Manifest;
@@ -73,8 +74,8 @@ namespace Neo.CLI
             private set => _localNode = value;
         }
 
-        protected override string Prompt => "neo";
-        public override string ServiceName => "NEO-CLI";
+        protected override string Prompt => "epic";
+        public override string ServiceName => "EpicChain-CLI";
 
         /// <summary>
         /// Constructor
@@ -101,8 +102,8 @@ namespace Neo.CLI
         {
             switch (input.ToLowerInvariant())
             {
-                case "neo": return NativeContract.NEO.Hash;
-                case "gas": return NativeContract.GAS.Hash;
+                case "epicchain": return NativeContract.NEO.Hash;
+                case "epicpulse": return NativeContract.GAS.Hash;
             }
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
@@ -134,7 +135,7 @@ namespace Neo.CLI
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetVersion();
             var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetVersion();
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetVersion();
-            Console.WriteLine($"{ServiceName} v{cliV}  -  NEO v{neoV}  -  NEO-VM v{vmV}");
+            Console.WriteLine($"EpicChain-BlockSphere V1.0.1 - Symbolizing a robust, all-encompassing");
             Console.WriteLine();
 
             base.RunConsole();
@@ -345,10 +346,11 @@ namespace Neo.CLI
             }
         }
 
-        public override bool OnStart(string[] args)
+        public override void OnStart(string[] args)
         {
-            if (!base.OnStart(args)) return false;
-            return OnStartWithCommandLine(args) != 1;
+            base.OnStart(args);
+            OnStartWithCommandLine(args);
+
         }
 
         public override void OnStop()
@@ -542,7 +544,7 @@ namespace Neo.CLI
                     if (engine.State == VMState.FAULT) return;
                 }
 
-                if (!ConsoleHelper.ReadUserInput("Relay tx(no|yes)").IsYes())
+                if (!ConsoleHelper.ReadUserInput("Relay Transaction(no|yes)").IsYes())
                 {
                     return;
                 }
@@ -621,7 +623,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("Gas Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());
@@ -645,7 +647,7 @@ namespace Neo.CLI
         public UInt160 ResolveNeoNameServiceAddress(string domain)
         {
             if (Settings.Default.Contracts.NeoNameService == UInt160.Zero)
-                throw new Exception("Neo Name Service (NNS): is disabled on this network.");
+                throw new Exception("EpicChain Name Service (XNS): is disabled on this network.");
 
             using var sb = new ScriptBuilder();
             sb.EmitDynamicCall(Settings.Default.Contracts.NeoNameService, "resolve", CallFlags.ReadOnly, domain, 16);
@@ -668,18 +670,18 @@ namespace Neo.CLI
                 }
                 else if (data is Null)
                 {
-                    throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
+                    throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
                 }
-                throw new Exception("Neo Name Service (NNS): Record invalid address format.");
+                throw new Exception("EpicChain Name Service (XNS): Record invalid address format.");
             }
             else
             {
                 if (appEng.FaultException is not null)
                 {
-                    throw new Exception($"Neo Name Service (NNS): \"{appEng.FaultException.Message}\".");
+                    throw new Exception($"EpicChain Name Service (XNS): \"{appEng.FaultException.Message}\".");
                 }
             }
-            throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
+            throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
         }
     }
 }

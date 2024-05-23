@@ -1,4 +1,4 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// Copyright (C) 2021-2024 The Neo Project.
 //
 // MainService.Blockchain.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -112,7 +112,7 @@ namespace Neo.CLI
             }
         }
 
-        [ConsoleCommand("show tx", Category = "Blockchain Commands")]
+        [ConsoleCommand("show transaction", Category = "Blockchain Commands")]
         public void OnShowTransactionCommand(UInt256 hash)
         {
             lock (syncRoot)
