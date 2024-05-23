@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // JumpTable.Stack.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -50,26 +15,56 @@ using System.Runtime.CompilerServices;
 
 namespace Neo.VM
 {
+    /// <summary>
+    /// Partial class for stack manipulation within a jump table in the execution engine.
+    /// </summary>
     public partial class JumpTable
     {
+        /// <summary>
+        /// Pushes the number of stack items in the evaluation stack onto the stack.
+        /// <see cref="OpCode.DEPTH"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 0, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Depth(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(engine.CurrentContext!.EvaluationStack.Count);
         }
 
+        /// <summary>
+        /// Removes the top item from the evaluation stack.
+        /// <see cref="OpCode.DROP"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 0</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Drop(ExecutionEngine engine, Instruction instruction)
         {
             engine.Pop();
         }
 
+        /// <summary>
+        /// 
+        /// <see cref="OpCode.NIP"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Nip(ExecutionEngine engine, Instruction instruction)
         {
             engine.CurrentContext!.EvaluationStack.Remove<StackItem>(1);
         }
 
+        /// <summary>
+        /// Removes the nth item from the top of the evaluation stack.
+        /// <see cref="OpCode.XDROP"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 0</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void XDrop(ExecutionEngine engine, Instruction instruction)
         {
@@ -79,24 +74,51 @@ namespace Neo.VM
             engine.CurrentContext!.EvaluationStack.Remove<StackItem>(n);
         }
 
+        /// <summary>
+        /// Clears all items from the evaluation stack.
+        /// <see cref="OpCode.CLEAR"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Clear(ExecutionEngine engine, Instruction instruction)
         {
             engine.CurrentContext!.EvaluationStack.Clear();
         }
 
+        /// <summary>
+        /// Duplicates the item on the top of the evaluation stack.
+        /// <see cref="OpCode.DUP"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 0, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Dup(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(engine.Peek());
         }
 
+        /// <summary>
+        /// Copies the second item from the top of the evaluation stack and pushes the copy onto the stack.
+        /// <see cref="OpCode.OVER"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 0, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Over(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(engine.Peek(1));
         }
 
+        /// <summary>
+        /// Copies the nth item from the top of the evaluation stack and pushes the copy onto the stack.
+        /// <see cref="OpCode.PICK"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Pick(ExecutionEngine engine, Instruction instruction)
         {
@@ -106,12 +128,25 @@ namespace Neo.VM
             engine.Push(engine.Peek(n));
         }
 
+        /// <summary>
+        /// Copies the top item on the evaluation stack and inserts the copy between the first and second items.
+        /// <see cref="OpCode.TUCK"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Tuck(ExecutionEngine engine, Instruction instruction)
         {
             engine.CurrentContext!.EvaluationStack.Insert(2, engine.Peek());
         }
 
+        /// <summary>
+        /// Swaps the top two items on the evaluation stack.
+        /// <see cref="OpCode.SWAP"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 0, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Swap(ExecutionEngine engine, Instruction instruction)
         {
@@ -119,6 +154,13 @@ namespace Neo.VM
             engine.Push(x);
         }
 
+        /// <summary>
+        /// Left rotates the top three items on the evaluation stack.
+        /// <see cref="OpCode.ROT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 0, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Rot(ExecutionEngine engine, Instruction instruction)
         {
@@ -126,6 +168,13 @@ namespace Neo.VM
             engine.Push(x);
         }
 
+        /// <summary>
+        /// The item n back in the stack is moved to the top.
+        /// <see cref="OpCode.ROLL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Roll(ExecutionEngine engine, Instruction instruction)
         {
@@ -137,18 +186,37 @@ namespace Neo.VM
             engine.Push(x);
         }
 
+        /// <summary>
+        /// Reverses the order of the top 3 items on the evaluation stack.
+        /// <see cref="OpCode.REVERSE3"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Reverse3(ExecutionEngine engine, Instruction instruction)
         {
             engine.CurrentContext!.EvaluationStack.Reverse(3);
         }
 
+        /// <summary>
+        /// Reverses the order of the top 4 items on the evaluation stack.
+        /// <see cref="OpCode.REVERSE4"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Reverse4(ExecutionEngine engine, Instruction instruction)
         {
             engine.CurrentContext!.EvaluationStack.Reverse(4);
         }
 
+        /// <summary>
+        /// Reverses the order of the top n items on the evaluation stack.
+        /// <see cref="OpCode.REVERSEN"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 0</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ReverseN(ExecutionEngine engine, Instruction instruction)
         {

@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // JumpTable.Splice.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -49,8 +14,18 @@ using System.Runtime.CompilerServices;
 
 namespace Neo.VM
 {
+    /// <summary>
+    /// Partial class representing a jump table for executing specific operations related to string manipulation.
+    /// </summary>
     public partial class JumpTable
     {
+        /// <summary>
+        /// Creates a new buffer with the specified length and pushes it onto the evaluation stack.
+        /// <see cref="OpCode.NEWBUFFER"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void NewBuffer(ExecutionEngine engine, Instruction instruction)
         {
@@ -59,6 +34,13 @@ namespace Neo.VM
             engine.Push(new Types.Buffer(length));
         }
 
+        /// <summary>
+        /// Copies a specified number of bytes from one buffer to another buffer.
+        /// <see cref="OpCode.MEMCPY"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 5, Push 0</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Memcpy(ExecutionEngine engine, Instruction instruction)
         {
@@ -80,6 +62,13 @@ namespace Neo.VM
             src.Slice(si, count).CopyTo(dst.InnerBuffer.Span[di..]);
         }
 
+        /// <summary>
+        /// Concatenates two buffers and pushes the result onto the evaluation stack.
+        /// <see cref="OpCode.CAT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Cat(ExecutionEngine engine, Instruction instruction)
         {
@@ -93,6 +82,13 @@ namespace Neo.VM
             engine.Push(result);
         }
 
+        /// <summary>
+        /// Extracts a substring from the specified buffer and pushes it onto the evaluation stack.
+        /// <see cref="OpCode.CAT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 3, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void SubStr(ExecutionEngine engine, Instruction instruction)
         {
@@ -110,6 +106,13 @@ namespace Neo.VM
             engine.Push(result);
         }
 
+        /// <summary>
+        /// Extracts a specified number of characters from the left side of the buffer and pushes them onto the evaluation stack.
+        /// <see cref="OpCode.LEFT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Left(ExecutionEngine engine, Instruction instruction)
         {
@@ -124,6 +127,13 @@ namespace Neo.VM
             engine.Push(result);
         }
 
+        /// <summary>
+        /// Extracts a specified number of characters from the right side of the buffer and pushes them onto the evaluation stack.
+        /// <see cref="OpCode.RIGHT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Right(ExecutionEngine engine, Instruction instruction)
         {

@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // ApplicationEngine.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -67,6 +32,8 @@ namespace Neo.SmartContract
     /// </summary>
     public partial class ApplicationEngine : ExecutionEngine
     {
+        protected static readonly JumpTable DefaultJumpTable = ComposeDefaultJumpTable();
+
         /// <summary>
         /// The maximum cost that can be spent when a contract is executed in test mode.
         /// </summary>
@@ -82,7 +49,6 @@ namespace Neo.SmartContract
         /// </summary>
         public static event EventHandler<LogEventArgs> Log;
 
-        private static readonly IList<Hardfork> AllHardforks = Enum.GetValues(typeof(Hardfork)).Cast<Hardfork>().ToArray();
         private static Dictionary<uint, InteropDescriptor> services;
         private readonly long gas_amount;
         private Dictionary<Type, object> states;
@@ -160,7 +126,7 @@ namespace Neo.SmartContract
         /// <summary>
         /// The script hash of the calling contract. This field could be <see langword="null"/> if the current context is the entry context.
         /// </summary>
-        public UInt160 CallingScriptHash
+        public virtual UInt160 CallingScriptHash
         {
             get
             {
@@ -173,7 +139,7 @@ namespace Neo.SmartContract
         /// <summary>
         /// The script hash of the entry context. This field could be <see langword="null"/> if no context is loaded to the engine.
         /// </summary>
-        public UInt160 EntryScriptHash => EntryContext?.GetScriptHash();
+        public virtual UInt160 EntryScriptHash => EntryContext?.GetScriptHash();
 
         /// <summary>
         /// The notifications sent during the execution.
@@ -190,18 +156,22 @@ namespace Neo.SmartContract
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
         /// <param name="gas">The maximum gas used in this execution. The execution will fail when the gas is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
-        protected unsafe ApplicationEngine(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock, ProtocolSettings settings, long gas, IDiagnostic diagnostic)
+        /// <param name="jumpTable">The jump table to be used by the <see cref="ApplicationEngine"/>.</param>
+        protected unsafe ApplicationEngine(
+            TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock,
+            ProtocolSettings settings, long gas, IDiagnostic diagnostic, JumpTable jumpTable = null)
+            : base(jumpTable ?? DefaultJumpTable)
         {
-            this.Trigger = trigger;
-            this.ScriptContainer = container;
-            this.originalSnapshot = snapshot;
-            this.PersistingBlock = persistingBlock;
-            this.ProtocolSettings = settings;
-            this.gas_amount = gas;
-            this.Diagnostic = diagnostic;
-            this.ExecFeeFactor = snapshot is null || persistingBlock?.Index == 0 ? PolicyContract.DefaultExecFeeFactor : NativeContract.Policy.GetExecFeeFactor(snapshot);
-            this.StoragePrice = snapshot is null || persistingBlock?.Index == 0 ? PolicyContract.DefaultStoragePrice : NativeContract.Policy.GetStoragePrice(snapshot);
-            this.nonceData = container is Transaction tx ? tx.Hash.ToArray()[..16] : new byte[16];
+            Trigger = trigger;
+            ScriptContainer = container;
+            originalSnapshot = snapshot;
+            PersistingBlock = persistingBlock;
+            ProtocolSettings = settings;
+            gas_amount = gas;
+            Diagnostic = diagnostic;
+            ExecFeeFactor = snapshot is null || persistingBlock?.Index == 0 ? PolicyContract.DefaultExecFeeFactor : NativeContract.Policy.GetExecFeeFactor(snapshot);
+            StoragePrice = snapshot is null || persistingBlock?.Index == 0 ? PolicyContract.DefaultStoragePrice : NativeContract.Policy.GetStoragePrice(snapshot);
+            nonceData = container is Transaction tx ? tx.Hash.ToArray()[..16] : new byte[16];
             if (persistingBlock is not null)
             {
                 fixed (byte* p = nonceData)
@@ -211,6 +181,58 @@ namespace Neo.SmartContract
             }
             diagnostic?.Initialized(this);
         }
+
+        #region JumpTable
+
+        private static JumpTable ComposeDefaultJumpTable()
+        {
+            var table = new JumpTable();
+
+            table[OpCode.SYSCALL] = OnSysCall;
+            table[OpCode.CALLT] = OnCallT;
+
+            return table;
+        }
+
+        protected static void OnCallT(ExecutionEngine engine, Instruction instruction)
+        {
+            if (engine is ApplicationEngine app)
+            {
+                uint tokenId = instruction.TokenU16;
+
+                app.ValidateCallFlags(CallFlags.ReadStates | CallFlags.AllowCall);
+                ContractState contract = app.CurrentContext.GetState<ExecutionContextState>().Contract;
+                if (contract is null || tokenId >= contract.Nef.Tokens.Length)
+                    throw new InvalidOperationException();
+                MethodToken token = contract.Nef.Tokens[tokenId];
+                if (token.ParametersCount > app.CurrentContext.EvaluationStack.Count)
+                    throw new InvalidOperationException();
+                StackItem[] args = new StackItem[token.ParametersCount];
+                for (int i = 0; i < token.ParametersCount; i++)
+                    args[i] = app.Pop();
+                app.CallContractInternal(token.Hash, token.Method, token.CallFlags, token.HasReturnValue, args);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        protected static void OnSysCall(ExecutionEngine engine, Instruction instruction)
+        {
+            if (engine is ApplicationEngine app)
+            {
+                uint method = instruction.TokenU32;
+
+                app.OnSysCall(services[method]);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Adds GAS to <see cref="GasConsumed"/> and checks if it has exceeded the maximum limit.
@@ -285,7 +307,7 @@ namespace Neo.SmartContract
             return context_new;
         }
 
-        internal ContractTask CallFromNativeContract(UInt160 callingScriptHash, UInt160 hash, string method, params StackItem[] args)
+        internal ContractTask CallFromNativeContractAsync(UInt160 callingScriptHash, UInt160 hash, string method, params StackItem[] args)
         {
             ExecutionContext context_new = CallContractInternal(hash, method, CallFlags.All, false, args);
             ExecutionContextState state = context_new.GetState<ExecutionContextState>();
@@ -295,7 +317,7 @@ namespace Neo.SmartContract
             return task;
         }
 
-        internal ContractTask<T> CallFromNativeContract<T>(UInt160 callingScriptHash, UInt160 hash, string method, params StackItem[] args)
+        internal ContractTask<T> CallFromNativeContractAsync<T>(UInt160 callingScriptHash, UInt160 hash, string method, params StackItem[] args)
         {
             ExecutionContext context_new = CallContractInternal(hash, method, CallFlags.All, true, args);
             ExecutionContextState state = context_new.GetState<ExecutionContextState>();
@@ -305,9 +327,9 @@ namespace Neo.SmartContract
             return task;
         }
 
-        protected override void ContextUnloaded(ExecutionContext context)
+        internal override void UnloadContext(ExecutionContext context)
         {
-            base.ContextUnloaded(context);
+            base.UnloadContext(context);
             if (context.Script != CurrentContext?.Script)
             {
                 ExecutionContextState state = context.GetState<ExecutionContextState>();
@@ -355,11 +377,14 @@ namespace Neo.SmartContract
         /// <returns>The engine instance created.</returns>
         public static ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock = null, ProtocolSettings settings = null, long gas = TestModeGas, IDiagnostic diagnostic = null)
         {
-            return Provider?.Create(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic)
-                  ?? new ApplicationEngine(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic);
+            // Adjust jump table according persistingBlock
+            var jumpTable = ApplicationEngine.DefaultJumpTable;
+
+            return Provider?.Create(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic, jumpTable)
+                  ?? new ApplicationEngine(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic, jumpTable);
         }
 
-        protected override void LoadContext(ExecutionContext context)
+        public override void LoadContext(ExecutionContext context)
         {
             // Set default execution context state
             var state = context.GetState<ExecutionContextState>();
@@ -424,21 +449,6 @@ namespace Neo.SmartContract
             // Load context
             LoadContext(context);
             return context;
-        }
-
-        protected override ExecutionContext LoadToken(ushort tokenId)
-        {
-            ValidateCallFlags(CallFlags.ReadStates | CallFlags.AllowCall);
-            ContractState contract = CurrentContext.GetState<ExecutionContextState>().Contract;
-            if (contract is null || tokenId >= contract.Nef.Tokens.Length)
-                throw new InvalidOperationException();
-            MethodToken token = contract.Nef.Tokens[tokenId];
-            if (token.ParametersCount > CurrentContext.EvaluationStack.Count)
-                throw new InvalidOperationException();
-            StackItem[] args = new StackItem[token.ParametersCount];
-            for (int i = 0; i < token.ParametersCount; i++)
-                args[i] = Pop();
-            return CallContractInternal(token.Hash, token.Method, token.CallFlags, token.HasReturnValue, args);
         }
 
         /// <summary>
@@ -536,11 +546,6 @@ namespace Neo.SmartContract
             ExecutionContextState state = CurrentContext.GetState<ExecutionContextState>();
             if (!state.CallFlags.HasFlag(requiredCallFlags))
                 throw new InvalidOperationException($"Cannot call this SYSCALL with the flag {state.CallFlags}.");
-        }
-
-        protected override void OnSysCall(uint method)
-        {
-            OnSysCall(services[method]);
         }
 
         /// <summary>
@@ -641,6 +646,25 @@ namespace Neo.SmartContract
             return (T)state;
         }
 
+        public T GetState<T>(Func<T> factory)
+        {
+            if (states is null)
+            {
+                T state = factory();
+                SetState(state);
+                return state;
+            }
+            else
+            {
+                if (!states.TryGetValue(typeof(T), out object state))
+                {
+                    state = factory();
+                    SetState(state);
+                }
+                return (T)state;
+            }
+        }
+
         public void SetState<T>(T state)
         {
             states ??= new Dictionary<Type, object>();
@@ -649,28 +673,11 @@ namespace Neo.SmartContract
 
         public bool IsHardforkEnabled(Hardfork hardfork)
         {
-            // Return true if there's no specific configuration or PersistingBlock is null
-            if (PersistingBlock is null || ProtocolSettings.Hardforks.Count == 0)
-                return true;
+            // Return true if PersistingBlock is null and Hardfork is enabled
+            if (PersistingBlock is null)
+                return ProtocolSettings.Hardforks.ContainsKey(hardfork);
 
-            // If the hardfork isn't specified in the configuration, check if it's a new one.
-            if (!ProtocolSettings.Hardforks.ContainsKey(hardfork))
-            {
-                int currentHardforkIndex = AllHardforks.IndexOf(hardfork);
-                int lastConfiguredHardforkIndex = AllHardforks.IndexOf(ProtocolSettings.Hardforks.Keys.Last());
-
-                // If it's a newer hardfork compared to the ones in the configuration, disable it.
-                if (currentHardforkIndex > lastConfiguredHardforkIndex)
-                    return false;
-            }
-
-            if (ProtocolSettings.Hardforks.TryGetValue(hardfork, out uint height))
-            {
-                // If the hardfork has a specific height in the configuration, check the block height.
-                return PersistingBlock.Index >= height;
-            }
-            // If no specific conditions are met, return true.
-            return true;
+            return ProtocolSettings.IsHardforkEnabled(hardfork, PersistingBlock.Index);
         }
     }
 }

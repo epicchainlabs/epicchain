@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // MainService.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -52,7 +17,6 @@ using Neo.Json;
 using Neo.Ledger;
 using Neo.Network.P2P;
 using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
 using Neo.Plugins;
 using Neo.SmartContract;
 using Neo.SmartContract.Manifest;
@@ -109,8 +73,8 @@ namespace Neo.CLI
             private set => _localNode = value;
         }
 
-        protected override string Prompt => "epic";
-        public override string ServiceName => "EpicChain-CLI";
+        protected override string Prompt => "neo";
+        public override string ServiceName => "NEO-CLI";
 
         /// <summary>
         /// Constructor
@@ -137,8 +101,8 @@ namespace Neo.CLI
         {
             switch (input.ToLowerInvariant())
             {
-                case "epicchain": return NativeContract.NEO.Hash;
-                case "epicpulse": return NativeContract.GAS.Hash;
+                case "neo": return NativeContract.NEO.Hash;
+                case "gas": return NativeContract.GAS.Hash;
             }
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
@@ -170,7 +134,7 @@ namespace Neo.CLI
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetVersion();
             var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetVersion();
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetVersion();
-            Console.WriteLine($"EpicChain-BlockSphere V1.0.1 - Symbolizing a robust, all-encompassing");
+            Console.WriteLine($"{ServiceName} v{cliV}  -  NEO v{neoV}  -  NEO-VM v{vmV}");
             Console.WriteLine();
 
             base.RunConsole();
@@ -381,11 +345,10 @@ namespace Neo.CLI
             }
         }
 
-        public override void OnStart(string[] args)
+        public override bool OnStart(string[] args)
         {
-            base.OnStart(args);
-            OnStartWithCommandLine(args);
-
+            if (!base.OnStart(args)) return false;
+            return OnStartWithCommandLine(args) != 1;
         }
 
         public override void OnStop()
@@ -579,7 +542,7 @@ namespace Neo.CLI
                     if (engine.State == VMState.FAULT) return;
                 }
 
-                if (!ConsoleHelper.ReadUserInput("Relay Transaction(no|yes)").IsYes())
+                if (!ConsoleHelper.ReadUserInput("Relay tx(no|yes)").IsYes())
                 {
                     return;
                 }
@@ -658,7 +621,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("Gas Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());
@@ -682,7 +645,7 @@ namespace Neo.CLI
         public UInt160 ResolveNeoNameServiceAddress(string domain)
         {
             if (Settings.Default.Contracts.NeoNameService == UInt160.Zero)
-                throw new Exception("EpicChain Name Service (XNS): is disabled on this network.");
+                throw new Exception("Neo Name Service (NNS): is disabled on this network.");
 
             using var sb = new ScriptBuilder();
             sb.EmitDynamicCall(Settings.Default.Contracts.NeoNameService, "resolve", CallFlags.ReadOnly, domain, 16);
@@ -705,18 +668,18 @@ namespace Neo.CLI
                 }
                 else if (data is Null)
                 {
-                    throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
+                    throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
                 }
-                throw new Exception("EpicChain Name Service (XNS): Record invalid address format.");
+                throw new Exception("Neo Name Service (NNS): Record invalid address format.");
             }
             else
             {
                 if (appEng.FaultException is not null)
                 {
-                    throw new Exception($"EpicChain Name Service (XNS): \"{appEng.FaultException.Message}\".");
+                    throw new Exception($"Neo Name Service (NNS): \"{appEng.FaultException.Message}\".");
                 }
             }
-            throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
+            throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
         }
     }
 }

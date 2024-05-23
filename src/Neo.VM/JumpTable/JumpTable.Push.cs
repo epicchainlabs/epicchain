@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // JumpTable.Push.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -51,56 +16,114 @@ using System.Runtime.CompilerServices;
 
 namespace Neo.VM
 {
+    /// <summary>
+    /// Partial class for providing methods to push various data types onto the evaluation stack within a jump table.
+    /// </summary>
+    /// <remarks>Pop 0, Push 1</remarks>
     public partial class JumpTable
     {
+        /// <summary>
+        /// Pushes an 8-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT8"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt8(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes an 16-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT16"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt16(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes an 32-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT32"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt32(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes an 64-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT64"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt64(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes an 128-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT128"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt128(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes an 256-bit signed integer onto the evaluation stack.
+        /// <see cref="OpCode.PUSHINT256"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushInt256(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(new BigInteger(instruction.Operand.Span));
         }
 
+        /// <summary>
+        /// Pushes a boolean value of true onto the evaluation stack.
+        /// <see cref="OpCode.PUSHT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushT(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(StackItem.True);
         }
 
+        /// <summary>
+        /// Pushes a boolean value of false onto the evaluation stack.
+        /// <see cref="OpCode.PUSHF"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushF(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(StackItem.False);
         }
 
+        /// <summary>
+        /// Pushes the address of the specified instruction onto the evaluation stack.
+        /// <see cref="OpCode.PUSHA"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushA(ExecutionEngine engine, Instruction instruction)
         {
@@ -110,12 +133,25 @@ namespace Neo.VM
             engine.Push(new Pointer(engine.CurrentContext.Script, position));
         }
 
+        /// <summary>
+        /// Pushes a null onto the evaluation stack.
+        /// <see cref="OpCode.PUSHNULL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushNull(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(StackItem.Null);
         }
 
+        /// <summary>
+        /// Pushes a byte array with a length prefix onto the evaluation stack.
+        /// The length of the array is 1 byte.
+        /// <see cref="OpCode.PUSHDATA1"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushData1(ExecutionEngine engine, Instruction instruction)
         {
@@ -123,6 +159,13 @@ namespace Neo.VM
             engine.Push(instruction.Operand);
         }
 
+        /// <summary>
+        /// Pushes a byte array with a length prefix onto the evaluation stack.
+        /// The length of the array is 1 bytes.
+        /// <see cref="OpCode.PUSHDATA2"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushData2(ExecutionEngine engine, Instruction instruction)
         {
@@ -130,6 +173,13 @@ namespace Neo.VM
             engine.Push(instruction.Operand);
         }
 
+        /// <summary>
+        /// Pushes a byte array with a length prefix onto the evaluation stack.
+        /// The length of the array is 4 bytes.
+        /// <see cref="OpCode.PUSHDATA4"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushData4(ExecutionEngine engine, Instruction instruction)
         {
@@ -137,108 +187,216 @@ namespace Neo.VM
             engine.Push(instruction.Operand);
         }
 
+        /// <summary>
+        /// Pushes the integer value of -1 onto the evaluation stack.
+        /// <see cref="OpCode.PUSHM1"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void PushM1(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(-1);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 0 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH0"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push0(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(0);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 1 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH1"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push1(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(1);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 2 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH2"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push2(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(2);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 3 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH3"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push3(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(3);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 4 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH4"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push4(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(4);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 5 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH5"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push5(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(5);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 6 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH6"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push6(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(6);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 7 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH7"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push7(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(7);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 8 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH8"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push8(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(8);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 9 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH9"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push9(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(9);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 10 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH10"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push10(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(10);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 11 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH11"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push11(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(11);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 12 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH12"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push12(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(12);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 13 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH13"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push13(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(13);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 14 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH14"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push14(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(14);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 15 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH15"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push15(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(15);
         }
 
+        /// <summary>
+        /// Pushes the integer value of 16 onto the evaluation stack.
+        /// <see cref="OpCode.PUSH16"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Push16(ExecutionEngine engine, Instruction instruction)
         {

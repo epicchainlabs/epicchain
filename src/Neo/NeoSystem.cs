@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // NeoSystem.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -133,6 +98,7 @@ namespace Neo
 
         private ImmutableList<object> services = ImmutableList<object>.Empty;
         private readonly IStore store;
+        private readonly IStoreProvider storageProvider;
         private ChannelsConfig start_message = null;
         private int suspend = 0;
 
@@ -148,9 +114,11 @@ namespace Neo
         /// Initializes a new instance of the <see cref="NeoSystem"/> class.
         /// </summary>
         /// <param name="settings">The protocol settings of the <see cref="NeoSystem"/>.</param>
-        /// <param name="storageEngine">The storage engine used to create the <see cref="IStore"/> objects. If this parameter is <see langword="null"/>, a default in-memory storage engine will be used.</param>
-        /// <param name="storagePath">The path of the storage. If <paramref name="storageEngine"/> is the default in-memory storage engine, this parameter is ignored.</param>
-        public NeoSystem(ProtocolSettings settings, string? storageEngine = null, string? storagePath = null) : this(settings, StoreFactory.GetStore(storageEngine ?? nameof(MemoryStore), storagePath))
+        /// <param name="storageProvider">The storage engine used to create the <see cref="IStoreProvider"/> objects. If this parameter is <see langword="null"/>, a default in-memory storage engine will be used.</param>
+        /// <param name="storagePath">The path of the storage. If <paramref name="storageProvider"/> is the default in-memory storage engine, this parameter is ignored.</param>
+        public NeoSystem(ProtocolSettings settings, string storageProvider = null, string storagePath = null) :
+            this(settings, StoreFactory.GetStoreProvider(storageProvider ?? nameof(MemoryStore))
+                ?? throw new ArgumentException($"Can't find the storage provider {storageProvider}", nameof(storageProvider)), storagePath)
         {
         }
 
@@ -158,17 +126,19 @@ namespace Neo
         /// Initializes a new instance of the <see cref="NeoSystem"/> class.
         /// </summary>
         /// <param name="settings">The protocol settings of the <see cref="NeoSystem"/>.</param>
-        /// <param name="storage">The <see cref="IStore"/> to use.</param>
-        public NeoSystem(ProtocolSettings settings, IStore storage)
+        /// <param name="storageProvider">The <see cref="IStoreProvider"/> to use.</param>
+        /// <param name="storagePath">The path of the storage. If <paramref name="storageProvider"/> is the default in-memory storage engine, this parameter is ignored.</param>
+        public NeoSystem(ProtocolSettings settings, IStoreProvider storageProvider, string storagePath = null)
         {
-            this.Settings = settings;
-            this.GenesisBlock = CreateGenesisBlock(settings);
-            this.store = storage;
-            this.MemPool = new MemoryPool(this);
-            this.Blockchain = ActorSystem.ActorOf(Ledger.Blockchain.Props(this));
-            this.LocalNode = ActorSystem.ActorOf(Network.P2P.LocalNode.Props(this));
-            this.TaskManager = ActorSystem.ActorOf(Network.P2P.TaskManager.Props(this));
-            this.TxRouter = ActorSystem.ActorOf(TransactionRouter.Props(this));
+            Settings = settings;
+            GenesisBlock = CreateGenesisBlock(settings);
+            this.storageProvider = storageProvider;
+            store = storageProvider.GetStore(storagePath);
+            MemPool = new MemoryPool(this);
+            Blockchain = ActorSystem.ActorOf(Ledger.Blockchain.Props(this));
+            LocalNode = ActorSystem.ActorOf(Network.P2P.LocalNode.Props(this));
+            TaskManager = ActorSystem.ActorOf(Network.P2P.TaskManager.Props(this));
+            TxRouter = ActorSystem.ActorOf(TransactionRouter.Props(this));
             foreach (var plugin in Plugin.Plugins)
                 plugin.OnSystemLoaded(this);
             Blockchain.Ask(new Blockchain.Initialize()).Wait();
@@ -260,7 +230,7 @@ namespace Neo
         /// <returns>The loaded <see cref="IStore"/>.</returns>
         public IStore LoadStore(string path)
         {
-            return StoreFactory.GetStore(store.GetType().Name, path);
+            return storageProvider.GetStore(path);
         }
 
         /// <summary>

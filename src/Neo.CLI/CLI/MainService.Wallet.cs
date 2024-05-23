@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // MainService.Wallet.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -142,11 +107,11 @@ namespace Neo.CLI
         /// Process "create address" command
         /// </summary>
         /// <param name="count">Count</param>
-        [ConsoleCommand("generate address", Category = "Wallet Commands")]
+        [ConsoleCommand("create address", Category = "Wallet Commands")]
         private void OnCreateAddressCommand(ushort count = 1)
         {
             if (NoWallet()) return;
-            string path = "EpicChain Address.txt";
+            string path = "address.txt";
             if (File.Exists(path))
             {
                 if (!ConsoleHelper.ReadUserInput($"The file '{path}' already exists, do you want to overwrite it? (yes|no)", false).IsYes())
@@ -444,55 +409,44 @@ namespace Neo.CLI
                 }
 
                 ConsoleHelper.Info("   Address: ", $"{account.Address}\t{type}");
-                ConsoleHelper.Info("Script Hash: ", $"{account.ScriptHash}\n");
+                ConsoleHelper.Info("ScriptHash: ", $"{account.ScriptHash}\n");
             }
         }
 
         /// <summary>
-        /// Process "show balance" command
+        /// Process "list asset" command
         /// </summary>
-        [ConsoleCommand("show balance", Category = "Wallet Commands")]
+        [ConsoleCommand("list asset", Category = "Wallet Commands")]
         private void OnListAssetCommand()
         {
             var snapshot = NeoSystem.StoreView;
             if (NoWallet()) return;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
             {
-                Console.WriteLine();
-                Console.WriteLine();
                 Console.WriteLine(account.ToAddress(NeoSystem.Settings.AddressVersion));
-                Console.WriteLine();
-                Console.WriteLine();
-                ConsoleHelper.Info("EpicChain: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
-                ConsoleHelper.Info("EpicPulse: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.GAS.Hash, account)}");
+                ConsoleHelper.Info("NEO: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
+                ConsoleHelper.Info("GAS: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.GAS.Hash, account)}");
                 Console.WriteLine();
             }
-            Console.WriteLine();
-            Console.WriteLine();
             Console.WriteLine("----------------------------------------------------");
-            Console.WriteLine("----------------------------------------------------");
+            ConsoleHelper.Info("Total:   NEO: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "GAS: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.GAS.Hash),18}");
             Console.WriteLine();
-            ConsoleHelper.Info("EpicChain hash: ", NativeContract.NEO.Hash.ToString());
-            ConsoleHelper.Info("EpicPulse hash: ", NativeContract.GAS.Hash.ToString());
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("----------------------------------------------------");
-            ConsoleHelper.Info("Total:   EpicChain: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "EpicPulse: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.GAS.Hash),18}");
-            Console.WriteLine();
+            ConsoleHelper.Info("NEO hash: ", NativeContract.NEO.Hash.ToString());
+            ConsoleHelper.Info("GAS hash: ", NativeContract.GAS.Hash.ToString());
         }
 
         /// <summary>
         /// Process "list key" command
         /// </summary>
-        [ConsoleCommand("ChainLink Keys", Category = "Wallet Commands")]
+        [ConsoleCommand("list key", Category = "Wallet Commands")]
         private void OnListKeyCommand()
         {
             if (NoWallet()) return;
             foreach (WalletAccount account in CurrentWallet!.GetAccounts().Where(p => p.HasKey))
             {
                 ConsoleHelper.Info("   Address: ", account.Address);
-                ConsoleHelper.Info(" Public Key: ", account.GetKey().PublicKey.EncodePoint(true).ToHexString());
-                ConsoleHelper.Info("Script Hash: ", account.ScriptHash.ToString());
+                ConsoleHelper.Info("ScriptHash: ", account.ScriptHash.ToString());
+                ConsoleHelper.Info(" PublicKey: ", account.GetKey().PublicKey.EncodePoint(true).ToHexString());
                 Console.WriteLine();
             }
         }
@@ -508,7 +462,7 @@ namespace Neo.CLI
 
             if (jsonObjectToSign == null)
             {
-                ConsoleHelper.Warning("Please provide the pending signature data in JSON format.");
+                ConsoleHelper.Warning("You must input JSON object pending signature data.");
                 return;
             }
             try
@@ -593,15 +547,15 @@ namespace Neo.CLI
 
             if (tx == null)
             {
-                ConsoleHelper.Warning("The transaction cannot proceed due to Insufficient funds");
+                ConsoleHelper.Warning("Insufficient funds");
                 return;
             }
 
             ConsoleHelper.Info(
                 "Send To: ", $"{to.ToAddress(NeoSystem.Settings.AddressVersion)}\n",
                 "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
-                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
-            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes())
+                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
+            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
             }
@@ -622,7 +576,7 @@ namespace Neo.CLI
             TransactionState state = NativeContract.Ledger.GetTransactionState(NeoSystem.StoreView, txid);
             if (state != null)
             {
-                ConsoleHelper.Error("Once a transaction is comfirmed, it's final and cannot be canceled");
+                ConsoleHelper.Error("This tx is already confirmed, can't be cancelled.");
                 return;
             }
 
@@ -672,7 +626,7 @@ namespace Neo.CLI
             {
                 var snapshot = NeoSystem.StoreView;
                 AssetDescriptor descriptor = new(snapshot, NeoSystem.Settings, NativeContract.GAS.Hash);
-                string extracFee = ConsoleHelper.ReadUserInput("This transaction has not entered the mempool, please include the necessary fees manually");
+                string extracFee = ConsoleHelper.ReadUserInput("This tx is not in mempool, please input extra fee manually");
                 if (!BigDecimal.TryParse(extracFee, descriptor.Decimals, out BigDecimal decimalExtraFee) || decimalExtraFee.Sign <= 0)
                 {
                     ConsoleHelper.Error("Incorrect Amount Format");
@@ -684,8 +638,8 @@ namespace Neo.CLI
             ConsoleHelper.Info("Network fee: ",
                 $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
-            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes())
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
+            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
             }
@@ -695,7 +649,7 @@ namespace Neo.CLI
         /// <summary>
         /// Process "show gas" command
         /// </summary>
-        [ConsoleCommand("show epicpulse", Category = "Wallet Commands")]
+        [ConsoleCommand("show gas", Category = "Wallet Commands")]
         private void OnShowGasCommand()
         {
             if (NoWallet()) return;
@@ -704,13 +658,13 @@ namespace Neo.CLI
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
                 gas += NativeContract.NEO.UnclaimedGas(snapshot, account, height);
-            ConsoleHelper.Info("Unclaimed epicpulse: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("Unclaimed gas: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
         }
 
         /// <summary>
         /// Process "change password" command
         /// </summary>
-        [ConsoleCommand("Reset password", Category = "Wallet Commands")]
+        [ConsoleCommand("change password", Category = "Wallet Commands")]
         private void OnChangePasswordCommand()
         {
             if (NoWallet()) return;
@@ -722,14 +676,14 @@ namespace Neo.CLI
             }
             if (!CurrentWallet!.VerifyPassword(oldPassword))
             {
-                ConsoleHelper.Error("Invalid password entered");
+                ConsoleHelper.Error("Incorrect password");
                 return;
             }
-            string newPassword = ConsoleHelper.ReadUserInput("Enter your desired new password", true);
-            string newPasswordReEntered = ConsoleHelper.ReadUserInput("Re-Enter your password for verification", true);
+            string newPassword = ConsoleHelper.ReadUserInput("New password", true);
+            string newPasswordReEntered = ConsoleHelper.ReadUserInput("Re-Enter Password", true);
             if (!newPassword.Equals(newPasswordReEntered))
             {
-                ConsoleHelper.Error("Inconsistent password provided!");
+                ConsoleHelper.Error("Two passwords entered are inconsistent!");
                 return;
             }
 
@@ -738,7 +692,7 @@ namespace Neo.CLI
                 string backupFile = wallet.Path + ".bak";
                 if (!File.Exists(wallet.Path) || File.Exists(backupFile))
                 {
-                    ConsoleHelper.Error("Failed attempt to backup wallet");
+                    ConsoleHelper.Error("Wallet backup fail");
                     return;
                 }
                 try
@@ -747,7 +701,7 @@ namespace Neo.CLI
                 }
                 catch (IOException)
                 {
-                    ConsoleHelper.Error("Failed attempt to backup wallet");
+                    ConsoleHelper.Error("Wallet backup fail");
                     return;
                 }
             }
@@ -757,11 +711,11 @@ namespace Neo.CLI
             {
                 if (CurrentWallet is NEP6Wallet nep6Wallet)
                     nep6Wallet.Save();
-                Console.WriteLine("Your password has been changed");
+                Console.WriteLine("Password changed successfully");
             }
             else
             {
-                ConsoleHelper.Error("Password change request failed");
+                ConsoleHelper.Error("Failed to change password");
             }
         }
 
@@ -776,7 +730,7 @@ namespace Neo.CLI
             }
             catch (InvalidOperationException e)
             {
-                ConsoleHelper.Error("Encounter error while creating contract params: " + GetExceptionMessage(e));
+                ConsoleHelper.Error("Failed creating contract params: " + GetExceptionMessage(e));
                 throw;
             }
             CurrentWallet!.Sign(context);
@@ -784,11 +738,11 @@ namespace Neo.CLI
             {
                 tx.Witnesses = context.GetWitnesses();
                 NeoSystem.Blockchain.Tell(tx);
-                ConsoleHelper.Info("Transaction signed and relayed, hash provided for verification:\n", $"{tx.Hash}");
+                ConsoleHelper.Info("Signed and relayed transaction with hash:\n", $"{tx.Hash}");
             }
             else
             {
-                ConsoleHelper.Info("Signature field empty:\n", $"{context}");
+                ConsoleHelper.Info("Incomplete signature:\n", $"{context}");
             }
         }
     }

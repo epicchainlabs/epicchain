@@ -1,39 +1,4 @@
-// EpicChain Copyright Project (2021-2024)
-// 
-// Copyright (c) 2021-2024 EpicChain
-// 
-// EpicChain is an innovative blockchain network developed and maintained by xmoohad. This copyright project outlines the rights and responsibilities associated with the EpicChain software and its related components.
-// 
-// 1. Copyright Holder:
-//    - xmoohad
-// 
-// 2. Project Name:
-//    - EpicChain
-// 
-// 3. Project Description:
-//    - EpicChain is a decentralized blockchain network that aims to revolutionize the way digital assets are managed, traded, and secured. With its innovative features and robust architecture, EpicChain provides a secure and efficient platform for various decentralized applications (dApps) and digital asset management.
-// 
-// 4. Copyright Period:
-//    - The copyright for the EpicChain software and its related components is valid from 2021 to 2024.
-// 
-// 5. Copyright Statement:
-//    - All rights reserved. No part of the EpicChain software or its related components may be reproduced, distributed, or transmitted in any form or by any means, without the prior written permission of the copyright holder, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
-// 
-// 6. License:
-//    - The EpicChain software is licensed under the EpicChain Software License, a custom license that governs the use, distribution, and modification of the software. The EpicChain Software License is designed to promote the free and open development of the EpicChain network while protecting the interests of the copyright holder.
-// 
-// 7. Open Source:
-//    - EpicChain is an open-source project, and its source code is available to the public under the terms of the EpicChain Software License. Developers are encouraged to contribute to the development of EpicChain and create innovative applications on top of the EpicChain network.
-// 
-// 8. Disclaimer:
-//    - The EpicChain software and its related components are provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the copyright holder or contributors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the EpicChain software or its related components.
-// 
-// 9. Contact Information:
-//    - For inquiries regarding the EpicChain copyright project, please contact xmoohad at [email address].
-// 
-// 10. Updates:
-//     - This copyright project may be updated or modified from time to time to reflect changes in the EpicChain project or to address new legal or regulatory requirements. Users and developers are encouraged to check the latest version of the copyright project periodically.
-
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // JumpTable.Numeric.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -49,8 +14,23 @@ using System.Runtime.CompilerServices;
 
 namespace Neo.VM
 {
+    /// <summary>
+    /// Partial class for mathematical operations within a jump table.
+    /// </summary>
+    /// <remarks>
+    /// For binary operations x1 and x2, x1 is the first pushed onto the evaluation stack (the second popped from the stack),
+    /// x2 is the second pushed onto the evaluation stack (the first popped from the stack)
+    /// </remarks>
     public partial class JumpTable
     {
+        /// <summary>
+        /// Computes the sign of the specified integer.
+        /// If the value is negative, puts -1; if positive, puts 1; if zero, puts 0.
+        /// <see cref="OpCode.SIGN"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Sign(ExecutionEngine engine, Instruction instruction)
         {
@@ -58,6 +38,13 @@ namespace Neo.VM
             engine.Push(x.Sign);
         }
 
+        /// <summary>
+        /// Computes the absolute value of the specified integer.
+        /// <see cref="OpCode.ABS"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Abs(ExecutionEngine engine, Instruction instruction)
         {
@@ -65,6 +52,13 @@ namespace Neo.VM
             engine.Push(BigInteger.Abs(x));
         }
 
+        /// <summary>
+        /// Computes the negation of the specified integer.
+        /// <see cref="OpCode.NEGATE"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Negate(ExecutionEngine engine, Instruction instruction)
         {
@@ -72,6 +66,13 @@ namespace Neo.VM
             engine.Push(-x);
         }
 
+        /// <summary>
+        /// Increments the specified integer by one.
+        /// <see cref="OpCode.INC"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Inc(ExecutionEngine engine, Instruction instruction)
         {
@@ -79,6 +80,13 @@ namespace Neo.VM
             engine.Push(x + 1);
         }
 
+        /// <summary>
+        /// Decrements the specified integer by one.
+        /// <see cref="OpCode.DEC"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Dec(ExecutionEngine engine, Instruction instruction)
         {
@@ -86,6 +94,13 @@ namespace Neo.VM
             engine.Push(x - 1);
         }
 
+        /// <summary>
+        /// Computes the sum of two integers.
+        /// <see cref="OpCode.ADD"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Add(ExecutionEngine engine, Instruction instruction)
         {
@@ -94,6 +109,13 @@ namespace Neo.VM
             engine.Push(x1 + x2);
         }
 
+        /// <summary>
+        /// Computes the difference between two integers.
+        /// <see cref="OpCode.SUB"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Sub(ExecutionEngine engine, Instruction instruction)
         {
@@ -102,6 +124,13 @@ namespace Neo.VM
             engine.Push(x1 - x2);
         }
 
+        /// <summary>
+        /// Computes the product of two integers.
+        /// <see cref="OpCode.MUL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Mul(ExecutionEngine engine, Instruction instruction)
         {
@@ -110,6 +139,13 @@ namespace Neo.VM
             engine.Push(x1 * x2);
         }
 
+        /// <summary>
+        /// Computes the quotient of two integers.
+        /// <see cref="OpCode.DIV"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Div(ExecutionEngine engine, Instruction instruction)
         {
@@ -118,6 +154,13 @@ namespace Neo.VM
             engine.Push(x1 / x2);
         }
 
+        /// <summary>
+        /// Computes the result of raising a number to the specified power.
+        /// <see cref="OpCode.MOD"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Mod(ExecutionEngine engine, Instruction instruction)
         {
@@ -126,6 +169,13 @@ namespace Neo.VM
             engine.Push(x1 % x2);
         }
 
+        /// <summary>
+        /// Computes the square root of the specified integer.
+        /// <see cref="OpCode.POW"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Pow(ExecutionEngine engine, Instruction instruction)
         {
@@ -135,12 +185,26 @@ namespace Neo.VM
             engine.Push(BigInteger.Pow(value, exponent));
         }
 
+        /// <summary>
+        /// 
+        /// <see cref="OpCode.SQRT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Sqrt(ExecutionEngine engine, Instruction instruction)
         {
             engine.Push(engine.Pop().GetInteger().Sqrt());
         }
 
+        /// <summary>
+        /// Computes the modular multiplication of two integers.
+        /// <see cref="OpCode.MODMUL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 3, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ModMul(ExecutionEngine engine, Instruction instruction)
         {
@@ -150,6 +214,13 @@ namespace Neo.VM
             engine.Push(x1 * x2 % modulus);
         }
 
+        /// <summary>
+        /// Computes the modular exponentiation of an integer.
+        /// <see cref="OpCode.MODPOW"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 3, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ModPow(ExecutionEngine engine, Instruction instruction)
         {
@@ -162,6 +233,13 @@ namespace Neo.VM
             engine.Push(result);
         }
 
+        /// <summary>
+        /// Computes the left shift of an integer.
+        /// <see cref="OpCode.SHL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Shl(ExecutionEngine engine, Instruction instruction)
         {
@@ -172,6 +250,13 @@ namespace Neo.VM
             engine.Push(x << shift);
         }
 
+        /// <summary>
+        /// Computes the right shift of an integer.
+        /// <see cref="OpCode.SHR"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Shr(ExecutionEngine engine, Instruction instruction)
         {
@@ -182,6 +267,13 @@ namespace Neo.VM
             engine.Push(x >> shift);
         }
 
+        /// <summary>
+        /// If the input is 0 or 1, it is flipped. Otherwise the output will be 0.
+        /// <see cref="OpCode.NOT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Not(ExecutionEngine engine, Instruction instruction)
         {
@@ -189,6 +281,13 @@ namespace Neo.VM
             engine.Push(!x);
         }
 
+        /// <summary>
+        /// Computes the logical AND of the top two stack items and pushes the result onto the stack.
+        /// <see cref="OpCode.BOOLAND"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void BoolAnd(ExecutionEngine engine, Instruction instruction)
         {
@@ -197,6 +296,13 @@ namespace Neo.VM
             engine.Push(x1 && x2);
         }
 
+        /// <summary>
+        /// Computes the logical OR of the top two stack items and pushes the result onto the stack.
+        /// <see cref="OpCode.BOOLOR"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void BoolOr(ExecutionEngine engine, Instruction instruction)
         {
@@ -205,6 +311,13 @@ namespace Neo.VM
             engine.Push(x1 || x2);
         }
 
+        /// <summary>
+        /// Determines whether the top stack item is not zero and pushes the result onto the stack.
+        /// <see cref="OpCode.NZ"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 1, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Nz(ExecutionEngine engine, Instruction instruction)
         {
@@ -212,6 +325,13 @@ namespace Neo.VM
             engine.Push(!x.IsZero);
         }
 
+        /// <summary>
+        /// Determines whether the top two stack items are equal and pushes the result onto the stack.
+        /// <see cref="OpCode.NUMEQUAL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void NumEqual(ExecutionEngine engine, Instruction instruction)
         {
@@ -220,6 +340,13 @@ namespace Neo.VM
             engine.Push(x1 == x2);
         }
 
+        /// <summary>
+        /// Determines whether the top two stack items are not equal and pushes the result onto the stack.
+        /// <see cref="OpCode.NUMNOTEQUAL"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void NumNotEqual(ExecutionEngine engine, Instruction instruction)
         {
@@ -228,6 +355,13 @@ namespace Neo.VM
             engine.Push(x1 != x2);
         }
 
+        /// <summary>
+        /// Determines whether the two integer at the top of the stack, x1 are less than x2, and pushes the result onto the stack.
+        /// <see cref="OpCode.LT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Lt(ExecutionEngine engine, Instruction instruction)
         {
@@ -239,6 +373,13 @@ namespace Neo.VM
                 engine.Push(x1.GetInteger() < x2.GetInteger());
         }
 
+        /// <summary>
+        /// Determines whether the two integer at the top of the stack, x1 are less than or equal to x2, and pushes the result onto the stack.
+        /// <see cref="OpCode.LE"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Le(ExecutionEngine engine, Instruction instruction)
         {
@@ -250,6 +391,13 @@ namespace Neo.VM
                 engine.Push(x1.GetInteger() <= x2.GetInteger());
         }
 
+        /// <summary>
+        /// Determines whether the two integer at the top of the stack, x1 are greater than x2, and pushes the result onto the stack.
+        /// <see cref="OpCode.GT"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Gt(ExecutionEngine engine, Instruction instruction)
         {
@@ -261,6 +409,13 @@ namespace Neo.VM
                 engine.Push(x1.GetInteger() > x2.GetInteger());
         }
 
+        /// <summary>
+        /// Determines whether the two integer at the top of the stack, x1 are greater than or equal to x2, and pushes the result onto the stack.
+        /// <see cref="OpCode.GE"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Ge(ExecutionEngine engine, Instruction instruction)
         {
@@ -272,6 +427,13 @@ namespace Neo.VM
                 engine.Push(x1.GetInteger() >= x2.GetInteger());
         }
 
+        /// <summary>
+        /// Computes the minimum of the top two stack items and pushes the result onto the stack.
+        /// <see cref="OpCode.MIN"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Min(ExecutionEngine engine, Instruction instruction)
         {
@@ -280,6 +442,13 @@ namespace Neo.VM
             engine.Push(BigInteger.Min(x1, x2));
         }
 
+        /// <summary>
+        /// Computes the maximum of the top two stack items and pushes the result onto the stack.
+        /// <see cref="OpCode.MAX"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 2, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Max(ExecutionEngine engine, Instruction instruction)
         {
@@ -288,6 +457,14 @@ namespace Neo.VM
             engine.Push(BigInteger.Max(x1, x2));
         }
 
+        /// <summary>
+        /// Determines whether the top stack item is within the range specified by the next two top stack items
+        /// and pushes the result onto the stack.
+        /// <see cref="OpCode.WITHIN"/>
+        /// </summary>
+        /// <param name="engine">The execution engine.</param>
+        /// <param name="instruction">The instruction being executed.</param>
+        /// <remarks>Pop 3, Push 1</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Within(ExecutionEngine engine, Instruction instruction)
         {
