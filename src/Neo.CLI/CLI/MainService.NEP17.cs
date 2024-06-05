@@ -1,13 +1,16 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// Copyright (C) 2021-2024 The EpicChain Labs.
 //
-// MainService.NEP17.cs file belongs to the neo project and is free
-// software distributed under the MIT software license, see the
-// accompanying file LICENSE in the main directory of the
-// repository or http://www.opensource.org/licenses/mit-license.php
-// for more details.
+// MainService.NEP17.cs file is part of the EpicChain ecosystem and is distributed under the MIT license.
+// For details, see the accompanying LICENSE file in the main directory of the repository
+// or visit http://www.opensource.org/licenses/mit-license.php.
 //
-// Redistribution and use in source and binary forms with or without
-// modifications are permitted.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions
+// are met: 1) Redistributions of source code must retain the above
+// copyright notice, this list of conditions and the following
+// disclaimer. 2) Redistributions in binary form must reproduce the
+// above copyright notice, this list of conditions and the following disclaimer.
+
 
 using Neo.ConsoleService;
 using Neo.Json;
@@ -33,7 +36,7 @@ namespace Neo.CLI
         /// <param name="from">From</param>
         /// <param name="data">Data</param>
         /// <param name="signersAccounts">Signer's accounts</param>
-        [ConsoleCommand("transfer", Category = "NEP17 Commands")]
+        [ConsoleCommand("transfer", Category = "XEP17 Commands")]
         private void OnTransferCommand(UInt160 tokenHash, UInt160 to, decimal amount, UInt160? from = null, string? data = null, UInt160[]? signersAccounts = null)
         {
             var snapshot = NeoSystem.StoreView;
@@ -79,7 +82,7 @@ namespace Neo.CLI
         /// </summary>
         /// <param name="tokenHash">Script hash</param>
         /// <param name="address">Address</param>
-        [ConsoleCommand("balanceOf", Category = "NEP17 Commands")]
+        [ConsoleCommand("balanceOf", Category = "XEP17 Commands")]
         private void OnBalanceOfCommand(UInt160 tokenHash, UInt160 address)
         {
             var arg = new JObject
@@ -102,7 +105,7 @@ namespace Neo.CLI
         /// Process "name" command
         /// </summary>
         /// <param name="tokenHash">Script hash</param>
-        [ConsoleCommand("name", Category = "NEP17 Commands")]
+        [ConsoleCommand("name", Category = "XEP17 Commands")]
         private void OnNameCommand(UInt160 tokenHash)
         {
             ContractState contract = NativeContract.ContractManagement.GetContract(NeoSystem.StoreView, tokenHash);
@@ -114,7 +117,7 @@ namespace Neo.CLI
         /// Process "decimals" command
         /// </summary>
         /// <param name="tokenHash">Script hash</param>
-        [ConsoleCommand("decimals", Category = "NEP17 Commands")]
+        [ConsoleCommand("decimals", Category = "XEP17 Commands")]
         private void OnDecimalsCommand(UInt160 tokenHash)
         {
             if (!OnInvokeWithResult(tokenHash, "decimals", out StackItem result)) return;
@@ -126,7 +129,7 @@ namespace Neo.CLI
         /// Process "totalSupply" command
         /// </summary>
         /// <param name="tokenHash">Script hash</param>
-        [ConsoleCommand("totalSupply", Category = "NEP17 Commands")]
+        [ConsoleCommand("totalSupply", Category = "XEP17 Commands")]
         private void OnTotalSupplyCommand(UInt160 tokenHash)
         {
             if (!OnInvokeWithResult(tokenHash, "totalSupply", out StackItem result)) return;
