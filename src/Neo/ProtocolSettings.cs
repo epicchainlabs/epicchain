@@ -109,11 +109,11 @@ namespace Neo
         public static ProtocolSettings Default { get; } = Custom ?? new ProtocolSettings
         {
             Network = 0u,
-            AddressVersion = 0x35,
+            AddressVersion = 0x4C,
             StandbyCommittee = Array.Empty<ECPoint>(),
             ValidatorsCount = 0,
             SeedList = Array.Empty<string>(),
-            MillisecondsPerBlock = 15000,
+            MillisecondsPerBlock = 20000,
             MaxTransactionsPerBlock = 512,
             MemoryPoolMaxTransactions = 50_000,
             MaxTraceableBlocks = 2_102_400,
