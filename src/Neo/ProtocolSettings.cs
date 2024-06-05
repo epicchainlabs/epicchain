@@ -117,7 +117,7 @@ namespace Neo
             MaxTransactionsPerBlock = 512,
             MemoryPoolMaxTransactions = 50_000,
             MaxTraceableBlocks = 2_102_400,
-            InitialGasDistribution = 52_000_000_00000000,
+            InitialGasDistribution = 500_000_000_00000000,
             Hardforks = EnsureOmmitedHardforks(new Dictionary<Hardfork, uint>()).ToImmutableDictionary()
         };
 
