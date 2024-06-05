@@ -11,11 +11,11 @@
 
 using Neo.Cryptography.ECC;
 
-namespace Neo.UnitTests
+namespace Neo.Plugins.RpcServer.Tests
 {
     public static class TestProtocolSettings
     {
-        public static ProtocolSettings Default = new()
+        public static readonly ProtocolSettings Default = new()
         {
             Network = 0x334F454Eu,
             AddressVersion = ProtocolSettings.Default.AddressVersion,

@@ -164,11 +164,11 @@ namespace Neo.UnitTests
       ""02cd5a5547119e24feaa7c2a0f37b8c9366216bab7054de0065c9be42084003c8a""
     ],
     ""SeedList"": [
-      ""seed1.mainnet.epicchain.org:40001"",
-      ""seed2.mainnet.epicchain.org:40001"",
-      ""seed3.mainnet.epicchain.org:40001"",
-      ""seed4.mainnet.epicchain.org:40001"",
-      ""seed5.mainnet.epicchain.org:40001""
+      ""seed1.neo.org:10333"",
+      ""seed2.neo.org:10333"",
+      ""seed3.neo.org:10333"",
+      ""seed4.neo.org:10333"",
+      ""seed5.neo.org:10333""
     ]
   }
 }
@@ -178,7 +178,7 @@ namespace Neo.UnitTests
         [TestMethod]
         public void TestGetSeedList()
         {
-            TestProtocolSettings.Default.SeedList.Should().BeEquivalentTo(new string[] { "seed1.mainnet.epicchain.org:40001", "seed2.mainnet.epicchain.org:40001", "seed3.mainnet.epicchain.org:40001", "seed4.mainnet.epicchain.org:40001", "seed5.mainnet.epicchain.org:40001", });
+            TestProtocolSettings.Default.SeedList.Should().BeEquivalentTo(new string[] { "seed1.neo.org:10333", "seed2.neo.org:10333", "seed3.neo.org:10333", "seed4.neo.org:10333", "seed5.neo.org:10333", });
         }
 
         [TestMethod]

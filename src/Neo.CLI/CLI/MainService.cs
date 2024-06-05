@@ -1,4 +1,4 @@
-// Copyright (C) 2021-2024 The Neo Project.
+// Copyright (C) 2015-2024 The Neo Project.
 //
 // MainService.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
@@ -17,7 +17,6 @@ using Neo.Json;
 using Neo.Ledger;
 using Neo.Network.P2P;
 using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
 using Neo.Plugins;
 using Neo.SmartContract;
 using Neo.SmartContract.Manifest;
@@ -74,8 +73,8 @@ namespace Neo.CLI
             private set => _localNode = value;
         }
 
-        protected override string Prompt => "epic";
-        public override string ServiceName => "EpicChain-CLI";
+        protected override string Prompt => "neo";
+        public override string ServiceName => "NEO-CLI";
 
         /// <summary>
         /// Constructor
@@ -102,8 +101,8 @@ namespace Neo.CLI
         {
             switch (input.ToLowerInvariant())
             {
-                case "epicchain": return NativeContract.NEO.Hash;
-                case "epicpulse": return NativeContract.GAS.Hash;
+                case "neo": return NativeContract.NEO.Hash;
+                case "gas": return NativeContract.GAS.Hash;
             }
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
@@ -135,7 +134,7 @@ namespace Neo.CLI
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetVersion();
             var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetVersion();
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetVersion();
-            Console.WriteLine($"EpicChain-BlockSphere V1.0.1 - Symbolizing a robust, all-encompassing");
+            Console.WriteLine($"{ServiceName} v{cliV}  -  NEO v{neoV}  -  NEO-VM v{vmV}");
             Console.WriteLine();
 
             base.RunConsole();
@@ -346,11 +345,10 @@ namespace Neo.CLI
             }
         }
 
-        public override void OnStart(string[] args)
+        public override bool OnStart(string[] args)
         {
-            base.OnStart(args);
-            OnStartWithCommandLine(args);
-
+            if (!base.OnStart(args)) return false;
+            return OnStartWithCommandLine(args) != 1;
         }
 
         public override void OnStop()
@@ -517,8 +515,8 @@ namespace Neo.CLI
         /// </summary>
         /// <param name="script">script</param>
         /// <param name="account">sender</param>
-        /// <param name="gas">Max fee for running the script</param>
-        private void SendTransaction(byte[] script, UInt160? account = null, long gas = TestModeGas)
+        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
+        private void SendTransaction(byte[] script, UInt160? account = null, long datoshi = TestModeGas)
         {
             if (NoWallet()) return;
 
@@ -535,16 +533,16 @@ namespace Neo.CLI
 
             try
             {
-                Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxGas: gas);
+                Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxGas: datoshi);
                 ConsoleHelper.Info("Invoking script with: ", $"'{Convert.ToBase64String(tx.Script.Span)}'");
 
-                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: NeoSystem.Settings, gas: gas))
+                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: NeoSystem.Settings, gas: datoshi))
                 {
                     PrintExecutionOutput(engine, true);
                     if (engine.State == VMState.FAULT) return;
                 }
 
-                if (!ConsoleHelper.ReadUserInput("Relay Transaction(no|yes)").IsYes())
+                if (!ConsoleHelper.ReadUserInput("Relay tx(no|yes)").IsYes())
                 {
                     return;
                 }
@@ -566,9 +564,9 @@ namespace Neo.CLI
         /// <param name="verifiable">Transaction</param>
         /// <param name="contractParameters">Contract parameters</param>
         /// <param name="showStack">Show result stack if it is true</param>
-        /// <param name="gas">Max fee for running the script</param>
+        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
         /// <returns>Return true if it was successful</returns>
-        private bool OnInvokeWithResult(UInt160 scriptHash, string operation, out StackItem result, IVerifiable? verifiable = null, JArray? contractParameters = null, bool showStack = true, long gas = TestModeGas)
+        private bool OnInvokeWithResult(UInt160 scriptHash, string operation, out StackItem result, IVerifiable? verifiable = null, JArray? contractParameters = null, bool showStack = true, long datoshi = TestModeGas)
         {
             List<ContractParameter> parameters = new();
 
@@ -614,7 +612,7 @@ namespace Neo.CLI
                 tx.Script = script;
             }
 
-            using ApplicationEngine engine = ApplicationEngine.Run(script, NeoSystem.StoreView, container: verifiable, settings: NeoSystem.Settings, gas: gas);
+            using ApplicationEngine engine = ApplicationEngine.Run(script, NeoSystem.StoreView, container: verifiable, settings: NeoSystem.Settings, gas: datoshi);
             PrintExecutionOutput(engine, showStack);
             result = engine.State == VMState.FAULT ? StackItem.Null : engine.ResultStack.Peek();
             return engine.State != VMState.FAULT;
@@ -623,7 +621,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("Gas Consumed: ", new BigDecimal((BigInteger)engine.FeeConsumed, NativeContract.GAS.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());
@@ -647,7 +645,7 @@ namespace Neo.CLI
         public UInt160 ResolveNeoNameServiceAddress(string domain)
         {
             if (Settings.Default.Contracts.NeoNameService == UInt160.Zero)
-                throw new Exception("EpicChain Name Service (XNS): is disabled on this network.");
+                throw new Exception("Neo Name Service (NNS): is disabled on this network.");
 
             using var sb = new ScriptBuilder();
             sb.EmitDynamicCall(Settings.Default.Contracts.NeoNameService, "resolve", CallFlags.ReadOnly, domain, 16);
@@ -670,18 +668,18 @@ namespace Neo.CLI
                 }
                 else if (data is Null)
                 {
-                    throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
+                    throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
                 }
-                throw new Exception("EpicChain Name Service (XNS): Record invalid address format.");
+                throw new Exception("Neo Name Service (NNS): Record invalid address format.");
             }
             else
             {
                 if (appEng.FaultException is not null)
                 {
-                    throw new Exception($"EpicChain Name Service (XNS): \"{appEng.FaultException.Message}\".");
+                    throw new Exception($"Neo Name Service (NNS): \"{appEng.FaultException.Message}\".");
                 }
             }
-            throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
+            throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
         }
     }
 }

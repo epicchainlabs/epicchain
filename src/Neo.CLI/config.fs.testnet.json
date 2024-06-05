@@ -6,11 +6,11 @@
       "Active": false
     },
     "Storage": {
-      "Engine": "LevelDBStore", // Candidates [MemoryStore, LevelDBStore, RocksDBStore]
-      "Path": "Data_LevelDB_{0}" // {0} is a placeholder for the network id
+      "Engine": "LevelDBStore",
+      "Path": "Data_LevelDB_{0}"
     },
     "P2P": {
-      "Port": 40005,
+      "Port": 50333,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -29,7 +29,7 @@
   },
   "ProtocolConfiguration": {
     "Network": 91466898,
-    "AddressVersion": 26,
+    "AddressVersion": 53,
     "MillisecondsPerBlock": 15000,
     "MaxTransactionsPerBlock": 512,
     "MemoryPoolMaxTransactions": 50000,
@@ -46,13 +46,13 @@
       "02e19c0634c85d35937699cdeaa10595ec2e18bfe86ba0494cf6c5c6861c66b97d"
     ],
     "SeedList": [
-      "morph01.testnet.fs.epicchain.org:40005",
-      "morph02.testnet.fs.epicchain.org:40005",
-      "morph03.testnet.fs.epicchain.org:40005",
-      "morph04.testnet.fs.epicchain.org:40005",
-      "morph05.testnet.fs.epicchain.org:40005",
-      "morph06.testnet.fs.epicchain.org:40005",
-      "morph07.testnet.fs.epicchain.org:40005"
+      "morph01.testnet.fs.neo.org:50333",
+      "morph02.testnet.fs.neo.org:50333",
+      "morph03.testnet.fs.neo.org:50333",
+      "morph04.testnet.fs.neo.org:50333",
+      "morph05.testnet.fs.neo.org:50333",
+      "morph06.testnet.fs.neo.org:50333",
+      "morph07.testnet.fs.neo.org:50333"
     ]
   }
 }

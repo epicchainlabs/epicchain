@@ -93,6 +93,7 @@ namespace Neo
 
         /// <summary>
         /// Indicates the amount of gas to distribute during initialization.
+        /// In the unit of datoshi, 1 GAS = 1e8 datoshi
         /// </summary>
         public ulong InitialGasDistribution { get; init; }
 
@@ -108,15 +109,15 @@ namespace Neo
         public static ProtocolSettings Default { get; } = Custom ?? new ProtocolSettings
         {
             Network = 0u,
-            AddressVersion = 0x4C,
+            AddressVersion = 0x35,
             StandbyCommittee = Array.Empty<ECPoint>(),
             ValidatorsCount = 0,
             SeedList = Array.Empty<string>(),
-            MillisecondsPerBlock = 2500,
-            MaxTransactionsPerBlock = 312,
-            MemoryPoolMaxTransactions = 20_000,
-            MaxTraceableBlocks = 1_102_400,
-            InitialGasDistribution = 500_000_000_00000000,
+            MillisecondsPerBlock = 15000,
+            MaxTransactionsPerBlock = 512,
+            MemoryPoolMaxTransactions = 50_000,
+            MaxTraceableBlocks = 2_102_400,
+            InitialGasDistribution = 52_000_000_00000000,
             Hardforks = EnsureOmmitedHardforks(new Dictionary<Hardfork, uint>()).ToImmutableDictionary()
         };
 

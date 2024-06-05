@@ -36,9 +36,9 @@ We welcome contributions from the community! If you'd like to contribute to Epic
 ## Support
 If you have any questions or need assistance with EpicChain Main Core, please don't hesitate to reach out to us:
 
-- **Email:** support@epic-chain.com
-- **Community Forum:** [EpicChain Forum](https://forum.epic-chain.org)
-- **Telegram:** [EpicChain Telegram](https://t.me/epicchainlab)
+- **Email:** support@epicchain.org
+- **Twitter:** [EpicChain Twitter](https://twitter.com/epicchainlabs)
+- **Discord:** [EpicChain Discord](https:discord.com/invite/tzxDUxnYT8)
 
 ## License
 EpicChain Main Core is released under the [MIT License](LICENSE).
