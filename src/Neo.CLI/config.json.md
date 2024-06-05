@@ -70,16 +70,16 @@ This README provides an explanation for each field in the JSON configuration fil
 ### SeedList
 - **SeedList**: List of seed nodes with their addresses and ports.
   - MainNet addresses are:
-      - `seed1.neo.org:10333`
-      - `seed2.neo.org:10333`
-      - `seed3.neo.org:10333`
-      - `seed4.neo.org:10333`
-      - `seed5.neo.org:10333`
+      - `seed1.neo.org:90555`
+      - `seed2.neo.org:90555`
+      - `seed3.neo.org:90555`
+      - `seed4.neo.org:90555`
+      - `seed5.neo.org:90555`
   - TestNet addresses are:
-      - `seed1t5.neo.org:20333`
-      - `seed2t5.neo.org:20333`
-      - `seed3t5.neo.org:20333`
-      - `seed4t5.neo.org:20333`
-      - `seed5t5.neo.org:20333`
+      - `seed1t5.neo.org:80555`
+      - `seed2t5.neo.org:80555`
+      - `seed3t5.neo.org:80555`
+      - `seed4t5.neo.org:80555`
+      - `seed5t5.neo.org:80555`
 
 This configuration file is essential for setting up and running a NEO node, ensuring proper logging, storage, network connectivity, and consensus protocol parameters.

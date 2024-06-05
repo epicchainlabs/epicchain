@@ -48,11 +48,11 @@ namespace Neo.UnitTests
             ValidatorsCount = 7,
             SeedList = new[]
             {
-                "seed1.neo.org:10333",
-                "seed2.neo.org:10333",
-                "seed3.neo.org:10333",
-                "seed4.neo.org:10333",
-                "seed5.neo.org:10333"
+                "seed1.neo.org:90555",
+                "seed2.neo.org:90555",
+                "seed3.neo.org:90555",
+                "seed4.neo.org:90555",
+                "seed5.neo.org:90555"
             },
             MillisecondsPerBlock = ProtocolSettings.Default.MillisecondsPerBlock,
             MaxTransactionsPerBlock = ProtocolSettings.Default.MaxTransactionsPerBlock,
