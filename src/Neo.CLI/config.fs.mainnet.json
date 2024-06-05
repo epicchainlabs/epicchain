@@ -51,13 +51,13 @@
       "031f4d9c66f2ec348832c48fd3a16dfaeb59e85f557ae1e07f6696d0375c64f97b"
     ],
     "SeedList": [
-      "morph1.fs.neo.org:60555",
-      "morph2.fs.neo.org:60555",
-      "morph3.fs.neo.org:60555",
-      "morph4.fs.neo.org:60555",
-      "morph5.fs.neo.org:60555",
-      "morph6.fs.neo.org:60555",
-      "morph7.fs.neo.org:60555"
+      "morph1.fs.epicchain.org:60555",
+      "morph2.fs.epicchain.org:60555",
+      "morph3.fs.epicchain.org:60555",
+      "morph4.fs.epicchain.org:60555",
+      "morph5.fs.epicchain.org:60555",
+      "morph6.fs.epicchain.org:60555",
+      "morph7.fs.epicchain.org:60555"
     ]
   }
 }

@@ -39,7 +39,7 @@ namespace Neo.GUI
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://neo.org/");
+            Process.Start("https://epicchain.org/");
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -40,7 +40,7 @@ namespace Neo.Network.RPC.Tests
 
             // use real http client with mocked handler here
             var httpClient = new HttpClient(handlerMock.Object);
-            rpc = new RpcClient(httpClient, new Uri("http://seed1.neo.org:90556"), null);
+            rpc = new RpcClient(httpClient, new Uri("http://seed1.epicchain.org:90556"), null);
             foreach (var test in TestUtils.RpcTestCases)
             {
                 MockResponse(test.Request, test.Response);
@@ -100,7 +100,7 @@ namespace Neo.Network.RPC.Tests
                .Verifiable();
 
             var httpClient = new HttpClient(handlerMock.Object);
-            var client = new RpcClient(httpClient, new Uri("http://seed1.neo.org:90556"), null);
+            var client = new RpcClient(httpClient, new Uri("http://seed1.epicchain.org:90556"), null);
             var response = await client.SendAsync(test.Request, false);
 
             Assert.IsNull(response.Result);

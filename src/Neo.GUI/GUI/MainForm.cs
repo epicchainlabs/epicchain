@@ -400,7 +400,7 @@ namespace Neo.GUI
 
         private void 官网WToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenBrowser("https://neo.org/");
+            OpenBrowser("https://epicchain.org/");
         }
 
         private void 开发人员工具TToolStripMenuItem_Click(object sender, EventArgs e)

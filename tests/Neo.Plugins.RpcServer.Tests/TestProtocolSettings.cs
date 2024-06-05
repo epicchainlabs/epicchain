@@ -48,11 +48,11 @@ namespace Neo.Plugins.RpcServer.Tests
             ValidatorsCount = 7,
             SeedList = new[]
             {
-                "seed1.neo.org:90555",
-                "seed2.neo.org:90555",
-                "seed3.neo.org:90555",
-                "seed4.neo.org:90555",
-                "seed5.neo.org:90555"
+                "seed1.epicchain.org:90555",
+                "seed2.epicchain.org:90555",
+                "seed3.epicchain.org:90555",
+                "seed4.epicchain.org:90555",
+                "seed5.epicchain.org:90555"
             },
             MillisecondsPerBlock = ProtocolSettings.Default.MillisecondsPerBlock,
             MaxTransactionsPerBlock = ProtocolSettings.Default.MaxTransactionsPerBlock,

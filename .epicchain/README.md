@@ -1,6 +1,6 @@
 ## Overview
-This repository contain main classes of the [Neo](https://www.neo.org) blockchain.
-Visit the [documentation](https://docs.neo.org/docs/en-us/index.html) to get started.
+This repository contain main classes of the [Neo](https://www.epicchain.org) blockchain.
+Visit the [documentation](https://docs.epicchain.org/docs/en-us/index.html) to get started.
 
 ## Related projects
 Code references are provided for all platform building blocks. That includes the base library, the VM, a command line application and the compiler. 
@@ -19,7 +19,7 @@ Please feel free to create new issues to suggest features or ask questions.
 If you found a security issue, please refer to our [security policy](https://github.com/neo-project/neo/security/policy).
 
 ## Bounty program
-You can be rewarded by finding security issues. Please refer to our [bounty program page](https://neo.org/bounty) for more information.
+You can be rewarded by finding security issues. Please refer to our [bounty program page](https://epicchain.org/bounty) for more information.
 
 ## License
 The NEO project is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
