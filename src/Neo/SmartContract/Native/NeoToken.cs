@@ -30,7 +30,7 @@ namespace Neo.SmartContract.Native
     /// </summary>
     public sealed class NeoToken : FungibleToken<NeoToken.NeoAccountState>
     {
-        public override string Symbol => "NEO";
+        public override string Symbol => "XPR";
         public override byte Decimals => 0;
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Neo.SmartContract.Native
            "new", ContractParameterType.Array)]
         internal NeoToken() : base()
         {
-            TotalAmount = 100000000 * Factor;
+            TotalAmount = 1000000000 * Factor;
         }
 
         public override BigInteger TotalSupply(DataCache snapshot)
