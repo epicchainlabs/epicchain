@@ -1,35 +1,21 @@
-# MIT License
+MIT License
 
-## Copyright (c) 2021 Xmoohad
+Copyright (c) 2021 xmoohad
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions.
 
-1. **Inclusion of Copyright Notice and Permission**: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. This means that any distribution of the Software, whether modified or unmodified, must include these terms to ensure that recipients are aware of the permissions and limitations granted by this license.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-2. **No Warranty**: The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. This means that the authors and copyright holders do not guarantee that the Software will function as intended or be free of defects.
-
-3. **Limitation of Liability**: In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software. This clause limits the liability of the authors and copyright holders, meaning they are not responsible for any issues that arise from using the Software.
-
-## Detailed Explanation
-
-### Permissions
-
-- **Use**: You are allowed to use the Software for any purpose.
-- **Copy**: You can make copies of the Software for personal use or distribution.
-- **Modify**: You can modify the Software to suit your needs.
-- **Merge**: You can merge the Software with other software.
-- **Publish**: You can publish the Software, whether as-is or modified.
-- **Distribute**: You can distribute the Software to others, under the same license terms.
-- **Sublicense**: You can sublicense the Software, allowing others to use it under the same conditions.
-- **Sell**: You can sell copies of the Software.
-
-### Conditions
-
-- **Attribution**: Any copies or substantial portions of the Software must include the original copyright notice and this permission notice. This ensures that credit is given to the original authors and that the terms of the license are communicated to all recipients.
-
-### Limitations
-
-- **No Warranty**: The Software is provided without any guarantees or warranties. The authors are not responsible for any issues that arise from using the Software.
-- **No Liability**: The authors are not liable for any claims, damages, or other liabilities that result from using the Software. This protects the authors from legal responsibility for problems that users may encounter.
-
-By using the Software, you agree to these terms and conditions. If you distribute the Software, you must include these terms so that recipients are also aware of their rights and responsibilities under the license. This fosters a collaborative and open environment for software development and usage, while protecting the interests of the authors and copyright holders.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
