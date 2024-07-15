@@ -50,7 +50,7 @@ To achieve our security goals, we implement the following measures:
 
 ## Reporting Security Issues
 
-If you discover a security vulnerability in the EpicChain ecosystem, please report it to our security team at security@epicchain.io. We appreciate your help in keeping our platform secure.
+If you discover a security vulnerability in the EpicChain ecosystem, please report it to our security team at security@epic-chain.org. We appreciate your help in keeping our platform secure.
 
 ## Compliance
 
