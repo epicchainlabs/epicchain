@@ -32,7 +32,7 @@ namespace Neo.Network.RPC.Tests
 
             // use real http client with mocked handler here
             var httpClient = new HttpClient(handlerMock.Object);
-            rpc = new RpcClient(httpClient, new Uri("http://seed1.epicchain.org:90556"), null);
+            rpc = new RpcClient(httpClient, new Uri("http://seed1.neo.org:10331"), null);
         }
 
         [TestMethod()]

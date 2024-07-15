@@ -5,12 +5,8 @@
       "ConsoleOutput": false,
       "Active": false
     },
-    "Storage": {
-      "Engine": "LevelDBStore",
-      "Path": "Data_LevelDB_{0}"
-    },
     "P2P": {
-      "Port": 40333,
+      "Port": 60111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -24,23 +20,18 @@
       "NeoNameService": "0x7061fbd31562664b58f422c3dee4acfd70dba8af"
     },
     "Plugins": {
-      "DownloadUrl": "https://api.github.com/repos/epicchainlabs/epicchain-node/releases"
+      "DownloadUrl": "https://api.github.com/repos/neo-project/neo-modules/releases"
     }
   },
   "ProtocolConfiguration": {
     "Network": 91414437,
-    "AddressVersion": 76,
-    "MillisecondsPerBlock": 20000,
+    "AddressVersion": 53,
+    "MillisecondsPerBlock": 15000,
     "MaxTransactionsPerBlock": 512,
     "MemoryPoolMaxTransactions": 50000,
     "MaxTraceableBlocks": 2102400,
-    "InitialGasDistribution": 50000000000000000,
+    "InitialGasDistribution": 5200000000000000,
     "ValidatorsCount": 7,
-    "Hardforks": {
-      "HF_Aspidochelone": 3000000,
-      "HF_Basilisk": 4500000,
-      "HF_Cockatrice": 5800000
-    },
     "StandbyCommittee": [
       "026fa34ec057d74c2fdf1a18e336d0bd597ea401a0b2ad57340d5c220d09f44086",
       "039a9db2a30942b1843db673aeb0d4fd6433f74cec1d879de6343cb9fcf7628fa4",
@@ -51,13 +42,13 @@
       "031f4d9c66f2ec348832c48fd3a16dfaeb59e85f557ae1e07f6696d0375c64f97b"
     ],
     "SeedList": [
-      "morph1.fs.epicchain.org:60555",
-      "morph2.fs.epicchain.org:60555",
-      "morph3.fs.epicchain.org:60555",
-      "morph4.fs.epicchain.org:60555",
-      "morph5.fs.epicchain.org:60555",
-      "morph6.fs.epicchain.org:60555",
-      "morph7.fs.epicchain.org:60555"
+      "morph1.fs.epic-chain.org:60111",
+      "morph2.fs.epic-chain.org:60111",
+      "morph3.fs.epic-chain.org:60111",
+      "morph4.fs.epic-chain.org:60111",
+      "morph5.fs.epic-chain.org:60111",
+      "morph6.fs.epic-chain.org:60111",
+      "morph7.fs.epic-chain.org:60111"
     ]
   }
 }

@@ -6,8 +6,8 @@
       "Active": false
     },
     "Storage": {
-      "Engine": "LevelDBStore", // Candidates [MemoryStore, LevelDBStore, RocksDBStore]
-      "Path": "Data_LevelDB_{0}" // {0} is a placeholder for the network id
+      "Engine": "LevelDBStore", 
+      "Path": "Data_LevelDB_{0}" 
     },
     "P2P": {
       "Port": 10333,
@@ -24,13 +24,13 @@
       "NeoNameService": "0x50ac1c37690cc2cfc594472833cf57505d5f46de"
     },
     "Plugins": {
-      "DownloadUrl": "https://api.github.com/repos/epicchainlabs/epicchain-node/releases"
+      "DownloadUrl": "https://api.github.com/repos/neo-project/neo/releases"
     }
   },
   "ProtocolConfiguration": {
     "Network": 860833102,
-    "AddressVersion": 76,
-    "MillisecondsPerBlock": 20000,
+    "AddressVersion": 53,
+    "MillisecondsPerBlock": 15000,
     "MaxTransactionsPerBlock": 512,
     "MemoryPoolMaxTransactions": 50000,
     "MaxTraceableBlocks": 2102400,
@@ -38,7 +38,7 @@
       "HF_Aspidochelone": 1730000,
       "HF_Basilisk": 4120000
     },
-    "InitialGasDistribution": 50000000000000000,
+    "InitialGasDistribution": 5200000000000000,
     "ValidatorsCount": 7,
     "StandbyCommittee": [
       "03b209fd4f53a7170ea4444e0cb0a6bb6a53c2bd016926989cf85f9b0fba17a70c",
@@ -64,11 +64,11 @@
       "02cd5a5547119e24feaa7c2a0f37b8c9366216bab7054de0065c9be42084003c8a"
     ],
     "SeedList": [
-      "seed1.epicchain.org:90555",
-      "seed2.epicchain.org:90555",
-      "seed3.epicchain.org:90555",
-      "seed4.epicchain.org:90555",
-      "seed5.epicchain.org:90555"
+      "mainnet1-seed.epic-chain.org:10111",
+      "mainnet2-seed.epic-chain.org:10111",
+      "mainnet3-seed.epic-chain.org:10111",
+      "mainnet4-seed.epic-chain.org:10111",
+      "mainnet5-seed.epic-chain.org:10111"
     ]
   }
 }

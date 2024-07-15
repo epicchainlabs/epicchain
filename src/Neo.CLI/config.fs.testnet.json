@@ -5,12 +5,8 @@
       "ConsoleOutput": false,
       "Active": false
     },
-    "Storage": {
-      "Engine": "LevelDBStore",
-      "Path": "Data_LevelDB_{0}"
-    },
     "P2P": {
-      "Port": 50333,
+      "Port": 70111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
@@ -24,17 +20,17 @@
       "NeoNameService": "0xfb08ccf30ab534a871b7b092a49fe70c154ed678"
     },
     "Plugins": {
-      "DownloadUrl": "https://api.github.com/repos/epicchainlabs/epicchain-node/releases"
+      "DownloadUrl": "https://api.github.com/repos/neo-project/neo-modules/releases"
     }
   },
   "ProtocolConfiguration": {
     "Network": 91466898,
-    "AddressVersion": 76,
-    "MillisecondsPerBlock": 20000,
+    "AddressVersion": 53,
+    "MillisecondsPerBlock": 15000,
     "MaxTransactionsPerBlock": 512,
     "MemoryPoolMaxTransactions": 50000,
     "MaxTraceableBlocks": 2102400,
-    "InitialGasDistribution": 50000000000000000,
+    "InitialGasDistribution": 5200000000000000,
     "ValidatorsCount": 7,
     "StandbyCommittee": [
       "02082828ec6efc92e5e7790da851be72d2091a961c1ac9a1772acbf181ac56b831",
@@ -46,13 +42,13 @@
       "02e19c0634c85d35937699cdeaa10595ec2e18bfe86ba0494cf6c5c6861c66b97d"
     ],
     "SeedList": [
-      "morph01.testnet.fs.epicchain.org:50555",
-      "morph02.testnet.fs.epicchain.org:50555",
-      "morph03.testnet.fs.epicchain.org:50555",
-      "morph04.testnet.fs.epicchain.org:50555",
-      "morph05.testnet.fs.epicchain.org:50555",
-      "morph06.testnet.fs.epicchain.org:50555",
-      "morph07.testnet.fs.epicchain.org:50555"
+      "morph01.testnet.fs.epic-chain.org:70111",
+      "morph02.testnet.fs.epic-chain.org:70111",
+      "morph03.testnet.fs.epic-chain.org:70111",
+      "morph04.testnet.fs.epic-chain.org:70111",
+      "morph05.testnet.fs.epic-chain.org:70111",
+      "morph06.testnet.fs.epic-chain.org:70111",
+      "morph07.testnet.fs.epic-chain.org:70111"
     ]
   }
 }

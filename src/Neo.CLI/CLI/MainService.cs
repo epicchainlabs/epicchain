@@ -1,13 +1,27 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// 
+// Copyright (C) 2021-2024 EpicChain Lab's
+// All rights reserved.
+// 
+// This file is part of the EpicChain project, developed by xmoohad.
+// 
+// This file is subject to the terms and conditions defined in the LICENSE file found in the top-level 
+// directory of this distribution. Unauthorized copying, modification, or distribution of this file,
+// via any medium, is strictly prohibited. Any use of this file without explicit permission from EpicChain Lab's
+// is a violation of copyright law and will be prosecuted to the fullest extent possible.
+// 
+// This file is licensed under the MIT License; you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     https://opensource.org/licenses/MIT
+// 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+// the specific language governing permissions and limitations under the License.
+// 
+// For more information about EpicChain Lab's projects and innovations, visit our website at https://epic-chain.org
+// or contact us at xmoohad@epic-chain.org.
+// 
 //
-// MainService.cs file belongs to the neo project and is free
-// software distributed under the MIT software license, see the
-// accompanying file LICENSE in the main directory of the
-// repository or http://www.opensource.org/licenses/mit-license.php
-// for more details.
-//
-// Redistribution and use in source and binary forms with or without
-// modifications are permitted.
 
 using Akka.Actor;
 using Neo.ConsoleService;
@@ -73,8 +87,8 @@ namespace Neo.CLI
             private set => _localNode = value;
         }
 
-        protected override string Prompt => "neo";
-        public override string ServiceName => "NEO-CLI";
+        protected override string Prompt => "epic";
+        public override string ServiceName => "EpicChain-CLI";
 
         /// <summary>
         /// Constructor
@@ -101,8 +115,8 @@ namespace Neo.CLI
         {
             switch (input.ToLowerInvariant())
             {
-                case "neo": return NativeContract.NEO.Hash;
-                case "gas": return NativeContract.GAS.Hash;
+                case "epicchain": return NativeContract.NEO.Hash;
+                case "epicpulse": return NativeContract.GAS.Hash;
             }
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
@@ -131,10 +145,10 @@ namespace Neo.CLI
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
-            var cliV = Assembly.GetAssembly(typeof(Program))!.GetVersion();
-            var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetVersion();
-            var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetVersion();
-            Console.WriteLine($"{ServiceName} v{cliV}  -  NEO v{neoV}  -  NEO-VM v{vmV}");
+            var cliV = Assembly.GetAssembly(typeof(Program))!.GetName().Version;
+            var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetName().Version;
+            var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetName().Version;
+            Console.WriteLine($"EpicChain-BlockSphere V1.0.1 - Symbolizing a robust, all-encompassing");
             Console.WriteLine();
 
             base.RunConsole();
@@ -375,7 +389,50 @@ namespace Neo.CLI
             ProtocolSettings protocol = ProtocolSettings.Load("config.json");
             CustomProtocolSettings(options, protocol);
             CustomApplicationSettings(options, Settings.Default);
-            NeoSystem = new NeoSystem(protocol, Settings.Default.Storage.Engine, string.Format(Settings.Default.Storage.Path, protocol.Network.ToString("X8")));
+            try
+            {
+                NeoSystem = new NeoSystem(protocol, Settings.Default.Storage.Engine,
+                    string.Format(Settings.Default.Storage.Path, protocol.Network.ToString("X8")));
+            }
+            catch (DllNotFoundException ex) when (ex.Message.Contains("libleveldb"))
+            {
+                if (OperatingSystem.IsWindows())
+                {
+                    if (File.Exists("libleveldb.dll"))
+                    {
+                        DisplayError("Dependency DLL not found, please install Microsoft Visual C++ Redistributable.",
+                            "See https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist");
+                    }
+                    else
+                    {
+                        DisplayError("DLL not found, please get libleveldb.dll.",
+                            "Download from https://github.com/neo-ngd/leveldb/releases");
+                    }
+                }
+                else if (OperatingSystem.IsLinux())
+                {
+                    DisplayError("Shared library libleveldb.so not found, please get libleveldb.so.",
+                        "Use command \"sudo apt-get install libleveldb-dev\" in terminal or download from https://github.com/neo-ngd/leveldb/releases");
+                }
+                else if (OperatingSystem.IsMacOS() || OperatingSystem.IsMacCatalyst())
+                {
+                    DisplayError("Shared library libleveldb.dylib not found, please get libleveldb.dylib.",
+                        "Use command \"brew install leveldb\" in terminal or download from https://github.com/neo-ngd/leveldb/releases");
+                }
+                else
+                {
+                    DisplayError("Neo CLI is broken, please reinstall it.",
+                        "Download from https://github.com/neo-project/neo/releases");
+                }
+                return;
+            }
+            catch (DllNotFoundException)
+            {
+                DisplayError("Neo CLI is broken, please reinstall it.",
+                    "Download from https://github.com/neo-project/neo/releases");
+                return;
+            }
+
             NeoSystem.AddService(this);
 
             LocalNode = NeoSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
@@ -447,6 +504,17 @@ namespace Neo.CLI
                 {
                     ConsoleHelper.Error(ex.GetBaseException().Message);
                 }
+            }
+
+            return;
+
+            void DisplayError(string primaryMessage, string? secondaryMessage = null)
+            {
+                ConsoleHelper.Error(primaryMessage + Environment.NewLine +
+                                    (secondaryMessage != null ? secondaryMessage + Environment.NewLine : "") +
+                                    "Press any key to exit.");
+                Console.ReadKey();
+                Environment.Exit(-1);
             }
         }
 
@@ -621,7 +689,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("Gas Consumed: ", new BigDecimal((BigInteger)engine.FeeConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());
@@ -645,7 +713,7 @@ namespace Neo.CLI
         public UInt160 ResolveNeoNameServiceAddress(string domain)
         {
             if (Settings.Default.Contracts.NeoNameService == UInt160.Zero)
-                throw new Exception("Neo Name Service (NNS): is disabled on this network.");
+                throw new Exception("EpicChain Name Service (XNS): is disabled on this network.");
 
             using var sb = new ScriptBuilder();
             sb.EmitDynamicCall(Settings.Default.Contracts.NeoNameService, "resolve", CallFlags.ReadOnly, domain, 16);
@@ -668,18 +736,18 @@ namespace Neo.CLI
                 }
                 else if (data is Null)
                 {
-                    throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
+                    throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
                 }
-                throw new Exception("Neo Name Service (NNS): Record invalid address format.");
+                throw new Exception("EpicChain Name Service (XNS): Record invalid address format.");
             }
             else
             {
                 if (appEng.FaultException is not null)
                 {
-                    throw new Exception($"Neo Name Service (NNS): \"{appEng.FaultException.Message}\".");
+                    throw new Exception($"EpicChain Name Service (XNS): \"{appEng.FaultException.Message}\".");
                 }
             }
-            throw new Exception($"Neo Name Service (NNS): \"{domain}\" domain not found.");
+            throw new Exception($"EpicChain Name Service (XNS): \"{domain}\" domain not found.");
         }
     }
 }

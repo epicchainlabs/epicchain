@@ -52,7 +52,7 @@ namespace Neo.UnitTests
         [TestMethod]
         public void HardForkTestBAndNotA()
         {
-            string json = CreateHKSettings("\"HF_Basilisk\": 4120000");
+            string json = CreateHFSettings("\"HF_Basilisk\": 4120000");
 
             var file = Path.GetTempFileName();
             File.WriteAllText(file, json);
@@ -74,7 +74,7 @@ namespace Neo.UnitTests
         [TestMethod]
         public void HardForkTestAAndNotB()
         {
-            string json = CreateHKSettings("\"HF_Aspidochelone\": 0");
+            string json = CreateHFSettings("\"HF_Aspidochelone\": 0");
 
             var file = Path.GetTempFileName();
             File.WriteAllText(file, json);
@@ -96,7 +96,7 @@ namespace Neo.UnitTests
         [TestMethod]
         public void HardForkTestNone()
         {
-            string json = CreateHKSettings("");
+            string json = CreateHFSettings("");
 
             var file = Path.GetTempFileName();
             File.WriteAllText(file, json);
@@ -117,14 +117,14 @@ namespace Neo.UnitTests
         [TestMethod]
         public void HardForkTestAMoreThanB()
         {
-            string json = CreateHKSettings("\"HF_Aspidochelone\": 4120001, \"HF_Basilisk\": 4120000");
+            string json = CreateHFSettings("\"HF_Aspidochelone\": 4120001, \"HF_Basilisk\": 4120000");
             var file = Path.GetTempFileName();
             File.WriteAllText(file, json);
             Assert.ThrowsException<ArgumentException>(() => ProtocolSettings.Load(file, false));
             File.Delete(file);
         }
 
-        internal static string CreateHKSettings(string hf)
+        internal static string CreateHFSettings(string hf)
         {
             return @"
 {
@@ -138,7 +138,7 @@ namespace Neo.UnitTests
     ""Hardforks"": {
       " + hf + @"
     },
-    ""InitialGasDistribution"": 50000000000000000,
+    ""InitialGasDistribution"": 5200000000000000,
     ""ValidatorsCount"": 7,
     ""StandbyCommittee"": [
       ""03b209fd4f53a7170ea4444e0cb0a6bb6a53c2bd016926989cf85f9b0fba17a70c"",
@@ -164,11 +164,11 @@ namespace Neo.UnitTests
       ""02cd5a5547119e24feaa7c2a0f37b8c9366216bab7054de0065c9be42084003c8a""
     ],
     ""SeedList"": [
-      ""seed1.epicchain.org:90555"",
-      ""seed2.epicchain.org:90555"",
-      ""seed3.epicchain.org:90555"",
-      ""seed4.epicchain.org:90555"",
-      ""seed5.epicchain.org:90555""
+      ""mainnet1-seed.epic-chain.org:10111"",
+      ""mainnet2-seed.epic-chain.org:10111"",
+      ""mainnet3-seed.epic-chain.org:10111"",
+      ""mainnet4-seed.epic-chain.org:10111"",
+      ""mainnet5-seed.epic-chain.org:10111""
     ]
   }
 }
@@ -178,7 +178,7 @@ namespace Neo.UnitTests
         [TestMethod]
         public void TestGetSeedList()
         {
-            TestProtocolSettings.Default.SeedList.Should().BeEquivalentTo(new string[] { "seed1.epicchain.org:90555", "seed2.epicchain.org:90555", "seed3.epicchain.org:90555", "seed4.epicchain.org:90555", "seed5.epicchain.org:90555", });
+            TestProtocolSettings.Default.SeedList.Should().BeEquivalentTo(new string[] { "mainnet1-seed.epic-chain.org:10111", "mainnet2-seed.epic-chain.org:10111", "mainnet3-seed.epic-chain.org:10111", "mainnet4-seed.epic-chain.org:10111", "mainnet5-seed.epic-chain.org:10111", });
         }
 
         [TestMethod]

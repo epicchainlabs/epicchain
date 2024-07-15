@@ -3,13 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyTitle>Neo.CLI</AssemblyTitle>
-    <AssemblyName>neo-cli</AssemblyName>
+    <AssemblyName>epicchain-cli</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Neo.CLI</PackageId>
     <RootNamespace>Neo</RootNamespace>
     <Product>Neo.CLI</Product>
-    <ApplicationIcon>neo.ico</ApplicationIcon>
+    <ApplicationIcon>epicchain.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
+    <OutputPath>../../bin/$(AssemblyTitle)</OutputPath>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

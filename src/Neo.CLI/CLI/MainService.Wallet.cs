@@ -1,13 +1,27 @@
-// Copyright (C) 2015-2024 The Neo Project.
+// 
+// Copyright (C) 2021-2024 EpicChain Lab's
+// All rights reserved.
+// 
+// This file is part of the EpicChain project, developed by xmoohad.
+// 
+// This file is subject to the terms and conditions defined in the LICENSE file found in the top-level 
+// directory of this distribution. Unauthorized copying, modification, or distribution of this file,
+// via any medium, is strictly prohibited. Any use of this file without explicit permission from EpicChain Lab's
+// is a violation of copyright law and will be prosecuted to the fullest extent possible.
+// 
+// This file is licensed under the MIT License; you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     https://opensource.org/licenses/MIT
+// 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
+// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+// the specific language governing permissions and limitations under the License.
+// 
+// For more information about EpicChain Lab's projects and innovations, visit our website at https://epic-chain.org
+// or contact us at xmoohad@epic-chain.org.
+// 
 //
-// MainService.Wallet.cs file belongs to the neo project and is free
-// software distributed under the MIT software license, see the
-// accompanying file LICENSE in the main directory of the
-// repository or http://www.opensource.org/licenses/mit-license.php
-// for more details.
-//
-// Redistribution and use in source and binary forms with or without
-// modifications are permitted.
 
 using Akka.Actor;
 using Neo.ConsoleService;
@@ -107,11 +121,11 @@ namespace Neo.CLI
         /// Process "create address" command
         /// </summary>
         /// <param name="count">Count</param>
-        [ConsoleCommand("create address", Category = "Wallet Commands")]
+        [ConsoleCommand("generate address", Category = "Wallet Commands")]
         private void OnCreateAddressCommand(ushort count = 1)
         {
             if (NoWallet()) return;
-            string path = "address.txt";
+            string path = "epicchain-address.txt";
             if (File.Exists(path))
             {
                 if (!ConsoleHelper.ReadUserInput($"The file '{path}' already exists, do you want to overwrite it? (yes|no)", false).IsYes())
@@ -381,7 +395,7 @@ namespace Neo.CLI
         /// <summary>
         /// Process "list address" command
         /// </summary>
-        [ConsoleCommand("list address", Category = "Wallet Commands")]
+        [ConsoleCommand("show address", Category = "Wallet Commands")]
         private void OnListAddressCommand()
         {
             if (NoWallet()) return;
@@ -416,29 +430,40 @@ namespace Neo.CLI
         /// <summary>
         /// Process "list asset" command
         /// </summary>
-        [ConsoleCommand("list asset", Category = "Wallet Commands")]
+        [ConsoleCommand("show balance", Category = "Wallet Commands")]
         private void OnListAssetCommand()
         {
             var snapshot = NeoSystem.StoreView;
             if (NoWallet()) return;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
             {
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine(account.ToAddress(NeoSystem.Settings.AddressVersion));
-                ConsoleHelper.Info("NEO: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
-                ConsoleHelper.Info("GAS: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.GAS.Hash, account)}");
+                Console.WriteLine();
+                Console.WriteLine();
+                ConsoleHelper.Info("EpicChain: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
+                ConsoleHelper.Info("EpicPulse: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.GAS.Hash, account)}");
                 Console.WriteLine();
             }
-            Console.WriteLine("----------------------------------------------------");
-            ConsoleHelper.Info("Total:   NEO: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "GAS: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.GAS.Hash),18}");
             Console.WriteLine();
-            ConsoleHelper.Info("NEO hash: ", NativeContract.NEO.Hash.ToString());
-            ConsoleHelper.Info("GAS hash: ", NativeContract.GAS.Hash.ToString());
+            Console.WriteLine();
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine("----------------------------------------------------");
+            Console.WriteLine();
+            ConsoleHelper.Info("EpicChain hash: ", NativeContract.NEO.Hash.ToString());
+            ConsoleHelper.Info("EpicPulse hash: ", NativeContract.GAS.Hash.ToString());
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("----------------------------------------------------");
+            ConsoleHelper.Info("Total:   EpicChain: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "EpicPulse: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.GAS.Hash),18}");
+            Console.WriteLine();
         }
 
         /// <summary>
         /// Process "list key" command
         /// </summary>
-        [ConsoleCommand("list key", Category = "Wallet Commands")]
+        [ConsoleCommand("show key", Category = "Wallet Commands")]
         private void OnListKeyCommand()
         {
             if (NoWallet()) return;
@@ -554,8 +579,8 @@ namespace Neo.CLI
             ConsoleHelper.Info(
                 "Send To: ", $"{to.ToAddress(NeoSystem.Settings.AddressVersion)}\n",
                 "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
-                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
-            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
+                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes())
             {
                 return;
             }
@@ -636,10 +661,10 @@ namespace Neo.CLI
             };
 
             ConsoleHelper.Info("Network fee: ",
-                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} GAS\t",
+                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
-            if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+            if (!ConsoleHelper.ReadUserInput("Relay Transaction? (no|yes)").IsYes())
             {
                 return;
             }
@@ -649,7 +674,7 @@ namespace Neo.CLI
         /// <summary>
         /// Process "show gas" command
         /// </summary>
-        [ConsoleCommand("show gas", Category = "Wallet Commands")]
+        [ConsoleCommand("show epicpulse", Category = "Wallet Commands")]
         private void OnShowGasCommand()
         {
             if (NoWallet()) return;
@@ -658,7 +683,7 @@ namespace Neo.CLI
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
                 gas += NativeContract.NEO.UnclaimedGas(snapshot, account, height);
-            ConsoleHelper.Info("Unclaimed gas: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("Unclaimed EpicPulse: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
         }
 
         /// <summary>

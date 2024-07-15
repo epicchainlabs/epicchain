@@ -1,0 +1,86 @@
+#!/usr/bin/expect -d -f
+#
+# This script uses expect to test epicchain-cli
+#
+set timeout 10
+exp_internal true
+
+# Start epicchain-cli
+spawn dotnet ./bin/EpicChain.CLI/net8.0/epicchain-cli.dll
+
+# Expect the main input prompt
+expect {
+    "epicchain> " { }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+#
+# Test 'create wallet'
+#
+send "create wallet ./bin/EpicChain.CLI/test-wallet1.json\n"
+
+expect {
+    "password:" { send "asd\n" }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+expect {
+    "password:" { send "asd\n" }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+expect {
+    "   Address:" { }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+
+#
+# Test 'create wallet'
+#
+send "create wallet ./bin/EpicChain.CLI/test-wallet2.json L2ArHTuiDL4FHu4nfyhamrG8XVYB4QyRbmhj7vD6hFMB5iAMSTf6\n"
+
+expect {
+    "password:" { send "abcd\n" }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+expect {
+    "password:" { send "abcd\n" }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+expect {
+    "NUj249PQg9EMJfAuxKizdJwMG7GSBzYX2Y" { }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+#
+# Test 'list address'
+#
+send "list address\n"
+
+expect {
+    "epicchain> " { }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+
+#
+# Test 'create address'
+#
+send "create address\n"
+
+expect {
+    "epicchain> " { }
+    "error" { exit 2 }
+    timeout { exit 1 }
+}
+exit 0

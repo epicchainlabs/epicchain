@@ -1,6 +1,6 @@
 # README for Application and Protocol Configuration JSON File
 
-This README provides an explanation for each field in the JSON configuration file for a NEO node.
+This README provides an explanation for each field in the JSON configuration file for a Neo node.
 
 ## ApplicationConfiguration
 
@@ -31,15 +31,15 @@ This README provides an explanation for each field in the JSON configuration fil
 - **NeoNameService**: Script hash of the Neo Name Service contract. MainNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`, TestNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`.
 
 ### Plugins
-- **DownloadUrl**: URL to download plugins, typically from the NEO project's GitHub releases. Default is `https://api.github.com/repos/neo-project/neo/releases`.
+- **DownloadUrl**: URL to download plugins, typically from the Neo project's GitHub releases. Default is `https://api.github.com/repos/neo-project/neo/releases`.
 
 ## ProtocolConfiguration
 
 ### Network
-- **Network**: Network ID for the NEO network. MainNet is `860833102`, TestNet is `894710606`
+- **Network**: Network ID for the Neo network. MainNet is `860833102`, TestNet is `894710606`
 
 ### AddressVersion
-- **AddressVersion**: Version byte used in NEO address generation. Default is `53`.
+- **AddressVersion**: Version byte used in Neo address generation. Default is `53`.
 
 ### MillisecondsPerBlock
 - **MillisecondsPerBlock**: Time interval between blocks in milliseconds. Default is `15000` (15 seconds).
@@ -70,16 +70,16 @@ This README provides an explanation for each field in the JSON configuration fil
 ### SeedList
 - **SeedList**: List of seed nodes with their addresses and ports.
   - MainNet addresses are:
-      - `seed1.epicchain.org:90555`
-      - `seed2.epicchain.org:90555`
-      - `seed3.epicchain.org:90555`
-      - `seed4.epicchain.org:90555`
-      - `seed5.epicchain.org:90555`
+      - `mainnet1-seed.epic-chain.org:10111`
+      - `mainnet2-seed.epic-chain.org:10111`
+      - `mainnet3-seed.epic-chain.org:10111`
+      - `mainnet4-seed.epic-chain.org:10111`
+      - `mainnet5-seed.epic-chain.org:10111`
   - TestNet addresses are:
-      - `seed1t5.epicchain.org:80555`
-      - `seed2t5.epicchain.org:80555`
-      - `seed3t5.epicchain.org:80555`
-      - `seed4t5.epicchain.org:80555`
-      - `seed5t5.epicchain.org:80555`
+      - `testnet1-seed.epic-chain.org:20111`
+      - `testnet2-seed.epic-chain.org:20111`
+      - `testnet3-seed.epic-chain.org:20111`
+      - `testnet4-seed.epic-chain.org:20111`
+      - `testnet5-seed.epic-chain.org:20111`
 
-This configuration file is essential for setting up and running a NEO node, ensuring proper logging, storage, network connectivity, and consensus protocol parameters.
+This configuration file is essential for setting up and running a Neo node, ensuring proper logging, storage, network connectivity, and consensus protocol parameters.
