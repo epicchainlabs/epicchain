@@ -42,7 +42,7 @@ If you have any questions or need assistance with EpicChain Main Core, please do
 - **Email:** [support@epic-chain.org](mailto:support@epic-chain.org)
 - **Twitter:** [EpicChain Twitter](https://twitter.com/epicchainlabs)
 - **Discord:** [EpicChain Discord](https://discord.com/invite/tzxDUxnYT8)
-- **YouTube:** [EpicChain YouTube](https://youtube.com/invite/@epicchainlabs)
+- **YouTube:** [EpicChain YouTube](https://youtube.com/@epicchainlabs)
 
 ## License
 EpicChain Main Core is released under the [MIT License](LICENSE). This license allows you to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, ensuring that EpicChain remains a truly open and collaborative project.
