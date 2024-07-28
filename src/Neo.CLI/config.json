@@ -17,7 +17,7 @@
       "IsActive": false
     },
     "Plugins": {
-      "DownloadUrl": "https://api.github.com/repos/neo-project/neo-modules/releases"
+      "DownloadUrl": "https://api.github.com/repos/epicchainlabs/epicchain/releases"
     }
   },
   "ProtocolConfiguration": {
