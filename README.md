@@ -393,3 +393,4 @@ For assistance with EpicChain Main Core, please reach out to us through the foll
 
 EpicChain Main Core is distributed under the [MIT License](LICENSE), allowing you to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software. This license supports open collaboration and innovation within the EpicChain community.
 
+
