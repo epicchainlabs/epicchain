@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Benchmarks.cs file belongs to the neo project and is free
+// Benchmarks.Types.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -9,104 +9,114 @@
 // Redistribution and use in source and binary forms with or without
 // modifications are permitted.
 
-using System.Diagnostics;
+using BenchmarkDotNet.Attributes;
+using Array = Neo.VM.Types.Array;
 
-namespace Neo.VM
+namespace Neo.VM.Benchmark;
+
+public class Benchmarks_Types
 {
-    public static class Benchmarks
+    public IEnumerable<(int Depth, int ElementsPerLevel)> ParamSource()
     {
-        public static void NeoIssue2528()
+        int[] depths = [2, 4];
+        int[] elementsPerLevel = [2, 4, 6];
+
+        foreach (var depth in depths)
         {
-            // https://github.com/neo-project/neo/issues/2528
-            // L01: INITSLOT 1, 0
-            // L02: NEWARRAY0
-            // L03: DUP
-            // L04: DUP
-            // L05: PUSHINT16 2043
-            // L06: STLOC 0
-            // L07: PUSH1
-            // L08: PACK
-            // L09: LDLOC 0
-            // L10: DEC
-            // L11: STLOC 0
-            // L12: LDLOC 0
-            // L13: JMPIF_L L07
-            // L14: PUSH1
-            // L15: PACK
-            // L16: APPEND
-            // L17: PUSHINT32 38000
-            // L18: STLOC 0
-            // L19: PUSH0
-            // L20: PICKITEM
-            // L21: LDLOC 0
-            // L22: DEC
-            // L23: STLOC 0
-            // L24: LDLOC 0
-            // L25: JMPIF_L L19
-            // L26: DROP
-            Run(nameof(NeoIssue2528), "VwEAwkpKAfsHdwARwG8AnXcAbwAl9////xHAzwJwlAAAdwAQzm8AnXcAbwAl9////0U=");
+            foreach (var elements in elementsPerLevel)
+            {
+                if (depth <= 8 || elements <= 2)
+                {
+                    yield return (depth, elements);
+                }
+            }
+        }
+    }
+
+    [ParamsSource(nameof(ParamSource))]
+    public (int Depth, int ElementsPerLevel) Params;
+
+    [Benchmark]
+    public void BenchNestedArrayDeepCopy()
+    {
+        var root = new Array(new ReferenceCounter());
+        CreateNestedArray(root, Params.Depth, Params.ElementsPerLevel);
+        _ = root.DeepCopy();
+    }
+
+    [Benchmark]
+    public void BenchNestedArrayDeepCopyWithReferenceCounter()
+    {
+        var referenceCounter = new ReferenceCounter();
+        var root = new Array(referenceCounter);
+        CreateNestedArray(root, Params.Depth, Params.ElementsPerLevel, referenceCounter);
+        _ = root.DeepCopy();
+    }
+
+    [Benchmark]
+    public void BenchNestedTestArrayDeepCopy()
+    {
+        var root = new TestArray(new ReferenceCounter());
+        CreateNestedTestArray(root, Params.Depth, Params.ElementsPerLevel);
+        _ = root.DeepCopy();
+    }
+
+    [Benchmark]
+    public void BenchNestedTestArrayDeepCopyWithReferenceCounter()
+    {
+        var referenceCounter = new ReferenceCounter();
+        var root = new TestArray(referenceCounter);
+        CreateNestedTestArray(root, Params.Depth, Params.ElementsPerLevel, referenceCounter);
+        _ = root.DeepCopy();
+    }
+
+    private static void CreateNestedArray(Array? rootArray, int depth, int elementsPerLevel = 1, ReferenceCounter? referenceCounter = null)
+    {
+        if (depth < 0)
+        {
+            throw new ArgumentException("Depth must be non-negative", nameof(depth));
         }
 
-        public static void NeoVMIssue418()
+        if (rootArray == null)
         {
-            // https://github.com/neo-project/neo-vm/issues/418
-            // L00: NEWARRAY0
-            // L01: PUSH0
-            // L02: PICK
-            // L03: PUSH1
-            // L04: PACK
-            // L05: PUSH1
-            // L06: PICK
-            // L07: PUSH1
-            // L08: PACK
-            // L09: INITSSLOT 1
-            // L10: PUSHINT16 510
-            // L11: DEC
-            // L12: STSFLD0
-            // L13: PUSH1
-            // L14: PICK
-            // L15: PUSH1
-            // L16: PICK
-            // L17: PUSH2
-            // L18: PACK
-            // L19: REVERSE3
-            // L20: PUSH2
-            // L21: PACK
-            // L22: LDSFLD0
-            // L23: DUP
-            // L24: JMPIF L11
-            // L25: DROP
-            // L26: ROT
-            // L27: DROP
-            Run(nameof(NeoVMIssue418), "whBNEcARTRHAVgEB/gGdYBFNEU0SwFMSwFhKJPNFUUU=");
+            throw new ArgumentNullException(nameof(rootArray));
         }
 
-        public static void NeoIssue2723()
+        if (depth == 0)
         {
-            // L00: INITSSLOT 1
-            // L01: PUSHINT32 130000
-            // L02: STSFLD 0
-            // L03: PUSHINT32 1048576
-            // L04: NEWBUFFER
-            // L05: DROP
-            // L06: LDSFLD 0
-            // L07: DEC
-            // L08: DUP
-            // L09: STSFLD 0
-            // L10: JMPIF L03
-            Run(nameof(NeoIssue2723), "VgEC0PsBAGcAAgAAEACIRV8AnUpnACTz");
+            return;
         }
 
-        private static void Run(string name, string poc)
+        for (var i = 0; i < elementsPerLevel; i++)
         {
-            byte[] script = Convert.FromBase64String(poc);
-            using ExecutionEngine engine = new();
-            engine.LoadScript(script);
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            engine.Execute();
-            stopwatch.Stop();
-            Debug.Assert(engine.State == VMState.HALT);
-            Console.WriteLine($"Benchmark: {name},\tTime: {stopwatch.Elapsed}");
+            var childArray = new Array(referenceCounter);
+            rootArray.Add(childArray);
+            CreateNestedArray(childArray, depth - 1, elementsPerLevel, referenceCounter);
+        }
+    }
+
+    private static void CreateNestedTestArray(TestArray rootArray, int depth, int elementsPerLevel = 1, ReferenceCounter referenceCounter = null)
+    {
+        if (depth < 0)
+        {
+            throw new ArgumentException("Depth must be non-negative", nameof(depth));
+        }
+
+        if (rootArray == null)
+        {
+            throw new ArgumentNullException(nameof(rootArray));
+        }
+
+        if (depth == 0)
+        {
+            return;
+        }
+
+        for (var i = 0; i < elementsPerLevel; i++)
+        {
+            var childArray = new TestArray(referenceCounter);
+            rootArray.Add(childArray);
+            CreateNestedTestArray(childArray, depth - 1, elementsPerLevel, referenceCounter);
         }
     }
 }
