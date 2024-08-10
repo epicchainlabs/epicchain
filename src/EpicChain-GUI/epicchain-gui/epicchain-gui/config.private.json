@@ -13,7 +13,7 @@
       "Port": 30333,
       "WsPort": 30334
     },
-    "PluginURL": "https://github.com/neo-project/neo-modules/releases/download/v{1}/{0}.zip"
+    "PluginURL": "https://github.com/epicchainlabs/epicchain/releases/download/v{1}/{0}.zip"
   },
   "ProtocolConfiguration": {
     "Network": 340,
