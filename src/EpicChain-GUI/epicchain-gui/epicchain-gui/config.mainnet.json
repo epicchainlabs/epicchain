@@ -10,7 +10,7 @@
       "Path": "Data_LevelDB_Mainnet" // {0} is a placeholder for the network id
     },
     "P2P": {
-      "Port": 10333,
+      "Port": 10111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
