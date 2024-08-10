@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>neo3_gui.tests</RootNamespace>
+    <RootNamespace>epicchain_gui.tests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\neo3-gui\neo3-gui.csproj" />
+    <ProjectReference Include="..\epicchain-gui\epicchain-gui.csproj" />
   </ItemGroup>
 
   <ItemGroup>
