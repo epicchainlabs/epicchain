@@ -66,11 +66,11 @@
       "03184b018d6b2bc093e535519732b3fd3f7551c8cffaf4621dd5a0b89482ca66c9"
     ],
     "SeedList": [
-      "seed1t5.neo.org:20333",
-      "seed2t5.neo.org:20333",
-      "seed3t5.neo.org:20333",
-      "seed4t5.neo.org:20333",
-      "seed5t5.neo.org:20333"
+      "testnet1-seed.epic-chain.org:20111",
+      "testnet2-seed.epic-chain.org:20111",
+      "testnet3-seed.epic-chain.org:20111",
+      "testnet4-seed.epic-chain.org:20111",
+      "testnet5-seed.epic-chain.org:20111"
     ]
   }
 }
