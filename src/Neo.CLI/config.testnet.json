@@ -10,7 +10,7 @@
       "Path": "Data_LevelDB_{0}"
     },
     "P2P": {
-      "Port": 20333,
+      "Port": 20111,
       "MinDesiredConnections": 10,
       "MaxConnections": 40,
       "MaxConnectionsPerAddress": 3
