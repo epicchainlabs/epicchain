@@ -1,0 +1,119 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: 7.0.x
+  NODE_VERSION: 20.x
+
+jobs:
+
+
+  build:
+    name: Release/
+    # if: startsWith(github.ref, 'refs/heads/release/')
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{env.DOTNET_VERSION}}
+
+    - name: Install dependencies
+      run: dotnet restore neo3-gui/neo3-gui/neo3-gui.csproj
+
+    - name: Use Node.js ${{env.NODE_VERSION}}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{env.NODE_VERSION}}
+    
+    - name: build windows
+      if: matrix.os == 'windows-latest'
+      working-directory: neo3-gui/neo3-gui
+      env:
+        CI: false     
+      run: sh publish.sh
+
+    - name: build mac
+      if: matrix.os == 'macos-latest'
+      working-directory: neo3-gui/neo3-gui
+      env:
+        CI: false
+      run: sh publish.macos.sh
+
+    - name: Upload release files
+      if: matrix.os == 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-win
+        path: neo3-gui/neo3-gui/ClientApp/build-electron/*.exe
+    
+    - name: Upload Mac Release Files
+      if: matrix.os == 'macos-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-mac
+        path: neo3-gui/neo3-gui/ClientApp/build-electron/*.dmg
+
+      
+
+    # - name: Get Cache Files (osx-x64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: osx-x64
+
+    # - name: Get Cache Files (osx-arm64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: osx-arm64
+
+    # - name: Get Cache Files (linux-x64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: linux-x64
+
+    # - name: Get Cache Files (linux-arm64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: linux-arm64
+
+    # - name: Get Cache Files (linux-musl-arm64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: linux-musl-arm64
+
+    # - name: Get Cache Files (win-x64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: win-x64
+
+    # - name: Get Cache Files (win-arm64)
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: /tmp/dist/*
+    #     key: win-arm64
+
+    # - name: Create Release
+    #   uses: marvinpinto/action-automatic-releases@latest
+    #   with:
+    #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    #     prerelease: ${{ steps.nbgv.outputs.PrereleaseVersion != '' }}
+    #     title: ${{ steps.nbgv.outputs.NuGetPackageVersion }}
+    #     automatic_release_tag: ${{ steps.nbgv.outputs.NuGetPackageVersion }}
+    #     files: |
+    #       /tmp/dist/*

@@ -1,0 +1,68 @@
+.select-vote {
+  min-height: auto;
+}
+.ant-checkbox-wrapper:hover .ant-checkbox-inner,
+.ant-checkbox:hover .ant-checkbox-inner,
+.ant-checkbox-input:focus + .ant-checkbox-inner {
+  border-color: #00af92;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #00af92;
+  border-color: #00af92;
+}
+.ant-select-multiple .ant-select-selector {
+  padding: 2px 10px;
+}
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: #00af92;
+}
+.ant-select-focused.ant-select-single:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border-color: #00af92;
+  -webkit-box-shadow: 0 0 0 2px rgba(0, 175, 146, 0.295);
+  box-shadow: 0 0 0 2px rgba(0, 175, 146, 0.295);
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: rgba(12, 221, 186, 0.1);
+}
+.check-candi,
+.check-candi p {
+  width: 100%;
+}
+.check-candi .small {
+  float: right;
+  line-height: 22px;
+  vertical-align: middle;
+}
+
+.ant-form-item textarea.ant-input {
+  word-break: break-all;
+  min-height: 100px;
+}
+
+textarea.ant-input::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+  background: transparent;
+}
+
+textarea.ant-input::-webkit-scrollbar-thumb {
+  height: 7px;
+  width: 7px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+
+.committe-title .ant-tabs-tab-active,
+.ant-tabs-nav .ant-tabs-tab:hover {
+  color: #00af92;
+}
+
+.committe-title .ant-tabs-ink-bar {
+  background-color: #00af92;
+}
+
+.ant-btn{
+  padding: 6px 12px;
+}

@@ -1,0 +1,373 @@
+.wa-content {
+  position: relative;
+  display: block;
+  background: #ffffff;
+  box-shadow: 0 4px 12px #aaaaaa;
+  padding: 28px;
+}
+
+.wa-content .logo {
+  background: url(../images/logo.svg) no-repeat;
+  background-position: center;
+  height: 48px;
+}
+
+.wa-open {
+  padding: 0 90px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 260px;
+}
+
+.wa-open .ant-row {
+  min-height: 40px;
+}
+
+/* 路径 */
+.wa-link {
+  position: relative;
+  z-index: 9;
+}
+
+.wa-link a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: top;
+}
+
+.wa-link a.back {
+  float: left;
+}
+
+.wa-link a.close {
+  float: right;
+}
+
+.wa-link .anticon {
+  color: #666666;
+  font-size: 12px;
+}
+
+/* 按钮 */
+.wa-open .ant-btn {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  padding: 6px 0;
+  text-align: center;
+  border: 1px solid #00af92;
+  color: #00af92;
+}
+
+.wa-open .ant-btn-primary {
+  background-color: #00af92;
+  border-color: #00af92;
+  color: #ffffff;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  color: #fff;
+  background-color: #2b393f;
+  border-color: #2b393f;
+}
+
+.wa-open .ant-btn-sm {
+  font-size: 12px;
+}
+
+.wa-open input,
+.wa-open .ant-input-affix-wrapper {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 0;
+}
+
+.wa-open .ant-input:hover,
+.wa-open .ant-input:focus,
+.wa-open .ant-input:active {
+  border: 1px solid #00af92;
+  box-shadow: 0 0 0 2px rgba(3, 212, 178, 0.2);
+}
+
+.wa-open .ant-input-password:hover,
+.wa-open .ant-input-password:focus,
+.wa-open .ant-input-password:active {
+  border: 1px solid #00af92;
+  box-shadow: 0 0 0 2px rgba(3, 212, 178, 0.2);
+}
+
+.wa-open .ant-input-affix-wrapper>input.ant-input {
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.ant-input-prefix {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* list */
+.ant-list-item.wa-half {
+  width: 49%;
+  display: inline-block;
+}
+
+.ant-list-item.wa-half:nth-child(2n) {
+  margin-left: 2%;
+  display: inline-block;
+}
+
+.ant-list-item.wa-half .upcase {
+  width: 120px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: text-top;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+}
+
+.show-pri {
+  margin-top: 20px;
+  padding-right: 35px;
+}
+
+.show-pri p {
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.amount {
+  display: inline-block;
+  min-width: 100px;
+}
+
+.wa-detail .ant-list-item {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.wa-detail .ant-list,
+.wa-detail .ant-typography {
+  color: #222222;
+}
+
+.wa-amount {
+  width: 60px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.asset-list {
+  line-height: 14px;
+}
+
+.asset-list .ant-list-item-meta-title {
+  /* line-height: 1.1; */
+  color: #222222;
+}
+
+/* .asset-list .ant-list-item-meta-description{
+    line-height: 1.1;
+    word-break: break-all;
+} */
+.asset-list .ant-typography {
+  /* width: 70px; */
+  width: 110px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: #000000;
+  font-weight: 400;
+}
+
+/* trans */
+.wa-trans {
+  color: #222222;
+}
+
+.wa-trans .ant-select-selection,
+.wa-trans input {
+  border-radius: 0;
+}
+
+.wa-trans .anticon {
+  font-size: 15px;
+  color: #00af92 !important;
+}
+
+.wa-trans button {
+  width: 100%;
+}
+
+.trans-form .ant-row,
+.trans-form .ant-form-item {
+  margin-bottom: 12px;
+}
+
+.trans-form .ant-form-item-control {
+  width: 100%;
+  padding: 2px 10px;
+}
+
+.trans-form .ant-input-number {
+  width: 100%;
+}
+
+.trans-form .ant-form-item-label>label {
+  font-weight: 600;
+  height: auto;
+  padding: 0 10px;
+}
+
+.trans-form .ant-btn-primary {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  width: 100%;
+}
+
+.trans-form .ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.trans-form .ant-input:hover,
+.ant-input-number:hover {
+  border-color: #00af92;
+}
+
+.trans-form .ant-select-focused.ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
+.trans-form .ant-input:focus,
+.ant-input-number-focused,
+.ant-input-focused {
+  border-color: rgb(0, 175, 146);
+  box-shadow: 0 0 0 2px rgba(3, 212, 178, 0.2);
+}
+
+.trans-form .ant-input-number .anticon,
+.trans-form .ant-input-number .anticon {
+  color: rgb(1, 150, 125) !important;
+}
+
+.trans-symbol {
+  display: inline-block;
+  width: 50px;
+  overflow: hidden;
+  vertical-align: bottom;
+  text-overflow: ellipsis;
+}
+
+/* upload */
+input.wa-upload {
+  background: #00af92;
+}
+
+.wa-upload input {
+  background: #00af92;
+}
+
+button,
+input {
+  border-radius: 0;
+  background: transparent;
+}
+
+.ant-list-item-meta-title {
+  max-width: 480px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.wal-import {
+  position: relative;
+  font-size: 12px;
+  text-align: right;
+}
+
+.wal-ul {
+  position: relative;
+  z-index: 99;
+  display: none;
+  min-width: 50px;
+  padding-top: 10px;
+  text-align: left;
+}
+
+.wal-import ul {
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  position: absolute;
+  right: 0;
+}
+
+.wal-ul li {
+  list-style: none;
+  padding: 2px 8px;
+  min-width: 160px;
+  cursor: pointer;
+}
+
+.wal-ul li a {
+  display: inline-block;
+  width: 100%;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.wal-ul li:hover {
+  background: rgba(232, 232, 232, 0.65);
+}
+
+.wal-ul li:hover a {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.wal-import:hover .wal-ul,
+.wal-ul:hover {
+  display: block;
+}
+
+.wa-count {
+  min-width: 80px;
+}
+
+.wallet-tag {
+  font-size: 12px;
+  line-height: 22px;
+  width: 75px;
+}
+
+.multiadd .ant-select-selection-item-content {
+  width: 290px;
+}
+
+.add-list {
+  padding: 10px 12px;
+}
+
+.ant-select-item-option-content .add-show {
+  display: block;
+  width: 100%;
+  line-height: 12px;
+  font-size: 12px;
+  color: #999;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  transform: scale(0.9);
+  transform-origin: left;
+}
+
+.ant-form-horizontal .ant-form-item-control {
+  flex: none;
+}

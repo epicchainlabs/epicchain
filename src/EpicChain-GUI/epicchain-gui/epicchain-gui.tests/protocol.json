@@ -1,0 +1,12 @@
+{
+  "ProtocolConfiguration": {
+    "Magic": 888888,
+    "MillisecondsPerBlock": 15000,
+    "StandbyValidators": [
+      "0277d28f103c37eb03d62decd4fdbda01dd69fea878325bc1bebc5074a876455eb"
+    ],
+    "SeedList": [
+      "128.1.61.238:33333"
+    ]
+  }
+}

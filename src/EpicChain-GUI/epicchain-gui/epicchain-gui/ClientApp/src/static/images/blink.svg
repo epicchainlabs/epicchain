@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+<style>
+.blink{fill: rgba(255,255,255,0.6);}
+@keyframes a1 {
+    0% {transform: translateX(-150px);opacity: 0.3;}
+    6% {transform: translateX(200px) scaleX(1.5);opacity: 0.5;}
+    10% {transform: translateX(300px) scaleX(2);opacity: 0.7;}
+    20% {transform: translateX(450px);opacity: 1;}
+    100% {transform: translateX(450px);opacity: 0;}
+}
+.a1 {animation:a1 5s linear infinite;}</style>
+<polygon class="blink a1" points="0,0 80,0 180,200 100,200"/>
+</svg>

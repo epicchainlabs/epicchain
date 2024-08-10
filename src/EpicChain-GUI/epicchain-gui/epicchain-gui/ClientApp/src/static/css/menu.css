@@ -1,0 +1,110 @@
+.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub {
+  background: #fff;
+}
+
+.ant-layout-sider,
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #ffffff;
+  box-shadow: none;
+}
+.menu-logo::before {
+  content: " ";
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  padding-top: 60px;
+  background: url(../images/logo.svg);
+  background-repeat: no-repeat;
+  background-size: 110px;
+  background-position: 25px center;
+  box-shadow: none;
+}
+.menu-logo::after {
+  content: " ";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: url(../images/blink.svg);
+  width: 100%;
+  height: 60px;
+  z-index: 2;
+  background-size: cover;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: #f0f0f0;
+  color: #000;
+}
+.ant-menu-item:active,
+.ant-menu-submenu-title:active {
+  background-color: #f0f0f0;
+}
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-submenu-active,
+.ant-menu-submenu-title:hover {
+  color: #000;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #f0f0f0;
+  color: #000;
+  font-weight: 600;
+}
+.ant-menu-submenu-vertical
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-left
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical-right
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-inline
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::after,
+.ant-menu-submenu-vertical
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-left
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-vertical-right
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::before,
+.ant-menu-submenu-inline
+  > .ant-menu-submenu-title:hover
+  .ant-menu-submenu-arrow::before {
+  background-color: #000;
+}
+.ant-menu-submenu-selected,
+.ant-menu-submenu-title:hover,
+.ant-menu-item > a,
+.ant-menu-item > a:hover {
+  color: #000;
+}
+.ant-menu-inline .ant-menu-item::after {
+  border: none;
+}
+
+/* 兼容下拉菜单过长的情况 */
+.menu-scroll {
+  height: calc(100% - 250px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.menu-scroll::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+  background: transparent;
+}
+
+.menu-scroll::-webkit-scrollbar-thumb {
+  height: 7px;
+  width: 7px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
