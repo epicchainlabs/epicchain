@@ -29,23 +29,23 @@ jobs:
         dotnet-version: ${{env.DOTNET_VERSION}}
 
     - name: Install dependencies
-      run: dotnet restore neo3-gui/neo3-gui/neo3-gui.csproj
+      run: dotnet restore epicchain-gui/epicchain-gui/epicchain-gui.csproj
 
     - name: Use Node.js ${{env.NODE_VERSION}}
       uses: actions/setup-node@v4
       with:
         node-version: ${{env.NODE_VERSION}}
-    
+
     - name: build windows
       if: matrix.os == 'windows-latest'
-      working-directory: neo3-gui/neo3-gui
+      working-directory: epicchain-gui/epicchain-gui
       env:
-        CI: false     
+        CI: false
       run: sh publish.sh
 
     - name: build mac
       if: matrix.os == 'macos-latest'
-      working-directory: neo3-gui/neo3-gui
+      working-directory: epicchain-gui/epicchain-gui
       env:
         CI: false
       run: sh publish.macos.sh
@@ -55,16 +55,16 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: release-win
-        path: neo3-gui/neo3-gui/ClientApp/build-electron/*.exe
-    
+        path: epicchain-gui/epicchain-gui/ClientApp/build-electron/*.exe
+
     - name: Upload Mac Release Files
       if: matrix.os == 'macos-latest'
       uses: actions/upload-artifact@v4
       with:
         name: release-mac
-        path: neo3-gui/neo3-gui/ClientApp/build-electron/*.dmg
+        path: epicchain-gui/epicchain-gui/ClientApp/build-electron/*.dmg
 
-      
+
 
     # - name: Get Cache Files (osx-x64)
     #   uses: actions/cache@v3
