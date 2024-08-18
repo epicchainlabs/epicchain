@@ -56,7 +56,7 @@ export default function ChainAsset() {
                 renderItem={(item) => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={"https://neo.org/images/gui/" + item.asset + ".png"} />}
+                      avatar={<Avatar src={"https://epic-chain.org/images/gui/" + item.asset + ".png"} />}
                       title={
                         <Link
                           className="asset-link w500 ellipsis"
