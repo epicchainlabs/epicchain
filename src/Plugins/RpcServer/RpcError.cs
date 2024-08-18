@@ -32,7 +32,7 @@ namespace Neo.Plugins.RpcServer
         public static readonly RpcError InternalServerError = new(-32603, "Internal server RpcError");
         public static readonly RpcError BadRequest = new(-32700, "Bad request");
 
-        // https://github.com/neo-project/proposals/pull/156/files
+        // https://github.com/epicchainlabs/proposals/pull/156/files
         public static readonly RpcError UnknownBlock = new(-101, "Unknown block");
         public static readonly RpcError UnknownContract = new(-102, "Unknown contract");
         public static readonly RpcError UnknownTransaction = new(-103, "Unknown transaction");
