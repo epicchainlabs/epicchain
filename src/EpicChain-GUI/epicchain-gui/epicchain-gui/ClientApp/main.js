@@ -19,7 +19,7 @@ remote.initialize();
 let mainWindow;
 const gotTheLock = app.requestSingleInstanceLock();
 
-// adapted from https://github.com/chentsulin/electron-react-boilerplate
+// adapted from https://github.com/epicchainlabs/epicchain
 const installExtensions = () => {
   const installer = require("electron-devtools-installer"); // eslint-disable-line import/no-extraneous-dependencies
   const extensions = ["REACT_DEVELOPER_TOOLS", "MOBX_DEVTOOLS"];
