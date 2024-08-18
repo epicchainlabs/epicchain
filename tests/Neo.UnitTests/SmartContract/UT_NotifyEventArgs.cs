@@ -32,7 +32,7 @@ namespace Neo.UnitTests.SmartContract
 
 
         [TestMethod]
-        public void TestIssue3300() // https://github.com/neo-project/neo/issues/3300
+        public void TestIssue3300() // https://github.com/neo-project/epicchain/issues/
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, settings: TestProtocolSettings.Default, gas: 1100_00000000);
             using (var script = new ScriptBuilder())
