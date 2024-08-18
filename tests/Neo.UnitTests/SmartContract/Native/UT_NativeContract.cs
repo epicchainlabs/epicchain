@@ -126,7 +126,7 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshot = _snapshot.CreateSnapshot();
 
             // Ensure that native NEP17 contracts contain proper supported standards and events declared
-            // in the manifest constructed for all hardforks enabled. Ref. https://github.com/epicchainlabs/neo/pull/3195.
+            // in the manifest constructed for all hardforks enabled. Ref. https://github.com/epicchainlabs/epicchain/pull/.
             foreach (var h in new List<UInt160>() { NativeContract.GAS.Hash, NativeContract.NEO.Hash })
             {
                 var state = Call_GetContract(snapshot, h, persistingBlock);
