@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyTitle>Neo.CLI</AssemblyTitle>
-    <AssemblyName>epicchain-cli</AssemblyName>
+    <AssemblyName>neo-cli</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>Neo.CLI</PackageId>
     <RootNamespace>Neo</RootNamespace>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="neo.ico" />
+    <Content Include="epicchain.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Neo.ConsoleService\Neo.ConsoleService.csproj" />
+    <ProjectReference Include="..\Neo.Extensions\Neo.Extensions.csproj" />
     <ProjectReference Include="..\Neo\Neo.csproj" />
   </ItemGroup>
 

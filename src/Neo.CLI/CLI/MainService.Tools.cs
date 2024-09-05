@@ -1,33 +1,19 @@
-// 
-// Copyright (C) 2021-2024 EpicChain Lab's
-// All rights reserved.
-// 
-// This file is part of the EpicChain project, developed by xmoohad.
-// 
-// This file is subject to the terms and conditions defined in the LICENSE file found in the top-level 
-// directory of this distribution. Unauthorized copying, modification, or distribution of this file,
-// via any medium, is strictly prohibited. Any use of this file without explicit permission from EpicChain Lab's
-// is a violation of copyright law and will be prosecuted to the fullest extent possible.
-// 
-// This file is licensed under the MIT License; you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     https://opensource.org/licenses/MIT
-// 
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
-// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
-// the specific language governing permissions and limitations under the License.
-// 
-// For more information about EpicChain Lab's projects and innovations, visit our website at https://epic-chain.org
-// or contact us at xmoohad@epic-chain.org.
-// 
+// Copyright (C) 2015-2024 The Neo Project.
 //
+// MainService.Tools.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
 
 using Neo.ConsoleService;
 using Neo.Cryptography.ECC;
+using Neo.Extensions;
 using Neo.IO;
 using Neo.SmartContract;
-using Neo.VM;
 using Neo.Wallets;
 using System;
 using System.Collections.Generic;
@@ -70,7 +56,8 @@ namespace Neo.CLI
 
                 if (result != null)
                 {
-                    Console.WriteLine($"{pair.Key,-30}\t{result}");
+                    ConsoleHelper.Info("", "-----", pair.Key, "-----");
+                    ConsoleHelper.Info("", result, Environment.NewLine);
                     any = true;
                 }
             }
@@ -431,62 +418,27 @@ namespace Neo.CLI
         [ParseFunction("Base64 Smart Contract Script Analysis")]
         private string? ScriptsToOpCode(string base64)
         {
-            Script script;
             try
             {
-                var scriptData = Convert.FromBase64String(base64);
-                script = new Script(scriptData.ToArray(), true);
+                var bytes = Convert.FromBase64String(base64);
+                var sb = new StringBuilder();
+                var line = 0;
+
+                foreach (var instruct in new VMInstruction(bytes))
+                {
+                    if (instruct.OperandSize == 0)
+                        sb.AppendFormat("L{0:D04}:{1:X04} {2}{3}", line, instruct.Position, instruct.OpCode, Environment.NewLine);
+                    else
+                        sb.AppendFormat("L{0:D04}:{1:X04} {2,-10}{3}{4}", line, instruct.Position, instruct.OpCode, instruct.DecodeOperand(), Environment.NewLine);
+                    line++;
+                }
+
+                return sb.ToString();
             }
-            catch (Exception)
+            catch
             {
                 return null;
             }
-            return ScriptsToOpCode(script);
-        }
-
-        private string ScriptsToOpCode(Script script)
-        {
-            //Initialize all InteropService
-            var dic = new Dictionary<uint, string>();
-            ApplicationEngine.Services.ToList().ForEach(p => dic.Add(p.Value.Hash, p.Value.Name));
-
-            //Analyzing Scripts
-            var ip = 0;
-            Instruction instruction;
-            var result = new List<string>();
-            while (ip < script.Length && (instruction = script.GetInstruction(ip)) != null)
-            {
-                ip += instruction.Size;
-
-                var op = instruction.OpCode;
-
-                if (op.ToString().StartsWith("PUSHINT"))
-                {
-                    var operand = instruction.Operand.ToArray();
-                    result.Add($"{op} {new BigInteger(operand)}");
-                }
-                else if (op == OpCode.SYSCALL)
-                {
-                    var operand = instruction.Operand.ToArray();
-                    result.Add($"{op} {dic[BitConverter.ToUInt32(operand)]}");
-                }
-                else
-                {
-                    if (!instruction.Operand.IsEmpty && instruction.Operand.Length > 0)
-                    {
-                        var operand = instruction.Operand.ToArray();
-                        var ascii = Encoding.Default.GetString(operand);
-                        ascii = ascii.Any(p => p < '0' || p > 'z') ? operand.ToHexString() : ascii;
-
-                        result.Add($"{op} {(operand.Length == 20 ? new UInt160(operand).ToString() : ascii)}");
-                    }
-                    else
-                    {
-                        result.Add($"{op}");
-                    }
-                }
-            }
-            return Environment.NewLine + string.Join("\r\n", result.ToArray());
         }
 
         /// <summary>

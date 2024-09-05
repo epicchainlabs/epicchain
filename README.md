@@ -256,7 +256,7 @@ The Quantum Vault Asset contract is designed for secure asset management, includ
            *sender_balance -= amount;
            let receiver_balance = self.assets.entry(to).or_insert(0);
            *receiver_balance += amount;
-           
+
            // Log transaction
            self.transaction_counter += 1;
            self.transaction_log.insert(
@@ -392,5 +392,3 @@ For assistance with EpicChain Main Core, please reach out to us through the foll
 ## License
 
 EpicChain Main Core is distributed under the [MIT License](LICENSE), allowing you to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software. This license supports open collaboration and innovation within the EpicChain community.
-
-

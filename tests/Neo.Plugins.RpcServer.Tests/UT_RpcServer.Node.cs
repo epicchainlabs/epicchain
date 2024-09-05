@@ -9,18 +9,50 @@
 // Redistribution and use in source and binary forms with or without
 // modifications are permitted.
 
+using Akka.Actor;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.IO;
 using Neo.Json;
+using Neo.Network.P2P;
 using Neo.Network.P2P.Payloads;
 using Neo.SmartContract.Native;
 using Neo.UnitTests;
 using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace Neo.Plugins.RpcServer.Tests
 {
     partial class UT_RpcServer
     {
+        [TestMethod]
+        public void TestGetConnectionCount()
+        {
+            var result = _rpcServer.GetConnectionCount(new JArray());
+            result.GetType().Should().Be(typeof(JNumber));
+        }
+
+        [TestMethod]
+        public void TestGetPeers()
+        {
+            var settings = TestProtocolSettings.SoleNode;
+            var neoSystem = new NeoSystem(settings, _memoryStoreProvider);
+            var localNode = neoSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
+            localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 11332) });
+            localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 12332) });
+            localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 13332) });
+            var rpcServer = new RpcServer(neoSystem, RpcServerSettings.Default);
+
+            var result = rpcServer.GetPeers(new JArray());
+            Assert.IsInstanceOfType(result, typeof(JObject));
+            var json = (JObject)result;
+            json.ContainsProperty("unconnected").Should().BeTrue();
+            (json["unconnected"] as JArray).Count.Should().Be(3);
+            json.ContainsProperty("bad").Should().BeTrue();
+            json.ContainsProperty("connected").Should().BeTrue();
+        }
+
         [TestMethod]
         public void TestGetVersion()
         {
@@ -42,6 +74,8 @@ namespace Neo.Plugins.RpcServer.Tests
             Assert.IsTrue(protocol.ContainsProperty("maxvaliduntilblockincrement"));
             Assert.IsTrue(protocol.ContainsProperty("maxtransactionsperblock"));
             Assert.IsTrue(protocol.ContainsProperty("memorypoolmaxtransactions"));
+            Assert.IsTrue(protocol.ContainsProperty("standbycommittee"));
+            Assert.IsTrue(protocol.ContainsProperty("seedlist"));
         }
 
         #region SendRawTransaction Tests
@@ -49,7 +83,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Normal()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -69,7 +103,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InsufficientBalance()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InsufficientBalance);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -82,7 +116,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidSignature()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidSignature);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -95,7 +129,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidScript()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidScript);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -108,7 +142,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidAttribute()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidAttribute);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -123,7 +157,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Oversized()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.Oversized);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -137,7 +171,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Expired()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.Expired);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -150,7 +184,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_PolicyFailed()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             var txString = Convert.ToBase64String(tx.ToArray());
             NativeContract.Policy.BlockAccount(snapshot, _walletAccount.ScriptHash);
@@ -165,7 +199,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_AlreadyInPool()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             _neoSystem.MemPool.TryAdd(tx, snapshot);
             var txString = Convert.ToBase64String(tx.ToArray());
@@ -179,7 +213,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_AlreadyInBlockchain()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             TestUtils.AddTransactionToBlockchain(snapshot, tx);
             snapshot.Commit();
@@ -195,7 +229,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_Normal()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             var blockString = Convert.ToBase64String(block.ToArray());
 
@@ -220,7 +254,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_AlreadyExists()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -235,7 +269,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_InvalidBlock()
         {
-            var snapshot = _neoSystem.GetSnapshot();
+            var snapshot = _neoSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             block.Header.Witness = new Witness();
             var blockString = Convert.ToBase64String(block.ToArray());

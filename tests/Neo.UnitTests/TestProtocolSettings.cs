@@ -74,7 +74,7 @@ namespace Neo.UnitTests
             ValidatorsCount = 1,
             SeedList =
             [
-                "mainnet1-seed.epic-chain.org:101113",
+                "mainnet1-seed.epic-chain.org:10111",
                 "mainnet2-seed.epic-chain.org:10111",
                 "mainnet3-seed.epic-chain.org:10111",
                 "mainnet4-seed.epic-chain.org:10111",

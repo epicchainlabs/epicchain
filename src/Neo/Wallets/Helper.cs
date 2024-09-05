@@ -119,7 +119,8 @@ namespace Neo.Wallets
                 {
                     var contract = NativeContract.ContractManagement.GetContract(snapshot, hash);
                     if (contract is null)
-                        throw new ArgumentException($"The smart contract or address {hash} is not found");
+                        throw new ArgumentException($"The smart contract or address {hash} ({hash.ToAddress(settings.AddressVersion)}) is not found. " +
+                            $"If this is your wallet address and you want to sign a transaction with it, make sure you have opened this wallet.");
                     var md = contract.Manifest.Abi.GetMethod(ContractBasicMethod.Verify, ContractBasicMethod.VerifyPCount);
                     if (md is null)
                         throw new ArgumentException($"The smart contract {contract.Hash} haven't got verify method");
@@ -133,7 +134,7 @@ namespace Neo.Wallets
                     size += Array.Empty<byte>().GetVarSize() + invSize;
 
                     // Check verify cost
-                    using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshot.CreateSnapshot(), settings: settings, gas: maxExecutionCost);
+                    using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshot.CloneCache(), settings: settings, gas: maxExecutionCost);
                     engine.LoadContract(contract, md, CallFlags.ReadOnly);
                     if (invocationScript != null) engine.LoadScript(invocationScript, configureState: p => p.CallFlags = CallFlags.None);
                     if (engine.Execute() == VMState.FAULT) throw new ArgumentException($"Smart contract {contract.Hash} verification fault.");

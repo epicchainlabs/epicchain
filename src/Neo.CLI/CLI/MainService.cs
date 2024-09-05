@@ -1,31 +1,18 @@
-// 
-// Copyright (C) 2021-2024 EpicChain Lab's
-// All rights reserved.
-// 
-// This file is part of the EpicChain project, developed by xmoohad.
-// 
-// This file is subject to the terms and conditions defined in the LICENSE file found in the top-level 
-// directory of this distribution. Unauthorized copying, modification, or distribution of this file,
-// via any medium, is strictly prohibited. Any use of this file without explicit permission from EpicChain Lab's
-// is a violation of copyright law and will be prosecuted to the fullest extent possible.
-// 
-// This file is licensed under the MIT License; you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     https://opensource.org/licenses/MIT
-// 
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed 
-// on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
-// the specific language governing permissions and limitations under the License.
-// 
-// For more information about EpicChain Lab's projects and innovations, visit our website at https://epic-chain.org
-// or contact us at xmoohad@epic-chain.org.
-// 
+// Copyright (C) 2015-2024 The Neo Project.
 //
+// MainService.cs file belongs to the neo project and is free
+// software distributed under the MIT software license, see the
+// accompanying file LICENSE in the main directory of the
+// repository or http://www.opensource.org/licenses/mit-license.php
+// for more details.
+//
+// Redistribution and use in source and binary forms with or without
+// modifications are permitted.
 
 using Akka.Actor;
 using Neo.ConsoleService;
 using Neo.Cryptography.ECC;
+using Neo.Extensions;
 using Neo.IO;
 using Neo.Json;
 using Neo.Ledger;
@@ -148,7 +135,7 @@ namespace Neo.CLI
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetName().Version;
             var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetName().Version;
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetName().Version;
-            Console.WriteLine($"EpicChain-BlockSphere V1.0.1 - Symbolizing a robust, all-encompassing");
+            Console.WriteLine($"EpicChain-BlockSphere V1.0.2 - Symbolizing a robust, all-encompassing");
             Console.WriteLine();
 
             base.RunConsole();
@@ -406,30 +393,30 @@ namespace Neo.CLI
                     else
                     {
                         DisplayError("DLL not found, please get libleveldb.dll.",
-                            "Download from https://github.com/neo-ngd/leveldb/releases");
+                            "Download from https://github.com/xmoohad/leveldb/releases");
                     }
                 }
                 else if (OperatingSystem.IsLinux())
                 {
                     DisplayError("Shared library libleveldb.so not found, please get libleveldb.so.",
-                        "Use command \"sudo apt-get install libleveldb-dev\" in terminal or download from https://github.com/neo-ngd/leveldb/releases");
+                        "Use command \"sudo apt-get install libleveldb-dev\" in terminal or download from https://github.com/xmoohad/leveldb/releases");
                 }
                 else if (OperatingSystem.IsMacOS() || OperatingSystem.IsMacCatalyst())
                 {
                     DisplayError("Shared library libleveldb.dylib not found, please get libleveldb.dylib.",
-                        "Use command \"brew install leveldb\" in terminal or download from https://github.com/neo-ngd/leveldb/releases");
+                        "Use command \"brew install leveldb\" in terminal or download from https://github.com/xmoohad/leveldb/releases");
                 }
                 else
                 {
-                    DisplayError("Neo CLI is broken, please reinstall it.",
-                        "Download from https://github.com/neo-project/neo/releases");
+                    DisplayError("EpicChain CLI is broken, please reinstall it.",
+                        "Download from https://github.com/epicchainlabs/epicchain/releases");
                 }
                 return;
             }
             catch (DllNotFoundException)
             {
-                DisplayError("Neo CLI is broken, please reinstall it.",
-                    "Download from https://github.com/neo-project/neo/releases");
+                DisplayError("EpicChain CLI is broken, please reinstall it.",
+                    "Download from https://github.com/epicchainlabs/epicchain/releases");
                 return;
             }
 
@@ -689,7 +676,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.GasConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.FeeConsumed, NativeContract.GAS.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());
