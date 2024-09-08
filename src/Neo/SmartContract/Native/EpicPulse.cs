@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// GasToken.cs file belongs to the neo project and is free
+// EpicPulse.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -17,12 +17,12 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// Represents the GAS token in the NEO system.
     /// </summary>
-    public sealed class GasToken : FungibleToken<AccountState>
+    public sealed class EpicPulse : FungibleToken<AccountState>
     {
         public override string Symbol => "XPP";
         public override byte Decimals => 8;
 
-        internal GasToken()
+        internal EpicPulse()
         {
         }
 

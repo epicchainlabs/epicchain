@@ -84,9 +84,9 @@ namespace Neo.SmartContract.Native
         public static EpicChain NEO { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="GasToken"/> class.
+        /// Gets the instance of the <see cref="EpicPulse"/> class.
         /// </summary>
-        public static GasToken GAS { get; } = new();
+        public static EpicPulse GAS { get; } = new();
 
         /// <summary>
         /// Gets the instance of the <see cref="PolicyContract"/> class.

@@ -104,7 +104,7 @@ namespace Neo.Network.RPC.Tests
                 new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_00000000) });
 
             var tests = TestUtils.RpcTestCases.Where(p => p.Name == "getcontractstateasync");
-            var haveGasTokenUT = false;
+            var haveEpicPulseUT = false;
             var haveEpicChainUT = false;
             foreach (var test in tests)
             {
@@ -117,14 +117,14 @@ namespace Neo.Network.RPC.Tests
                     Assert.AreEqual(NativeContract.GAS.Symbol, result.Symbol);
                     Assert.AreEqual(8, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
-                    Assert.AreEqual("GasToken", result.Name);
+                    Assert.AreEqual("EpicPulse", result.Name);
 
                     result = await nep17API.GetTokenInfoAsync(NativeContract.GAS.Hash);
                     Assert.AreEqual(NativeContract.GAS.Symbol, result.Symbol);
                     Assert.AreEqual(8, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
-                    Assert.AreEqual("GasToken", result.Name);
-                    haveGasTokenUT = true;
+                    Assert.AreEqual("EpicPulse", result.Name);
+                    haveEpicPulseUT = true;
                 }
                 else if (test.Request.Params[0].AsString() == NativeContract.NEO.Hash.ToString() || test.Request.Params[0].AsString().Equals(NativeContract.NEO.Name, System.StringComparison.OrdinalIgnoreCase))
                 {
@@ -142,7 +142,7 @@ namespace Neo.Network.RPC.Tests
                     haveEpicChainUT = true;
                 }
             }
-            Assert.IsTrue(haveGasTokenUT && haveEpicChainUT); //Update RpcTestCases.json
+            Assert.IsTrue(haveEpicPulseUT && haveEpicChainUT); //Update RpcTestCases.json
         }
 
         [TestMethod]

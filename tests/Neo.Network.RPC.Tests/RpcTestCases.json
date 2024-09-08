@@ -348,7 +348,7 @@
     "Request": {
       "jsonrpc": "2.0",
       "method": "getcontractstate",
-      "params": [ "gastoken" ],
+      "params": [ "epicpulse" ],
       "id": 1
     },
     "Response": {
@@ -367,7 +367,7 @@
           "checksum": 3155977747
         },
         "manifest": {
-          "name": "GasToken",
+          "name": "EpicPulse",
           "groups": [],
           "features": {},
           "supportedstandards": [
@@ -489,7 +489,7 @@
           "checksum": 3155977747
         },
         "manifest": {
-          "name": "GasToken",
+          "name": "EpicPulse",
           "groups": [],
           "features": {},
           "supportedstandards": [
@@ -1521,7 +1521,7 @@
             "checksum": 3155977747
           },
           "manifest": {
-            "name": "GasToken",
+            "name": "EpicPulse",
             "groups": [],
             "features": {},
             "supportedstandards": [
