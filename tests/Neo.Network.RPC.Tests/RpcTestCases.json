@@ -593,7 +593,7 @@
       "jsonrpc": "2.0",
       "id": 1,
       "method": "getcontractstate",
-      "params": [ "neotoken" ]
+      "params": [ "epicchain" ]
     },
     "Response": {
       "jsonrpc": "2.0",
@@ -611,7 +611,7 @@
           "checksum": 3921333105
         },
         "manifest": {
-          "name": "NeoToken",
+          "name": "EpicChain",
           "groups": [],
           "features": {},
           "supportedstandards": [
@@ -829,7 +829,7 @@
           "checksum": 3921333105
         },
         "manifest": {
-          "name": "NeoToken",
+          "name": "EpicChain",
           "groups": [],
           "features": {},
           "supportedstandards": [
@@ -1316,7 +1316,7 @@
             "checksum": 3921333105
           },
           "manifest": {
-            "name": "NeoToken",
+            "name": "EpicChain",
             "groups": [],
             "features": {},
             "supportedstandards": [

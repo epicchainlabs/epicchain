@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// NeoToken.cs file belongs to the neo project and is free
+// EpicChain.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -28,7 +28,7 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// Represents the NEO token in the NEO system.
     /// </summary>
-    public sealed class NeoToken : FungibleToken<NeoToken.NeoAccountState>
+    public sealed class EpicChain : FungibleToken<EpicChain.NeoAccountState>
     {
         public override string Symbol => "XPR";
         public override byte Decimals => 0;
@@ -66,7 +66,7 @@ namespace Neo.SmartContract.Native
         [ContractEvent(Hardfork.HF_Cockatrice, 3, name: "CommitteeChanged",
            "old", ContractParameterType.Array,
            "new", ContractParameterType.Array)]
-        internal NeoToken() : base()
+        internal EpicChain() : base()
         {
             TotalAmount = 1000000000 * Factor;
         }
@@ -555,7 +555,7 @@ namespace Neo.SmartContract.Native
         }
 
         /// <summary>
-        /// Represents the account state of <see cref="NeoToken"/>.
+        /// Represents the account state of <see cref="EpicChain"/>.
         /// </summary>
         public class NeoAccountState : AccountState
         {

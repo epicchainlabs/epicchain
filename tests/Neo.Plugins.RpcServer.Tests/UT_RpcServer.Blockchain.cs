@@ -26,7 +26,7 @@ using Neo.UnitTests.Extensions;
 using System;
 using System.Linq;
 using System.Security.Policy;
-using static Neo.SmartContract.Native.NeoToken;
+using static Neo.SmartContract.Native.EpicChain;
 
 namespace Neo.Plugins.RpcServer.Tests
 {

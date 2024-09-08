@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// UT_NeoToken.cs file belongs to the neo project and is free
+// UT_EpicChain.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -24,12 +24,12 @@ using Neo.Wallets;
 using System;
 using System.Linq;
 using System.Numerics;
-using static Neo.SmartContract.Native.NeoToken;
+using static Neo.SmartContract.Native.EpicChain;
 
 namespace Neo.UnitTests.SmartContract.Native
 {
     [TestClass]
-    public class UT_NeoToken
+    public class UT_EpicChain
     {
         private DataCache _snapshotCache;
         private Block _persistingBlock;
@@ -46,7 +46,7 @@ namespace Neo.UnitTests.SmartContract.Native
         }
 
         [TestMethod]
-        public void Check_Name() => NativeContract.NEO.Name.Should().Be(nameof(NeoToken));
+        public void Check_Name() => NativeContract.NEO.Name.Should().Be(nameof(EpicChain));
 
         [TestMethod]
         public void Check_Symbol() => NativeContract.NEO.Symbol(_snapshotCache).Should().Be("NEO");

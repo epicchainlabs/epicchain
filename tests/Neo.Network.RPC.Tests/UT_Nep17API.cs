@@ -105,7 +105,7 @@ namespace Neo.Network.RPC.Tests
 
             var tests = TestUtils.RpcTestCases.Where(p => p.Name == "getcontractstateasync");
             var haveGasTokenUT = false;
-            var haveNeoTokenUT = false;
+            var haveEpicChainUT = false;
             foreach (var test in tests)
             {
                 rpcClientMock.Setup(p => p.RpcSendAsync("getcontractstate", It.Is<JToken[]>(u => true)))
@@ -132,17 +132,17 @@ namespace Neo.Network.RPC.Tests
                     Assert.AreEqual(NativeContract.NEO.Symbol, result.Symbol);
                     Assert.AreEqual(0, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
-                    Assert.AreEqual("NeoToken", result.Name);
+                    Assert.AreEqual("EpicChain", result.Name);
 
                     result = await nep17API.GetTokenInfoAsync(NativeContract.NEO.Hash);
                     Assert.AreEqual(NativeContract.NEO.Symbol, result.Symbol);
                     Assert.AreEqual(0, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
-                    Assert.AreEqual("NeoToken", result.Name);
-                    haveNeoTokenUT = true;
+                    Assert.AreEqual("EpicChain", result.Name);
+                    haveEpicChainUT = true;
                 }
             }
-            Assert.IsTrue(haveGasTokenUT && haveNeoTokenUT); //Update RpcTestCases.json
+            Assert.IsTrue(haveGasTokenUT && haveEpicChainUT); //Update RpcTestCases.json
         }
 
         [TestMethod]

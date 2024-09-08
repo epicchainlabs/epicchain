@@ -79,9 +79,9 @@ namespace Neo.SmartContract.Native
         public static LedgerContract Ledger { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="NeoToken"/> class.
+        /// Gets the instance of the <see cref="EpicChain"/> class.
         /// </summary>
-        public static NeoToken NEO { get; } = new();
+        public static EpicChain NEO { get; } = new();
 
         /// <summary>
         /// Gets the instance of the <see cref="GasToken"/> class.

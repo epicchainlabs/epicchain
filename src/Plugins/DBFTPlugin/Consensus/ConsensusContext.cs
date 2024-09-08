@@ -203,7 +203,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                         PrevHash = NativeContract.Ledger.CurrentHash(Snapshot),
                         Index = height + 1,
                         NextConsensus = Contract.GetBFTAddress(
-                            NeoToken.ShouldRefreshCommittee(height + 1, neoSystem.Settings.CommitteeMembersCount) ?
+                            EpicChain.ShouldRefreshCommittee(height + 1, neoSystem.Settings.CommitteeMembersCount) ?
                             NativeContract.NEO.ComputeNextBlockValidators(Snapshot, neoSystem.Settings) :
                             NativeContract.NEO.GetNextBlockValidators(Snapshot, neoSystem.Settings.ValidatorsCount))
                     }

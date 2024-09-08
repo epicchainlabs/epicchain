@@ -48,8 +48,8 @@ namespace Neo.UnitTests.Wallets
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             var descriptor = new Neo.Wallets.AssetDescriptor(snapshotCache, TestProtocolSettings.Default, NativeContract.NEO.Hash);
             descriptor.AssetId.Should().Be(NativeContract.NEO.Hash);
-            descriptor.AssetName.Should().Be(nameof(NeoToken));
-            descriptor.ToString().Should().Be(nameof(NeoToken));
+            descriptor.AssetName.Should().Be(nameof(EpicChain));
+            descriptor.ToString().Should().Be(nameof(EpicChain));
             descriptor.Symbol.Should().Be("NEO");
             descriptor.Decimals.Should().Be(0);
         }

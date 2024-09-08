@@ -61,7 +61,7 @@ namespace Neo.UnitTests.SmartContract.Native
             var keyCount = snapshot.GetChangeSet().Count();
             // Check unclaim
 
-            var unclaim = UT_NeoToken.Check_UnclaimedGas(snapshot, from, persistingBlock);
+            var unclaim = UT_EpicChain.Check_UnclaimedGas(snapshot, from, persistingBlock);
             unclaim.Value.Should().Be(new BigInteger(0.5 * 1000 * 100000000L));
             unclaim.State.Should().BeTrue();
 
@@ -78,7 +78,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Check unclaim
 
-            unclaim = UT_NeoToken.Check_UnclaimedGas(snapshot, from, persistingBlock);
+            unclaim = UT_EpicChain.Check_UnclaimedGas(snapshot, from, persistingBlock);
             unclaim.Value.Should().Be(new BigInteger(0));
             unclaim.State.Should().BeTrue();
 

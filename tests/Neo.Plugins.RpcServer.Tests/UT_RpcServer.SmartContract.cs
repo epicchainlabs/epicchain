@@ -49,7 +49,7 @@ public partial class UT_RpcServer
     {
         ["account"] = ValidatorScriptHash.ToString(),
         ["scopes"] = nameof(WitnessScope.CalledByEntry),
-        ["allowedcontracts"] = new JArray([NeoToken.NEO.Hash.ToString(), GasToken.GAS.Hash.ToString()]),
+        ["allowedcontracts"] = new JArray([EpicChain.NEO.Hash.ToString(), GasToken.GAS.Hash.ToString()]),
         ["allowedgroups"] = new JArray([TestProtocolSettings.SoleNode.StandbyCommittee[0].ToString()]),
         ["rules"] = new JArray([new JObject() { ["action"] = nameof(WitnessRuleAction.Allow), ["condition"] = new JObject { ["type"] = nameof(WitnessConditionType.CalledByEntry) } }]),
     }];
@@ -64,12 +64,12 @@ public partial class UT_RpcServer
     {
         _rpcServer.wallet = _wallet;
 
-        JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "totalSupply", new JArray([]), validatorSigner, true));
+        JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "totalSupply", new JArray([]), validatorSigner, true));
         Assert.AreEqual(resp.Count, 8);
         Assert.AreEqual(resp["script"], NeoTotalSupplyScript);
         Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
-        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], NeoToken.NEO.Hash.ToString());
+        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.IsTrue(((JArray)resp["diagnostics"]["storagechanges"]).Count == 0);
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));
         Assert.AreEqual(resp["exception"], null);
@@ -78,7 +78,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp["stack"][0]["value"], "100000000");
         Assert.IsTrue(resp.ContainsProperty("tx"));
 
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "symbol"));
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "symbol"));
         Assert.AreEqual(resp.Count, 6);
         Assert.IsTrue(resp.ContainsProperty("script"));
         Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
@@ -89,7 +89,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp["stack"][0]["value"], Convert.ToBase64String(Encoding.UTF8.GetBytes("NEO")));
 
         // This call triggers not only NEO but also unclaimed GAS
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "transfer", new JArray([
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "transfer", new JArray([
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = MultisigScriptHash.ToString() },
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = ValidatorScriptHash.ToString() },
             new JObject() { ["type"] = nameof(ContractParameterType.Integer), ["value"] = "1" },
@@ -99,7 +99,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp["script"], NeoTransferScript);
         Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
-        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], NeoToken.NEO.Hash.ToString());
+        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.IsTrue(((JArray)resp["diagnostics"]["storagechanges"]).Count == 4);
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));
         Assert.AreEqual(resp["exception"], $"The smart contract or address {MultisigScriptHash} ({MultisigAddress}) is not found. " +
@@ -107,7 +107,7 @@ public partial class UT_RpcServer
         JArray notifications = (JArray)resp["notifications"];
         Assert.AreEqual(notifications.Count, 2);
         Assert.AreEqual(notifications[0]["eventname"].AsString(), "Transfer");
-        Assert.AreEqual(notifications[0]["contract"].AsString(), NeoToken.NEO.Hash.ToString());
+        Assert.AreEqual(notifications[0]["contract"].AsString(), EpicChain.NEO.Hash.ToString());
         Assert.AreEqual(notifications[0]["state"]["value"][2]["value"], "1");
         Assert.AreEqual(notifications[1]["eventname"].AsString(), "Transfer");
         Assert.AreEqual(notifications[1]["contract"].AsString(), GasToken.GAS.Hash.ToString());
@@ -123,7 +123,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp.Count, 7);
         Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
-        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], NeoToken.NEO.Hash.ToString());
+        Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));
         Assert.AreEqual(resp["exception"], null);
         Assert.AreEqual(((JArray)resp["notifications"]).Count, 0);
@@ -140,7 +140,7 @@ public partial class UT_RpcServer
     public void TestTraverseIterator()
     {
         // GetAllCandidates that should return 0 candidates
-        JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
+        JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
         string sessionId = resp["session"].AsString();
         string iteratorId = resp["stack"][0]["id"].AsString();
         JArray respArray = (JArray)_rpcServer.TraverseIterator([sessionId, iteratorId, 100]);
@@ -149,7 +149,7 @@ public partial class UT_RpcServer
         Assert.ThrowsException<RpcException>(() => (JArray)_rpcServer.TraverseIterator([sessionId, iteratorId, 100]), "Unknown session");
 
         // register candidate in snapshot
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "registerCandidate",
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "registerCandidate",
             new JArray([new JObject()
             {
                 ["type"] = nameof(ContractParameterType.PublicKey),
@@ -170,7 +170,7 @@ public partial class UT_RpcServer
         engine.SnapshotCache.Commit();
 
         // GetAllCandidates that should return 1 candidate
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
         sessionId = resp["session"].AsString();
         iteratorId = resp["stack"][0]["id"].AsString();
         respArray = (JArray)_rpcServer.TraverseIterator([sessionId, iteratorId, 100]);
@@ -188,7 +188,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(respArray.Count, 0);
 
         // GetAllCandidates again
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
         sessionId = resp["session"].AsString();
         iteratorId = resp["stack"][0]["id"].AsString();
 
@@ -203,7 +203,7 @@ public partial class UT_RpcServer
         // Mocking session timeout
         Thread.Sleep((int)_rpcServerSettings.SessionExpirationTime.TotalMilliseconds + 1);
         // build another session that did not expire
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
         string notExpiredSessionId = resp["session"].AsString();
         string notExpiredIteratorId = resp["stack"][0]["id"].AsString();
         _rpcServer.OnTimer(new object());
@@ -214,7 +214,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(respArray.Count, 1);
 
         // Mocking disposal
-        resp = (JObject)_rpcServer.InvokeFunction(new JArray(NeoToken.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
+        resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "getAllCandidates", new JArray([]), validatorSigner, true));
         sessionId = resp["session"].AsString();
         iteratorId = resp["stack"][0]["id"].AsString();
         _rpcServer.Dispose_SmartContract();
