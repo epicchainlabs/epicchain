@@ -63,7 +63,7 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
             public EpicChainSystem _EpicChainSystem;
             public TestMemoryStoreProvider _memoryStoreProvider;
             public MemoryStore _memoryStore;
-            public readonly NEP6Wallet _wallet = TestUtils.GenerateTestWallet("123");
+            public readonly XEP6Wallet _wallet = TestUtils.GenerateTestWallet("123");
             public WalletAccount _walletAccount;
             public Transaction[] txs;
             public Block block;

@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// NEP6Wallet.cs file belongs to the neo project and is free
+// XEP6Wallet.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -28,7 +28,7 @@ namespace Neo.Wallets.NEP6
     /// An implementation of the NEP-6 wallet standard.
     /// </summary>
     /// <remarks>https://github.com/neo-project/proposals/blob/master/nep-6.mediawiki</remarks>
-    public class NEP6Wallet : Wallet
+    public class XEP6Wallet : Wallet
     {
         private SecureString password;
         private string name;
@@ -55,7 +55,7 @@ namespace Neo.Wallets.NEP6
         /// <param name="password">The password of the wallet.</param>
         /// <param name="settings">The <see cref="ProtocolSettings"/> to be used by the wallet.</param>
         /// <param name="name">The name of the wallet. If the wallet is loaded from an existing file, this parameter is ignored.</param>
-        public NEP6Wallet(string path, string password, ProtocolSettings settings, string name = null) : base(path, settings)
+        public XEP6Wallet(string path, string password, ProtocolSettings settings, string name = null) : base(path, settings)
         {
             this.password = password.ToSecureString();
             if (File.Exists(path))
@@ -80,7 +80,7 @@ namespace Neo.Wallets.NEP6
         /// <param name="password">The password of the wallet.</param>
         /// <param name="settings">The <see cref="ProtocolSettings"/> to be used by the wallet.</param>
         /// <param name="json">The JSON object representing the wallet.</param>
-        public NEP6Wallet(string path, string password, ProtocolSettings settings, JObject json) : base(path, settings)
+        public XEP6Wallet(string path, string password, ProtocolSettings settings, JObject json) : base(path, settings)
         {
             this.password = password.ToSecureString();
             LoadFromJson(json, out Scrypt, out accounts, out extra);

@@ -100,7 +100,7 @@ namespace Neo.CLI
                 ConsoleHelper.Warning($"File '{pathNew}' already exists");
                 return;
             }
-            NEP6Wallet.Migrate(pathNew, path, password, EpicChainSystem.Settings).Save();
+            XEP6Wallet.Migrate(pathNew, path, password, EpicChainSystem.Settings).Save();
             Console.WriteLine($"Wallet file upgrade complete. New wallet file has been auto-saved at: {pathNew}");
         }
 
@@ -135,7 +135,7 @@ namespace Neo.CLI
                 });
             }
 
-            if (CurrentWallet is NEP6Wallet wallet)
+            if (CurrentWallet is XEP6Wallet wallet)
                 wallet.Save();
 
             Console.WriteLine($"Export addresses to {path}");
@@ -155,7 +155,7 @@ namespace Neo.CLI
             {
                 if (CurrentWallet!.DeleteAccount(address))
                 {
-                    if (CurrentWallet is NEP6Wallet wallet)
+                    if (CurrentWallet is XEP6Wallet wallet)
                     {
                         wallet.Save();
                     }
@@ -257,7 +257,7 @@ namespace Neo.CLI
             KeyPair? keyPair = CurrentWallet!.GetAccounts().FirstOrDefault(p => p.HasKey && publicKeys.Contains(p.GetKey().PublicKey))?.GetKey();
 
             CurrentWallet.CreateAccount(multiSignContract, keyPair);
-            if (CurrentWallet is NEP6Wallet wallet)
+            if (CurrentWallet is XEP6Wallet wallet)
                 wallet.Save();
 
             ConsoleHelper.Info("Multisig. Addr.: ", multiSignContract.ScriptHash.ToAddress(EpicChainSystem.Settings.AddressVersion));
@@ -316,7 +316,7 @@ namespace Neo.CLI
                 ConsoleHelper.Info("Address: ", account.Address);
                 ConsoleHelper.Info(" Pubkey: ", account.GetKey().PublicKey.EncodePoint(true).ToHexString());
             }
-            if (CurrentWallet is NEP6Wallet wallet)
+            if (CurrentWallet is XEP6Wallet wallet)
                 wallet.Save();
         }
 
@@ -375,7 +375,7 @@ namespace Neo.CLI
                     ConsoleHelper.Info("Address: ", account.Address);
                 }
             }
-            if (CurrentWallet is NEP6Wallet wallet)
+            if (CurrentWallet is XEP6Wallet wallet)
                 wallet.Save();
         }
 
@@ -699,7 +699,7 @@ namespace Neo.CLI
                 return;
             }
 
-            if (CurrentWallet is NEP6Wallet wallet)
+            if (CurrentWallet is XEP6Wallet wallet)
             {
                 string backupFile = wallet.Path + ".bak";
                 if (!File.Exists(wallet.Path) || File.Exists(backupFile))
@@ -721,8 +721,8 @@ namespace Neo.CLI
             bool succeed = CurrentWallet.ChangePassword(oldPassword, newPassword);
             if (succeed)
             {
-                if (CurrentWallet is NEP6Wallet nep6Wallet)
-                    nep6Wallet.Save();
+                if (CurrentWallet is XEP6Wallet XEP6Wallet)
+                    XEP6Wallet.Save();
                 Console.WriteLine("Password changed successfully");
             }
             else

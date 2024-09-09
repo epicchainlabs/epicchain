@@ -96,7 +96,7 @@ namespace Neo.Plugins.RpcServer
         {
             CheckWallet();
             WalletAccount account = wallet.CreateAccount();
-            if (wallet is NEP6Wallet nep6)
+            if (wallet is XEP6Wallet nep6)
                 nep6.Save();
             return account.Address;
         }
@@ -150,8 +150,8 @@ namespace Neo.Plugins.RpcServer
             CheckWallet();
             string privkey = _params[0].AsString();
             WalletAccount account = wallet.Import(privkey);
-            if (wallet is NEP6Wallet nep6wallet)
-                nep6wallet.Save();
+            if (wallet is XEP6Wallet XEP6Wallet)
+                XEP6Wallet.Save();
             return new JObject
             {
                 ["address"] = account.Address,

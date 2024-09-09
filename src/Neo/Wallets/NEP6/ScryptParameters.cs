@@ -19,7 +19,7 @@ namespace Neo.Wallets.NEP6
     public class ScryptParameters
     {
         /// <summary>
-        /// The default parameters used by <see cref="NEP6Wallet"/>.
+        /// The default parameters used by <see cref="XEP6Wallet"/>.
         /// </summary>
         public static ScryptParameters Default { get; } = new ScryptParameters(16384, 8, 8);
 

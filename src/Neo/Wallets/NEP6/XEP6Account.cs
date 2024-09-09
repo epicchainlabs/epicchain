@@ -17,7 +17,7 @@ namespace Neo.Wallets.NEP6
 {
     sealed class XEP6Account : WalletAccount
     {
-        private readonly NEP6Wallet wallet;
+        private readonly XEP6Wallet wallet;
         private string nep2key;
         private string nep2KeyNew = null;
         private KeyPair key;
@@ -26,20 +26,20 @@ namespace Neo.Wallets.NEP6
         public bool Decrypted => nep2key == null || key != null;
         public override bool HasKey => nep2key != null;
 
-        public XEP6Account(NEP6Wallet wallet, UInt160 scriptHash, string nep2key = null)
+        public XEP6Account(XEP6Wallet wallet, UInt160 scriptHash, string nep2key = null)
             : base(scriptHash, wallet.ProtocolSettings)
         {
             this.wallet = wallet;
             this.nep2key = nep2key;
         }
 
-        public XEP6Account(NEP6Wallet wallet, UInt160 scriptHash, KeyPair key, string password)
+        public XEP6Account(XEP6Wallet wallet, UInt160 scriptHash, KeyPair key, string password)
             : this(wallet, scriptHash, key.Export(password, wallet.ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P))
         {
             this.key = key;
         }
 
-        public static XEP6Account FromJson(JObject json, NEP6Wallet wallet)
+        public static XEP6Account FromJson(JObject json, XEP6Wallet wallet)
         {
             return new XEP6Account(wallet, json["address"].GetString().ToScriptHash(wallet.ProtocolSettings.AddressVersion), json["key"]?.GetString())
             {

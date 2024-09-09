@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// NEP6WalletFactory.cs file belongs to the neo project and is free
+// XEP6WalletFactory.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -14,9 +14,9 @@ using System.IO;
 
 namespace Neo.Wallets.NEP6
 {
-    class NEP6WalletFactory : IWalletFactory
+    class XEP6WalletFactory : IWalletFactory
     {
-        public static readonly NEP6WalletFactory Instance = new();
+        public static readonly XEP6WalletFactory Instance = new();
 
         public bool Handle(string path)
         {
@@ -27,14 +27,14 @@ namespace Neo.Wallets.NEP6
         {
             if (File.Exists(path))
                 throw new InvalidOperationException("The wallet file already exists.");
-            NEP6Wallet wallet = new NEP6Wallet(path, password, settings, name);
+            XEP6Wallet wallet = new XEP6Wallet(path, password, settings, name);
             wallet.Save();
             return wallet;
         }
 
         public Wallet OpenWallet(string path, string password, ProtocolSettings settings)
         {
-            return new NEP6Wallet(path, password, settings);
+            return new XEP6Wallet(path, password, settings);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Neo.UnitTests.Wallets.NEP6
     {
         XEP6Account _account;
         UInt160 _hash;
-        NEP6Wallet _wallet;
+        XEP6Wallet _wallet;
         private static string _nep2;
         private static KeyPair _keyPair;
 

@@ -71,7 +71,7 @@ namespace Neo.UnitTests
             return array;
         }
 
-        public static NEP6Wallet GenerateTestWallet(string password)
+        public static XEP6Wallet GenerateTestWallet(string password)
         {
             JObject wallet = new JObject();
             wallet["name"] = "noname";
@@ -80,7 +80,7 @@ namespace Neo.UnitTests
             wallet["accounts"] = new JArray();
             wallet["extra"] = null;
             wallet.ToString().Should().Be("{\"name\":\"noname\",\"version\":\"1.0\",\"scrypt\":{\"n\":2,\"r\":1,\"p\":1},\"accounts\":[],\"extra\":null}");
-            return new NEP6Wallet(null, password, TestProtocolSettings.Default, wallet);
+            return new XEP6Wallet(null, password, TestProtocolSettings.Default, wallet);
         }
 
         internal static StorageItem GetStorageItem(byte[] value)
@@ -109,7 +109,7 @@ namespace Neo.UnitTests
             }, new StorageItem(value));
         }
 
-        public static void FillMemoryPool(DataCache snapshot, EpicChainSystem system, NEP6Wallet wallet, WalletAccount account)
+        public static void FillMemoryPool(DataCache snapshot, EpicChainSystem system, XEP6Wallet wallet, WalletAccount account)
         {
             for (int i = 0; i < system.Settings.MemoryPoolMaxTransactions; i++)
             {

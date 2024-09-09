@@ -43,7 +43,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         private static Witness PrepareDummyWitness(int pubKeys, int m)
         {
             var address = new WalletAccount[pubKeys];
-            var wallets = new NEP6Wallet[pubKeys];
+            var wallets = new XEP6Wallet[pubKeys];
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             for (int x = 0; x < pubKeys; x++)

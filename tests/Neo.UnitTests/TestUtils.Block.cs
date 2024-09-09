@@ -83,7 +83,7 @@ public partial class TestUtils
         header.MerkleRoot = merkRootVal = MerkleTree.ComputeRoot(block.Transactions.Select(p => p.Hash).ToArray());
     }
 
-    public static Block CreateBlockWithValidTransactions(DataCache snapshot, NEP6Wallet wallet, WalletAccount account, int numberOfTransactions)
+    public static Block CreateBlockWithValidTransactions(DataCache snapshot, XEP6Wallet wallet, WalletAccount account, int numberOfTransactions)
     {
         var transactions = new List<Transaction>();
         for (var i = 0; i < numberOfTransactions; i++)

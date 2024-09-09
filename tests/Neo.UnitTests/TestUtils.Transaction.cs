@@ -29,12 +29,12 @@ namespace Neo.UnitTests;
 
 public partial class TestUtils
 {
-    public static Transaction CreateValidTx(DataCache snapshot, NEP6Wallet wallet, WalletAccount account)
+    public static Transaction CreateValidTx(DataCache snapshot, XEP6Wallet wallet, WalletAccount account)
     {
         return CreateValidTx(snapshot, wallet, account.ScriptHash, (uint)new Random().Next());
     }
 
-    public static Transaction CreateValidTx(DataCache snapshot, NEP6Wallet wallet, UInt160 account, uint nonce)
+    public static Transaction CreateValidTx(DataCache snapshot, XEP6Wallet wallet, UInt160 account, uint nonce)
     {
         var tx = wallet.MakeTransaction(snapshot, [
                 new TransferOutput
@@ -58,7 +58,7 @@ public partial class TestUtils
         return tx;
     }
 
-    public static Transaction CreateValidTx(DataCache snapshot, NEP6Wallet wallet, UInt160 account, uint nonce, UInt256[] conflicts)
+    public static Transaction CreateValidTx(DataCache snapshot, XEP6Wallet wallet, UInt160 account, uint nonce, UInt256[] conflicts)
     {
         var tx = wallet.MakeTransaction(snapshot, [
                 new TransferOutput
@@ -129,7 +129,7 @@ public partial class TestUtils
         };
     }
 
-    public static Transaction CreateInvalidTransaction(DataCache snapshot, NEP6Wallet wallet, WalletAccount account, InvalidTransactionType type, UInt256 conflict = null)
+    public static Transaction CreateInvalidTransaction(DataCache snapshot, XEP6Wallet wallet, WalletAccount account, InvalidTransactionType type, UInt256 conflict = null)
     {
         var rand = new Random();
         var sender = account.ScriptHash;

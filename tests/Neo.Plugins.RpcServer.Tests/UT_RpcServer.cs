@@ -35,7 +35,7 @@ namespace Neo.Plugins.RpcServer.Tests
         private RpcServer _rpcServer;
         private TestMemoryStoreProvider _memoryStoreProvider;
         private MemoryStore _memoryStore;
-        private readonly NEP6Wallet _wallet = TestUtils.GenerateTestWallet("123");
+        private readonly XEP6Wallet _wallet = TestUtils.GenerateTestWallet("123");
         private WalletAccount _walletAccount;
 
         const byte NativePrefixAccount = 20;

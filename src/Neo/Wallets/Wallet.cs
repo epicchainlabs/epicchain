@@ -38,7 +38,7 @@ namespace Neo.Wallets
     /// </summary>
     public abstract class Wallet
     {
-        private static readonly List<IWalletFactory> factories = new() { NEP6WalletFactory.Instance };
+        private static readonly List<IWalletFactory> factories = new() { XEP6WalletFactory.Instance };
 
         /// <summary>
         /// The <see cref="Neo.ProtocolSettings"/> to be used by the wallet.
@@ -677,7 +677,7 @@ namespace Neo.Wallets
         }
 
         /// <summary>
-        /// Migrates the accounts from old wallet to a new <see cref="NEP6Wallet"/>.
+        /// Migrates the accounts from old wallet to a new <see cref="XEP6Wallet"/>.
         /// </summary>
         /// <param name="password">The password of the wallets.</param>
         /// <param name="path">The path of the new wallet file.</param>
