@@ -108,7 +108,7 @@ namespace Neo.CLI
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
             {
-                return ResolveNeoNameServiceAddress(input);
+                return ResolveEpicChainNameServiceAddress(input);
             }
 
             // Try to parse as UInt160
@@ -697,13 +697,13 @@ namespace Neo.CLI
             return exception.Message;
         }
 
-        public UInt160 ResolveNeoNameServiceAddress(string domain)
+        public UInt160 ResolveEpicChainNameServiceAddress(string domain)
         {
-            if (Settings.Default.Contracts.NeoNameService == UInt160.Zero)
+            if (Settings.Default.Contracts.EpicChainNameService == UInt160.Zero)
                 throw new Exception("EpicChain Name Service (XNS): is disabled on this network.");
 
             using var sb = new ScriptBuilder();
-            sb.EmitDynamicCall(Settings.Default.Contracts.NeoNameService, "resolve", CallFlags.ReadOnly, domain, 16);
+            sb.EmitDynamicCall(Settings.Default.Contracts.EpicChainNameService, "resolve", CallFlags.ReadOnly, domain, 16);
 
             using var appEng = ApplicationEngine.Run(sb.ToArray(), NeoSystem.StoreView, settings: NeoSystem.Settings);
             if (appEng.State == VMState.HALT)

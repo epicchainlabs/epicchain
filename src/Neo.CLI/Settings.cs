@@ -146,18 +146,18 @@ namespace Neo
 
     public class ContractsSettings
     {
-        public UInt160 NeoNameService { get; init; } = UInt160.Zero;
+        public UInt160 EpicChainNameService { get; init; } = UInt160.Zero;
 
         public ContractsSettings(IConfigurationSection section)
         {
             if (section.Exists())
             {
-                if (UInt160.TryParse(section.GetValue(nameof(NeoNameService), string.Empty), out var hash))
+                if (UInt160.TryParse(section.GetValue(nameof(EpicChainNameService), string.Empty), out var hash))
                 {
-                    NeoNameService = hash;
+                    EpicChainNameService = hash;
                 }
                 else
-                    throw new ArgumentException("Neo Name Service (NNS): NeoNameService hash is invalid. Check your config.json.", nameof(NeoNameService));
+                    throw new ArgumentException("Neo Name Service (NNS): EpicChainNameService hash is invalid. Check your config.json.", nameof(EpicChainNameService));
             }
         }
 

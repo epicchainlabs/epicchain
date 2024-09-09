@@ -28,7 +28,7 @@ This README provides an explanation for each field in the JSON configuration fil
 - **IsActive**: Boolean flag to activate or deactivate the wallet. Default is `false`.
 
 ### Contracts
-- **NeoNameService**: Script hash of the Neo Name Service contract. MainNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`, TestNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`.
+- **EpicChainNameService**: Script hash of the Neo Name Service contract. MainNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`, TestNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`.
 
 ### Plugins
 - **DownloadUrl**: URL to download plugins, typically from the Neo project's GitHub releases. Default is `https://api.github.com/repos/neo-project/neo/releases`.
