@@ -187,8 +187,8 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
             _EpicChainSystemFixture.logReader.OnGetContractCommand(EpicChain.NEO.Hash);
             _EpicChainSystemFixture.logReader.OnGetTransactionCommand(_EpicChainSystemFixture.txs[0].Hash);
 
-            BlockchainExecutionModel blockLog = _EpicChainSystemFixture.logReader._neostore.GetBlockLog(block.Hash, TriggerType.Application);
-            BlockchainExecutionModel transactionLog = _EpicChainSystemFixture.logReader._neostore.GetTransactionLog(_EpicChainSystemFixture.txs[0].Hash);
+            BlockchainExecutionModel blockLog = _EpicChainSystemFixture.logReader._epicchainstore.GetBlockLog(block.Hash, TriggerType.Application);
+            BlockchainExecutionModel transactionLog = _EpicChainSystemFixture.logReader._epicchainstore.GetTransactionLog(_EpicChainSystemFixture.txs[0].Hash);
             foreach (BlockchainExecutionModel log in new BlockchainExecutionModel[] { blockLog, transactionLog })
             {
                 Assert.Equal(log.VmState, VMState.HALT);
@@ -202,7 +202,7 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
                 Assert.Equal(log.Notifications[1].State[2], 50000000);
             }
 
-            List<(BlockchainEventModel eventLog, UInt256 txHash)> neoLogs = _EpicChainSystemFixture.logReader._neostore.GetContractLog(EpicChain.NEO.Hash, TriggerType.Application).ToList();
+            List<(BlockchainEventModel eventLog, UInt256 txHash)> neoLogs = _EpicChainSystemFixture.logReader._epicchainstore.GetContractLog(EpicChain.NEO.Hash, TriggerType.Application).ToList();
             Assert.Equal(neoLogs.Count, 1);
             Assert.Equal(neoLogs[0].txHash, _EpicChainSystemFixture.txs[0].Hash);
             Assert.Equal(neoLogs[0].eventLog.EventName, "Transfer");

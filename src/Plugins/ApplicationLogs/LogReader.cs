@@ -30,7 +30,7 @@ namespace Neo.Plugins.ApplicationLogs
     {
         #region Globals
 
-        internal NeoStore _neostore;
+        internal EpicChainStore _epicchainstore;
         private EpicChainSystem _EpicChainSystem;
         private readonly List<LogEventArgs> _logEvents;
 
@@ -75,7 +75,7 @@ namespace Neo.Plugins.ApplicationLogs
                 return;
             string path = string.Format(Settings.Default.Path, Settings.Default.Network.ToString("X8"));
             var store = system.LoadStore(GetFullPath(path));
-            _neostore = new NeoStore(store);
+            _epicchainstore = new EpicChainStore(store);
             _EpicChainSystem = system;
             RpcServerPlugin.RegisterMethods(this, Settings.Default.Network);
 
@@ -137,11 +137,11 @@ namespace Neo.Plugins.ApplicationLogs
             }
 
             var blockOnPersist = string.IsNullOrEmpty(eventName) ?
-                _neostore.GetBlockLog(blockhash, TriggerType.OnPersist) :
-                _neostore.GetBlockLog(blockhash, TriggerType.OnPersist, eventName);
+                _epicchainstore.GetBlockLog(blockhash, TriggerType.OnPersist) :
+                _epicchainstore.GetBlockLog(blockhash, TriggerType.OnPersist, eventName);
             var blockPostPersist = string.IsNullOrEmpty(eventName) ?
-                _neostore.GetBlockLog(blockhash, TriggerType.PostPersist) :
-                _neostore.GetBlockLog(blockhash, TriggerType.PostPersist, eventName);
+                _epicchainstore.GetBlockLog(blockhash, TriggerType.PostPersist) :
+                _epicchainstore.GetBlockLog(blockhash, TriggerType.PostPersist, eventName);
 
             if (blockOnPersist == null)
                 ConsoleHelper.Error($"No logs.");
@@ -157,8 +157,8 @@ namespace Neo.Plugins.ApplicationLogs
         internal void OnGetTransactionCommand(UInt256 txhash, string eventName = null)
         {
             var txApplication = string.IsNullOrEmpty(eventName) ?
-                _neostore.GetTransactionLog(txhash) :
-                _neostore.GetTransactionLog(txhash, eventName);
+                _epicchainstore.GetTransactionLog(txhash) :
+                _epicchainstore.GetTransactionLog(txhash, eventName);
 
             if (txApplication == null)
                 ConsoleHelper.Error($"No logs.");
@@ -182,8 +182,8 @@ namespace Neo.Plugins.ApplicationLogs
             }
 
             var txContract = string.IsNullOrEmpty(eventName) ?
-                _neostore.GetContractLog(scripthash, TriggerType.Application, page, pageSize) :
-                _neostore.GetContractLog(scripthash, TriggerType.Application, eventName, page, pageSize);
+                _epicchainstore.GetContractLog(scripthash, TriggerType.Application, page, pageSize) :
+                _epicchainstore.GetContractLog(scripthash, TriggerType.Application, eventName, page, pageSize);
 
             if (txContract.Count == 0)
                 ConsoleHelper.Error($"No logs.");
@@ -201,17 +201,17 @@ namespace Neo.Plugins.ApplicationLogs
             if (system.Settings.Network != Settings.Default.Network)
                 return;
 
-            if (_neostore is null)
+            if (_epicchainstore is null)
                 return;
-            _neostore.StartBlockLogBatch();
-            _neostore.PutBlockLog(block, applicationExecutedList);
+            _epicchainstore.StartBlockLogBatch();
+            _epicchainstore.PutBlockLog(block, applicationExecutedList);
             if (Settings.Default.Debug)
             {
                 foreach (var appEng in applicationExecutedList.Where(w => w.Transaction != null))
                 {
                     var logs = _logEvents.Where(w => w.ScriptContainer.Hash == appEng.Transaction.Hash).ToList();
                     if (logs.Any())
-                        _neostore.PutTransactionEngineLogState(appEng.Transaction.Hash, logs);
+                        _epicchainstore.PutTransactionEngineLogState(appEng.Transaction.Hash, logs);
                 }
                 _logEvents.Clear();
             }
@@ -221,9 +221,9 @@ namespace Neo.Plugins.ApplicationLogs
         {
             if (system.Settings.Network != Settings.Default.Network)
                 return;
-            if (_neostore is null)
+            if (_epicchainstore is null)
                 return;
-            _neostore.CommitBlockLog();
+            _epicchainstore.CommitBlockLog();
         }
 
         void ILogHandler.ApplicationEngine_Log_Handler(object sender, LogEventArgs e)
@@ -331,7 +331,7 @@ namespace Neo.Plugins.ApplicationLogs
 
         private JObject TransactionToJObject(UInt256 txHash)
         {
-            var appLog = _neostore.GetTransactionLog(txHash);
+            var appLog = _epicchainstore.GetTransactionLog(txHash);
             if (appLog == null)
                 return null;
 
@@ -392,8 +392,8 @@ namespace Neo.Plugins.ApplicationLogs
 
         private JObject BlockToJObject(UInt256 blockHash)
         {
-            var blockOnPersist = _neostore.GetBlockLog(blockHash, TriggerType.OnPersist);
-            var blockPostPersist = _neostore.GetBlockLog(blockHash, TriggerType.PostPersist);
+            var blockOnPersist = _epicchainstore.GetBlockLog(blockHash, TriggerType.OnPersist);
+            var blockPostPersist = _epicchainstore.GetBlockLog(blockHash, TriggerType.PostPersist);
 
             if (blockOnPersist == null && blockPostPersist == null)
                 return null;
