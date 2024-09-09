@@ -20,7 +20,7 @@ using Array = Neo.VM.Types.Array;
 namespace Neo.SmartContract.Native
 {
     /// <summary>
-    /// The base class of all native tokens that are compatible with NEP-17.
+    /// The base class of all native tokens that are compatible with XEP-17.
     /// </summary>
     /// <typeparam name="TState">The type of account state.</typeparam>
     public abstract class FungibleToken<TState> : NativeContract
@@ -67,7 +67,7 @@ namespace Neo.SmartContract.Native
 
         protected override void OnManifestCompose(ContractManifest manifest)
         {
-            manifest.SupportedStandards = new[] { "NEP-17" };
+            manifest.SupportedStandards = new[] { "XEP-17" };
         }
 
         internal async ContractTask Mint(ApplicationEngine engine, UInt160 account, BigInteger amount, bool callOnPayment)

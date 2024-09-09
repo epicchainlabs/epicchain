@@ -60,7 +60,7 @@ namespace Neo.Plugins.Trackers.NEP_17
                     if (notifyEventArgs.EventName != "Transfer" || notifyEventArgs?.State is not Array stateItems || stateItems.Count == 0)
                         continue;
                     var contract = NativeContract.ContractManagement.GetContract(snapshot, notifyEventArgs.ScriptHash);
-                    if (contract?.Manifest.SupportedStandards.Contains("NEP-17") == true)
+                    if (contract?.Manifest.SupportedStandards.Contains("XEP-17") == true)
                     {
                         try
                         {

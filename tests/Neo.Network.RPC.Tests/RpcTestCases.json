@@ -371,7 +371,7 @@
           "groups": [],
           "features": {},
           "supportedstandards": [
-            "NEP-17"
+            "XEP-17"
           ],
           "abi": {
             "methods": [
@@ -493,7 +493,7 @@
           "groups": [],
           "features": {},
           "supportedstandards": [
-            "NEP-17"
+            "XEP-17"
           ],
           "abi": {
             "methods": [
@@ -615,7 +615,7 @@
           "groups": [],
           "features": {},
           "supportedstandards": [
-            "NEP-17"
+            "XEP-17"
           ],
           "abi": {
             "methods": [
@@ -833,7 +833,7 @@
           "groups": [],
           "features": {},
           "supportedstandards": [
-            "NEP-17"
+            "XEP-17"
           ],
           "abi": {
             "methods": [
@@ -1320,7 +1320,7 @@
             "groups": [],
             "features": {},
             "supportedstandards": [
-              "NEP-17"
+              "XEP-17"
             ],
             "abi": {
               "methods": [
@@ -1525,7 +1525,7 @@
             "groups": [],
             "features": {},
             "supportedstandards": [
-              "NEP-17"
+              "XEP-17"
             ],
             "abi": {
               "methods": [

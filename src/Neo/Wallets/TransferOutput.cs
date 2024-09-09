@@ -32,7 +32,7 @@ namespace Neo.Wallets
         public UInt160 ScriptHash;
 
         /// <summary>
-        /// The object to be passed to the transfer method of NEP-17.
+        /// The object to be passed to the transfer method of XEP-17.
         /// </summary>
         public object Data;
     }

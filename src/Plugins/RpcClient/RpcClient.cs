@@ -563,7 +563,7 @@ namespace Neo.Network.RPC
 
         /// <summary>
         /// Returns the balance of the corresponding asset in the wallet, based on the specified asset Id.
-        /// This method applies to assets that conform to NEP-17 standards.
+        /// This method applies to assets that conform to XEP-17 standards.
         /// </summary>
         /// <returns>new address as string</returns>
         public async Task<BigDecimal> GetWalletBalanceAsync(string assetId)
@@ -682,7 +682,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Returns all the NEP-17 transaction information occurred in the specified address.
+        /// Returns all the XEP-17 transaction information occurred in the specified address.
         /// This method is provided by the plugin RpcXep17Tracker.
         /// </summary>
         /// <param name="address">The address to query the transaction information.</param>
@@ -698,7 +698,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Returns the balance of all NEP-17 assets in the specified address.
+        /// Returns the balance of all XEP-17 assets in the specified address.
         /// This method is provided by the plugin RpcXep17Tracker.
         /// </summary>
         public async Task<RpcNep17Balances> GetNep17BalancesAsync(string address)
