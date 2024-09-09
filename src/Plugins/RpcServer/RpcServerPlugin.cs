@@ -41,7 +41,7 @@ namespace Neo.Plugins.RpcServer
             base.Dispose();
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             RpcServerSettings s = settings.Servers.FirstOrDefault(p => p.Network == system.Settings.Network);
             if (s is null) return;

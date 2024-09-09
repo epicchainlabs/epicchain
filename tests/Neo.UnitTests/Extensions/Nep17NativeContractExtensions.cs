@@ -50,7 +50,7 @@ namespace Neo.UnitTests.Extensions
         public static bool Transfer(this NativeContract contract, DataCache snapshot, byte[] from, byte[] to, BigInteger amount, bool signFrom, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application,
-                new ManualWitness(signFrom ? new UInt160(from) : null), snapshot, persistingBlock, settings: TestBlockchain.TheNeoSystem.Settings);
+                new ManualWitness(signFrom ? new UInt160(from) : null), snapshot, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(contract.Hash, "transfer", from, to, amount, null);
@@ -69,7 +69,7 @@ namespace Neo.UnitTests.Extensions
 
         public static BigInteger TotalSupply(this NativeContract contract, DataCache snapshot)
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(contract.Hash, "totalSupply");
@@ -85,7 +85,7 @@ namespace Neo.UnitTests.Extensions
 
         public static BigInteger BalanceOf(this NativeContract contract, DataCache snapshot, byte[] account)
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(contract.Hash, "balanceOf", account);
@@ -101,7 +101,7 @@ namespace Neo.UnitTests.Extensions
 
         public static BigInteger Decimals(this NativeContract contract, DataCache snapshot)
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(contract.Hash, "decimals");
@@ -117,7 +117,7 @@ namespace Neo.UnitTests.Extensions
 
         public static string Symbol(this NativeContract contract, DataCache snapshot)
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(contract.Hash, "symbol");

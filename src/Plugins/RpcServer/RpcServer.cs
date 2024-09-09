@@ -41,10 +41,10 @@ namespace Neo.Plugins.RpcServer
 
         private IWebHost host;
         private RpcServerSettings settings;
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
         private readonly LocalNode localNode;
 
-        public RpcServer(NeoSystem system, RpcServerSettings settings)
+        public RpcServer(EpicChainSystem system, RpcServerSettings settings)
         {
             this.system = system;
             this.settings = settings;

@@ -34,18 +34,18 @@ namespace Neo.Plugins.Trackers
         protected uint _maxResults;
         protected IStore _db;
         private ISnapshot _levelDbSnapshot;
-        protected NeoSystem _neoSystem;
+        protected EpicChainSystem _EpicChainSystem;
         public abstract string TrackName { get; }
 
-        protected TrackerBase(IStore db, uint maxResult, bool shouldTrackHistory, NeoSystem neoSystem)
+        protected TrackerBase(IStore db, uint maxResult, bool shouldTrackHistory, EpicChainSystem EpicChainSystem)
         {
             _db = db;
             _maxResults = maxResult;
             _shouldTrackHistory = shouldTrackHistory;
-            _neoSystem = neoSystem;
+            _EpicChainSystem = EpicChainSystem;
         }
 
-        public abstract void OnPersist(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList);
+        public abstract void OnPersist(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList);
 
         public void ResetBatch()
         {
@@ -140,7 +140,7 @@ namespace Neo.Plugins.Trackers
             JObject transfer = new();
             transfer["timestamp"] = key.TimestampMS;
             transfer["assethash"] = key.AssetScriptHash.ToString();
-            transfer["transferaddress"] = value.UserScriptHash == UInt160.Zero ? null : value.UserScriptHash.ToAddress(_neoSystem.Settings.AddressVersion);
+            transfer["transferaddress"] = value.UserScriptHash == UInt160.Zero ? null : value.UserScriptHash.ToAddress(_EpicChainSystem.Settings.AddressVersion);
             transfer["amount"] = value.Amount.ToString();
             transfer["blockindex"] = value.BlockIndex;
             transfer["transfernotifyindex"] = key.BlockXferNotificationIndex;
@@ -151,7 +151,7 @@ namespace Neo.Plugins.Trackers
         public UInt160 GetScriptHashFromParam(string addressOrScriptHash)
         {
             return addressOrScriptHash.Length < 40 ?
-                addressOrScriptHash.ToScriptHash(_neoSystem.Settings.AddressVersion) : UInt160.Parse(addressOrScriptHash);
+                addressOrScriptHash.ToScriptHash(_EpicChainSystem.Settings.AddressVersion) : UInt160.Parse(addressOrScriptHash);
         }
 
         public void Log(string message, LogLevel level = LogLevel.Info)

@@ -39,7 +39,7 @@ namespace Neo.UnitTests.SmartContract
         public void TestCreateStandardMultisigAccount()
         {
             var settings = TestProtocolSettings.Default;
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
 
             using var script = new ScriptBuilder();
             script.EmitSysCall(ApplicationEngine.System_Contract_CreateMultisigAccount, new object[]

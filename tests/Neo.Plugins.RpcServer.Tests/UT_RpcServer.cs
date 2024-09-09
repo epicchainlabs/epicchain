@@ -30,7 +30,7 @@ namespace Neo.Plugins.RpcServer.Tests
     [TestClass]
     public partial class UT_RpcServer
     {
-        private NeoSystem _neoSystem;
+        private EpicChainSystem _EpicChainSystem;
         private RpcServerSettings _rpcServerSettings;
         private RpcServer _rpcServer;
         private TestMemoryStoreProvider _memoryStoreProvider;
@@ -46,7 +46,7 @@ namespace Neo.Plugins.RpcServer.Tests
         {
             _memoryStore = new MemoryStore();
             _memoryStoreProvider = new TestMemoryStoreProvider(_memoryStore);
-            _neoSystem = new NeoSystem(TestProtocolSettings.SoleNode, _memoryStoreProvider);
+            _EpicChainSystem = new EpicChainSystem(TestProtocolSettings.SoleNode, _memoryStoreProvider);
             _rpcServerSettings = RpcServerSettings.Default with
             {
                 SessionEnabled = true,
@@ -54,10 +54,10 @@ namespace Neo.Plugins.RpcServer.Tests
                 MaxGasInvoke = 1500_0000_0000,
                 Network = TestProtocolSettings.SoleNode.Network,
             };
-            _rpcServer = new RpcServer(_neoSystem, _rpcServerSettings);
+            _rpcServer = new RpcServer(_EpicChainSystem, _rpcServerSettings);
             _walletAccount = _wallet.Import("KxuRSsHgJMb3AMSN6B9P3JHNGMFtxmuimqgR9MmXPcv3CLLfusTd");
             var key = new KeyBuilder(NativeContract.GAS.Id, 20).Add(_walletAccount.ScriptHash);
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var entry = snapshot.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.GAS.Factor;
             snapshot.Commit();
@@ -67,9 +67,9 @@ namespace Neo.Plugins.RpcServer.Tests
         public void TestCleanup()
         {
             // Please build and test in debug mode
-            _neoSystem.MemPool.Clear();
+            _EpicChainSystem.MemPool.Clear();
             _memoryStore.Reset();
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var key = new KeyBuilder(NativeContract.GAS.Id, 20).Add(_walletAccount.ScriptHash);
             var entry = snapshot.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.GAS.Factor;

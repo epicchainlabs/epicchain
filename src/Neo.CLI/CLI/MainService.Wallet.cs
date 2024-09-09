@@ -100,7 +100,7 @@ namespace Neo.CLI
                 ConsoleHelper.Warning($"File '{pathNew}' already exists");
                 return;
             }
-            NEP6Wallet.Migrate(pathNew, path, password, NeoSystem.Settings).Save();
+            NEP6Wallet.Migrate(pathNew, path, password, EpicChainSystem.Settings).Save();
             Console.WriteLine($"Wallet file upgrade complete. New wallet file has been auto-saved at: {pathNew}");
         }
 
@@ -151,7 +151,7 @@ namespace Neo.CLI
         {
             if (NoWallet()) return;
 
-            if (ConsoleHelper.ReadUserInput($"Warning: Irrevocable operation!\nAre you sure to delete account {address.ToAddress(NeoSystem.Settings.AddressVersion)}? (no|yes)").IsYes())
+            if (ConsoleHelper.ReadUserInput($"Warning: Irrevocable operation!\nAre you sure to delete account {address.ToAddress(EpicChainSystem.Settings.AddressVersion)}? (no|yes)").IsYes())
             {
                 if (CurrentWallet!.DeleteAccount(address))
                 {
@@ -260,7 +260,7 @@ namespace Neo.CLI
             if (CurrentWallet is NEP6Wallet wallet)
                 wallet.Save();
 
-            ConsoleHelper.Info("Multisig. Addr.: ", multiSignContract.ScriptHash.ToAddress(NeoSystem.Settings.AddressVersion));
+            ConsoleHelper.Info("Multisig. Addr.: ", multiSignContract.ScriptHash.ToAddress(EpicChainSystem.Settings.AddressVersion));
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Neo.CLI
             UInt160? address = null;
             try
             {
-                address = StringToAddress(addressOrFile, NeoSystem.Settings.AddressVersion);
+                address = StringToAddress(addressOrFile, EpicChainSystem.Settings.AddressVersion);
             }
             catch (FormatException) { }
             if (address is null)
@@ -356,7 +356,7 @@ namespace Neo.CLI
                 {
                     for (int i = 0; i < lines.Length; i++)
                     {
-                        address = StringToAddress(lines[i], NeoSystem.Settings.AddressVersion);
+                        address = StringToAddress(lines[i], EpicChainSystem.Settings.AddressVersion);
                         CurrentWallet!.CreateAccount(address);
                         percent.Value++;
                     }
@@ -386,7 +386,7 @@ namespace Neo.CLI
         private void OnListAddressCommand()
         {
             if (NoWallet()) return;
-            var snapshot = NeoSystem.StoreView;
+            var snapshot = EpicChainSystem.StoreView;
             foreach (var account in CurrentWallet!.GetAccounts())
             {
                 var contract = account.Contract;
@@ -420,13 +420,13 @@ namespace Neo.CLI
         [ConsoleCommand("show balance", Category = "Wallet Commands")]
         private void OnListAssetCommand()
         {
-            var snapshot = NeoSystem.StoreView;
+            var snapshot = EpicChainSystem.StoreView;
             if (NoWallet()) return;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
             {
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine(account.ToAddress(NeoSystem.Settings.AddressVersion));
+                Console.WriteLine(account.ToAddress(EpicChainSystem.Settings.AddressVersion));
                 Console.WriteLine();
                 Console.WriteLine();
                 ConsoleHelper.Info("EpicChain: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
@@ -479,9 +479,9 @@ namespace Neo.CLI
             }
             try
             {
-                var snapshot = NeoSystem.StoreView;
+                var snapshot = EpicChainSystem.StoreView;
                 ContractParametersContext context = ContractParametersContext.Parse(jsonObjectToSign.ToString(), snapshot);
-                if (context.Network != NeoSystem.Settings.Network)
+                if (context.Network != EpicChainSystem.Settings.Network)
                 {
                     ConsoleHelper.Warning("Network mismatch.");
                     return;
@@ -524,9 +524,9 @@ namespace Neo.CLI
                 return;
             }
 
-            var snapshot = NeoSystem.StoreView;
+            var snapshot = EpicChainSystem.StoreView;
             Transaction tx;
-            AssetDescriptor descriptor = new(snapshot, NeoSystem.Settings, asset);
+            AssetDescriptor descriptor = new(snapshot, EpicChainSystem.Settings, asset);
             if (!BigDecimal.TryParse(amount, descriptor.Decimals, out BigDecimal decimalAmount) || decimalAmount.Sign <= 0)
             {
                 ConsoleHelper.Error("Incorrect Amount Format");
@@ -564,14 +564,14 @@ namespace Neo.CLI
             }
 
             ConsoleHelper.Info(
-                "Send To: ", $"{to.ToAddress(NeoSystem.Settings.AddressVersion)}\n",
+                "Send To: ", $"{to.ToAddress(EpicChainSystem.Settings.AddressVersion)}\n",
                 "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
                 "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
             }
-            SignAndSendTx(NeoSystem.StoreView, tx);
+            SignAndSendTx(EpicChainSystem.StoreView, tx);
         }
 
         /// <summary>
@@ -585,7 +585,7 @@ namespace Neo.CLI
         {
             if (NoWallet()) return;
 
-            TransactionState state = NativeContract.Ledger.GetTransactionState(NeoSystem.StoreView, txid);
+            TransactionState state = NativeContract.Ledger.GetTransactionState(EpicChainSystem.StoreView, txid);
             if (state != null)
             {
                 ConsoleHelper.Error("This tx is already confirmed, can't be cancelled.");
@@ -622,7 +622,7 @@ namespace Neo.CLI
             {
                 using ScriptBuilder scriptBuilder = new();
                 scriptBuilder.Emit(OpCode.RET);
-                tx = CurrentWallet!.MakeTransaction(NeoSystem.StoreView, scriptBuilder.ToArray(), sender, signers, conflict);
+                tx = CurrentWallet!.MakeTransaction(EpicChainSystem.StoreView, scriptBuilder.ToArray(), sender, signers, conflict);
             }
             catch (InvalidOperationException e)
             {
@@ -630,14 +630,14 @@ namespace Neo.CLI
                 return;
             }
 
-            if (NeoSystem.MemPool.TryGetValue(txid, out var conflictTx))
+            if (EpicChainSystem.MemPool.TryGetValue(txid, out var conflictTx))
             {
                 tx.NetworkFee = Math.Max(tx.NetworkFee, conflictTx.NetworkFee) + 1;
             }
             else
             {
-                var snapshot = NeoSystem.StoreView;
-                AssetDescriptor descriptor = new(snapshot, NeoSystem.Settings, NativeContract.GAS.Hash);
+                var snapshot = EpicChainSystem.StoreView;
+                AssetDescriptor descriptor = new(snapshot, EpicChainSystem.Settings, NativeContract.GAS.Hash);
                 string extracFee = ConsoleHelper.ReadUserInput("This tx is not in mempool, please input extra fee (datoshi) manually");
                 if (!BigDecimal.TryParse(extracFee, descriptor.Decimals, out BigDecimal decimalExtraFee) || decimalExtraFee.Sign <= 0)
                 {
@@ -655,7 +655,7 @@ namespace Neo.CLI
             {
                 return;
             }
-            SignAndSendTx(NeoSystem.StoreView, tx);
+            SignAndSendTx(EpicChainSystem.StoreView, tx);
         }
 
         /// <summary>
@@ -666,7 +666,7 @@ namespace Neo.CLI
         {
             if (NoWallet()) return;
             BigInteger gas = BigInteger.Zero;
-            var snapshot = NeoSystem.StoreView;
+            var snapshot = EpicChainSystem.StoreView;
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
                 gas += NativeContract.NEO.UnclaimedGas(snapshot, account, height);
@@ -738,7 +738,7 @@ namespace Neo.CLI
             ContractParametersContext context;
             try
             {
-                context = new ContractParametersContext(snapshot, tx, NeoSystem.Settings.Network);
+                context = new ContractParametersContext(snapshot, tx, EpicChainSystem.Settings.Network);
             }
             catch (InvalidOperationException e)
             {
@@ -749,7 +749,7 @@ namespace Neo.CLI
             if (context.Completed)
             {
                 tx.Witnesses = context.GetWitnesses();
-                NeoSystem.Blockchain.Tell(tx);
+                EpicChainSystem.Blockchain.Tell(tx);
                 ConsoleHelper.Info("Signed and relayed transaction with hash:\n", $"{tx.Hash}");
             }
             else

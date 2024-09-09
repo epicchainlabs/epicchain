@@ -21,12 +21,12 @@ namespace Neo.UnitTests.Network.P2P
     [TestClass]
     public class UT_LocalNode : TestKit
     {
-        private static NeoSystem testBlockchain;
+        private static EpicChainSystem testBlockchain;
 
         [TestInitialize]
         public void Init()
         {
-            testBlockchain = TestBlockchain.TheNeoSystem;
+            testBlockchain = TestBlockchain.TheEpicChainSystem;
         }
 
         [TestMethod]

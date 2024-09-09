@@ -59,11 +59,11 @@ namespace Neo.CLI
             }
         }
 
-        private NeoSystem? _neoSystem;
-        public NeoSystem NeoSystem
+        private EpicChainSystem? _EpicChainSystem;
+        public EpicChainSystem EpicChainSystem
         {
-            get => _neoSystem!;
-            private set => _neoSystem = value;
+            get => _EpicChainSystem!;
+            private set => _EpicChainSystem = value;
         }
 
         private LocalNode? _localNode;
@@ -82,10 +82,10 @@ namespace Neo.CLI
         /// </summary>
         public MainService() : base()
         {
-            RegisterCommandHandler<string, UInt160>(false, str => StringToAddress(str, NeoSystem.Settings.AddressVersion));
+            RegisterCommandHandler<string, UInt160>(false, str => StringToAddress(str, EpicChainSystem.Settings.AddressVersion));
             RegisterCommandHandler<string, UInt256>(false, UInt256.Parse);
             RegisterCommandHandler<string[], UInt256[]>(str => str.Select(u => UInt256.Parse(u.Trim())).ToArray());
-            RegisterCommandHandler<string[], UInt160[]>(arr => arr.Select(str => StringToAddress(str, NeoSystem.Settings.AddressVersion)).ToArray());
+            RegisterCommandHandler<string[], UInt160[]>(arr => arr.Select(str => StringToAddress(str, EpicChainSystem.Settings.AddressVersion)).ToArray());
             RegisterCommandHandler<string, ECPoint>(str => ECPoint.Parse(str.Trim(), ECCurve.Secp256r1));
             RegisterCommandHandler<string[], ECPoint[]>(str => str.Select(u => ECPoint.Parse(u.Trim(), ECCurve.Secp256r1)).ToArray());
             RegisterCommandHandler<string, JToken>(str => JToken.Parse(str)!);
@@ -133,7 +133,7 @@ namespace Neo.CLI
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetName().Version;
-            var neoV = Assembly.GetAssembly(typeof(NeoSystem))!.GetName().Version;
+            var neoV = Assembly.GetAssembly(typeof(EpicChainSystem))!.GetName().Version;
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetName().Version;
             Console.WriteLine($"EpicChain-BlockSphere V1.0.2 - Symbolizing a robust, all-encompassing");
             Console.WriteLine();
@@ -143,7 +143,7 @@ namespace Neo.CLI
 
         public void CreateWallet(string path, string password, bool createDefaultAccount = true)
         {
-            Wallet wallet = Wallet.Create(null, path, password, NeoSystem.Settings);
+            Wallet wallet = Wallet.Create(null, path, password, EpicChainSystem.Settings);
             if (wallet == null)
             {
                 ConsoleHelper.Warning("Wallet files in that format are not supported, please use a .json or .db3 file extension.");
@@ -166,7 +166,7 @@ namespace Neo.CLI
             uint start = read_start ? r.ReadUInt32() : 0;
             uint count = r.ReadUInt32();
             uint end = start + count - 1;
-            uint currentHeight = NativeContract.Ledger.CurrentIndex(NeoSystem.StoreView);
+            uint currentHeight = NativeContract.Ledger.CurrentIndex(EpicChainSystem.StoreView);
             if (end <= currentHeight) yield break;
             for (uint height = start; height <= end; height++)
             {
@@ -211,7 +211,7 @@ namespace Neo.CLI
                 IsCompressed = p.EndsWith(".zip")
             }).OrderBy(p => p.Start);
 
-            uint height = NativeContract.Ledger.CurrentIndex(NeoSystem.StoreView);
+            uint height = NativeContract.Ledger.CurrentIndex(EpicChainSystem.StoreView);
             foreach (var path in paths)
             {
                 if (path.Start > height + 1) break;
@@ -365,12 +365,12 @@ namespace Neo.CLI
                 throw new FileNotFoundException();
             }
 
-            CurrentWallet = Wallet.Open(path, password, NeoSystem.Settings) ?? throw new NotSupportedException();
+            CurrentWallet = Wallet.Open(path, password, EpicChainSystem.Settings) ?? throw new NotSupportedException();
         }
 
         public async void Start(CommandLineOptions options)
         {
-            if (NeoSystem != null) return;
+            if (EpicChainSystem != null) return;
             bool verifyImport = !(options.NoVerify ?? false);
 
             ProtocolSettings protocol = ProtocolSettings.Load("config.json");
@@ -378,7 +378,7 @@ namespace Neo.CLI
             CustomApplicationSettings(options, Settings.Default);
             try
             {
-                NeoSystem = new NeoSystem(protocol, Settings.Default.Storage.Engine,
+                EpicChainSystem = new EpicChainSystem(protocol, Settings.Default.Storage.Engine,
                     string.Format(Settings.Default.Storage.Path, protocol.Network.ToString("X8")));
             }
             catch (DllNotFoundException ex) when (ex.Message.Contains("libleveldb"))
@@ -420,9 +420,9 @@ namespace Neo.CLI
                 return;
             }
 
-            NeoSystem.AddService(this);
+            EpicChainSystem.AddService(this);
 
-            LocalNode = NeoSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
+            LocalNode = EpicChainSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
 
             // installing plugins
             var installTasks = options.Plugins?.Select(p => p).Where(p => !string.IsNullOrEmpty(p)).ToList().Select(p => InstallPluginAsync(p));
@@ -448,15 +448,15 @@ namespace Neo.CLI
                         blocksToImport.Add(blocksBeingImported.Current);
                     }
                     if (blocksToImport.Count == 0) break;
-                    await NeoSystem.Blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
+                    await EpicChainSystem.Blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
                     {
                         Blocks = blocksToImport,
                         Verify = verifyImport
                     });
-                    if (NeoSystem is null) return;
+                    if (EpicChainSystem is null) return;
                 }
             }
-            NeoSystem.StartNode(new ChannelsConfig
+            EpicChainSystem.StartNode(new ChannelsConfig
             {
                 Tcp = new IPEndPoint(IPAddress.Any, Settings.Default.P2P.Port),
                 MinDesiredConnections = Settings.Default.P2P.MinDesiredConnections,
@@ -508,7 +508,7 @@ namespace Neo.CLI
         public void Stop()
         {
             Dispose_Logger();
-            Interlocked.Exchange(ref _neoSystem, null)?.Dispose();
+            Interlocked.Exchange(ref _EpicChainSystem, null)?.Dispose();
         }
 
         private void WriteBlocks(uint start, uint count, string path, bool writeStart)
@@ -548,7 +548,7 @@ namespace Neo.CLI
             {
                 for (uint i = start; i <= end; i++)
                 {
-                    Block block = NativeContract.Ledger.GetBlock(NeoSystem.StoreView, i);
+                    Block block = NativeContract.Ledger.GetBlock(EpicChainSystem.StoreView, i);
                     byte[] array = block.ToArray();
                     fs.Write(BitConverter.GetBytes(array.Length), 0, sizeof(int));
                     fs.Write(array, 0, array.Length);
@@ -576,7 +576,7 @@ namespace Neo.CLI
             if (NoWallet()) return;
 
             Signer[] signers = Array.Empty<Signer>();
-            var snapshot = NeoSystem.StoreView;
+            var snapshot = EpicChainSystem.StoreView;
 
             if (account != null)
             {
@@ -591,7 +591,7 @@ namespace Neo.CLI
                 Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxGas: datoshi);
                 ConsoleHelper.Info("Invoking script with: ", $"'{Convert.ToBase64String(tx.Script.Span)}'");
 
-                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: NeoSystem.Settings, gas: datoshi))
+                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: EpicChainSystem.Settings, gas: datoshi))
                 {
                     PrintExecutionOutput(engine, true);
                     if (engine.State == VMState.FAULT) return;
@@ -602,7 +602,7 @@ namespace Neo.CLI
                     return;
                 }
 
-                SignAndSendTx(NeoSystem.StoreView, tx);
+                SignAndSendTx(EpicChainSystem.StoreView, tx);
             }
             catch (InvalidOperationException e)
             {
@@ -636,7 +636,7 @@ namespace Neo.CLI
                 }
             }
 
-            ContractState contract = NativeContract.ContractManagement.GetContract(NeoSystem.StoreView, scriptHash);
+            ContractState contract = NativeContract.ContractManagement.GetContract(EpicChainSystem.StoreView, scriptHash);
             if (contract == null)
             {
                 ConsoleHelper.Error("Contract does not exist.");
@@ -667,7 +667,7 @@ namespace Neo.CLI
                 tx.Script = script;
             }
 
-            using ApplicationEngine engine = ApplicationEngine.Run(script, NeoSystem.StoreView, container: verifiable, settings: NeoSystem.Settings, gas: datoshi);
+            using ApplicationEngine engine = ApplicationEngine.Run(script, EpicChainSystem.StoreView, container: verifiable, settings: EpicChainSystem.Settings, gas: datoshi);
             PrintExecutionOutput(engine, showStack);
             result = engine.State == VMState.FAULT ? StackItem.Null : engine.ResultStack.Peek();
             return engine.State != VMState.FAULT;
@@ -705,7 +705,7 @@ namespace Neo.CLI
             using var sb = new ScriptBuilder();
             sb.EmitDynamicCall(Settings.Default.Contracts.EpicChainNameService, "resolve", CallFlags.ReadOnly, domain, 16);
 
-            using var appEng = ApplicationEngine.Run(sb.ToArray(), NeoSystem.StoreView, settings: NeoSystem.Settings);
+            using var appEng = ApplicationEngine.Run(sb.ToArray(), EpicChainSystem.StoreView, settings: EpicChainSystem.Settings);
             if (appEng.State == VMState.HALT)
             {
                 var data = appEng.ResultStack.Pop();
@@ -717,7 +717,7 @@ namespace Neo.CLI
                         if (UInt160.TryParse(addressData, out var address))
                             return address;
                         else
-                            return addressData.ToScriptHash(NeoSystem.Settings.AddressVersion);
+                            return addressData.ToScriptHash(EpicChainSystem.Settings.AddressVersion);
                     }
                     catch { }
                 }

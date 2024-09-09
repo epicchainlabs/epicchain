@@ -22,7 +22,7 @@ namespace Neo.Plugins.StorageDumper
 {
     public class StorageDumper : Plugin, ICommittingHandler, ICommittedHandler
     {
-        private readonly Dictionary<uint, NeoSystem> systems = new Dictionary<uint, NeoSystem>();
+        private readonly Dictionary<uint, EpicChainSystem> systems = new Dictionary<uint, EpicChainSystem>();
 
         private StreamWriter? _writer;
         /// <summary>
@@ -53,7 +53,7 @@ namespace Neo.Plugins.StorageDumper
             Settings.Load(GetConfiguration());
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             systems.Add(system.Settings.Network, system);
         }
@@ -86,7 +86,7 @@ namespace Neo.Plugins.StorageDumper
                 $"{path}");
         }
 
-        void ICommittingHandler.Blockchain_Committing_Handler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        void ICommittingHandler.Blockchain_Committing_Handler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             InitFileWriter(system.Settings.Network, snapshot);
             OnPersistStorage(system.Settings.Network, snapshot);
@@ -133,7 +133,7 @@ namespace Neo.Plugins.StorageDumper
         }
 
 
-        void ICommittedHandler.Blockchain_Committed_Handler(NeoSystem system, Block block)
+        void ICommittedHandler.Blockchain_Committed_Handler(EpicChainSystem system, Block block)
         {
             OnCommitStorage(system.Settings.Network, system.StoreView);
         }

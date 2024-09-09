@@ -33,7 +33,7 @@ namespace Neo.CLI
             int verifiedCount, unverifiedCount;
             if (verbose)
             {
-                NeoSystem.MemPool.GetVerifiedAndUnverifiedTransactions(
+                EpicChainSystem.MemPool.GetVerifiedAndUnverifiedTransactions(
                     out IEnumerable<Transaction> verifiedTransactions,
                     out IEnumerable<Transaction> unverifiedTransactions);
                 ConsoleHelper.Info("Verified Transactions:");
@@ -48,10 +48,10 @@ namespace Neo.CLI
             }
             else
             {
-                verifiedCount = NeoSystem.MemPool.VerifiedCount;
-                unverifiedCount = NeoSystem.MemPool.UnVerifiedCount;
+                verifiedCount = EpicChainSystem.MemPool.VerifiedCount;
+                unverifiedCount = EpicChainSystem.MemPool.UnVerifiedCount;
             }
-            Console.WriteLine($"total: {NeoSystem.MemPool.Count}, verified: {verifiedCount}, unverified: {unverifiedCount}");
+            Console.WriteLine($"total: {EpicChainSystem.MemPool.Count}, verified: {verifiedCount}, unverified: {unverifiedCount}");
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace Neo.CLI
             {
                 while (!cancel.Token.IsCancellationRequested)
                 {
-                    NeoSystem.LocalNode.Tell(Message.Create(MessageCommand.Ping, PingPayload.Create(NativeContract.Ledger.CurrentIndex(NeoSystem.StoreView))));
-                    await Task.Delay(NeoSystem.Settings.TimePerBlock, cancel.Token);
+                    EpicChainSystem.LocalNode.Tell(Message.Create(MessageCommand.Ping, PingPayload.Create(NativeContract.Ledger.CurrentIndex(EpicChainSystem.StoreView))));
+                    await Task.Delay(EpicChainSystem.Settings.TimePerBlock, cancel.Token);
                 }
             });
             Task task = Task.Run(async () =>
@@ -78,8 +78,8 @@ namespace Neo.CLI
                 int maxLines = 0;
                 while (!cancel.Token.IsCancellationRequested)
                 {
-                    uint height = NativeContract.Ledger.CurrentIndex(NeoSystem.StoreView);
-                    uint headerHeight = NeoSystem.HeaderCache.Last?.Index ?? height;
+                    uint height = NativeContract.Ledger.CurrentIndex(EpicChainSystem.StoreView);
+                    uint headerHeight = EpicChainSystem.HeaderCache.Last?.Index ?? height;
 
                     Console.SetCursorPosition(0, 0);
                     WriteLineWithoutFlicker($"block: {height}/{headerHeight}  connected: {LocalNode.ConnectedCount}  unconnected: {LocalNode.UnconnectedCount}", Console.WindowWidth - 1);

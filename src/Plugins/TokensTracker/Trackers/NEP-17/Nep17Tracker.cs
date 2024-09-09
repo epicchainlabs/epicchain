@@ -40,11 +40,11 @@ namespace Neo.Plugins.Trackers.NEP_17
 
         public override string TrackName => nameof(Nep17Tracker);
 
-        public Nep17Tracker(IStore db, uint maxResult, bool shouldRecordHistory, NeoSystem system) : base(db, maxResult, shouldRecordHistory, system)
+        public Nep17Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
         {
         }
 
-        public override void OnPersist(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        public override void OnPersist(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             _currentBlock = block;
             _currentHeight = block.Index;
@@ -116,7 +116,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             var key = new Nep17BalanceKey(balanceChanged.User, balanceChanged.Asset);
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(balanceChanged.Asset, "balanceOf", balanceChanged.User);
-            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _neoSystem.Settings, gas: 1700_0000);
+            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, gas: 1700_0000);
 
             if (engine.State.HasFlag(VMState.FAULT) || engine.ResultStack.Count == 0)
             {
@@ -156,7 +156,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             (endTime >= startTime).True_Or(RpcError.InvalidParams);
 
             JObject json = new();
-            json["address"] = userScriptHash.ToAddress(_neoSystem.Settings.AddressVersion);
+            json["address"] = userScriptHash.ToAddress(_EpicChainSystem.Settings.AddressVersion);
             JArray transfersSent = new();
             json["sent"] = transfersSent;
             JArray transfersReceived = new();
@@ -173,14 +173,14 @@ namespace Neo.Plugins.Trackers.NEP_17
 
             JObject json = new();
             JArray balances = new();
-            json["address"] = userScriptHash.ToAddress(_neoSystem.Settings.AddressVersion);
+            json["address"] = userScriptHash.ToAddress(_EpicChainSystem.Settings.AddressVersion);
             json["balance"] = balances;
 
             int count = 0;
             byte[] prefix = Key(Nep17BalancePrefix, userScriptHash);
             foreach (var (key, value) in _db.FindPrefix<Nep17BalanceKey, TokenBalance>(prefix))
             {
-                if (NativeContract.ContractManagement.GetContract(_neoSystem.StoreView, key.AssetScriptHash) is null)
+                if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
                     continue;
 
                 try
@@ -189,10 +189,10 @@ namespace Neo.Plugins.Trackers.NEP_17
                     script.EmitDynamicCall(key.AssetScriptHash, "decimals");
                     script.EmitDynamicCall(key.AssetScriptHash, "symbol");
 
-                    var engine = ApplicationEngine.Run(script.ToArray(), _neoSystem.StoreView, settings: _neoSystem.Settings);
+                    var engine = ApplicationEngine.Run(script.ToArray(), _EpicChainSystem.StoreView, settings: _EpicChainSystem.Settings);
                     var symbol = engine.ResultStack.Pop().GetString();
                     var decimals = engine.ResultStack.Pop().GetInteger();
-                    var name = NativeContract.ContractManagement.GetContract(_neoSystem.StoreView, key.AssetScriptHash).Manifest.Name;
+                    var name = NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash).Manifest.Name;
 
                     balances.Add(new JObject
                     {

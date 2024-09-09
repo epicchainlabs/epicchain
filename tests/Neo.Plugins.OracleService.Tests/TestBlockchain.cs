@@ -18,7 +18,7 @@ namespace Neo.Plugins.OracleService.Tests
 {
     public static class TestBlockchain
     {
-        private static readonly NeoSystem s_theNeoSystem;
+        private static readonly EpicChainSystem s_theEpicChainSystem;
         private static readonly MemoryStore s_store = new();
 
         private class StoreProvider : IStoreProvider
@@ -30,24 +30,24 @@ namespace Neo.Plugins.OracleService.Tests
 
         static TestBlockchain()
         {
-            Console.WriteLine("initialize NeoSystem");
-            s_theNeoSystem = new NeoSystem(ProtocolSettings.Load("config.json"), new StoreProvider());
+            Console.WriteLine("initialize EpicChainSystem");
+            s_theEpicChainSystem = new EpicChainSystem(ProtocolSettings.Load("config.json"), new StoreProvider());
         }
 
-        public static void InitializeMockNeoSystem()
+        public static void InitializeMockEpicChainSystem()
         {
         }
 
         internal static void ResetStore()
         {
             s_store.Reset();
-            s_theNeoSystem.Blockchain.Ask(new Blockchain.Initialize()).Wait();
+            s_theEpicChainSystem.Blockchain.Ask(new Blockchain.Initialize()).Wait();
         }
 
         internal static SnapshotCache GetTestSnapshotCache()
         {
             ResetStore();
-            return s_theNeoSystem.GetSnapshot();
+            return s_theEpicChainSystem.GetSnapshot();
         }
     }
 }

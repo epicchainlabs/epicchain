@@ -26,16 +26,16 @@ namespace Neo.UnitTests.SmartContract
         public void TestGetNetworkAndAddressVersion()
         {
             var tx = TestUtils.GetTransaction(UInt160.Zero);
-            using var engine = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
 
-            engine.GetNetwork().Should().Be(TestBlockchain.TheNeoSystem.Settings.Network);
-            engine.GetAddressVersion().Should().Be(TestBlockchain.TheNeoSystem.Settings.AddressVersion);
+            engine.GetNetwork().Should().Be(TestBlockchain.TheEpicChainSystem.Settings.Network);
+            engine.GetAddressVersion().Should().Be(TestBlockchain.TheEpicChainSystem.Settings.AddressVersion);
         }
 
         [TestMethod]
         public void TestNotSupportedNotification()
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
             engine.LoadScript(Array.Empty<byte>());
             engine.CurrentContext.GetState<ExecutionContextState>().Contract = new()
             {
@@ -98,8 +98,8 @@ namespace Neo.UnitTests.SmartContract
         {
             var tx = TestUtils.GetTransaction(UInt160.Zero);
             // Even if persisting the same block, in different ApplicationEngine instance, the random number should be different
-            using var engine_1 = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
-            using var engine_2 = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine_1 = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
+            using var engine_2 = ApplicationEngine.Create(TriggerType.Application, tx, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
 
             engine_1.LoadScript(new byte[] { 0x01 });
             engine_2.LoadScript(new byte[] { 0x01 });
@@ -147,9 +147,9 @@ namespace Neo.UnitTests.SmartContract
                 Witnesses = Array.Empty<Witness>()
             };
 
-            using var engine_1 = ApplicationEngine.Create(TriggerType.Application, tx_1, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine_1 = ApplicationEngine.Create(TriggerType.Application, tx_1, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
             // The next_nonce shuld be reinitialized when a new block is persisting
-            using var engine_2 = ApplicationEngine.Create(TriggerType.Application, tx_2, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine_2 = ApplicationEngine.Create(TriggerType.Application, tx_2, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
 
             var rand_1 = engine_1.GetRandom();
             var rand_2 = engine_1.GetRandom();
@@ -180,7 +180,7 @@ namespace Neo.UnitTests.SmartContract
         public void TestInvalidUtf8LogMessage()
         {
             var tx_1 = TestUtils.GetTransaction(UInt160.Zero);
-            using var engine = ApplicationEngine.Create(TriggerType.Application, tx_1, null, TestBlockchain.TheNeoSystem.GenesisBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 1100_00000000);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, tx_1, null, TestBlockchain.TheEpicChainSystem.GenesisBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
             var msg = new byte[]
             {
                 68, 216, 160, 6, 89, 102, 86, 72, 37, 15, 132, 45, 76, 221, 170, 21, 128, 51, 34, 168, 205, 56, 10, 228, 51, 114, 4, 218, 245, 155, 172, 132

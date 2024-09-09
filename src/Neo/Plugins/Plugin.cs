@@ -233,10 +233,10 @@ namespace Neo.Plugins
         }
 
         /// <summary>
-        /// Called when a <see cref="NeoSystem"/> is loaded.
+        /// Called when a <see cref="EpicChainSystem"/> is loaded.
         /// </summary>
-        /// <param name="system">The loaded <see cref="NeoSystem"/>.</param>
-        protected internal virtual void OnSystemLoaded(NeoSystem system)
+        /// <param name="system">The loaded <see cref="EpicChainSystem"/>.</param>
+        protected internal virtual void OnSystemLoaded(EpicChainSystem system)
         {
         }
 

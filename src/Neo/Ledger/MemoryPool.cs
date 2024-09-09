@@ -41,7 +41,7 @@ namespace Neo.Ledger
         // These two are not expected to be hit, they are just safeguards.
         private readonly double MaxMillisecondsToReverifyTxPerIdle;
 
-        private readonly NeoSystem _system;
+        private readonly EpicChainSystem _system;
 
         //
         /// <summary>
@@ -122,8 +122,8 @@ namespace Neo.Ledger
         /// <summary>
         /// Initializes a new instance of the <see cref="MemoryPool"/> class.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="MemoryPool"/>.</param>
-        public MemoryPool(NeoSystem system)
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="MemoryPool"/>.</param>
+        public MemoryPool(EpicChainSystem system)
         {
             _system = system;
             Capacity = system.Settings.MemoryPoolMaxTransactions;

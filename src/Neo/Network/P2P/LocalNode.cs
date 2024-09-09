@@ -51,7 +51,7 @@ namespace Neo.Network.P2P
         private const int MaxCountFromSeedList = 5;
         private readonly IPEndPoint[] SeedList;
 
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
         internal readonly ConcurrentDictionary<IActorRef, RemoteNode> RemoteNodes = new();
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Neo.Network.P2P
         /// <summary>
         /// Initializes a new instance of the <see cref="LocalNode"/> class.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="LocalNode"/>.</param>
-        public LocalNode(NeoSystem system)
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="LocalNode"/>.</param>
+        public LocalNode(EpicChainSystem system)
         {
             this.system = system;
             SeedList = new IPEndPoint[system.Settings.SeedList.Length];
@@ -273,9 +273,9 @@ namespace Neo.Network.P2P
         /// <summary>
         /// Gets a <see cref="Akka.Actor.Props"/> object used for creating the <see cref="LocalNode"/> actor.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="LocalNode"/>.</param>
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="LocalNode"/>.</param>
         /// <returns>The <see cref="Akka.Actor.Props"/> object used for creating the <see cref="LocalNode"/> actor.</returns>
-        public static Props Props(NeoSystem system)
+        public static Props Props(EpicChainSystem system)
         {
             return Akka.Actor.Props.Create(() => new LocalNode(system));
         }

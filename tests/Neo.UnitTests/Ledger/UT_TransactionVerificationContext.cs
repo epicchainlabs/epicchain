@@ -30,7 +30,7 @@ namespace Neo.UnitTests.Ledger
         [ClassInitialize]
         public static void TestSetup(TestContext ctx)
         {
-            _ = TestBlockchain.TheNeoSystem;
+            _ = TestBlockchain.TheEpicChainSystem;
         }
 
         private Transaction CreateTransactionWithFee(long networkFee, long systemFee)
@@ -63,7 +63,7 @@ namespace Neo.UnitTests.Ledger
             // Fake balance
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheNeoSystem.Settings, gas: long.MaxValue);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
             BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
             await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
             _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 8, false);
@@ -85,7 +85,7 @@ namespace Neo.UnitTests.Ledger
         public async Task TestTransactionSenderFee()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheNeoSystem.Settings, gas: long.MaxValue);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
             BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
             await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
             _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 8, true);
@@ -108,7 +108,7 @@ namespace Neo.UnitTests.Ledger
         public async Task TestTransactionSenderFeeWithConflicts()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheNeoSystem.Settings, gas: long.MaxValue);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
             BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
             await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
             _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 3 + 3 + 1, true); // balance is enough for 2 transactions and 1 GAS is left.

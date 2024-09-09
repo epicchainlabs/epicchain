@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// NeoSystem.cs file belongs to the neo project and is free
+// EpicChainSystem.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -31,22 +31,22 @@ namespace Neo
     /// <summary>
     /// Represents the basic unit that contains all the components required for running of a NEO node.
     /// </summary>
-    public class NeoSystem : IDisposable
+    public class EpicChainSystem : IDisposable
     {
         /// <summary>
-        /// Triggered when a service is added to the <see cref="NeoSystem"/>.
+        /// Triggered when a service is added to the <see cref="EpicChainSystem"/>.
         /// </summary>
         public event EventHandler<object> ServiceAdded;
 
         /// <summary>
-        /// The protocol settings of the <see cref="NeoSystem"/>.
+        /// The protocol settings of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public ProtocolSettings Settings { get; }
 
         /// <summary>
-        /// The <see cref="Akka.Actor.ActorSystem"/> used to create actors for the <see cref="NeoSystem"/>.
+        /// The <see cref="Akka.Actor.ActorSystem"/> used to create actors for the <see cref="EpicChainSystem"/>.
         /// </summary>
-        public ActorSystem ActorSystem { get; } = ActorSystem.Create(nameof(NeoSystem),
+        public ActorSystem ActorSystem { get; } = ActorSystem.Create(nameof(EpicChainSystem),
             $"akka {{ log-dead-letters = off , loglevel = warning, loggers = [ \"{typeof(Utility.Logger).AssemblyQualifiedName}\" ] }}" +
             $"blockchain-mailbox {{ mailbox-type: \"{typeof(BlockchainMailbox).AssemblyQualifiedName}\" }}" +
             $"task-manager-mailbox {{ mailbox-type: \"{typeof(TaskManagerMailbox).AssemblyQualifiedName}\" }}" +
@@ -58,22 +58,22 @@ namespace Neo
         public Block GenesisBlock { get; }
 
         /// <summary>
-        /// The <see cref="Ledger.Blockchain"/> actor of the <see cref="NeoSystem"/>.
+        /// The <see cref="Ledger.Blockchain"/> actor of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public IActorRef Blockchain { get; }
 
         /// <summary>
-        /// The <see cref="Network.P2P.LocalNode"/> actor of the <see cref="NeoSystem"/>.
+        /// The <see cref="Network.P2P.LocalNode"/> actor of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public IActorRef LocalNode { get; }
 
         /// <summary>
-        /// The <see cref="Network.P2P.TaskManager"/> actor of the <see cref="NeoSystem"/>.
+        /// The <see cref="Network.P2P.TaskManager"/> actor of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public IActorRef TaskManager { get; }
 
         /// <summary>
-        /// The transaction router actor of the <see cref="NeoSystem"/>.
+        /// The transaction router actor of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public IActorRef TxRouter;
 
@@ -86,12 +86,12 @@ namespace Neo
         public DataCache StoreView => new SnapshotCache(store);
 
         /// <summary>
-        /// The memory pool of the <see cref="NeoSystem"/>.
+        /// The memory pool of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public MemoryPool MemPool { get; }
 
         /// <summary>
-        /// The header cache of the <see cref="NeoSystem"/>.
+        /// The header cache of the <see cref="EpicChainSystem"/>.
         /// </summary>
         public HeaderCache HeaderCache { get; } = new();
 
@@ -103,7 +103,7 @@ namespace Neo
         private ChannelsConfig start_message = null;
         private int suspend = 0;
 
-        static NeoSystem()
+        static EpicChainSystem()
         {
             // Unify unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -112,24 +112,24 @@ namespace Neo
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NeoSystem"/> class.
+        /// Initializes a new instance of the <see cref="EpicChainSystem"/> class.
         /// </summary>
-        /// <param name="settings">The protocol settings of the <see cref="NeoSystem"/>.</param>
+        /// <param name="settings">The protocol settings of the <see cref="EpicChainSystem"/>.</param>
         /// <param name="storageProvider">The storage engine used to create the <see cref="IStoreProvider"/> objects. If this parameter is <see langword="null"/>, a default in-memory storage engine will be used.</param>
         /// <param name="storagePath">The path of the storage. If <paramref name="storageProvider"/> is the default in-memory storage engine, this parameter is ignored.</param>
-        public NeoSystem(ProtocolSettings settings, string storageProvider = null, string storagePath = null) :
+        public EpicChainSystem(ProtocolSettings settings, string storageProvider = null, string storagePath = null) :
             this(settings, StoreFactory.GetStoreProvider(storageProvider ?? nameof(MemoryStore))
                 ?? throw new ArgumentException($"Can't find the storage provider {storageProvider}", nameof(storageProvider)), storagePath)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NeoSystem"/> class.
+        /// Initializes a new instance of the <see cref="EpicChainSystem"/> class.
         /// </summary>
-        /// <param name="settings">The protocol settings of the <see cref="NeoSystem"/>.</param>
+        /// <param name="settings">The protocol settings of the <see cref="EpicChainSystem"/>.</param>
         /// <param name="storageProvider">The <see cref="IStoreProvider"/> to use.</param>
         /// <param name="storagePath">The path of the storage. If <paramref name="storageProvider"/> is the default in-memory storage engine, this parameter is ignored.</param>
-        public NeoSystem(ProtocolSettings settings, IStoreProvider storageProvider, string storagePath = null)
+        public EpicChainSystem(ProtocolSettings settings, IStoreProvider storageProvider, string storagePath = null)
         {
             Settings = settings;
             GenesisBlock = CreateGenesisBlock(settings);
@@ -189,7 +189,7 @@ namespace Neo
         }
 
         /// <summary>
-        /// Adds a service to the <see cref="NeoSystem"/>.
+        /// Adds a service to the <see cref="EpicChainSystem"/>.
         /// </summary>
         /// <param name="service">The service object to be added.</param>
         public void AddService(object service)
@@ -199,7 +199,7 @@ namespace Neo
         }
 
         /// <summary>
-        /// Gets a specified type of service object from the <see cref="NeoSystem"/>.
+        /// Gets a specified type of service object from the <see cref="EpicChainSystem"/>.
         /// </summary>
         /// <typeparam name="T">The type of the service object.</typeparam>
         /// <param name="filter">An action used to filter the service objects. This parameter can be <see langword="null"/>.</param>

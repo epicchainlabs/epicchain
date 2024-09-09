@@ -33,7 +33,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             _snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.OnPersist, null, _snapshotCache, new Block { Header = new Header() }, settings: TestBlockchain.TheNeoSystem.Settings, gas: 0);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.OnPersist, null, _snapshotCache, new Block { Header = new Header() }, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 0);
             NativeContract.ContractManagement.OnPersistAsync(engine);
         }
 

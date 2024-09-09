@@ -18,7 +18,7 @@ namespace Neo.UnitTests
 {
     public static class TestBlockchain
     {
-        public static readonly NeoSystem TheNeoSystem;
+        public static readonly EpicChainSystem TheEpicChainSystem;
         public static readonly UInt160[] DefaultExtensibleWitnessWhiteList;
         private static readonly MemoryStore Store = new();
 
@@ -31,21 +31,21 @@ namespace Neo.UnitTests
 
         static TestBlockchain()
         {
-            Console.WriteLine("initialize NeoSystem");
-            TheNeoSystem = new NeoSystem(TestProtocolSettings.Default, new StoreProvider());
+            Console.WriteLine("initialize EpicChainSystem");
+            TheEpicChainSystem = new EpicChainSystem(TestProtocolSettings.Default, new StoreProvider());
         }
 
         internal static void ResetStore()
         {
             Store.Reset();
-            TheNeoSystem.Blockchain.Ask(new Blockchain.Initialize()).Wait();
+            TheEpicChainSystem.Blockchain.Ask(new Blockchain.Initialize()).Wait();
         }
 
         internal static SnapshotCache GetTestSnapshotCache(bool reset = true)
         {
             if (reset)
                 ResetStore();
-            return TheNeoSystem.GetSnapshot();
+            return TheEpicChainSystem.GetSnapshot();
         }
     }
 }

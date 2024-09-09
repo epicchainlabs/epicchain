@@ -31,7 +31,7 @@ namespace Neo.UnitTests.SmartContract
         public void TestNotify()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(System.Array.Empty<byte>());
             ApplicationEngine.Notify += Test_Notify1;
             const string notifyEvent = "TestEvent";
@@ -70,7 +70,7 @@ namespace Neo.UnitTests.SmartContract
             byte[] SyscallSystemRuntimeCheckWitnessHash = new byte[] { 0x68, 0xf8, 0x27, 0xec, 0x8c };
             ApplicationEngine engine = ApplicationEngine.Run(SyscallSystemRuntimeCheckWitnessHash, snapshotCache, settings: TestProtocolSettings.Default);
             engine.PersistingBlock.Version.Should().Be(0);
-            engine.PersistingBlock.PrevHash.Should().Be(TestBlockchain.TheNeoSystem.GenesisBlock.Hash);
+            engine.PersistingBlock.PrevHash.Should().Be(TestBlockchain.TheEpicChainSystem.GenesisBlock.Hash);
             engine.PersistingBlock.MerkleRoot.Should().Be(new UInt256());
         }
 

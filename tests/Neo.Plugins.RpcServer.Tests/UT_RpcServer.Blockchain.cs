@@ -39,7 +39,7 @@ namespace Neo.Plugins.RpcServer.Tests
             var key = NativeContract.Ledger.CreateStorageKey(12);
             var expectedHash = UInt256.Zero;
 
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var b = snapshot.GetAndChange(key, () => new StorageItem(new HashIndexState())).GetInteroperable<HashIndexState>();
             b.Hash = UInt256.Zero;
             b.Index = 100;
@@ -53,7 +53,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockByHash()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -75,7 +75,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockByIndex()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -113,11 +113,11 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockHash()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             // TestUtils.BlocksAdd(snapshot, block.Hash, block);
             // snapshot.Commit();
-            var reason = _neoSystem.Blockchain.Ask<Blockchain.RelayResult>(block).Result;
+            var reason = _EpicChainSystem.Blockchain.Ask<Blockchain.RelayResult>(block).Result;
             var expectedHash = block.Hash.ToString();
             var result = _rpcServer.GetBlockHash(block.Index);
             Assert.AreEqual(expectedHash, result.AsString());
@@ -126,25 +126,25 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockHeader()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
             var result = _rpcServer.GetBlockHeader(new BlockHashOrIndex(block.Hash), true);
-            var header = block.Header.ToJson(_neoSystem.Settings);
+            var header = block.Header.ToJson(_EpicChainSystem.Settings);
             header["confirmations"] = NativeContract.Ledger.CurrentIndex(snapshot) - block.Index + 1;
             Assert.AreEqual(header.ToString(), result.ToString());
 
             result = _rpcServer.GetBlockHeader(new BlockHashOrIndex(block.Hash), false);
             var headerArr = Convert.FromBase64String(result.AsString());
             var header2 = headerArr.AsSerializable<Header>();
-            header2.ToJson(_neoSystem.Settings).ToString().Should().Be(block.Header.ToJson(_neoSystem.Settings).ToString());
+            header2.ToJson(_EpicChainSystem.Settings).ToString().Should().Be(block.Header.ToJson(_EpicChainSystem.Settings).ToString());
         }
 
         [TestMethod]
         public void TestGetContractState()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var contractState = TestUtils.GetContract();
             snapshot.AddContract(contractState.Hash, contractState);
             snapshot.Commit();
@@ -170,10 +170,10 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetRawMemPool()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             snapshot.Commit();
-            _neoSystem.MemPool.TryAdd(tx, snapshot);
+            _EpicChainSystem.MemPool.TryAdd(tx, snapshot);
 
             var result = _rpcServer.GetRawMemPool();
             Assert.IsTrue(((JArray)result).Any(p => p.AsString() == tx.Hash.ToString()));
@@ -185,24 +185,24 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetRawTransaction()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
-            _neoSystem.MemPool.TryAdd(tx, snapshot);
+            _EpicChainSystem.MemPool.TryAdd(tx, snapshot);
             snapshot.Commit();
 
             var result = _rpcServer.GetRawTransaction(tx.Hash, true);
-            var json = Utility.TransactionToJson(tx, _neoSystem.Settings);
+            var json = Utility.TransactionToJson(tx, _EpicChainSystem.Settings);
             Assert.AreEqual(json.ToString(), result.ToString());
 
             result = _rpcServer.GetRawTransaction(tx.Hash, false);
             var tx2 = Convert.FromBase64String(result.AsString()).AsSerializable<Transaction>();
-            tx2.ToJson(_neoSystem.Settings).ToString().Should().Be(tx.ToJson(_neoSystem.Settings).ToString());
+            tx2.ToJson(_EpicChainSystem.Settings).ToString().Should().Be(tx.ToJson(_EpicChainSystem.Settings).ToString());
         }
 
         [TestMethod]
         public void TestGetStorage()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var contractState = TestUtils.GetContract();
             snapshot.AddContract(contractState.Hash, contractState);
             var key = new byte[] { 0x01 };
@@ -217,7 +217,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestFindStorage()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var contractState = TestUtils.GetContract();
             snapshot.AddContract(contractState.Hash, contractState);
             var key = new byte[] { 0x01 };
@@ -250,7 +250,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetTransactionHeight()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -262,10 +262,10 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetNextBlockValidators()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var result = _rpcServer.GetNextBlockValidators();
 
-            var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, _neoSystem.Settings.ValidatorsCount);
+            var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, _EpicChainSystem.Settings.ValidatorsCount);
             var expected = validators.Select(p =>
             {
                 var validator = new JObject();
@@ -279,16 +279,16 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetCandidates()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
 
             var result = _rpcServer.GetCandidates();
             var json = new JArray();
-            var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, _neoSystem.Settings.ValidatorsCount);
+            var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, _EpicChainSystem.Settings.ValidatorsCount);
 
             var key = new KeyBuilder(NativeContract.NEO.Id, 33).Add(ECPoint.Parse("02237309a0633ff930d51856db01d17c829a5b2e5cc2638e9c03b4cfa8e9c9f971", ECCurve.Secp256r1));
             snapshot.Add(key, new StorageItem(new CandidateState() { Registered = true, Votes = 10000 }));
             snapshot.Commit();
-            var candidates = NativeContract.NEO.GetCandidates(_neoSystem.GetSnapshotCache());
+            var candidates = NativeContract.NEO.GetCandidates(_EpicChainSystem.GetSnapshotCache());
             result = _rpcServer.GetCandidates();
             foreach (var candidate in candidates)
             {
@@ -304,7 +304,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetCommittee()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var result = _rpcServer.GetCommittee();
             var committee = NativeContract.NEO.GetCommittee(snapshot);
             var expected = new JArray(committee.Select(p => (JToken)p.ToString()));
@@ -315,14 +315,14 @@ namespace Neo.Plugins.RpcServer.Tests
         public void TestGetNativeContracts()
         {
             var result = _rpcServer.GetNativeContracts();
-            var contracts = new JArray(NativeContract.Contracts.Select(p => NativeContract.ContractManagement.GetContract(_neoSystem.GetSnapshotCache(), p.Hash).ToJson()));
+            var contracts = new JArray(NativeContract.Contracts.Select(p => NativeContract.ContractManagement.GetContract(_EpicChainSystem.GetSnapshotCache(), p.Hash).ToJson()));
             Assert.AreEqual(contracts.ToString(), result.ToString());
         }
 
         [TestMethod]
         public void TestGetBlockByUnknownIndex()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -341,7 +341,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockByUnknownHash()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -360,7 +360,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockByUnKnownIndex()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -379,7 +379,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockByUnKnownHash()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -398,7 +398,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetBlockHashInvalidIndex()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 3);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -409,7 +409,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetContractStateUnknownContract()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var randomHash = TestUtils.RandomUInt160();
             try
             {
@@ -425,7 +425,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetStorageUnknownContract()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var randomHash = TestUtils.RandomUInt160();
             var key = new byte[] { 0x01 };
             try
@@ -442,7 +442,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestGetStorageUnknownStorageItem()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var contractState = TestUtils.GetContract();
             snapshot.AddContract(contractState.Hash, contractState);
             snapshot.Commit();

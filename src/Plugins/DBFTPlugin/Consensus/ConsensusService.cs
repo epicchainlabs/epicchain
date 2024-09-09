@@ -55,17 +55,17 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
         /// </summary>
         private bool isRecovering = false;
         private readonly Settings dbftSettings;
-        private readonly NeoSystem neoSystem;
+        private readonly EpicChainSystem EpicChainSystem;
 
-        public ConsensusService(NeoSystem neoSystem, Settings settings, Wallet wallet)
-            : this(neoSystem, settings, new ConsensusContext(neoSystem, settings, wallet)) { }
+        public ConsensusService(EpicChainSystem EpicChainSystem, Settings settings, Wallet wallet)
+            : this(EpicChainSystem, settings, new ConsensusContext(EpicChainSystem, settings, wallet)) { }
 
-        internal ConsensusService(NeoSystem neoSystem, Settings settings, ConsensusContext context)
+        internal ConsensusService(EpicChainSystem EpicChainSystem, Settings settings, ConsensusContext context)
         {
-            this.neoSystem = neoSystem;
-            localNode = neoSystem.LocalNode;
-            taskManager = neoSystem.TaskManager;
-            blockchain = neoSystem.Blockchain;
+            this.EpicChainSystem = EpicChainSystem;
+            localNode = EpicChainSystem.LocalNode;
+            taskManager = EpicChainSystem.TaskManager;
+            blockchain = EpicChainSystem.Blockchain;
             dbftSettings = settings;
             this.context = context;
             Context.System.EventStream.Subscribe(Self, typeof(Blockchain.PersistCompleted));
@@ -90,11 +90,11 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             {
                 if (isRecovering)
                 {
-                    ChangeTimer(TimeSpan.FromMilliseconds(neoSystem.Settings.MillisecondsPerBlock << (viewNumber + 1)));
+                    ChangeTimer(TimeSpan.FromMilliseconds(EpicChainSystem.Settings.MillisecondsPerBlock << (viewNumber + 1)));
                 }
                 else
                 {
-                    TimeSpan span = neoSystem.Settings.TimePerBlock;
+                    TimeSpan span = EpicChainSystem.Settings.TimePerBlock;
                     if (block_received_index + 1 == context.Block.Index)
                     {
                         var diff = TimeProvider.Current.UtcNow - block_received_time;
@@ -108,7 +108,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             }
             else
             {
-                ChangeTimer(TimeSpan.FromMilliseconds(neoSystem.Settings.MillisecondsPerBlock << (viewNumber + 1)));
+                ChangeTimer(TimeSpan.FromMilliseconds(EpicChainSystem.Settings.MillisecondsPerBlock << (viewNumber + 1)));
             }
         }
 
@@ -181,7 +181,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                     // Re-send commit periodically by sending recover message in case of a network issue.
                     Log($"Sending {nameof(RecoveryMessage)} to resend {nameof(Commit)}");
                     localNode.Tell(new LocalNode.SendDirectly { Inventory = context.MakeRecoveryMessage() });
-                    ChangeTimer(TimeSpan.FromMilliseconds(neoSystem.Settings.MillisecondsPerBlock << 1));
+                    ChangeTimer(TimeSpan.FromMilliseconds(EpicChainSystem.Settings.MillisecondsPerBlock << 1));
                 }
                 else
                 {
@@ -210,7 +210,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                 foreach (InvPayload payload in InvPayload.CreateGroup(InventoryType.TX, context.TransactionHashes))
                     localNode.Tell(Message.Create(MessageCommand.Inv, payload));
             }
-            ChangeTimer(TimeSpan.FromMilliseconds((neoSystem.Settings.MillisecondsPerBlock << (context.ViewNumber + 1)) - (context.ViewNumber == 0 ? neoSystem.Settings.MillisecondsPerBlock : 0)));
+            ChangeTimer(TimeSpan.FromMilliseconds((EpicChainSystem.Settings.MillisecondsPerBlock << (context.ViewNumber + 1)) - (context.ViewNumber == 0 ? EpicChainSystem.Settings.MillisecondsPerBlock : 0)));
         }
 
         private void RequestRecovery()
@@ -227,7 +227,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             // The latter may happen by nodes in higher views with, at least, `M` proofs
             byte expectedView = context.ViewNumber;
             expectedView++;
-            ChangeTimer(TimeSpan.FromMilliseconds(neoSystem.Settings.MillisecondsPerBlock << (expectedView + 1)));
+            ChangeTimer(TimeSpan.FromMilliseconds(EpicChainSystem.Settings.MillisecondsPerBlock << (expectedView + 1)));
             if ((context.CountCommitted + context.CountFailed) > context.F)
             {
                 RequestRecovery();
@@ -292,7 +292,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                 // We've ensured that there's no conlicting transactions in the context, thus, can safely provide an empty conflicting list
                 // for futher verification.
                 var conflictingTxs = new List<Transaction>();
-                result = tx.Verify(neoSystem.Settings, context.Snapshot, context.VerificationContext, conflictingTxs);
+                result = tx.Verify(EpicChainSystem.Settings, context.Snapshot, context.VerificationContext, conflictingTxs);
                 if (result != VerifyResult.Succeed)
                 {
                     Log($"Rejected tx: {tx.Hash}, {result}{Environment.NewLine}{tx.ToArray().ToHexString()}", LogLevel.Warning);
@@ -320,7 +320,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
         // this function increases existing timer (never decreases) with a value proportional to `maxDelayInBlockTimes`*`Blockchain.MillisecondsPerBlock`
         private void ExtendTimerByFactor(int maxDelayInBlockTimes)
         {
-            TimeSpan nextDelay = expected_delay - (TimeProvider.Current.UtcNow - clock_started) + TimeSpan.FromMilliseconds(maxDelayInBlockTimes * neoSystem.Settings.MillisecondsPerBlock / (double)context.M);
+            TimeSpan nextDelay = expected_delay - (TimeProvider.Current.UtcNow - clock_started) + TimeSpan.FromMilliseconds(maxDelayInBlockTimes * EpicChainSystem.Settings.MillisecondsPerBlock / (double)context.M);
             if (!context.WatchOnly && !context.ViewChanging && !context.CommitSent && (nextDelay > TimeSpan.Zero))
                 ChangeTimer(nextDelay);
         }
@@ -334,9 +334,9 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             base.PostStop();
         }
 
-        public static Props Props(NeoSystem neoSystem, Settings dbftSettings, Wallet wallet)
+        public static Props Props(EpicChainSystem EpicChainSystem, Settings dbftSettings, Wallet wallet)
         {
-            return Akka.Actor.Props.Create(() => new ConsensusService(neoSystem, dbftSettings, wallet));
+            return Akka.Actor.Props.Create(() => new ConsensusService(EpicChainSystem, dbftSettings, wallet));
         }
 
         private static void Log(string message, LogLevel level = LogLevel.Info)

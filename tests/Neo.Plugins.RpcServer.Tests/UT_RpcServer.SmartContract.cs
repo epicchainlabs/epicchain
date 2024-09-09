@@ -156,17 +156,17 @@ public partial class UT_RpcServer
                 ["value"] = TestProtocolSettings.SoleNode.StandbyCommittee[0].ToString(),
             }]), validatorSigner, true));
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));
-        SnapshotCache snapshot = _neoSystem.GetSnapshotCache();
+        SnapshotCache snapshot = _EpicChainSystem.GetSnapshotCache();
         Transaction? tx = new Transaction
         {
             Nonce = 233,
-            ValidUntilBlock = NativeContract.Ledger.CurrentIndex(snapshot) + _neoSystem.Settings.MaxValidUntilBlockIncrement,
+            ValidUntilBlock = NativeContract.Ledger.CurrentIndex(snapshot) + _EpicChainSystem.Settings.MaxValidUntilBlockIncrement,
             Signers = [new Signer() { Account = ValidatorScriptHash, Scopes = WitnessScope.CalledByEntry }],
             Attributes = Array.Empty<TransactionAttribute>(),
             Script = Convert.FromBase64String(resp["script"].AsString()),
             Witnesses = null,
         };
-        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _neoSystem.Settings, gas: 1200_0000_0000);
+        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, gas: 1200_0000_0000);
         engine.SnapshotCache.Commit();
 
         // GetAllCandidates that should return 1 candidate

@@ -31,7 +31,7 @@ namespace Neo.Plugins.ApplicationLogs
         #region Globals
 
         internal NeoStore _neostore;
-        private NeoSystem _neosystem;
+        private EpicChainSystem _EpicChainSystem;
         private readonly List<LogEventArgs> _logEvents;
 
         #endregion
@@ -69,14 +69,14 @@ namespace Neo.Plugins.ApplicationLogs
             Settings.Load(GetConfiguration());
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             if (system.Settings.Network != Settings.Default.Network)
                 return;
             string path = string.Format(Settings.Default.Path, Settings.Default.Network.ToString("X8"));
             var store = system.LoadStore(GetFullPath(path));
             _neostore = new NeoStore(store);
-            _neosystem = system;
+            _EpicChainSystem = system;
             RpcServerPlugin.RegisterMethods(this, Settings.Default.Network);
 
             if (Settings.Default.Debug)
@@ -128,7 +128,7 @@ namespace Neo.Plugins.ApplicationLogs
             UInt256 blockhash;
             if (uint.TryParse(blockHashOrIndex, out var blockIndex))
             {
-                blockhash = NativeContract.Ledger.GetBlockHash(_neosystem.StoreView, blockIndex);
+                blockhash = NativeContract.Ledger.GetBlockHash(_EpicChainSystem.StoreView, blockIndex);
             }
             else if (UInt256.TryParse(blockHashOrIndex, out blockhash) == false)
             {
@@ -196,7 +196,7 @@ namespace Neo.Plugins.ApplicationLogs
 
         #region Blockchain Events
 
-        void ICommittingHandler.Blockchain_Committing_Handler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        void ICommittingHandler.Blockchain_Committing_Handler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             if (system.Settings.Network != Settings.Default.Network)
                 return;
@@ -217,7 +217,7 @@ namespace Neo.Plugins.ApplicationLogs
             }
         }
 
-        void ICommittedHandler.Blockchain_Committed_Handler(NeoSystem system, Block block)
+        void ICommittedHandler.Blockchain_Committed_Handler(EpicChainSystem system, Block block)
         {
             if (system.Settings.Network != Settings.Default.Network)
                 return;
@@ -231,7 +231,7 @@ namespace Neo.Plugins.ApplicationLogs
             if (Settings.Default.Debug == false)
                 return;
 
-            if (_neosystem.Settings.Network != Settings.Default.Network)
+            if (_EpicChainSystem.Settings.Network != Settings.Default.Network)
                 return;
 
             if (e.ScriptContainer == null)
@@ -311,7 +311,7 @@ namespace Neo.Plugins.ApplicationLogs
 
         private string GetMethodParameterName(UInt160 scriptHash, string methodName, uint ncount, int parameterIndex)
         {
-            var contract = NativeContract.ContractManagement.GetContract(_neosystem.StoreView, scriptHash);
+            var contract = NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, scriptHash);
             if (contract == null)
                 return $"{parameterIndex}";
             var contractEvent = contract.Manifest.Abi.Events.SingleOrDefault(s => s.Name == methodName && (uint)s.Parameters.Length == ncount);

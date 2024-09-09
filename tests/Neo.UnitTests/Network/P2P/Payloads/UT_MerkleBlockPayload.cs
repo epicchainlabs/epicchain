@@ -24,17 +24,17 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         [TestMethod]
         public void Size_Get()
         {
-            var test = MerkleBlockPayload.Create(TestBlockchain.TheNeoSystem.GenesisBlock, new BitArray(1024, false));
-            test.Size.Should().Be(247); // 239 + nonce 
+            var test = MerkleBlockPayload.Create(TestBlockchain.TheEpicChainSystem.GenesisBlock, new BitArray(1024, false));
+            test.Size.Should().Be(247); // 239 + nonce
 
-            test = MerkleBlockPayload.Create(TestBlockchain.TheNeoSystem.GenesisBlock, new BitArray(0, false));
+            test = MerkleBlockPayload.Create(TestBlockchain.TheEpicChainSystem.GenesisBlock, new BitArray(0, false));
             test.Size.Should().Be(119); // 111 + nonce
         }
 
         [TestMethod]
         public void DeserializeAndSerialize()
         {
-            var test = MerkleBlockPayload.Create(TestBlockchain.TheNeoSystem.GenesisBlock, new BitArray(2, false));
+            var test = MerkleBlockPayload.Create(TestBlockchain.TheEpicChainSystem.GenesisBlock, new BitArray(2, false));
             var clone = test.ToArray().AsSerializable<MerkleBlockPayload>();
 
             Assert.AreEqual(test.TxCount, clone.TxCount);

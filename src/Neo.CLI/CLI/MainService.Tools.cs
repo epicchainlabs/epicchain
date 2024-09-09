@@ -198,7 +198,7 @@ namespace Neo.CLI
         {
             try
             {
-                var bigEndScript = address.ToScriptHash(NeoSystem.Settings.AddressVersion);
+                var bigEndScript = address.ToScriptHash(EpicChainSystem.Settings.AddressVersion);
                 return bigEndScript.ToString();
             }
             catch
@@ -217,7 +217,7 @@ namespace Neo.CLI
         {
             try
             {
-                var bigEndScript = address.ToScriptHash(NeoSystem.Settings.AddressVersion);
+                var bigEndScript = address.ToScriptHash(EpicChainSystem.Settings.AddressVersion);
                 return bigEndScript.ToArray().ToHexString();
             }
             catch
@@ -236,7 +236,7 @@ namespace Neo.CLI
         {
             try
             {
-                var script = address.ToScriptHash(NeoSystem.Settings.AddressVersion);
+                var script = address.ToScriptHash(EpicChainSystem.Settings.AddressVersion);
                 return Convert.ToBase64String(script.ToArray().AsSpan());
             }
             catch
@@ -276,7 +276,7 @@ namespace Neo.CLI
                     }
                 }
 
-                return scriptHash.ToAddress(NeoSystem.Settings.AddressVersion);
+                return scriptHash.ToAddress(EpicChainSystem.Settings.AddressVersion);
             }
             catch
             {
@@ -302,7 +302,7 @@ namespace Neo.CLI
                     return null;
                 }
 
-                return scripthash.ToAddress(NeoSystem.Settings.AddressVersion);
+                return scripthash.ToAddress(EpicChainSystem.Settings.AddressVersion);
             }
             catch
             {
@@ -362,7 +362,7 @@ namespace Neo.CLI
                 return null;
             return Contract.CreateSignatureContract(publicKey)
                 .ScriptHash
-                .ToAddress(NeoSystem.Settings.AddressVersion);
+                .ToAddress(EpicChainSystem.Settings.AddressVersion);
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace Neo.CLI
             try
             {
                 var pubKey = WIFToPublicKey(wif);
-                return Contract.CreateSignatureContract(ECPoint.Parse(pubKey, ECCurve.Secp256r1)).ScriptHash.ToAddress(NeoSystem.Settings.AddressVersion);
+                return Contract.CreateSignatureContract(ECPoint.Parse(pubKey, ECCurve.Secp256r1)).ScriptHash.ToAddress(EpicChainSystem.Settings.AddressVersion);
             }
             catch (Exception)
             {

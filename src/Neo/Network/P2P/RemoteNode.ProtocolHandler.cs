@@ -25,7 +25,7 @@ using System.Net;
 
 namespace Neo.Network.P2P
 {
-    public delegate bool MessageReceivedHandler(NeoSystem system, Message message);
+    public delegate bool MessageReceivedHandler(EpicChainSystem system, Message message);
 
     partial class RemoteNode
     {

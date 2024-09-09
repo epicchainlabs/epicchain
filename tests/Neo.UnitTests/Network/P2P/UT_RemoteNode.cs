@@ -24,7 +24,7 @@ namespace Neo.UnitTests.Network.P2P
     [TestClass]
     public class UT_RemoteNode : TestKit
     {
-        private static NeoSystem testBlockchain;
+        private static EpicChainSystem testBlockchain;
 
         public UT_RemoteNode()
             : base($"remote-node-mailbox {{ mailbox-type: \"{typeof(RemoteNodeMailbox).AssemblyQualifiedName}\" }}")
@@ -34,7 +34,7 @@ namespace Neo.UnitTests.Network.P2P
         [ClassInitialize]
         public static void TestSetup(TestContext ctx)
         {
-            testBlockchain = TestBlockchain.TheNeoSystem;
+            testBlockchain = TestBlockchain.TheEpicChainSystem;
         }
 
         [TestMethod]

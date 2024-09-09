@@ -38,14 +38,14 @@ namespace Neo.UnitTests.SmartContract
         {
             ApplicationEngine.Provider = new TestProvider();
 
-            using var appEngine = ApplicationEngine.Create(TriggerType.Application, null, null, gas: 0, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var appEngine = ApplicationEngine.Create(TriggerType.Application, null, null, gas: 0, settings: TestBlockchain.TheEpicChainSystem.Settings);
             (appEngine is TestEngine).Should().BeTrue();
         }
 
         [TestMethod]
         public void TestDefaultAppEngineProvider()
         {
-            using var appEngine = ApplicationEngine.Create(TriggerType.Application, null, null, gas: 0, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var appEngine = ApplicationEngine.Create(TriggerType.Application, null, null, gas: 0, settings: TestBlockchain.TheEpicChainSystem.Settings);
             (appEngine is ApplicationEngine).Should().BeTrue();
         }
 

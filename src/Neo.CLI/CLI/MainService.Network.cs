@@ -56,7 +56,7 @@ namespace Neo.CLI
         [ConsoleCommand("broadcast block", Category = "Network Commands")]
         private void OnBroadcastGetBlocksByHashCommand(UInt256 hash)
         {
-            OnBroadcastCommand(MessageCommand.Block, NativeContract.Ledger.GetBlock(NeoSystem.StoreView, hash));
+            OnBroadcastCommand(MessageCommand.Block, NativeContract.Ledger.GetBlock(EpicChainSystem.StoreView, hash));
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Neo.CLI
         [ConsoleCommand("broadcast block", Category = "Network Commands")]
         private void OnBroadcastGetBlocksByHeightCommand(uint height)
         {
-            OnBroadcastCommand(MessageCommand.Block, NativeContract.Ledger.GetBlock(NeoSystem.StoreView, height));
+            OnBroadcastCommand(MessageCommand.Block, NativeContract.Ledger.GetBlock(EpicChainSystem.StoreView, height));
         }
 
         /// <summary>
@@ -118,13 +118,13 @@ namespace Neo.CLI
         [ConsoleCommand("broadcast transaction", Category = "Network Commands")]
         private void OnBroadcastTransactionCommand(UInt256 hash)
         {
-            if (NeoSystem.MemPool.TryGetValue(hash, out var tx))
+            if (EpicChainSystem.MemPool.TryGetValue(hash, out var tx))
                 OnBroadcastCommand(MessageCommand.Transaction, tx);
         }
 
         private void OnBroadcastCommand(MessageCommand command, ISerializable ret)
         {
-            NeoSystem.LocalNode.Tell(Message.Create(command, ret));
+            EpicChainSystem.LocalNode.Tell(Message.Create(command, ret));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Neo.CLI
 
             try
             {
-                ContractParametersContext context = ContractParametersContext.Parse(jsonObjectToRelay.ToString(), NeoSystem.StoreView);
+                ContractParametersContext context = ContractParametersContext.Parse(jsonObjectToRelay.ToString(), EpicChainSystem.StoreView);
                 if (!context.Completed)
                 {
                     ConsoleHelper.Error("The signature is incomplete.");
@@ -154,7 +154,7 @@ namespace Neo.CLI
                     return;
                 }
                 tx.Witnesses = context.GetWitnesses();
-                NeoSystem.Blockchain.Tell(tx);
+                EpicChainSystem.Blockchain.Tell(tx);
                 Console.WriteLine($"Data relay success, the hash is shown as follows: {Environment.NewLine}{tx.Hash}");
             }
             catch (Exception e)

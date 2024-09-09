@@ -40,7 +40,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                 return;
             }
 
-            if (!message.Verify(neoSystem.Settings)) return;
+            if (!message.Verify(EpicChainSystem.Settings)) return;
             if (message.BlockIndex != context.Block.Index)
             {
                 if (context.Block.Index < message.BlockIndex)
@@ -80,9 +80,9 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             if (context.RequestSentOrReceived || context.NotAcceptingPayloadsDueToViewChanging) return;
             if (message.ValidatorIndex != context.Block.PrimaryIndex || message.ViewNumber != context.ViewNumber) return;
             if (message.Version != context.Block.Version || message.PrevHash != context.Block.PrevHash) return;
-            if (message.TransactionHashes.Length > neoSystem.Settings.MaxTransactionsPerBlock) return;
+            if (message.TransactionHashes.Length > EpicChainSystem.Settings.MaxTransactionsPerBlock) return;
             Log($"{nameof(OnPrepareRequestReceived)}: height={message.BlockIndex} view={message.ViewNumber} index={message.ValidatorIndex} tx={message.TransactionHashes.Length}");
-            if (message.Timestamp <= context.PrevHeader.Timestamp || message.Timestamp > TimeProvider.Current.UtcNow.AddMilliseconds(8 * neoSystem.Settings.MillisecondsPerBlock).ToTimestampMS())
+            if (message.Timestamp <= context.PrevHeader.Timestamp || message.Timestamp > TimeProvider.Current.UtcNow.AddMilliseconds(8 * EpicChainSystem.Settings.MillisecondsPerBlock).ToTimestampMS())
             {
                 Log($"Timestamp incorrect: {message.Timestamp}", LogLevel.Warning);
                 return;
@@ -109,7 +109,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                     if (!context.GetMessage<PrepareResponse>(context.PreparationPayloads[i]).PreparationHash.Equals(payload.Hash))
                         context.PreparationPayloads[i] = null;
             context.PreparationPayloads[message.ValidatorIndex] = payload;
-            byte[] hashData = context.EnsureHeader().GetSignData(neoSystem.Settings.Network);
+            byte[] hashData = context.EnsureHeader().GetSignData(EpicChainSystem.Settings.Network);
             for (int i = 0; i < context.CommitPayloads.Length; i++)
                 if (context.GetMessage(context.CommitPayloads[i])?.ViewNumber == context.ViewNumber)
                     if (!Crypto.VerifySignature(hashData, context.GetMessage<Commit>(context.CommitPayloads[i]).Signature.Span, context.Validators[i]))
@@ -122,13 +122,13 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                 return;
             }
 
-            Dictionary<UInt256, Transaction> mempoolVerified = neoSystem.MemPool.GetVerifiedTransactions().ToDictionary(p => p.Hash);
+            Dictionary<UInt256, Transaction> mempoolVerified = EpicChainSystem.MemPool.GetVerifiedTransactions().ToDictionary(p => p.Hash);
             List<Transaction> unverified = new List<Transaction>();
             foreach (UInt256 hash in context.TransactionHashes)
             {
                 if (mempoolVerified.TryGetValue(hash, out Transaction tx))
                 {
-                    if (NativeContract.Ledger.ContainsConflictHash(context.Snapshot, hash, tx.Signers.Select(s => s.Account), neoSystem.Settings.MaxTraceableBlocks))
+                    if (NativeContract.Ledger.ContainsConflictHash(context.Snapshot, hash, tx.Signers.Select(s => s.Account), EpicChainSystem.Settings.MaxTraceableBlocks))
                     {
                         Log($"Invalid request: transaction has on-chain conflict", LogLevel.Warning);
                         return;
@@ -139,9 +139,9 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                 }
                 else
                 {
-                    if (neoSystem.MemPool.TryGetValue(hash, out tx))
+                    if (EpicChainSystem.MemPool.TryGetValue(hash, out tx))
                     {
-                        if (NativeContract.Ledger.ContainsConflictHash(context.Snapshot, hash, tx.Signers.Select(s => s.Account), neoSystem.Settings.MaxTraceableBlocks))
+                        if (NativeContract.Ledger.ContainsConflictHash(context.Snapshot, hash, tx.Signers.Select(s => s.Account), EpicChainSystem.Settings.MaxTraceableBlocks))
                         {
                             Log($"Invalid request: transaction has on-chain conflict", LogLevel.Warning);
                             return;
@@ -215,7 +215,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
 
                 Log($"{nameof(OnCommitReceived)}: height={commit.BlockIndex} view={commit.ViewNumber} index={commit.ValidatorIndex} nc={context.CountCommitted} nf={context.CountFailed}");
 
-                byte[] hashData = context.EnsureHeader()?.GetSignData(neoSystem.Settings.Network);
+                byte[] hashData = context.EnsureHeader()?.GetSignData(EpicChainSystem.Settings.Network);
                 if (hashData == null)
                 {
                     existingCommitPayload = payload;

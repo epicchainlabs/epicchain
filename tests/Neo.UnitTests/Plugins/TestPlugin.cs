@@ -36,12 +36,12 @@ namespace Neo.UnitTests.Plugins
             Blockchain.Committed += OnCommitted;
         }
 
-        private static void OnCommitting(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        private static void OnCommitting(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             throw new NotImplementedException("Test exception from OnCommitting");
         }
 
-        private static void OnCommitted(NeoSystem system, Block block)
+        private static void OnCommitted(EpicChainSystem system, Block block)
         {
             throw new NotImplementedException("Test exception from OnCommitted");
         }
@@ -82,12 +82,12 @@ namespace Neo.UnitTests.Plugins
 
         protected override bool OnMessage(object message) => true;
 
-        private void OnCommitting(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        private void OnCommitting(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             throw new NotImplementedException();
         }
 
-        private void OnCommitted(NeoSystem system, Block block)
+        private void OnCommitted(EpicChainSystem system, Block block)
         {
             throw new NotImplementedException();
         }

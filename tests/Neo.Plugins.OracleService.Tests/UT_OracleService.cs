@@ -24,7 +24,7 @@ namespace Neo.Plugins.OracleService.Tests
         [TestInitialize]
         public void TestSetup()
         {
-            TestBlockchain.InitializeMockNeoSystem();
+            TestBlockchain.InitializeMockEpicChainSystem();
         }
 
         [TestMethod]

@@ -36,8 +36,8 @@ namespace Neo.CLI
         [ConsoleCommand("transfer", Category = "XEP17 Commands")]
         private void OnTransferCommand(UInt160 tokenHash, UInt160 to, decimal amount, UInt160? from = null, string? data = null, UInt160[]? signersAccounts = null)
         {
-            var snapshot = NeoSystem.StoreView;
-            var asset = new AssetDescriptor(snapshot, NeoSystem.Settings, tokenHash);
+            var snapshot = EpicChainSystem.StoreView;
+            var asset = new AssetDescriptor(snapshot, EpicChainSystem.Settings, tokenHash);
             var value = new BigDecimal(amount, asset.Decimals);
 
             if (NoWallet()) return;
@@ -88,7 +88,7 @@ namespace Neo.CLI
                 ["value"] = address.ToString()
             };
 
-            var asset = new AssetDescriptor(NeoSystem.StoreView, NeoSystem.Settings, tokenHash);
+            var asset = new AssetDescriptor(EpicChainSystem.StoreView, EpicChainSystem.Settings, tokenHash);
 
             if (!OnInvokeWithResult(tokenHash, "balanceOf", out StackItem balanceResult, null, new JArray(arg))) return;
 
@@ -105,7 +105,7 @@ namespace Neo.CLI
         [ConsoleCommand("name", Category = "XEP17 Commands")]
         private void OnNameCommand(UInt160 tokenHash)
         {
-            ContractState contract = NativeContract.ContractManagement.GetContract(NeoSystem.StoreView, tokenHash);
+            ContractState contract = NativeContract.ContractManagement.GetContract(EpicChainSystem.StoreView, tokenHash);
             if (contract == null) Console.WriteLine($"Contract hash not exist: {tokenHash}");
             else ConsoleHelper.Info("Result: ", contract.Manifest.Name);
         }
@@ -131,7 +131,7 @@ namespace Neo.CLI
         {
             if (!OnInvokeWithResult(tokenHash, "totalSupply", out StackItem result)) return;
 
-            var asset = new AssetDescriptor(NeoSystem.StoreView, NeoSystem.Settings, tokenHash);
+            var asset = new AssetDescriptor(EpicChainSystem.StoreView, EpicChainSystem.Settings, tokenHash);
             var totalSupply = new BigDecimal(((PrimitiveType)result).GetInteger(), asset.Decimals);
 
             ConsoleHelper.Info("Result: ", $"{totalSupply}");

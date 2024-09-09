@@ -20,7 +20,7 @@ namespace Neo.Benchmark;
 public class Benchmarks_PoCs
 {
     private static readonly ProtocolSettings protocol = ProtocolSettings.Load("config.json");
-    private static readonly NeoSystem system = new(protocol, (string)null);
+    private static readonly EpicChainSystem system = new(protocol, (string)null);
 
     [Benchmark]
     public void NeoIssue2725()

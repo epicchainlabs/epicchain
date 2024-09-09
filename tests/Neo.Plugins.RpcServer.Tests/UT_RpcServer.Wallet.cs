@@ -155,7 +155,7 @@ partial class UT_RpcServer
     [TestMethod]
     public void TestCalculateNetworkFee()
     {
-        var snapshot = _neoSystem.GetSnapshot();
+        var snapshot = _EpicChainSystem.GetSnapshot();
         var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
         var txBase64 = Convert.ToBase64String(tx.ToArray());
         var paramsArray = new JArray(txBase64);
@@ -342,7 +342,7 @@ partial class UT_RpcServer
     public void TestCancelTransaction()
     {
         TestUtilOpenWallet();
-        var snapshot = _neoSystem.GetSnapshot();
+        var snapshot = _EpicChainSystem.GetSnapshot();
         var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
         snapshot.Commit();
         var paramsArray = new JArray(tx.Hash.ToString(), new JArray(_walletAccount.Address));
@@ -393,7 +393,7 @@ partial class UT_RpcServer
         exception = Assert.ThrowsException<RpcException>(() => _rpcServer.InvokeContractVerify(invalidParamsArray), "Should throw RpcException for invalid script hash");
         Assert.AreEqual(exception.HResult, RpcError.InvalidParams.Code);
 
-        // deploy a contract with `Verify` method; 
+        // deploy a contract with `Verify` method;
         string _contractSourceCode = """
 using Neo;using Neo.SmartContract.Framework;using Neo.SmartContract.Framework.Services;
 namespace ContractWithVerify{public class ContractWithVerify:SmartContract {
@@ -416,17 +416,17 @@ namespace ContractWithVerify{public class ContractWithVerify:SmartContract {
             validatorSigner]));
         Assert.AreEqual(deployResp["state"], nameof(VM.VMState.HALT));
         UInt160 deployedScriptHash = new UInt160(Convert.FromBase64String(deployResp["notifications"][0]["state"]["value"][0]["value"].AsString()));
-        SnapshotCache snapshot = _neoSystem.GetSnapshotCache();
+        SnapshotCache snapshot = _EpicChainSystem.GetSnapshotCache();
         Transaction? tx = new Transaction
         {
             Nonce = 233,
-            ValidUntilBlock = NativeContract.Ledger.CurrentIndex(snapshot) + _neoSystem.Settings.MaxValidUntilBlockIncrement,
+            ValidUntilBlock = NativeContract.Ledger.CurrentIndex(snapshot) + _EpicChainSystem.Settings.MaxValidUntilBlockIncrement,
             Signers = [new Signer() { Account = ValidatorScriptHash, Scopes = WitnessScope.CalledByEntry }],
             Attributes = Array.Empty<TransactionAttribute>(),
             Script = Convert.FromBase64String(deployResp["script"].AsString()),
             Witnesses = null,
         };
-        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _neoSystem.Settings, gas: 1200_0000_0000);
+        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, gas: 1200_0000_0000);
         engine.SnapshotCache.Commit();
 
         // invoke verify without signer; should return false
@@ -496,7 +496,7 @@ namespace ContractWithVerify{public class ContractWithVerify:SmartContract {
             Value = new byte[] { 0x01, 0x02, 0x03, 0x04 }
         };
 
-        var snapshot = _neoSystem.GetSnapshotCache();
+        var snapshot = _EpicChainSystem.GetSnapshotCache();
         snapshot.AddContract(state.Hash, state);
         snapshot.Add(storageKey, storageItem);
         snapshot.Commit();

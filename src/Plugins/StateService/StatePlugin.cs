@@ -46,7 +46,7 @@ namespace Neo.Plugins.StateService
         internal IActorRef Store;
         internal IActorRef Verifier;
 
-        internal static NeoSystem _system;
+        internal static EpicChainSystem _system;
         private IWalletProvider walletProvider;
 
         public StatePlugin()
@@ -60,21 +60,21 @@ namespace Neo.Plugins.StateService
             Settings.Load(GetConfiguration());
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             if (system.Settings.Network != Settings.Default.Network) return;
             _system = system;
             Store = _system.ActorSystem.ActorOf(StateStore.Props(this, string.Format(Settings.Default.Path, system.Settings.Network.ToString("X8"))));
-            _system.ServiceAdded += ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+            _system.ServiceAdded += ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
             RpcServerPlugin.RegisterMethods(this, Settings.Default.Network);
         }
 
-        void IServiceAddedHandler.NeoSystem_ServiceAdded_Handler(object sender, object service)
+        void IServiceAddedHandler.EpicChainSystem_ServiceAdded_Handler(object sender, object service)
         {
             if (service is IWalletProvider)
             {
                 walletProvider = service as IWalletProvider;
-                _system.ServiceAdded -= ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+                _system.ServiceAdded -= ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
                 if (Settings.Default.AutoVerify)
                 {
                     walletProvider.WalletChanged += ((IWalletChangedHandler)this).IWalletProvider_WalletChanged_Handler;
@@ -97,13 +97,13 @@ namespace Neo.Plugins.StateService
             if (Verifier is not null) _system.EnsureStopped(Verifier);
         }
 
-        void ICommittingHandler.Blockchain_Committing_Handler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<ApplicationExecuted> applicationExecutedList)
+        void ICommittingHandler.Blockchain_Committing_Handler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<ApplicationExecuted> applicationExecutedList)
         {
             if (system.Settings.Network != Settings.Default.Network) return;
             StateStore.Singleton.UpdateLocalStateRootSnapshot(block.Index, snapshot.GetChangeSet().Where(p => p.State != TrackState.None).Where(p => p.Key.Id != NativeContract.Ledger.Id).ToList());
         }
 
-        void ICommittedHandler.Blockchain_Committed_Handler(NeoSystem system, Block block)
+        void ICommittedHandler.Blockchain_Committed_Handler(EpicChainSystem system, Block block)
         {
             if (system.Settings.Network != Settings.Default.Network) return;
             StateStore.Singleton.UpdateLocalStateRoot(block.Index);

@@ -109,7 +109,7 @@ namespace Neo.UnitTests
             }, new StorageItem(value));
         }
 
-        public static void FillMemoryPool(DataCache snapshot, NeoSystem system, NEP6Wallet wallet, WalletAccount account)
+        public static void FillMemoryPool(DataCache snapshot, EpicChainSystem system, NEP6Wallet wallet, WalletAccount account)
         {
             for (int i = 0; i < system.Settings.MemoryPoolMaxTransactions; i++)
             {

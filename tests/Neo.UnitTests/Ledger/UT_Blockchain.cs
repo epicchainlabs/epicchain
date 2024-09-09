@@ -29,14 +29,14 @@ namespace Neo.UnitTests.Ledger
     [TestClass]
     public class UT_Blockchain : TestKit
     {
-        private NeoSystem system;
+        private EpicChainSystem system;
         private Transaction txSample;
         private TestProbe senderProbe;
 
         [TestInitialize]
         public void Initialize()
         {
-            system = TestBlockchain.TheNeoSystem;
+            system = TestBlockchain.TheEpicChainSystem;
             senderProbe = CreateTestProbe();
             txSample = new Transaction
             {
@@ -57,7 +57,7 @@ namespace Neo.UnitTests.Ledger
         [TestMethod]
         public void TestValidTransaction()
         {
-            var snapshot = TestBlockchain.TheNeoSystem.GetSnapshotCache();
+            var snapshot = TestBlockchain.TheEpicChainSystem.GetSnapshotCache();
             var walletA = TestUtils.GenerateTestWallet("123");
             var acc = walletA.CreateAccount();
 
@@ -95,12 +95,12 @@ namespace Neo.UnitTests.Ledger
         [TestMethod]
         public void TestMaliciousOnChainConflict()
         {
-            var snapshot = TestBlockchain.TheNeoSystem.GetSnapshotCache();
+            var snapshot = TestBlockchain.TheEpicChainSystem.GetSnapshotCache();
             var walletA = TestUtils.GenerateTestWallet("123");
             var accA = walletA.CreateAccount();
             var walletB = TestUtils.GenerateTestWallet("456");
             var accB = walletB.CreateAccount();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheNeoSystem.Settings, gas: long.MaxValue);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
             engine.LoadScript(Array.Empty<byte>());
 
             // Fake balance for accounts A and B.
@@ -142,7 +142,7 @@ namespace Neo.UnitTests.Ledger
                 sb.EmitSysCall(ApplicationEngine.System_Contract_NativeOnPersist);
                 onPersistScript = sb.ToArray();
             }
-            using (ApplicationEngine engine2 = ApplicationEngine.Create(TriggerType.OnPersist, null, snapshot, block, TestBlockchain.TheNeoSystem.Settings, 0))
+            using (ApplicationEngine engine2 = ApplicationEngine.Create(TriggerType.OnPersist, null, snapshot, block, TestBlockchain.TheEpicChainSystem.Settings, 0))
             {
                 engine2.LoadScript(onPersistScript);
                 if (engine2.Execute() != VMState.HALT) throw engine2.FaultException;
@@ -158,7 +158,7 @@ namespace Neo.UnitTests.Ledger
                 sb.EmitSysCall(ApplicationEngine.System_Contract_NativePostPersist);
                 postPersistScript = sb.ToArray();
             }
-            using (ApplicationEngine engine2 = ApplicationEngine.Create(TriggerType.PostPersist, null, snapshot, block, TestBlockchain.TheNeoSystem.Settings, 0))
+            using (ApplicationEngine engine2 = ApplicationEngine.Create(TriggerType.PostPersist, null, snapshot, block, TestBlockchain.TheEpicChainSystem.Settings, 0))
             {
                 engine2.LoadScript(postPersistScript);
                 if (engine2.Execute() != VMState.HALT) throw engine2.FaultException;
@@ -167,11 +167,11 @@ namespace Neo.UnitTests.Ledger
             snapshot.Commit();
 
             // Add tx2: must fail because valid conflict is alredy on chain (tx1).
-            senderProbe.Send(TestBlockchain.TheNeoSystem.Blockchain, tx2);
+            senderProbe.Send(TestBlockchain.TheEpicChainSystem.Blockchain, tx2);
             senderProbe.ExpectMsg<Blockchain.RelayResult>(p => p.Result == VerifyResult.HasConflicts);
 
             // Add tx3: must succeed because on-chain conflict is invalid (doesn't have proper signer).
-            senderProbe.Send(TestBlockchain.TheNeoSystem.Blockchain, tx3);
+            senderProbe.Send(TestBlockchain.TheEpicChainSystem.Blockchain, tx3);
             senderProbe.ExpectMsg<Blockchain.RelayResult>(p => p.Result == VerifyResult.Succeed);
         }
     }

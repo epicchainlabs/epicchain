@@ -57,7 +57,7 @@ namespace Neo.Plugins.OracleService
         private OracleStatus status = OracleStatus.Unstarted;
         private IWalletProvider walletProvider;
         private int counter;
-        private NeoSystem _system;
+        private EpicChainSystem _system;
 
         private readonly Dictionary<string, IOracleProtocol> protocols = new Dictionary<string, IOracleProtocol>();
 
@@ -79,21 +79,21 @@ namespace Neo.Plugins.OracleService
                 p.Configure();
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             if (system.Settings.Network != Settings.Default.Network) return;
             _system = system;
-            _system.ServiceAdded += ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+            _system.ServiceAdded += ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
             RpcServerPlugin.RegisterMethods(this, Settings.Default.Network);
         }
 
 
-        void IServiceAddedHandler.NeoSystem_ServiceAdded_Handler(object sender, object service)
+        void IServiceAddedHandler.EpicChainSystem_ServiceAdded_Handler(object sender, object service)
         {
             if (service is IWalletProvider)
             {
                 walletProvider = service as IWalletProvider;
-                _system.ServiceAdded -= ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+                _system.ServiceAdded -= ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
                 if (Settings.Default.AutoStart)
                 {
                     walletProvider.WalletChanged += ((IWalletChangedHandler)this).IWalletProvider_WalletChanged_Handler;
@@ -171,7 +171,7 @@ namespace Neo.Plugins.OracleService
             ConsoleHelper.Info($"Oracle status: ", $"{status}");
         }
 
-        void ICommittingHandler.Blockchain_Committing_Handler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        void ICommittingHandler.Blockchain_Committing_Handler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             if (system.Settings.Network != Settings.Default.Network) return;
 

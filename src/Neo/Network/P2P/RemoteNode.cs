@@ -35,7 +35,7 @@ namespace Neo.Network.P2P
         internal class StartProtocol { }
         internal class Relay { public IInventory Inventory; }
 
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
         private readonly LocalNode localNode;
         private readonly Queue<Message> message_queue_high = new();
         private readonly Queue<Message> message_queue_low = new();
@@ -73,12 +73,12 @@ namespace Neo.Network.P2P
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteNode"/> class.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <paramref name="localNode"/>.</param>
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <paramref name="localNode"/>.</param>
         /// <param name="localNode">The <see cref="LocalNode"/> that manages the <see cref="RemoteNode"/>.</param>
         /// <param name="connection">The underlying connection object.</param>
         /// <param name="remote">The address of the remote node.</param>
         /// <param name="local">The address of the local node.</param>
-        public RemoteNode(NeoSystem system, LocalNode localNode, object connection, IPEndPoint remote, IPEndPoint local)
+        public RemoteNode(EpicChainSystem system, LocalNode localNode, object connection, IPEndPoint remote, IPEndPoint local)
             : base(connection, remote, local)
         {
             this.system = system;
@@ -220,7 +220,7 @@ namespace Neo.Network.P2P
             base.PostStop();
         }
 
-        internal static Props Props(NeoSystem system, LocalNode localNode, object connection, IPEndPoint remote, IPEndPoint local)
+        internal static Props Props(EpicChainSystem system, LocalNode localNode, object connection, IPEndPoint remote, IPEndPoint local)
         {
             return Akka.Actor.Props.Create(() => new RemoteNode(system, localNode, connection, remote, local)).WithMailbox("remote-node-mailbox");
         }

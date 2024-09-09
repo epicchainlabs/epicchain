@@ -24,7 +24,7 @@ namespace Neo.Plugins.DBFTPlugin
         private IWalletProvider walletProvider;
         private IActorRef consensus;
         private bool started = false;
-        private NeoSystem neoSystem;
+        private EpicChainSystem EpicChainSystem;
         private Settings settings;
 
         public override string Description => "Consensus plugin with dBFT algorithm.";
@@ -53,18 +53,18 @@ namespace Neo.Plugins.DBFTPlugin
             settings ??= new Settings(GetConfiguration());
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             if (system.Settings.Network != settings.Network) return;
-            neoSystem = system;
-            neoSystem.ServiceAdded += ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+            EpicChainSystem = system;
+            EpicChainSystem.ServiceAdded += ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
         }
 
-        void IServiceAddedHandler.NeoSystem_ServiceAdded_Handler(object sender, object service)
+        void IServiceAddedHandler.EpicChainSystem_ServiceAdded_Handler(object sender, object service)
         {
             if (service is not IWalletProvider provider) return;
             walletProvider = provider;
-            neoSystem.ServiceAdded -= ((IServiceAddedHandler)this).NeoSystem_ServiceAdded_Handler;
+            EpicChainSystem.ServiceAdded -= ((IServiceAddedHandler)this).EpicChainSystem_ServiceAdded_Handler;
             if (settings.AutoStart)
             {
                 walletProvider.WalletChanged += ((IWalletChangedHandler)this).IWalletProvider_WalletChanged_Handler;
@@ -87,11 +87,11 @@ namespace Neo.Plugins.DBFTPlugin
         {
             if (started) return;
             started = true;
-            consensus = neoSystem.ActorSystem.ActorOf(ConsensusService.Props(neoSystem, settings, wallet));
+            consensus = EpicChainSystem.ActorSystem.ActorOf(ConsensusService.Props(EpicChainSystem, settings, wallet));
             consensus.Tell(new ConsensusService.Start());
         }
 
-        bool IMessageReceivedHandler.RemoteNode_MessageReceived_Handler(NeoSystem system, Message message)
+        bool IMessageReceivedHandler.RemoteNode_MessageReceived_Handler(EpicChainSystem system, Message message)
         {
             if (message.Command == MessageCommand.Transaction)
             {

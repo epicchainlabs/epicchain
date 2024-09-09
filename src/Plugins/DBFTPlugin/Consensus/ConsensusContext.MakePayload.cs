@@ -38,7 +38,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
         {
             return CommitPayloads[MyIndex] ?? (CommitPayloads[MyIndex] = MakeSignedPayload(new Commit
             {
-                Signature = EnsureHeader().Sign(keyPair, neoSystem.Settings.Network)
+                Signature = EnsureHeader().Sign(keyPair, EpicChainSystem.Settings.Network)
             }));
         }
 
@@ -57,7 +57,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             ContractParametersContext sc;
             try
             {
-                sc = new ContractParametersContext(neoSystem.StoreView, payload, dbftSettings.Network);
+                sc = new ContractParametersContext(EpicChainSystem.StoreView, payload, dbftSettings.Network);
                 wallet.Sign(sc);
             }
             catch (InvalidOperationException exception)
@@ -74,7 +74,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
         /// <param name="txs">Ordered transactions</param>
         internal void EnsureMaxBlockLimitation(IEnumerable<Transaction> txs)
         {
-            uint maxTransactionsPerBlock = neoSystem.Settings.MaxTransactionsPerBlock;
+            uint maxTransactionsPerBlock = EpicChainSystem.Settings.MaxTransactionsPerBlock;
 
             // Limit Speaker proposal to the limit `MaxTransactionsPerBlock` or all available transactions of the mempool
             txs = txs.Take((int)maxTransactionsPerBlock);
@@ -108,7 +108,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
 
         public ExtensiblePayload MakePrepareRequest()
         {
-            EnsureMaxBlockLimitation(neoSystem.MemPool.GetSortedVerifiedTransactions());
+            EnsureMaxBlockLimitation(EpicChainSystem.MemPool.GetSortedVerifiedTransactions());
             Block.Header.Timestamp = Math.Max(TimeProvider.Current.UtcNow.ToTimestampMS(), PrevHeader.Timestamp + 1);
             Block.Header.Nonce = GetNonce();
             return PreparationPayloads[MyIndex] = MakeSignedPayload(new PrepareRequest

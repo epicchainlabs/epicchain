@@ -1,85 +1,144 @@
-# README for Application and Protocol Configuration JSON File
+# **EpicChain Node Configuration Guide**
 
-This README provides an explanation for each field in the JSON configuration file for a Neo node.
+This README provides a comprehensive explanation of each field in the configuration JSON file for an EpicChain node. This configuration file plays a pivotal role in ensuring the smooth operation of your node, handling logging, storage, P2P networking, and protocol-specific parameters.
 
-## ApplicationConfiguration
+---
 
-### Logger
-- **Path**: Directory where log files are stored. Default is "Logs".
-- **ConsoleOutput**: Boolean flag to enable or disable console output for logging. Default is `false`.
-- **Active**: Boolean flag to activate or deactivate the logger. Default is `false`.
+## **ApplicationConfiguration**
+The `ApplicationConfiguration` section controls essential application-level settings such as logging, storage, network, and wallet configurations. Each component here allows customization to optimize node performance and functionality.
 
-### Storage
-- **Engine**: Specifies the storage engine used by the node. Possible values are:
-    - `MemoryStore`
-    - `LevelDBStore`
-    - `RocksDBStore`
-- **Path**: Path to the data storage directory. `{0}` is a placeholder for the network ID.
+### **1. Logger Configuration**
+- **`Path:`**
+  - Directory for storing log files. By default, logs are saved in a folder named "Logs". This is crucial for debugging and tracking node activities.
 
-### P2P
-- **Port**: Port number for the P2P network. MainNet is `10333`, TestNet is `20333`.
-- **MinDesiredConnections**: Minimum number of desired P2P connections. Default is `10`.
-- **MaxConnections**: Maximum number of P2P connections. Default is `40`.
-- **MaxConnectionsPerAddress**: Maximum number of connections allowed per address. Default is `3`.
+- **`ConsoleOutput:`**
+  - Boolean flag (`true` or `false`) that determines if log outputs will also appear in the console. For development purposes, enabling this can help in real-time tracking of node behavior. Default is `false`.
 
-### UnlockWallet
-- **Path**: Path to the wallet file.
-- **Password**: Password for the wallet.
-- **IsActive**: Boolean flag to activate or deactivate the wallet. Default is `false`.
+- **`Active:`**
+  - Another boolean flag that controls whether logging is activated for the node. Disabling logging (`false`) might enhance performance, though at the cost of losing traceability in case of issues. Default is `false`.
 
-### Contracts
-- **EpicChainNameService**: Script hash of the Neo Name Service contract. MainNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`, TestNet is `0x50ac1c37690cc2cfc594472833cf57505d5f46de`.
+### **2. Storage Configuration**
+- **`Engine:`**
+  - Specifies the type of storage engine the node will use to store blockchain data. The following options are available:
+    - `MemoryStore`: Temporary storage used mostly for testing and development. Data is stored in-memory and is lost on shutdown.
+    - `LevelDBStore`: A persistent and disk-based storage engine that provides faster read/write operations. Suitable for production environments.
+    - `RocksDBStore`: A high-performance storage engine, especially useful for high-load environments.
 
-### Plugins
-- **DownloadUrl**: URL to download plugins, typically from the Neo project's GitHub releases. Default is `https://api.github.com/repos/epicchainlabs/epicchain/releases`.
+- **`Path:`**
+  - Specifies the file system path where blockchain data is stored. Use `{0}` as a placeholder for network ID to dynamically allocate the storage path based on the network your node is connecting to.
 
-## ProtocolConfiguration
+### **3. P2P Configuration**
+- **`Port:`**
+  - Defines the port number used by the P2P network protocol. The default port for MainNet is `10111`, and for TestNet, it's `20111`. Ensure this port is open on your firewall and correctly configured to allow connections.
 
-### Network
-- **Network**: Network ID for the Neo network. MainNet is `860833102`, TestNet is `894710606`
+- **`MinDesiredConnections:`**
+  - The minimum number of connections the node will try to maintain with other nodes in the network. This helps ensure a healthy connection state. Default is `10`.
 
-### AddressVersion
-- **AddressVersion**: Version byte used in Neo address generation. Default is `53`.
+- **`MaxConnections:`**
+  - This defines the maximum number of peer connections that the node will support simultaneously. A higher number can increase network resilience but may use more system resources. Default is `40`.
 
-### MillisecondsPerBlock
-- **MillisecondsPerBlock**: Time interval between blocks in milliseconds. Default is `15000` (15 seconds).
+- **`MaxConnectionsPerAddress:`**
+  - Specifies the maximum number of connections that can be established from a single IP address. This helps prevent spamming from a particular node. Default is `3`.
 
-### MaxTransactionsPerBlock
-- **MaxTransactionsPerBlock**: Maximum number of transactions allowed per block. Default is `512`.
+### **4. UnlockWallet Configuration**
+- **`Path:`**
+  - The path to the wallet file containing private keys. This file is essential for signing transactions and participating in network consensus.
 
-### MemoryPoolMaxTransactions
-- **MemoryPoolMaxTransactions**: Maximum number of transactions that can be held in the memory pool. Default is `50000`.
+- **`Password:`**
+  - The password used to decrypt the wallet. Ensure that this is stored securely, as it provides access to your wallet's private keys.
 
-### MaxTraceableBlocks
-- **MaxTraceableBlocks**: Maximum number of blocks that can be traced back. Default is `2102400`.
+- **`IsActive:`**
+  - Boolean flag that activates or deactivates the wallet functionality. Set to `true` if the wallet is to be used by the node, otherwise `false`. Default is `false`.
 
-### Hardforks
-- **HF_Aspidochelone**: Block height for the Aspidochelone hard fork. MainNet is `1730000`, TestNet is `210000`.
-- **HF_Basilisk**: Block height for the Basilisk hard fork. MainNet is `4120000`, TestNet is `2680000`.
-- **HF_Cockatrice**: Block height for the Cockatrice hard fork. MainNet is `5450000`, TestNet is `3967000`.
+### **5. Contracts Configuration**
+- **`EpicChainNameService:`**
+  - This field contains the script hash of the EpicChain Name Service contract, which manages the name resolution on the blockchain. This contract ensures unique names are assigned to addresses and entities.
+  - MainNet Hash: `0x50ac1c37690cc2cfc594472833cf57505d5f46de`
+  - TestNet Hash: `0x50ac1c37690cc2cfc594472833cf57505d5f46de`
 
-### InitialGasDistribution
-- **InitialGasDistribution**: Total amount of GAS distributed initially. Default is `5,200,000,000,000,000 Datoshi` (`52,000,000 GAS`).
+### **6. Plugins Configuration**
+- **`DownloadUrl:`**
+  - This specifies the URL where plugins can be downloaded. Plugins extend the functionality of your node by adding features such as new consensus mechanisms, additional logging, or wallet enhancements. The default URL points to EpicChain's GitHub repository: `https://api.github.com/repos/epicchainlabs/epicchain/releases`.
 
-### ValidatorsCount
-- **ValidatorsCount**: Number of consensus validators. Default is `7`.
+---
 
-### StandbyCommittee
-- **StandbyCommittee**: List of public keys for the standby committee members.
+## **ProtocolConfiguration**
+The `ProtocolConfiguration` section dictates the rules and parameters that govern the blockchain network and consensus mechanism. These settings control block times, transaction limits, and consensus validator behavior.
 
-### SeedList
-- **SeedList**: List of seed nodes with their addresses and ports.
-  - MainNet addresses are:
-      - `mainnet1-seed.epic-chain.org:10111`
-      - `mainnet2-seed.epic-chain.org:10111`
-      - `mainnet3-seed.epic-chain.org:10111`
-      - `mainnet4-seed.epic-chain.org:10111`
-      - `mainnet5-seed.epic-chain.org:10111`
-  - TestNet addresses are:
-      - `testnet1-seed.epic-chain.org:20111`
-      - `testnet2-seed.epic-chain.org:20111`
-      - `testnet3-seed.epic-chain.org:20111`
-      - `testnet4-seed.epic-chain.org:20111`
-      - `testnet5-seed.epic-chain.org:20111`
+### **1. Network**
+- **`Network:`**
+  - This field specifies the unique network ID that the node will connect to. This ensures that nodes on different networks (MainNet, TestNet) are appropriately segregated.
+    - MainNet ID: `860833102`
+    - TestNet ID: `894710606`
 
-This configuration file is essential for setting up and running a Neo node, ensuring proper logging, storage, network connectivity, and consensus protocol parameters.
+### **2. AddressVersion**
+- **`AddressVersion:`**
+  - This field defines the version byte used during EpicChain address generation. Changing this can lead to incompatibility between different network addresses. Default value is `53`.
+
+### **3. Block Timing**
+- **`MillisecondsPerBlock:`**
+  - This defines the block time interval, measured in milliseconds. Shorter intervals lead to faster transaction finality but may reduce security. The default interval is `15000` milliseconds (15 seconds per block).
+
+### **4. Transaction Limits**
+- **`MaxTransactionsPerBlock:`**
+  - Maximum number of transactions that can be packed into a single block. Adjusting this can control block size and overall network throughput. Default is `512`.
+
+- **`MemoryPoolMaxTransactions:`**
+  - This field sets the upper limit of transactions that can be held in the memory pool awaiting inclusion in a block. By default, this is set to `50000`, ensuring that the pool can handle a large backlog without overwhelming the node.
+
+### **5. Block Traceability**
+- **`MaxTraceableBlocks:`**
+  - Defines how far back in the blockchain history the node can trace transactions. Default is `2102400` blocks.
+
+### **6. Hard Fork Configurations**
+- **`HF_Aspidochelone:`**
+  - Block height at which the Aspidochelone hard fork occurs.
+    - MainNet: `1730000`
+    - TestNet: `210000`
+
+- **`HF_Basilisk:`**
+  - Block height at which the Basilisk hard fork occurs.
+    - MainNet: `4120000`
+    - TestNet: `2680000`
+
+- **`HF_Cockatrice:`**
+  - Block height for the Cockatrice hard fork.
+    - MainNet: `5450000`
+    - TestNet: `3967000`
+
+### **7. GAS Distribution**
+- **`InitialGasDistribution:`**
+  - The total amount of GAS initially distributed across the network. This field uses the smallest unit of GAS, called "Datoshi."
+  - Default: `50,000,000,000,000,000 Datoshi` (equivalent to `500,000,000 GAS`).
+
+### **8. Consensus Validators**
+- **`ValidatorsCount:`**
+  - This setting controls the number of validators participating in the consensus mechanism. Adjusting this affects decentralization and consensus strength. Default is `7`.
+
+### **9. Standby Committee**
+- **`StandbyCommittee:`**
+  - A list of public keys for the standby committee members. These members are responsible for ensuring the stability of the network by serving as backup validators in case active validators go offline.
+
+### **10. Seed Nodes**
+- **`SeedList:`**
+  - A list of seed nodes that your node can connect to in order to synchronize with the blockchain network. These nodes serve as entry points to the network, helping your node discover peers and begin operations. Below are the addresses for both MainNet and TestNet:
+
+  **MainNet Seed Nodes:**
+  - `mainnet1-seed.epic-chain.org:10111`
+  - `mainnet2-seed.epic-chain.org:10111`
+  - `mainnet3-seed.epic-chain.org:10111`
+  - `mainnet4-seed.epic-chain.org:10111`
+  - `mainnet5-seed.epic-chain.org:10111`
+
+  **TestNet Seed Nodes:**
+  - `testnet1-seed.epic-chain.org:20111`
+  - `testnet2-seed.epic-chain.org:20111`
+  - `testnet3-seed.epic-chain.org:20111`
+  - `testnet4-seed.epic-chain.org:20111`
+  - `testnet5-seed.epic-chain.org:20111`
+
+---
+
+### **Summary**
+
+This configuration file is essential for setting up and running an EpicChain node. It ensures proper logging, efficient storage management, robust peer-to-peer network connectivity, and adherence to consensus protocol parameters. Understanding each of these fields allows for the fine-tuning of your node to meet network requirements and operational goals effectively.

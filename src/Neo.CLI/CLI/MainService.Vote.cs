@@ -32,7 +32,7 @@ namespace Neo.CLI
         [ConsoleCommand("register candidate", Category = "Vote Commands")]
         private void OnRegisterCandidateCommand(UInt160 account)
         {
-            var testGas = NativeContract.NEO.GetRegisterPrice(NeoSystem.StoreView) + (BigInteger)Math.Pow(10, NativeContract.GAS.Decimals) * 10;
+            var testGas = NativeContract.NEO.GetRegisterPrice(EpicChainSystem.StoreView) + (BigInteger)Math.Pow(10, NativeContract.GAS.Decimals) * 10;
             if (NoWallet()) return;
             WalletAccount currentAccount = CurrentWallet!.GetAccount(account);
 
@@ -98,7 +98,7 @@ namespace Neo.CLI
 
         /// <summary>
         /// Process "vote" command
-        /// </summary>  
+        /// </summary>
         /// <param name="senderAccount">Sender account</param>
         /// <param name="publicKey">Voting publicKey</param>
         [ConsoleCommand("vote", Category = "Vote Commands")]
@@ -117,7 +117,7 @@ namespace Neo.CLI
 
         /// <summary>
         /// Process "unvote" command
-        /// </summary>  
+        /// </summary>
         /// <param name="senderAccount">Sender account</param>
         [ConsoleCommand("unvote", Category = "Vote Commands")]
         private void OnUnvoteCommand(UInt160 senderAccount)
@@ -239,7 +239,7 @@ namespace Neo.CLI
                 }
             }
             var publickey = ECPoint.Parse(((ByteString)resJArray[2])?.GetSpan().ToHexString(), ECCurve.Secp256r1);
-            ConsoleHelper.Info("Voted: ", Contract.CreateSignatureRedeemScript(publickey).ToScriptHash().ToAddress(NeoSystem.Settings.AddressVersion));
+            ConsoleHelper.Info("Voted: ", Contract.CreateSignatureRedeemScript(publickey).ToScriptHash().ToAddress(EpicChainSystem.Settings.AddressVersion));
             ConsoleHelper.Info("Amount: ", new BigDecimal(((Integer)resJArray[0]).GetInteger(), NativeContract.NEO.Decimals).ToString());
             ConsoleHelper.Info("Block: ", ((Integer)resJArray[1]).GetInteger().ToString());
         }

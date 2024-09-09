@@ -56,7 +56,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
         public SnapshotCache Snapshot { get; private set; }
         private KeyPair keyPair;
         private int _witnessSize;
-        private readonly NeoSystem neoSystem;
+        private readonly EpicChainSystem EpicChainSystem;
         private readonly Settings dbftSettings;
         private readonly Wallet wallet;
         private readonly IStore store;
@@ -111,21 +111,21 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
 
         public int Size => throw new NotImplementedException();
 
-        public ConsensusContext(NeoSystem neoSystem, Settings settings, Wallet wallet)
+        public ConsensusContext(EpicChainSystem EpicChainSystem, Settings settings, Wallet wallet)
         {
             this.wallet = wallet;
-            this.neoSystem = neoSystem;
+            this.EpicChainSystem = EpicChainSystem;
             dbftSettings = settings;
 
             if (dbftSettings.IgnoreRecoveryLogs == false)
-                store = neoSystem.LoadStore(settings.RecoveryLogs);
+                store = EpicChainSystem.LoadStore(settings.RecoveryLogs);
         }
 
         public Block CreateBlock()
         {
             EnsureHeader();
             Contract contract = Contract.CreateMultiSigContract(M, Validators);
-            ContractParametersContext sc = new ContractParametersContext(neoSystem.StoreView, Block.Header, dbftSettings.Network);
+            ContractParametersContext sc = new ContractParametersContext(EpicChainSystem.StoreView, Block.Header, dbftSettings.Network);
             for (int i = 0, j = 0; i < Validators.Length && j < M; i++)
             {
                 if (GetMessage(CommitPayloads[i])?.ViewNumber != ViewNumber) continue;
@@ -194,7 +194,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             if (viewNumber == 0)
             {
                 Snapshot?.Dispose();
-                Snapshot = neoSystem.GetSnapshotCache();
+                Snapshot = EpicChainSystem.GetSnapshotCache();
                 uint height = NativeContract.Ledger.CurrentIndex(Snapshot);
                 Block = new Block
                 {
@@ -203,13 +203,13 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                         PrevHash = NativeContract.Ledger.CurrentHash(Snapshot),
                         Index = height + 1,
                         NextConsensus = Contract.GetBFTAddress(
-                            EpicChain.ShouldRefreshCommittee(height + 1, neoSystem.Settings.CommitteeMembersCount) ?
-                            NativeContract.NEO.ComputeNextBlockValidators(Snapshot, neoSystem.Settings) :
-                            NativeContract.NEO.GetNextBlockValidators(Snapshot, neoSystem.Settings.ValidatorsCount))
+                            EpicChain.ShouldRefreshCommittee(height + 1, EpicChainSystem.Settings.CommitteeMembersCount) ?
+                            NativeContract.NEO.ComputeNextBlockValidators(Snapshot, EpicChainSystem.Settings) :
+                            NativeContract.NEO.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount))
                     }
                 };
                 var pv = Validators;
-                Validators = NativeContract.NEO.GetNextBlockValidators(Snapshot, neoSystem.Settings.ValidatorsCount);
+                Validators = NativeContract.NEO.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount);
                 if (_witnessSize == 0 || (pv != null && pv.Length != Validators.Length))
                 {
                     // Compute the expected size of the witness
@@ -291,10 +291,10 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             ViewNumber = reader.ReadByte();
             TransactionHashes = reader.ReadSerializableArray<UInt256>(ushort.MaxValue);
             Transaction[] transactions = reader.ReadSerializableArray<Transaction>(ushort.MaxValue);
-            PreparationPayloads = reader.ReadNullableArray<ExtensiblePayload>(neoSystem.Settings.ValidatorsCount);
-            CommitPayloads = reader.ReadNullableArray<ExtensiblePayload>(neoSystem.Settings.ValidatorsCount);
-            ChangeViewPayloads = reader.ReadNullableArray<ExtensiblePayload>(neoSystem.Settings.ValidatorsCount);
-            LastChangeViewPayloads = reader.ReadNullableArray<ExtensiblePayload>(neoSystem.Settings.ValidatorsCount);
+            PreparationPayloads = reader.ReadNullableArray<ExtensiblePayload>(EpicChainSystem.Settings.ValidatorsCount);
+            CommitPayloads = reader.ReadNullableArray<ExtensiblePayload>(EpicChainSystem.Settings.ValidatorsCount);
+            ChangeViewPayloads = reader.ReadNullableArray<ExtensiblePayload>(EpicChainSystem.Settings.ValidatorsCount);
+            LastChangeViewPayloads = reader.ReadNullableArray<ExtensiblePayload>(EpicChainSystem.Settings.ValidatorsCount);
             if (TransactionHashes.Length == 0 && !RequestSentOrReceived)
                 TransactionHashes = null;
             Transactions = transactions.Length == 0 && !RequestSentOrReceived ? null : transactions.ToDictionary(p => p.Hash);

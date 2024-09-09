@@ -29,8 +29,8 @@ using System.Runtime.CompilerServices;
 
 namespace Neo.Ledger
 {
-    public delegate void CommittingHandler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList);
-    public delegate void CommittedHandler(NeoSystem system, Block block);
+    public delegate void CommittingHandler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList);
+    public delegate void CommittedHandler(EpicChainSystem system, Block block);
 
     /// <summary>
     /// Actor used to verify and relay <see cref="IInventory"/>.
@@ -124,7 +124,7 @@ namespace Neo.Ledger
 
         private readonly static Script onPersistScript, postPersistScript;
         private const int MaxTxToReverifyPerIdle = 10;
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
         private readonly Dictionary<UInt256, Block> block_cache = new();
         private readonly Dictionary<uint, UnverifiedBlocksList> block_cache_unverified = new();
         private ImmutableHashSet<UInt160> extensibleWitnessWhiteList;
@@ -146,8 +146,8 @@ namespace Neo.Ledger
         /// <summary>
         /// Initializes a new instance of the <see cref="Blockchain"/> class.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="Blockchain"/>.</param>
-        public Blockchain(NeoSystem system)
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="Blockchain"/>.</param>
+        public Blockchain(EpicChainSystem system)
         {
             this.system = system;
         }
@@ -483,13 +483,13 @@ namespace Neo.Ledger
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void InvokeCommitting(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<ApplicationExecuted> applicationExecutedList)
+        internal static void InvokeCommitting(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<ApplicationExecuted> applicationExecutedList)
         {
             InvokeHandlers(Committing?.GetInvocationList(), h => ((CommittingHandler)h)(system, block, snapshot, applicationExecutedList));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void InvokeCommitted(NeoSystem system, Block block)
+        internal static void InvokeCommitted(EpicChainSystem system, Block block)
         {
             InvokeHandlers(Committed?.GetInvocationList(), h => ((CommittedHandler)h)(system, block));
         }
@@ -535,9 +535,9 @@ namespace Neo.Ledger
         /// <summary>
         /// Gets a <see cref="Akka.Actor.Props"/> object used for creating the <see cref="Blockchain"/> actor.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="Blockchain"/>.</param>
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="Blockchain"/>.</param>
         /// <returns>The <see cref="Akka.Actor.Props"/> object used for creating the <see cref="Blockchain"/> actor.</returns>
-        public static Props Props(NeoSystem system)
+        public static Props Props(EpicChainSystem system)
         {
             return Akka.Actor.Props.Create(() => new Blockchain(system)).WithMailbox("blockchain-mailbox");
         }

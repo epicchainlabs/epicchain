@@ -45,11 +45,11 @@ namespace Neo.Plugins.Trackers.NEP_11
 
         public override string TrackName => nameof(Nep11Tracker);
 
-        public Nep11Tracker(IStore db, uint maxResult, bool shouldRecordHistory, NeoSystem system) : base(db, maxResult, shouldRecordHistory, system)
+        public Nep11Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
         {
         }
 
-        public override void OnPersist(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        public override void OnPersist(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             _currentBlock = block;
             _currentHeight = block.Index;
@@ -117,7 +117,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(record.asset, "balanceOf", record.from, record.tokenId);
             sb.EmitDynamicCall(record.asset, "balanceOf", record.to, record.tokenId);
-            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _neoSystem.Settings, gas: 3400_0000);
+            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, gas: 3400_0000);
             if (engine.State.HasFlag(VMState.FAULT) || engine.ResultStack.Count != 2)
             {
                 Log($"Fault: from[{record.from}] to[{record.to}] get {record.asset} token [{record.tokenId.ToHexString()}] balance fault", LogLevel.Warning);
@@ -206,7 +206,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             (endTime >= startTime).True_Or(RpcError.InvalidParams);
 
             JObject json = new();
-            json["address"] = userScriptHash.ToAddress(_neoSystem.Settings.AddressVersion);
+            json["address"] = userScriptHash.ToAddress(_EpicChainSystem.Settings.AddressVersion);
             JArray transfersSent = new();
             json["sent"] = transfersSent;
             JArray transfersReceived = new();
@@ -223,7 +223,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
             JObject json = new();
             JArray balances = new();
-            json["address"] = userScriptHash.ToAddress(_neoSystem.Settings.AddressVersion);
+            json["address"] = userScriptHash.ToAddress(_EpicChainSystem.Settings.AddressVersion);
             json["balance"] = balances;
 
             var map = new Dictionary<UInt160, List<(string tokenid, BigInteger amount, uint height)>>();
@@ -231,7 +231,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             byte[] prefix = Key(Nep11BalancePrefix, userScriptHash);
             foreach (var (key, value) in _db.FindPrefix<Nep11BalanceKey, TokenBalance>(prefix))
             {
-                if (NativeContract.ContractManagement.GetContract(_neoSystem.StoreView, key.AssetScriptHash) is null)
+                if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
                     continue;
                 if (!map.TryGetValue(key.AssetScriptHash, out var list))
                 {
@@ -252,10 +252,10 @@ namespace Neo.Plugins.Trackers.NEP_11
                     script.EmitDynamicCall(key, "decimals");
                     script.EmitDynamicCall(key, "symbol");
 
-                    var engine = ApplicationEngine.Run(script.ToArray(), _neoSystem.StoreView, settings: _neoSystem.Settings);
+                    var engine = ApplicationEngine.Run(script.ToArray(), _EpicChainSystem.StoreView, settings: _EpicChainSystem.Settings);
                     var symbol = engine.ResultStack.Pop().GetString();
                     var decimals = engine.ResultStack.Pop().GetInteger();
-                    var name = NativeContract.ContractManagement.GetContract(_neoSystem.StoreView, key).Manifest.Name;
+                    var name = NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key).Manifest.Name;
 
                     balances.Add(new JObject
                     {
@@ -284,9 +284,9 @@ namespace Neo.Plugins.Trackers.NEP_11
 
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(nep11Hash, "properties", CallFlags.ReadOnly, tokenId);
-            using var snapshot = _neoSystem.GetSnapshotCache();
+            using var snapshot = _EpicChainSystem.GetSnapshotCache();
 
-            using var engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _neoSystem.Settings);
+            using var engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings);
             JObject json = new();
 
             if (engine.State == VMState.HALT)

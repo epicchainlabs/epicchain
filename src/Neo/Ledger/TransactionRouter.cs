@@ -21,9 +21,9 @@ namespace Neo.Ledger
         public record Preverify(Transaction Transaction, bool Relay);
         public record PreverifyCompleted(Transaction Transaction, bool Relay, VerifyResult Result);
 
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
 
-        public TransactionRouter(NeoSystem system)
+        public TransactionRouter(EpicChainSystem system)
         {
             this.system = system;
         }
@@ -34,7 +34,7 @@ namespace Neo.Ledger
             system.Blockchain.Tell(new PreverifyCompleted(preverify.Transaction, preverify.Relay, preverify.Transaction.VerifyStateIndependent(system.Settings)), Sender);
         }
 
-        internal static Props Props(NeoSystem system)
+        internal static Props Props(EpicChainSystem system)
         {
             return Akka.Actor.Props.Create(() => new TransactionRouter(system)).WithRouter(new SmallestMailboxPool(Environment.ProcessorCount));
         }

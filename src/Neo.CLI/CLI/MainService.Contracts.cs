@@ -36,7 +36,7 @@ namespace Neo.CLI
             Transaction tx;
             try
             {
-                tx = CurrentWallet!.MakeTransaction(NeoSystem.StoreView, script);
+                tx = CurrentWallet!.MakeTransaction(EpicChainSystem.StoreView, script);
             }
             catch (InvalidOperationException e)
             {
@@ -53,7 +53,7 @@ namespace Neo.CLI
             {
                 return;
             }
-            SignAndSendTx(NeoSystem.StoreView, tx);
+            SignAndSendTx(EpicChainSystem.StoreView, tx);
         }
 
         /// <summary>
@@ -92,14 +92,14 @@ namespace Neo.CLI
             try
             {
                 byte[] script = LoadUpdateScript(scriptHash, filePath, manifestPath, data, out var nef, out var manifest);
-                tx = CurrentWallet!.MakeTransaction(NeoSystem.StoreView, script, sender, signers);
+                tx = CurrentWallet!.MakeTransaction(EpicChainSystem.StoreView, script, sender, signers);
             }
             catch (InvalidOperationException e)
             {
                 ConsoleHelper.Error(GetExceptionMessage(e));
                 return;
             }
-            ContractState contract = NativeContract.ContractManagement.GetContract(NeoSystem.StoreView, scriptHash);
+            ContractState contract = NativeContract.ContractManagement.GetContract(EpicChainSystem.StoreView, scriptHash);
             if (contract == null)
             {
                 ConsoleHelper.Warning($"Can't upgrade, contract hash not exist: {scriptHash}");
@@ -115,7 +115,7 @@ namespace Neo.CLI
                 {
                     return;
                 }
-                SignAndSendTx(NeoSystem.StoreView, tx);
+                SignAndSendTx(EpicChainSystem.StoreView, tx);
             }
         }
 
@@ -169,7 +169,7 @@ namespace Neo.CLI
             if (NoWallet()) return;
             try
             {
-                tx = CurrentWallet!.MakeTransaction(NeoSystem.StoreView, tx.Script, sender, signers, maxGas: (long)datoshi.Value);
+                tx = CurrentWallet!.MakeTransaction(EpicChainSystem.StoreView, tx.Script, sender, signers, maxGas: (long)datoshi.Value);
             }
             catch (InvalidOperationException e)
             {
@@ -184,7 +184,7 @@ namespace Neo.CLI
             {
                 return;
             }
-            SignAndSendTx(NeoSystem.StoreView, tx);
+            SignAndSendTx(EpicChainSystem.StoreView, tx);
         }
     }
 }

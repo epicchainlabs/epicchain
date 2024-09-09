@@ -163,7 +163,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
         internal static ContractState Call_GetContract(DataCache snapshot, UInt160 address, Block persistingBlock)
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, persistingBlock, settings: TestBlockchain.TheNeoSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.ContractManagement.Hash, "getContract", address);

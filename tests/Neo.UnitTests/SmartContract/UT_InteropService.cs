@@ -455,7 +455,7 @@ namespace Neo.UnitTests.SmartContract
                                         0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
                                         0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01};
             NativeContract.Ledger.GetBlock(engine.SnapshotCache, new UInt256(data1)).Should().BeNull();
-            NativeContract.Ledger.GetBlock(engine.SnapshotCache, TestBlockchain.TheNeoSystem.GenesisBlock.Hash).Should().NotBeNull();
+            NativeContract.Ledger.GetBlock(engine.SnapshotCache, TestBlockchain.TheEpicChainSystem.GenesisBlock.Hash).Should().NotBeNull();
         }
 
         [TestMethod]
@@ -772,7 +772,7 @@ namespace Neo.UnitTests.SmartContract
             var tx = hasContainer ? TestUtils.GetTransaction(UInt160.Zero) : null;
             var snapshotCache = hasSnapshot ? TestBlockchain.GetTestSnapshotCache() : null;
             var block = hasBlock ? new Block { Header = new Header() } : null;
-            var engine = ApplicationEngine.Create(TriggerType.Application, tx, snapshotCache, block, TestBlockchain.TheNeoSystem.Settings, gas: gas);
+            var engine = ApplicationEngine.Create(TriggerType.Application, tx, snapshotCache, block, TestBlockchain.TheEpicChainSystem.Settings, gas: gas);
             if (addScript) engine.LoadScript(new byte[] { 0x01 });
             return engine;
         }

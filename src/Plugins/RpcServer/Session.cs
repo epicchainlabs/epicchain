@@ -26,7 +26,7 @@ namespace Neo.Plugins.RpcServer
         public readonly Dictionary<Guid, IIterator> Iterators = new();
         public DateTime StartTime;
 
-        public Session(NeoSystem system, byte[] script, Signer[] signers, Witness[] witnesses, long datoshi, Diagnostic diagnostic)
+        public Session(EpicChainSystem system, byte[] script, Signer[] signers, Witness[] witnesses, long datoshi, Diagnostic diagnostic)
         {
             Random random = new();
             Snapshot = system.GetSnapshotCache();

@@ -32,7 +32,7 @@ namespace Neo.Plugins
         private string[] _enabledTrackers;
         private IStore _db;
         private UnhandledExceptionPolicy _exceptionPolicy;
-        private NeoSystem neoSystem;
+        private EpicChainSystem EpicChainSystem;
         private readonly List<TrackerBase> trackers = new();
         protected override UnhandledExceptionPolicy ExceptionPolicy => _exceptionPolicy;
 
@@ -67,16 +67,16 @@ namespace Neo.Plugins
             }
         }
 
-        protected override void OnSystemLoaded(NeoSystem system)
+        protected override void OnSystemLoaded(EpicChainSystem system)
         {
             if (system.Settings.Network != _network) return;
-            neoSystem = system;
-            string path = string.Format(_dbPath, neoSystem.Settings.Network.ToString("X8"));
-            _db = neoSystem.LoadStore(GetFullPath(path));
+            EpicChainSystem = system;
+            string path = string.Format(_dbPath, EpicChainSystem.Settings.Network.ToString("X8"));
+            _db = EpicChainSystem.LoadStore(GetFullPath(path));
             if (_enabledTrackers.Contains("NEP-11"))
-                trackers.Add(new Trackers.NEP_11.Nep11Tracker(_db, _maxResults, _shouldTrackHistory, neoSystem));
+                trackers.Add(new Trackers.NEP_11.Nep11Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             if (_enabledTrackers.Contains("NEP-17"))
-                trackers.Add(new Trackers.NEP_17.Nep17Tracker(_db, _maxResults, _shouldTrackHistory, neoSystem));
+                trackers.Add(new Trackers.NEP_17.Nep17Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             foreach (TrackerBase tracker in trackers)
                 RpcServerPlugin.RegisterMethods(tracker, _network);
         }
@@ -89,7 +89,7 @@ namespace Neo.Plugins
             }
         }
 
-        void ICommittingHandler.Blockchain_Committing_Handler(NeoSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
+        void ICommittingHandler.Blockchain_Committing_Handler(EpicChainSystem system, Block block, DataCache snapshot, IReadOnlyList<Blockchain.ApplicationExecuted> applicationExecutedList)
         {
             if (system.Settings.Network != _network) return;
             // Start freshly with a new DBCache for each block.
@@ -100,7 +100,7 @@ namespace Neo.Plugins
             }
         }
 
-        void ICommittedHandler.Blockchain_Committed_Handler(NeoSystem system, Block block)
+        void ICommittedHandler.Blockchain_Committed_Handler(EpicChainSystem system, Block block)
         {
             if (system.Settings.Network != _network) return;
             foreach (var tracker in trackers)

@@ -22,7 +22,7 @@ Reference counting is a memory management technique used to track the number of 
 
 ### What is Tracked
 
-In the Neo VM, the `ReferenceCounter` class is used to count references to objects to track and manage `StackItem` references. The `reference_count` calculates the total number of current references, including stack references and object references. Specifically, the `reference_count` increases or decreases in the following situations:
+In the EpicChain VM, the `ReferenceCounter` class is used to count references to objects to track and manage `StackItem` references. The `reference_count` calculates the total number of current references, including stack references and object references. Specifically, the `reference_count` increases or decreases in the following situations:
 
 #### Increment Reference
 

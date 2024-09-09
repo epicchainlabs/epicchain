@@ -55,7 +55,7 @@ namespace Neo.Network.P2P
 
         private const int MaxConcurrentTasks = 3;
 
-        private readonly NeoSystem system;
+        private readonly EpicChainSystem system;
         /// <summary>
         /// A set of known hashes, of inventories or payloads, already received.
         /// </summary>
@@ -71,8 +71,8 @@ namespace Neo.Network.P2P
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskManager"/> class.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="TaskManager"/>.</param>
-        public TaskManager(NeoSystem system)
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="TaskManager"/>.</param>
+        public TaskManager(EpicChainSystem system)
         {
             this.system = system;
             knownHashes = new HashSetCache<UInt256>(system.MemPool.Capacity * 2 / 5);
@@ -343,9 +343,9 @@ namespace Neo.Network.P2P
         /// <summary>
         /// Gets a <see cref="Akka.Actor.Props"/> object used for creating the <see cref="TaskManager"/> actor.
         /// </summary>
-        /// <param name="system">The <see cref="NeoSystem"/> object that contains the <see cref="TaskManager"/>.</param>
+        /// <param name="system">The <see cref="EpicChainSystem"/> object that contains the <see cref="TaskManager"/>.</param>
         /// <returns>The <see cref="Akka.Actor.Props"/> object used for creating the <see cref="TaskManager"/> actor.</returns>
-        public static Props Props(NeoSystem system)
+        public static Props Props(EpicChainSystem system)
         {
             return Akka.Actor.Props.Create(() => new TaskManager(system)).WithMailbox("task-manager-mailbox");
         }

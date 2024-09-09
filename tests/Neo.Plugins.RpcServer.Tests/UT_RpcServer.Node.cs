@@ -37,12 +37,12 @@ namespace Neo.Plugins.RpcServer.Tests
         public void TestGetPeers()
         {
             var settings = TestProtocolSettings.SoleNode;
-            var neoSystem = new NeoSystem(settings, _memoryStoreProvider);
-            var localNode = neoSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
+            var EpicChainSystem = new EpicChainSystem(settings, _memoryStoreProvider);
+            var localNode = EpicChainSystem.LocalNode.Ask<LocalNode>(new LocalNode.GetInstance()).Result;
             localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 11332) });
             localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 12332) });
             localNode.AddPeers(new List<IPEndPoint>() { new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), 13332) });
-            var rpcServer = new RpcServer(neoSystem, RpcServerSettings.Default);
+            var rpcServer = new RpcServer(EpicChainSystem, RpcServerSettings.Default);
 
             var result = rpcServer.GetPeers(new JArray());
             Assert.IsInstanceOfType(result, typeof(JObject));
@@ -83,7 +83,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Normal()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -103,7 +103,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InsufficientBalance()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InsufficientBalance);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -116,7 +116,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidSignature()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidSignature);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -129,7 +129,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidScript()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidScript);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -142,7 +142,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_InvalidAttribute()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.InvalidAttribute);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -157,7 +157,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Oversized()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.Oversized);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -171,7 +171,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_Expired()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateInvalidTransaction(snapshot, _wallet, _walletAccount, TestUtils.InvalidTransactionType.Expired);
             var txString = Convert.ToBase64String(tx.ToArray());
 
@@ -184,7 +184,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_PolicyFailed()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             var txString = Convert.ToBase64String(tx.ToArray());
             NativeContract.Policy.BlockAccount(snapshot, _walletAccount.ScriptHash);
@@ -199,9 +199,9 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_AlreadyInPool()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
-            _neoSystem.MemPool.TryAdd(tx, snapshot);
+            _EpicChainSystem.MemPool.TryAdd(tx, snapshot);
             var txString = Convert.ToBase64String(tx.ToArray());
 
             var exception = Assert.ThrowsException<RpcException>(() =>
@@ -213,7 +213,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSendRawTransaction_AlreadyInBlockchain()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var tx = TestUtils.CreateValidTx(snapshot, _wallet, _walletAccount);
             TestUtils.AddTransactionToBlockchain(snapshot, tx);
             snapshot.Commit();
@@ -229,7 +229,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_Normal()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             var blockString = Convert.ToBase64String(block.ToArray());
 
@@ -254,7 +254,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_AlreadyExists()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             TestUtils.BlocksAdd(snapshot, block.Hash, block);
             snapshot.Commit();
@@ -269,7 +269,7 @@ namespace Neo.Plugins.RpcServer.Tests
         [TestMethod]
         public void TestSubmitBlock_InvalidBlock()
         {
-            var snapshot = _neoSystem.GetSnapshotCache();
+            var snapshot = _EpicChainSystem.GetSnapshotCache();
             var block = TestUtils.CreateBlockWithValidTransactions(snapshot, _wallet, _walletAccount, 1);
             block.Header.Witness = new Witness();
             var blockString = Convert.ToBase64String(block.ToArray());

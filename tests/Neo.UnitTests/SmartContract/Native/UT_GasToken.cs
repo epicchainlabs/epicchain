@@ -104,7 +104,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Burn
 
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, persistingBlock, settings: TestBlockchain.TheNeoSystem.Settings, gas: 0);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 0);
             engine.LoadScript(Array.Empty<byte>());
 
             await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(async () =>
