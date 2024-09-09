@@ -4,7 +4,7 @@
     "TrackHistory": true,
     "MaxResults": 1000,
     "Network": 860833102,
-    "EnabledTrackers": [ "NEP-11", "XEP-17" ],
+    "EnabledTrackers": [ "XEP-11", "XEP-17" ],
     "UnhandledExceptionPolicy": "StopPlugin"
   },
   "Dependency": [

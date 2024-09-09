@@ -65,7 +65,7 @@ namespace Neo.Plugins.Trackers.NEP_11
                         stateItems.Count == 0)
                         continue;
                     var contract = NativeContract.ContractManagement.GetContract(snapshot, notifyEventArgs.ScriptHash);
-                    if (contract?.Manifest.SupportedStandards.Contains("NEP-11") == true)
+                    if (contract?.Manifest.SupportedStandards.Contains("XEP-11") == true)
                     {
                         try
                         {
