@@ -74,7 +74,7 @@ namespace Neo.Network.RPC.Tests
             var item = RpcContractState.FromJson((JObject)json);
             Assert.AreEqual(json.ToString(), item.ToJson().ToString());
 
-            var nef = RpcNefFile.FromJson((JObject)json["nef"]);
+            var nef = RpcXefFile.FromJson((JObject)json["nef"]);
             Assert.AreEqual(json["nef"].ToString(), nef.ToJson().ToString());
         }
 
@@ -93,10 +93,10 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod()]
-        public void TestRpcNep17Balances()
+        public void TestRpcXep17Balances()
         {
             JToken json = TestUtils.RpcTestCases.Find(p => p.Name == nameof(RpcClient.GetNep17BalancesAsync).ToLower()).Response.Result;
-            var item = RpcNep17Balances.FromJson((JObject)json, rpc.protocolSettings);
+            var item = RpcXep17Balances.FromJson((JObject)json, rpc.protocolSettings);
             Assert.AreEqual(json.ToString(), item.ToJson(rpc.protocolSettings).ToString());
         }
 

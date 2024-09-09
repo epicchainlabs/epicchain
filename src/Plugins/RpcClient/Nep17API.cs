@@ -84,7 +84,7 @@ namespace Neo.Network.RPC
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <returns></returns>
-        public async Task<RpcNep17TokenInfo> GetTokenInfoAsync(UInt160 scriptHash)
+        public async Task<RpcXep17TokenInfo> GetTokenInfoAsync(UInt160 scriptHash)
         {
             var contractState = await rpcClient.GetContractStateAsync(scriptHash.ToString()).ConfigureAwait(false);
             byte[] script = [
@@ -95,7 +95,7 @@ namespace Neo.Network.RPC
             var result = await rpcClient.InvokeScriptAsync(script).ConfigureAwait(false);
             var stack = result.Stack;
 
-            return new RpcNep17TokenInfo
+            return new RpcXep17TokenInfo
             {
                 Name = name,
                 Symbol = stack[0].GetString(),
@@ -104,7 +104,7 @@ namespace Neo.Network.RPC
             };
         }
 
-        public async Task<RpcNep17TokenInfo> GetTokenInfoAsync(string contractHash)
+        public async Task<RpcXep17TokenInfo> GetTokenInfoAsync(string contractHash)
         {
             var contractState = await rpcClient.GetContractStateAsync(contractHash).ConfigureAwait(false);
             byte[] script = [
@@ -115,7 +115,7 @@ namespace Neo.Network.RPC
             var result = await rpcClient.InvokeScriptAsync(script).ConfigureAwait(false);
             var stack = result.Stack;
 
-            return new RpcNep17TokenInfo
+            return new RpcXep17TokenInfo
             {
                 Name = name,
                 Symbol = stack[0].GetString(),

@@ -263,7 +263,7 @@ namespace Neo.Network.RPC
                 Id = (int)json["id"].AsNumber(),
                 UpdateCounter = (ushort)(json["updatecounter"]?.AsNumber() ?? 0),
                 Hash = UInt160.Parse(json["hash"].AsString()),
-                Nef = RpcNefFile.FromJson((JObject)json["nef"]),
+                Nef = RpcXefFile.FromJson((JObject)json["nef"]),
                 Manifest = ContractManifest.FromJson((JObject)json["manifest"])
             };
         }
@@ -701,11 +701,11 @@ namespace Neo.Network.RPC
         /// Returns the balance of all XEP-17 assets in the specified address.
         /// This method is provided by the plugin RpcXep17Tracker.
         /// </summary>
-        public async Task<RpcNep17Balances> GetNep17BalancesAsync(string address)
+        public async Task<RpcXep17Balances> GetNep17BalancesAsync(string address)
         {
             var result = await RpcSendAsync(GetRpcName(), address.AsScriptHash())
                 .ConfigureAwait(false);
-            return RpcNep17Balances.FromJson((JObject)result, protocolSettings);
+            return RpcXep17Balances.FromJson((JObject)result, protocolSettings);
         }
 
         #endregion Plugins

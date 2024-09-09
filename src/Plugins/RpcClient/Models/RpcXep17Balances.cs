@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// RpcNep17Balances.cs file belongs to the neo project and is free
+// RpcXep17Balances.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -17,7 +17,7 @@ using System.Numerics;
 
 namespace Neo.Network.RPC.Models
 {
-    public class RpcNep17Balances
+    public class RpcXep17Balances
     {
         public UInt160 UserScriptHash { get; set; }
 
@@ -31,9 +31,9 @@ namespace Neo.Network.RPC.Models
             return json;
         }
 
-        public static RpcNep17Balances FromJson(JObject json, ProtocolSettings protocolSettings)
+        public static RpcXep17Balances FromJson(JObject json, ProtocolSettings protocolSettings)
         {
-            RpcNep17Balances nep17Balance = new()
+            RpcXep17Balances nep17Balance = new()
             {
                 Balances = ((JArray)json["balance"]).Select(p => RpcNep17Balance.FromJson((JObject)p, protocolSettings)).ToList(),
                 UserScriptHash = json["address"].ToScriptHash(protocolSettings)
