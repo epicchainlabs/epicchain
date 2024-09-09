@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// NEP6Contract.cs file belongs to the neo project and is free
+// XEP6Contract.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -16,15 +16,15 @@ using System.Linq;
 
 namespace Neo.Wallets.NEP6
 {
-    internal class NEP6Contract : Contract
+    internal class XEP6Contract : Contract
     {
         public string[] ParameterNames;
         public bool Deployed;
 
-        public static NEP6Contract FromJson(JObject json)
+        public static XEP6Contract FromJson(JObject json)
         {
             if (json == null) return null;
-            return new NEP6Contract
+            return new XEP6Contract
             {
                 Script = Convert.FromBase64String(json["script"].AsString()),
                 ParameterList = ((JArray)json["parameters"]).Select(p => p["type"].GetEnum<ContractParameterType>()).ToArray(),

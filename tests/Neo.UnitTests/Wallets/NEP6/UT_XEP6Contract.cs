@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// UT_NEP6Contract.cs file belongs to the neo project and is free
+// UT_XEP6Contract.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -20,13 +20,13 @@ using System;
 namespace Neo.UnitTests.Wallets.NEP6
 {
     [TestClass]
-    public class UT_NEP6Contract
+    public class UT_XEP6Contract
     {
         [TestMethod]
         public void TestFromNullJson()
         {
-            NEP6Contract nep6Contract = NEP6Contract.FromJson(null);
-            nep6Contract.Should().BeNull();
+            XEP6Contract XEP6Contract = XEP6Contract.FromJson(null);
+            XEP6Contract.Should().BeNull();
         }
 
         [TestMethod]
@@ -36,19 +36,19 @@ namespace Neo.UnitTests.Wallets.NEP6
                 "\"parameters\":[{\"name\":\"signature\",\"type\":\"Signature\"}],\"deployed\":false}";
             JObject @object = (JObject)JToken.Parse(json);
 
-            NEP6Contract nep6Contract = NEP6Contract.FromJson(@object);
-            nep6Contract.Script.Should().BeEquivalentTo("2103ef891df4c0b7eefb937d21ea0fb88cde8e0d82a7ff11872b5e7047969dafb4eb68747476aa".HexToBytes());
-            nep6Contract.ParameterList.Length.Should().Be(1);
-            nep6Contract.ParameterList[0].Should().Be(ContractParameterType.Signature);
-            nep6Contract.ParameterNames.Length.Should().Be(1);
-            nep6Contract.ParameterNames[0].Should().Be("signature");
-            nep6Contract.Deployed.Should().BeFalse();
+            XEP6Contract XEP6Contract = XEP6Contract.FromJson(@object);
+            XEP6Contract.Script.Should().BeEquivalentTo("2103ef891df4c0b7eefb937d21ea0fb88cde8e0d82a7ff11872b5e7047969dafb4eb68747476aa".HexToBytes());
+            XEP6Contract.ParameterList.Length.Should().Be(1);
+            XEP6Contract.ParameterList[0].Should().Be(ContractParameterType.Signature);
+            XEP6Contract.ParameterNames.Length.Should().Be(1);
+            XEP6Contract.ParameterNames[0].Should().Be("signature");
+            XEP6Contract.Deployed.Should().BeFalse();
         }
 
         [TestMethod]
         public void TestToJson()
         {
-            NEP6Contract nep6Contract = new()
+            XEP6Contract XEP6Contract = new()
             {
                 Script = new byte[] { 0x00, 0x01 },
                 ParameterList = new ContractParameterType[] { ContractParameterType.Boolean, ContractParameterType.Integer },
@@ -56,9 +56,9 @@ namespace Neo.UnitTests.Wallets.NEP6
                 Deployed = false
             };
 
-            JObject @object = nep6Contract.ToJson();
+            JObject @object = XEP6Contract.ToJson();
             JString jString = (JString)@object["script"];
-            jString.Value.Should().Be(Convert.ToBase64String(nep6Contract.Script, Base64FormattingOptions.None));
+            jString.Value.Should().Be(Convert.ToBase64String(XEP6Contract.Script, Base64FormattingOptions.None));
 
             JBoolean jBoolean = (JBoolean)@object["deployed"];
             jBoolean.Value.Should().BeFalse();

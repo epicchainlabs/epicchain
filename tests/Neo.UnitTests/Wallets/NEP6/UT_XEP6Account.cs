@@ -131,8 +131,8 @@ namespace Neo.UnitTests.Wallets.NEP6
         [TestMethod]
         public void TestToJson()
         {
-            JObject nep6contract = new();
-            nep6contract["script"] = "IQNgPziA63rqCtRQCJOSXkpC/qSKRO5viYoQs8fOBdKiZ6w=";
+            JObject xep6contract = new();
+            xep6contract["script"] = "IQNgPziA63rqCtRQCJOSXkpC/qSKRO5viYoQs8fOBdKiZ6w=";
             JObject parameters = new();
             parameters["type"] = 0x00;
             parameters["name"] = "Sig";
@@ -140,9 +140,9 @@ namespace Neo.UnitTests.Wallets.NEP6
             {
                 parameters
             };
-            nep6contract["parameters"] = array;
-            nep6contract["deployed"] = false;
-            _account.Contract = NEP6Contract.FromJson(nep6contract);
+            xep6contract["parameters"] = array;
+            xep6contract["deployed"] = false;
+            _account.Contract = XEP6Contract.FromJson(xep6contract);
             JObject json = _account.ToJson();
             json["address"].AsString().Should().Be("NdtB8RXRmJ7Nhw1FPTm7E6HoDZGnDw37nf");
             json["label"].Should().BeNull();

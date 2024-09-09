@@ -112,10 +112,10 @@ namespace Neo.Wallets.NEP6
                     }
                     else
                     {
-                        NEP6Contract contract_old = (NEP6Contract)account_old.Contract;
+                        XEP6Contract contract_old = (XEP6Contract)account_old.Contract;
                         if (contract_old != null)
                         {
-                            NEP6Contract contract = (NEP6Contract)account.Contract;
+                            XEP6Contract contract = (XEP6Contract)account.Contract;
                             contract.ParameterNames = contract_old.ParameterNames;
                             contract.Deployed = contract_old.Deployed;
                         }
@@ -139,7 +139,7 @@ namespace Neo.Wallets.NEP6
             if (privateKey is null) throw new ArgumentNullException(nameof(privateKey));
             KeyPair key = new(privateKey);
             if (key.PublicKey.IsInfinity) throw new ArgumentException(null, nameof(privateKey));
-            NEP6Contract contract = new()
+            XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
                 ParameterList = new[] { ContractParameterType.Signature },
@@ -156,9 +156,9 @@ namespace Neo.Wallets.NEP6
 
         public override WalletAccount CreateAccount(Contract contract, KeyPair key = null)
         {
-            if (contract is not NEP6Contract nep6contract)
+            if (contract is not XEP6Contract XEP6Contract)
             {
-                nep6contract = new NEP6Contract
+                XEP6Contract = new XEP6Contract
                 {
                     Script = contract.Script,
                     ParameterList = contract.ParameterList,
@@ -168,10 +168,10 @@ namespace Neo.Wallets.NEP6
             }
             XEP6Account account;
             if (key == null)
-                account = new XEP6Account(this, nep6contract.ScriptHash);
+                account = new XEP6Account(this, XEP6Contract.ScriptHash);
             else
-                account = new XEP6Account(this, nep6contract.ScriptHash, key, password.GetClearText());
-            account.Contract = nep6contract;
+                account = new XEP6Account(this, XEP6Contract.ScriptHash, key, password.GetClearText());
+            account.Contract = XEP6Contract;
             AddAccount(account);
             return account;
         }
@@ -235,7 +235,7 @@ namespace Neo.Wallets.NEP6
             {
                 key = new KeyPair(ecdsa.ExportParameters(true).D);
             }
-            NEP6Contract contract = new()
+            XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
                 ParameterList = new[] { ContractParameterType.Signature },
@@ -253,7 +253,7 @@ namespace Neo.Wallets.NEP6
         public override WalletAccount Import(string wif)
         {
             KeyPair key = new(GetPrivateKeyFromWIF(wif));
-            NEP6Contract contract = new()
+            XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
                 ParameterList = new[] { ContractParameterType.Signature },
@@ -271,7 +271,7 @@ namespace Neo.Wallets.NEP6
         public override WalletAccount Import(string nep2, string passphrase, int N = 16384, int r = 8, int p = 8)
         {
             KeyPair key = new(GetPrivateKeyFromNEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p));
-            NEP6Contract contract = new()
+            XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
                 ParameterList = new[] { ContractParameterType.Signature },
