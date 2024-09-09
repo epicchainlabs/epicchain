@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Nep11Tracker.cs file belongs to the neo project and is free
+// Xep11Tracker.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -28,7 +28,7 @@ using Array = Neo.VM.Types.Array;
 
 namespace Neo.Plugins.Trackers.NEP_11
 {
-    class Nep11Tracker : TrackerBase
+    class Xep11Tracker : TrackerBase
     {
         private const byte Nep11BalancePrefix = 0xf8;
         private const byte Nep11TransferSentPrefix = 0xf9;
@@ -43,9 +43,9 @@ namespace Neo.Plugins.Trackers.NEP_11
             "tokenURI"
         };
 
-        public override string TrackName => nameof(Nep11Tracker);
+        public override string TrackName => nameof(Xep11Tracker);
 
-        public Nep11Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
+        public Xep11Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
         {
         }
 
@@ -130,20 +130,20 @@ namespace Neo.Plugins.Trackers.NEP_11
                 Log($"Fault: from[{record.from}] to[{record.to}] get {record.asset} token [{record.tokenId.ToHexString()}] balance not number", LogLevel.Warning);
                 return;
             }
-            Put(Nep11BalancePrefix, new Nep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = toBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
-            Put(Nep11BalancePrefix, new Nep11BalanceKey(record.from, record.asset, record.tokenId), new TokenBalance { Balance = fromBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
+            Put(Nep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = toBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
+            Put(Nep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId), new TokenBalance { Balance = fromBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
         }
 
         private void SaveNFTBalance(TransferRecord record)
         {
             if (record.from != UInt160.Zero)
             {
-                Delete(Nep11BalancePrefix, new Nep11BalanceKey(record.from, record.asset, record.tokenId));
+                Delete(Nep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId));
             }
 
             if (record.to != UInt160.Zero)
             {
-                Put(Nep11BalancePrefix, new Nep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = 1, LastUpdatedBlock = _currentHeight });
+                Put(Nep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = 1, LastUpdatedBlock = _currentHeight });
             }
         }
 
@@ -168,7 +168,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             if (from != UInt160.Zero)
             {
                 Put(Nep11TransferSentPrefix,
-                    new Nep11TransferKey(from, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
+                    new Xep11TransferKey(from, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
                     new TokenTransfer
                     {
                         Amount = amount,
@@ -181,7 +181,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             if (to != UInt160.Zero)
             {
                 Put(Nep11TransferReceivedPrefix,
-                    new Nep11TransferKey(to, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
+                    new Xep11TransferKey(to, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
                     new TokenTransfer
                     {
                         Amount = amount,
@@ -229,7 +229,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             var map = new Dictionary<UInt160, List<(string tokenid, BigInteger amount, uint height)>>();
             int count = 0;
             byte[] prefix = Key(Nep11BalancePrefix, userScriptHash);
-            foreach (var (key, value) in _db.FindPrefix<Nep11BalanceKey, TokenBalance>(prefix))
+            foreach (var (key, value) in _db.FindPrefix<Xep11BalanceKey, TokenBalance>(prefix))
             {
                 if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
                     continue;
@@ -311,7 +311,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
         private void AddNep11Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
         {
-            var transferPairs = QueryTransfers<Nep11TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
+            var transferPairs = QueryTransfers<Xep11TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
             foreach (var (key, value) in transferPairs.OrderByDescending(l => l.key.TimestampMS))
             {
                 JObject transfer = ToJson(key, value);

@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Nep11TransferKey.cs file belongs to the neo project and is free
+// Xep11TransferKey.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -16,21 +16,21 @@ using System.IO;
 
 namespace Neo.Plugins.Trackers.NEP_11
 {
-    public class Nep11TransferKey : TokenTransferKey, IComparable<Nep11TransferKey>, IEquatable<Nep11TransferKey>
+    public class Xep11TransferKey : TokenTransferKey, IComparable<Xep11TransferKey>, IEquatable<Xep11TransferKey>
     {
         public ByteString Token;
         public override int Size => base.Size + Token.GetVarSize();
 
-        public Nep11TransferKey() : this(new UInt160(), 0, new UInt160(), ByteString.Empty, 0)
+        public Xep11TransferKey() : this(new UInt160(), 0, new UInt160(), ByteString.Empty, 0)
         {
         }
 
-        public Nep11TransferKey(UInt160 userScriptHash, ulong timestamp, UInt160 assetScriptHash, ByteString tokenId, uint xferIndex) : base(userScriptHash, timestamp, assetScriptHash, xferIndex)
+        public Xep11TransferKey(UInt160 userScriptHash, ulong timestamp, UInt160 assetScriptHash, ByteString tokenId, uint xferIndex) : base(userScriptHash, timestamp, assetScriptHash, xferIndex)
         {
             Token = tokenId;
         }
 
-        public int CompareTo(Nep11TransferKey other)
+        public int CompareTo(Xep11TransferKey other)
         {
             if (other is null) return 1;
             if (ReferenceEquals(this, other)) return 0;
@@ -45,7 +45,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             return (Token.GetInteger() - other.Token.GetInteger()).Sign;
         }
 
-        public bool Equals(Nep11TransferKey other)
+        public bool Equals(Xep11TransferKey other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -57,7 +57,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
         public override bool Equals(Object other)
         {
-            return other is Nep11TransferKey otherKey && Equals(otherKey);
+            return other is Xep11TransferKey otherKey && Equals(otherKey);
         }
 
         public override int GetHashCode()
