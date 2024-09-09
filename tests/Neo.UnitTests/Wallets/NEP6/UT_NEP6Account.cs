@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// UT_NEP6Account.cs file belongs to the neo project and is free
+// UT_XEP6Account.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -20,9 +20,9 @@ using Neo.Wallets.NEP6;
 namespace Neo.UnitTests.Wallets.NEP6
 {
     [TestClass]
-    public class UT_NEP6Account
+    public class UT_XEP6Account
     {
-        NEP6Account _account;
+        XEP6Account _account;
         UInt160 _hash;
         NEP6Wallet _wallet;
         private static string _nep2;
@@ -43,13 +43,13 @@ namespace Neo.UnitTests.Wallets.NEP6
             _wallet = TestUtils.GenerateTestWallet("Satoshi");
             byte[] array1 = { 0x01 };
             _hash = new UInt160(Crypto.Hash160(array1));
-            _account = new NEP6Account(_wallet, _hash);
+            _account = new XEP6Account(_wallet, _hash);
         }
 
         [TestMethod]
         public void TestChangePassword()
         {
-            _account = new NEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _nep2);
             _account.ChangePasswordPrepare("b", "Satoshi").Should().BeTrue();
             _account.ChangePasswordCommit();
             _account.Contract = new Contract();
@@ -79,7 +79,7 @@ namespace Neo.UnitTests.Wallets.NEP6
             var wallet = TestUtils.GenerateTestWallet(password);
             byte[] array1 = { 0x01 };
             var hash = new UInt160(Crypto.Hash160(array1));
-            NEP6Account account = new(wallet, hash, _keyPair, password);
+            XEP6Account account = new(wallet, hash, _keyPair, password);
             account.ScriptHash.Should().Be(hash);
             account.Decrypted.Should().BeTrue();
             account.HasKey.Should().BeTrue();
@@ -96,7 +96,7 @@ namespace Neo.UnitTests.Wallets.NEP6
             json["lock"] = false;
             json["contract"] = null;
             json["extra"] = null;
-            NEP6Account account = NEP6Account.FromJson(json, _wallet);
+            XEP6Account account = XEP6Account.FromJson(json, _wallet);
             account.ScriptHash.Should().Be("NdtB8RXRmJ7Nhw1FPTm7E6HoDZGnDw37nf".ToScriptHash(TestProtocolSettings.Default.AddressVersion));
             account.Label.Should().BeNull();
             account.IsDefault.Should().BeTrue();
@@ -107,7 +107,7 @@ namespace Neo.UnitTests.Wallets.NEP6
 
             json["key"] = "6PYRjVE1gAbCRyv81FTiFz62cxuPGw91vMjN4yPa68bnoqJtioreTznezn";
             json["label"] = "label";
-            account = NEP6Account.FromJson(json, _wallet);
+            account = XEP6Account.FromJson(json, _wallet);
             account.Label.Should().Be("label");
             account.HasKey.Should().BeTrue();
         }
@@ -116,7 +116,7 @@ namespace Neo.UnitTests.Wallets.NEP6
         public void TestGetKey()
         {
             _account.GetKey().Should().BeNull();
-            _account = new NEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _nep2);
             _account.GetKey().Should().Be(_keyPair);
         }
 
@@ -124,7 +124,7 @@ namespace Neo.UnitTests.Wallets.NEP6
         public void TestGetKeyWithString()
         {
             _account.GetKey("Satoshi").Should().BeNull();
-            _account = new NEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _nep2);
             _account.GetKey("Satoshi").Should().Be(_keyPair);
         }
 
@@ -160,7 +160,7 @@ namespace Neo.UnitTests.Wallets.NEP6
         [TestMethod]
         public void TestVerifyPassword()
         {
-            _account = new NEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _nep2);
             _account.VerifyPassword("Satoshi").Should().BeTrue();
             _account.VerifyPassword("b").Should().BeFalse();
         }
