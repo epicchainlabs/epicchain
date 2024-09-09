@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Nep17Tracker.cs file belongs to the neo project and is free
+// Xep17Tracker.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -30,7 +30,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 {
     record BalanceChangeRecord(UInt160 User, UInt160 Asset);
 
-    class Nep17Tracker : TrackerBase
+    class Xep17Tracker : TrackerBase
     {
         private const byte Nep17BalancePrefix = 0xe8;
         private const byte Nep17TransferSentPrefix = 0xe9;
@@ -38,9 +38,9 @@ namespace Neo.Plugins.Trackers.NEP_17
         private uint _currentHeight;
         private Block _currentBlock;
 
-        public override string TrackName => nameof(Nep17Tracker);
+        public override string TrackName => nameof(Xep17Tracker);
 
-        public Nep17Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
+        public Xep17Tracker(IStore db, uint maxResult, bool shouldRecordHistory, EpicChainSystem system) : base(db, maxResult, shouldRecordHistory, system)
         {
         }
 

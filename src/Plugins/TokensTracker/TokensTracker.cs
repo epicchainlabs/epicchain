@@ -76,7 +76,7 @@ namespace Neo.Plugins
             if (_enabledTrackers.Contains("NEP-11"))
                 trackers.Add(new Trackers.NEP_11.Nep11Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             if (_enabledTrackers.Contains("NEP-17"))
-                trackers.Add(new Trackers.NEP_17.Nep17Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
+                trackers.Add(new Trackers.NEP_17.Xep17Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             foreach (TrackerBase tracker in trackers)
                 RpcServerPlugin.RegisterMethods(tracker, _network);
         }

@@ -683,7 +683,7 @@ namespace Neo.Network.RPC
 
         /// <summary>
         /// Returns all the NEP-17 transaction information occurred in the specified address.
-        /// This method is provided by the plugin RpcNep17Tracker.
+        /// This method is provided by the plugin RpcXep17Tracker.
         /// </summary>
         /// <param name="address">The address to query the transaction information.</param>
         /// <param name="startTimestamp">The start block Timestamp, default to seven days before UtcNow</param>
@@ -699,7 +699,7 @@ namespace Neo.Network.RPC
 
         /// <summary>
         /// Returns the balance of all NEP-17 assets in the specified address.
-        /// This method is provided by the plugin RpcNep17Tracker.
+        /// This method is provided by the plugin RpcXep17Tracker.
         /// </summary>
         public async Task<RpcNep17Balances> GetNep17BalancesAsync(string address)
         {
