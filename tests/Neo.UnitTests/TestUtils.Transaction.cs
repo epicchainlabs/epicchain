@@ -19,7 +19,7 @@ using Neo.SmartContract;
 using Neo.SmartContract.Native;
 using Neo.VM;
 using Neo.Wallets;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using System;
 using System.IO;
 using System.Linq;

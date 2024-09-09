@@ -11,7 +11,7 @@
 
 using Neo.Json;
 
-namespace Neo.Wallets.NEP6
+namespace Neo.Wallets.XEP6
 {
     /// <summary>
     /// Represents the parameters of the SCrypt algorithm.

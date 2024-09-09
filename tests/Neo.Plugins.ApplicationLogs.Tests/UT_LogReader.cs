@@ -29,7 +29,7 @@ using Neo.UnitTests;
 using Neo.UnitTests.Extensions;
 using Neo.VM;
 using Neo.Wallets;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using System;
 using System.Collections.Generic;
 using System.Linq;

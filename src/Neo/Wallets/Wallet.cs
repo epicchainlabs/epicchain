@@ -17,7 +17,7 @@ using Neo.Persistence;
 using Neo.SmartContract;
 using Neo.SmartContract.Native;
 using Neo.VM;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;

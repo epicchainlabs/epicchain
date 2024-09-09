@@ -11,7 +11,7 @@
 
 using Neo.Cryptography;
 using Neo.SmartContract;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Security.Cryptography;

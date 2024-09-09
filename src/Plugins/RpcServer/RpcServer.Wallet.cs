@@ -18,7 +18,7 @@ using Neo.SmartContract;
 using Neo.SmartContract.Native;
 using Neo.VM;
 using Neo.Wallets;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,8 +96,8 @@ namespace Neo.Plugins.RpcServer
         {
             CheckWallet();
             WalletAccount account = wallet.CreateAccount();
-            if (wallet is XEP6Wallet nep6)
-                nep6.Save();
+            if (wallet is XEP6Wallet XEP6)
+                XEP6.Save();
             return account.Address;
         }
 

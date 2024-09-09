@@ -12,7 +12,7 @@
 using System;
 using System.IO;
 
-namespace Neo.Wallets.NEP6
+namespace Neo.Wallets.XEP6
 {
     class XEP6WalletFactory : IWalletFactory
     {

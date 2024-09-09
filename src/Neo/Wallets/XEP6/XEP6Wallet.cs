@@ -22,7 +22,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace Neo.Wallets.NEP6
+namespace Neo.Wallets.XEP6
 {
     /// <summary>
     /// An implementation of the NEP-6 wallet standard.

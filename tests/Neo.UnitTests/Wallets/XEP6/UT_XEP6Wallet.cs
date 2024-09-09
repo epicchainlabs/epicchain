@@ -16,7 +16,7 @@ using Neo.Json;
 using Neo.Network.P2P.Payloads;
 using Neo.SmartContract;
 using Neo.Wallets;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +25,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using Contract = Neo.SmartContract.Contract;
 
-namespace Neo.UnitTests.Wallets.NEP6
+namespace Neo.UnitTests.Wallets.XEP6
 {
     [TestClass]
     public class UT_XEP6Wallet

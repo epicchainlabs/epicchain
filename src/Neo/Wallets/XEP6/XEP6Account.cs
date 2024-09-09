@@ -13,7 +13,7 @@ using Neo.Json;
 using System;
 using System.Threading;
 
-namespace Neo.Wallets.NEP6
+namespace Neo.Wallets.XEP6
 {
     sealed class XEP6Account : WalletAccount
     {

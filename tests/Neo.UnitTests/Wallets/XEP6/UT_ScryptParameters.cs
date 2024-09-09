@@ -12,9 +12,9 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neo.Json;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 
-namespace Neo.UnitTests.Wallets.NEP6
+namespace Neo.UnitTests.Wallets.XEP6
 {
     [TestClass]
     public class UT_ScryptParameters

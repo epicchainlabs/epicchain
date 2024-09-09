@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Neo.Cryptography;
 using Neo.IO;
 using Neo.SmartContract;
-using Neo.Wallets.NEP6;
+using Neo.Wallets.XEP6;
 using System.Buffers.Binary;
 using System.Reflection;
 using System.Security.Cryptography;

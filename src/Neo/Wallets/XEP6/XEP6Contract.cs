@@ -14,7 +14,7 @@ using Neo.SmartContract;
 using System;
 using System.Linq;
 
-namespace Neo.Wallets.NEP6
+namespace Neo.Wallets.XEP6
 {
     internal class XEP6Contract : Contract
     {
