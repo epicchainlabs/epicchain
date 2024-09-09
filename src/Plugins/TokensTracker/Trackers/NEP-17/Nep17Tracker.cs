@@ -216,7 +216,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
         private void AddNep17Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
         {
-            var transferPairs = QueryTransfers<Nep17TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
+            var transferPairs = QueryTransfers<Xep17TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
             foreach (var (key, value) in transferPairs.OrderByDescending(l => l.key.TimestampMS))
             {
                 parentJArray.Add(ToJson(key, value));
@@ -230,7 +230,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             if (from != UInt160.Zero)
             {
                 Put(Nep17TransferSentPrefix,
-                    new Nep17TransferKey(from, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
+                    new Xep17TransferKey(from, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
                     new TokenTransfer
                     {
                         Amount = amount,
@@ -243,7 +243,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             if (to != UInt160.Zero)
             {
                 Put(Nep17TransferReceivedPrefix,
-                    new Nep17TransferKey(to, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
+                    new Xep17TransferKey(to, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
                     new TokenTransfer
                     {
                         Amount = amount,

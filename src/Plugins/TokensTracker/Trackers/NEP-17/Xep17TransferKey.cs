@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Nep17TransferKey.cs file belongs to the neo project and is free
+// Xep17TransferKey.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -14,17 +14,17 @@ using System;
 
 namespace Neo.Plugins.Trackers.NEP_17
 {
-    public class Nep17TransferKey : TokenTransferKey, IComparable<Nep17TransferKey>, IEquatable<Nep17TransferKey>, ISerializable
+    public class Xep17TransferKey : TokenTransferKey, IComparable<Xep17TransferKey>, IEquatable<Xep17TransferKey>, ISerializable
     {
-        public Nep17TransferKey() : base(new UInt160(), 0, new UInt160(), 0)
+        public Xep17TransferKey() : base(new UInt160(), 0, new UInt160(), 0)
         {
         }
 
-        public Nep17TransferKey(UInt160 userScriptHash, ulong timestamp, UInt160 assetScriptHash, uint xferIndex) : base(userScriptHash, timestamp, assetScriptHash, xferIndex)
+        public Xep17TransferKey(UInt160 userScriptHash, ulong timestamp, UInt160 assetScriptHash, uint xferIndex) : base(userScriptHash, timestamp, assetScriptHash, xferIndex)
         {
         }
 
-        public int CompareTo(Nep17TransferKey other)
+        public int CompareTo(Xep17TransferKey other)
         {
             if (other is null) return 1;
             if (ReferenceEquals(this, other)) return 0;
@@ -37,7 +37,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             return BlockXferNotificationIndex.CompareTo(other.BlockXferNotificationIndex);
         }
 
-        public bool Equals(Nep17TransferKey other)
+        public bool Equals(Xep17TransferKey other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -48,7 +48,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
         public override bool Equals(Object other)
         {
-            return other is Nep17TransferKey otherKey && Equals(otherKey);
+            return other is Xep17TransferKey otherKey && Equals(otherKey);
         }
 
         public override int GetHashCode()
