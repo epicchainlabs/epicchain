@@ -1,6 +1,6 @@
 // Copyright (C) 2015-2024 The Neo Project.
 //
-// Nep17BalanceKey.cs file belongs to the neo project and is free
+// Xep17BalanceKey.cs file belongs to the neo project and is free
 // software distributed under the MIT software license, see the
 // accompanying file LICENSE in the main directory of the
 // repository or http://www.opensource.org/licenses/mit-license.php
@@ -15,18 +15,18 @@ using System.IO;
 
 namespace Neo.Plugins.Trackers.NEP_17
 {
-    public class Nep17BalanceKey : IComparable<Nep17BalanceKey>, IEquatable<Nep17BalanceKey>, ISerializable
+    public class Xep17BalanceKey : IComparable<Xep17BalanceKey>, IEquatable<Xep17BalanceKey>, ISerializable
     {
         public readonly UInt160 UserScriptHash;
         public readonly UInt160 AssetScriptHash;
 
         public int Size => UInt160.Length + UInt160.Length;
 
-        public Nep17BalanceKey() : this(new UInt160(), new UInt160())
+        public Xep17BalanceKey() : this(new UInt160(), new UInt160())
         {
         }
 
-        public Nep17BalanceKey(UInt160 userScriptHash, UInt160 assetScriptHash)
+        public Xep17BalanceKey(UInt160 userScriptHash, UInt160 assetScriptHash)
         {
             if (userScriptHash == null || assetScriptHash == null)
                 throw new ArgumentNullException();
@@ -34,7 +34,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             AssetScriptHash = assetScriptHash;
         }
 
-        public int CompareTo(Nep17BalanceKey other)
+        public int CompareTo(Xep17BalanceKey other)
         {
             if (other is null) return 1;
             if (ReferenceEquals(this, other)) return 0;
@@ -43,7 +43,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             return AssetScriptHash.CompareTo(other.AssetScriptHash);
         }
 
-        public bool Equals(Nep17BalanceKey other)
+        public bool Equals(Xep17BalanceKey other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -52,7 +52,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
         public override bool Equals(Object other)
         {
-            return other is Nep17BalanceKey otherKey && Equals(otherKey);
+            return other is Xep17BalanceKey otherKey && Equals(otherKey);
         }
 
         public override int GetHashCode()

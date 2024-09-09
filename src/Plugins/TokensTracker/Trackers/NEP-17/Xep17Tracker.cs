@@ -113,7 +113,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
         private void SaveNep17Balance(BalanceChangeRecord balanceChanged, DataCache snapshot)
         {
-            var key = new Nep17BalanceKey(balanceChanged.User, balanceChanged.Asset);
+            var key = new Xep17BalanceKey(balanceChanged.User, balanceChanged.Asset);
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(balanceChanged.Asset, "balanceOf", balanceChanged.User);
             using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, gas: 1700_0000);
@@ -178,7 +178,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
             int count = 0;
             byte[] prefix = Key(Nep17BalancePrefix, userScriptHash);
-            foreach (var (key, value) in _db.FindPrefix<Nep17BalanceKey, TokenBalance>(prefix))
+            foreach (var (key, value) in _db.FindPrefix<Xep17BalanceKey, TokenBalance>(prefix))
             {
                 if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
                     continue;
