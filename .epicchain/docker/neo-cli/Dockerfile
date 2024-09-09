@@ -4,5 +4,5 @@ FROM debian:stable-slim
 RUN apt-get update
 RUN apt-get install -y libicu-dev libleveldb-dev screen
 
-COPY ./dist /opt/neo-cli
-RUN ln -s /opt/neo-cli/neo-cli /usr/bin
+COPY ./dist /opt/epicchain-cli
+RUN ln -s /opt/epicchain-cli/epicchain-cli /usr/bin
