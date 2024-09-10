@@ -134,7 +134,7 @@ namespace Neo.Plugins.RpcServer
         /// <returns>The amount of unclaimed GAS as a string.</returns>
         /// <exception cref="RpcException">Thrown when no wallet is open.</exception>
         [RpcMethod]
-        protected internal virtual JToken GetWalletUnclaimedGas(JArray _params)
+        protected internal virtual JToken GetWalletUnclaimedEpicPulse(JArray _params)
         {
             CheckWallet();
             // Datoshi is the smallest unit of GAS, 1 GAS = 10^8 Datoshi
@@ -143,7 +143,7 @@ namespace Neo.Plugins.RpcServer
             {
                 uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
                 foreach (UInt160 account in wallet.GetAccounts().Select(p => p.ScriptHash))
-                    datoshi += NativeContract.NEO.UnclaimedGas(snapshot, account, height);
+                    datoshi += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
             }
             return datoshi.ToString();
         }
@@ -256,7 +256,7 @@ namespace Neo.Plugins.RpcServer
             Transaction tx;
             try
             {
-                tx = wallet.MakeTransaction(system.StoreView, Convert.FromBase64String(result["script"].AsString()), sender, signers, maxGas: settings.MaxGasInvoke);
+                tx = wallet.MakeTransaction(system.StoreView, Convert.FromBase64String(result["script"].AsString()), sender, signers, maxEpicPulse: settings.maxEpicPulseInvoke);
             }
             catch (Exception e)
             {

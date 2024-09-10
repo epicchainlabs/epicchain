@@ -370,11 +370,11 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestGetUnclaimedGas()
+        public async Task TestGetUnclaimedEpicPulse()
         {
-            var test = TestUtils.RpcTestCases.Find(p => p.Name == nameof(rpc.GetUnclaimedGasAsync).ToLower());
-            var result = await rpc.GetUnclaimedGasAsync(test.Request.Params[0].AsString());
-            Assert.AreEqual(result.ToJson().AsString(), RpcUnclaimedGas.FromJson(result.ToJson()).ToJson().AsString());
+            var test = TestUtils.RpcTestCases.Find(p => p.Name == nameof(rpc.GetUnclaimedEpicPulseAsync).ToLower());
+            var result = await rpc.GetUnclaimedEpicPulseAsync(test.Request.Params[0].AsString());
+            Assert.AreEqual(result.ToJson().AsString(), RpcUnclaimedEpicPulse.FromJson(result.ToJson()).ToJson().AsString());
             Assert.AreEqual(test.Response.Result["unclaimed"].AsString(), result.Unclaimed.ToString());
         }
 
@@ -435,10 +435,10 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestGetWalletUnclaimedGas()
+        public async Task TestGetWalletUnclaimedEpicPulse()
         {
-            var test = TestUtils.RpcTestCases.Find(p => p.Name == nameof(rpc.GetWalletUnclaimedGasAsync).ToLower());
-            var result = await rpc.GetWalletUnclaimedGasAsync();
+            var test = TestUtils.RpcTestCases.Find(p => p.Name == nameof(rpc.GetWalletUnclaimedEpicPulseAsync).ToLower());
+            var result = await rpc.GetWalletUnclaimedEpicPulseAsync();
             Assert.AreEqual(test.Response.Result.AsString(), result.ToString());
         }
 

@@ -679,7 +679,7 @@ namespace Neo.CLI
             var snapshot = EpicChainSystem.StoreView;
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
-                gas += NativeContract.NEO.UnclaimedGas(snapshot, account, height);
+                gas += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
             ConsoleHelper.Info("Unclaimed gas: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
         }
 

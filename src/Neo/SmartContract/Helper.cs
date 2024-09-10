@@ -43,7 +43,7 @@ namespace Neo.SmartContract
         /// The maximum GAS that can be consumed when <see cref="VerifyWitnesses"/> is called.
         /// The unit is datoshi, 1 datoshi = 1e-8 GAS
         /// </summary>
-        public const long MaxVerificationGas = 1_50000000;
+        public const long MaxverificationEpicPulse = 1_50000000;
 
         /// <summary>
         /// Calculates the verification fee for a signature address.
@@ -303,7 +303,7 @@ namespace Neo.SmartContract
         public static bool VerifyWitnesses(this IVerifiable verifiable, ProtocolSettings settings, DataCache snapshot, long datoshi)
         {
             if (datoshi < 0) return false;
-            if (datoshi > MaxVerificationGas) datoshi = MaxVerificationGas;
+            if (datoshi > MaxverificationEpicPulse) datoshi = MaxverificationEpicPulse;
 
             UInt160[] hashes;
             try

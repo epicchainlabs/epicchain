@@ -387,7 +387,7 @@ namespace Neo.Network.P2P.Payloads
             long netFeeDatoshi = NetworkFee - (Size * NativeContract.Policy.GetFeePerByte(snapshot)) - attributesFee;
             if (netFeeDatoshi < 0) return VerifyResult.InsufficientFunds;
 
-            if (netFeeDatoshi > MaxVerificationGas) netFeeDatoshi = MaxVerificationGas;
+            if (netFeeDatoshi > MaxverificationEpicPulse) netFeeDatoshi = MaxverificationEpicPulse;
             uint execFeeFactor = NativeContract.Policy.GetExecFeeFactor(snapshot);
             for (int i = 0; i < hashes.Length; i++)
             {

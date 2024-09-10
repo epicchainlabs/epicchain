@@ -598,7 +598,7 @@ namespace Neo.CLI
 
             try
             {
-                Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxGas: datoshi);
+                Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxEpicPulse: datoshi);
                 ConsoleHelper.Info("Invoking script with: ", $"'{Convert.ToBase64String(tx.Script.Span)}'");
 
                 using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: EpicChainSystem.Settings, gas: datoshi))

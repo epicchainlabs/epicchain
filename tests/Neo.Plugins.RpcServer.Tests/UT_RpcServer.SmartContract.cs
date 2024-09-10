@@ -232,12 +232,12 @@ public partial class UT_RpcServer
     }
 
     [TestMethod]
-    public void TestGetUnclaimedGas()
+    public void TestGetUnclaimedEpicPulse()
     {
-        JObject resp = (JObject)_rpcServer.GetUnclaimedGas([MultisigAddress]);
+        JObject resp = (JObject)_rpcServer.GetUnclaimedEpicPulse([MultisigAddress]);
         Assert.AreEqual(resp["unclaimed"], "50000000");
         Assert.AreEqual(resp["address"], MultisigAddress);
-        resp = (JObject)_rpcServer.GetUnclaimedGas([ValidatorAddress]);
+        resp = (JObject)_rpcServer.GetUnclaimedEpicPulse([ValidatorAddress]);
         Assert.AreEqual(resp["unclaimed"], "0");
         Assert.AreEqual(resp["address"], ValidatorAddress);
     }

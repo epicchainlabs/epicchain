@@ -15,7 +15,7 @@
         "AllowOrigins": [],
         "KeepAliveTimeout": 60,
         "RequestHeadersTimeout": 15,
-        "MaxGasInvoke": 20,
+        "maxEpicPulseInvoke": 20,
         "MaxFee": 0.1,
         "MaxConcurrentConnections": 40,
         "MaxIteratorResultItems": 100,

@@ -209,7 +209,7 @@ namespace Neo.UnitTests.SmartContract.Native
             ret.State.Should().BeTrue();
             accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
             accountState.VoteTo.Should().Be(ECCurve.Secp256r1.G);
-            accountState.LastGasPerVote.Should().Be(100500);
+            accountState.LastEpicPulsePerVote.Should().Be(100500);
 
             //from vote to null account G votes becomes 0
             var G_stateValidator = clonedCache.GetAndChange(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray())).GetInteroperable<CandidateState>();
@@ -224,11 +224,11 @@ namespace Neo.UnitTests.SmartContract.Native
             G_stateValidator.Votes.Should().Be(0);
             accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
             accountState.VoteTo.Should().Be(null);
-            accountState.LastGasPerVote.Should().Be(0);
+            accountState.LastEpicPulsePerVote.Should().Be(0);
         }
 
         [TestMethod]
-        public void Check_UnclaimedGas()
+        public void Check_UnclaimedEpicPulse()
         {
             var clonedCache = _snapshotCache.CloneCache();
             var persistingBlock = new Block { Header = new Header { Index = 1000 } };
@@ -238,11 +238,11 @@ namespace Neo.UnitTests.SmartContract.Native
 
             byte[] from = Contract.GetBFTAddress(TestProtocolSettings.Default.StandbyValidators).ToArray();
 
-            var unclaim = Check_UnclaimedGas(clonedCache, from, persistingBlock);
+            var unclaim = Check_UnclaimedEpicPulse(clonedCache, from, persistingBlock);
             unclaim.Value.Should().Be(new BigInteger(0.5 * 1000 * 100000000L));
             unclaim.State.Should().BeTrue();
 
-            unclaim = Check_UnclaimedGas(clonedCache, new byte[19], persistingBlock);
+            unclaim = Check_UnclaimedEpicPulse(clonedCache, new byte[19], persistingBlock);
             unclaim.Value.Should().Be(BigInteger.Zero);
             unclaim.State.Should().BeFalse();
         }
@@ -411,7 +411,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Check unclaim
 
-            var unclaim = Check_UnclaimedGas(clonedCache, from, persistingBlock);
+            var unclaim = Check_UnclaimedEpicPulse(clonedCache, from, persistingBlock);
             unclaim.Value.Should().Be(new BigInteger(0.5 * 1000 * 100000000L));
             unclaim.State.Should().BeTrue();
 
@@ -430,7 +430,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Check unclaim
 
-            unclaim = Check_UnclaimedGas(clonedCache, from, persistingBlock);
+            unclaim = Check_UnclaimedEpicPulse(clonedCache, from, persistingBlock);
             unclaim.Value.Should().Be(new BigInteger(0));
             unclaim.State.Should().BeTrue();
 
@@ -517,7 +517,7 @@ namespace Neo.UnitTests.SmartContract.Native
             {
                 Balance = -100
             }));
-            Action action = () => NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
+            Action action = () => NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
             action.Should().Throw<ArgumentOutOfRangeException>();
             clonedCache.Delete(key);
 
@@ -528,7 +528,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 Balance = 100,
                 BalanceHeight = 100
             }));
-            action = () => NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
+            action = () => NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
             clonedCache.Delete(key);
 
             // Fault range: start >= end
@@ -538,7 +538,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 Balance = 100,
                 BalanceHeight = 100
             }));
-            action = () => NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
+            action = () => NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
             clonedCache.Delete(key);
 
             // Normal 1) votee is non exist
@@ -552,7 +552,7 @@ namespace Neo.UnitTests.SmartContract.Native
             var item = clonedCache.GetAndChange(storageKey).GetInteroperable<HashIndexState>();
             item.Index = 99;
 
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(0.5 * 100 * 100));
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(0.5 * 100 * 100));
             clonedCache.Delete(key);
 
             // Normal 2) votee is not committee
@@ -562,7 +562,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 Balance = 100,
                 VoteTo = ECCurve.Secp256r1.G
             }));
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(0.5 * 100 * 100));
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(0.5 * 100 * 100));
             clonedCache.Delete(key);
 
             // Normal 3) votee is committee
@@ -573,7 +573,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 VoteTo = TestProtocolSettings.Default.StandbyCommittee[0]
             }));
             clonedCache.Add(new KeyBuilder(NativeContract.NEO.Id, 23).Add(TestProtocolSettings.Default.StandbyCommittee[0]).AddBigEndian(uint.MaxValue - 50), new StorageItem() { Value = new BigInteger(50 * 10000L).ToByteArray() });
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(50 * 100));
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 100).Should().Be(new BigInteger(50 * 100));
             clonedCache.Delete(key);
         }
 
@@ -752,18 +752,18 @@ namespace Neo.UnitTests.SmartContract.Native
             var clonedCache = _snapshotCache.CloneCache();
             var persistingBlock = new Block { Header = new Header() };
 
-            (BigInteger, bool) result = Check_GetGasPerBlock(clonedCache, persistingBlock);
+            (BigInteger, bool) result = Check_GetepicpulsePerBlock(clonedCache, persistingBlock);
             result.Item2.Should().BeTrue();
             result.Item1.Should().Be(5 * NativeContract.GAS.Factor);
 
             persistingBlock = new Block { Header = new Header { Index = 10 } };
-            (VM.Types.Boolean, bool) result1 = Check_SetGasPerBlock(clonedCache, 10 * NativeContract.GAS.Factor, persistingBlock);
+            (VM.Types.Boolean, bool) result1 = Check_SetepicpulsePerBlock(clonedCache, 10 * NativeContract.GAS.Factor, persistingBlock);
             result1.Item2.Should().BeTrue();
             result1.Item1.GetBoolean().Should().BeTrue();
 
             var height = clonedCache[NativeContract.Ledger.CreateStorageKey(Prefix_CurrentBlock)].GetInteroperable<HashIndexState>();
             height.Index = persistingBlock.Index + 1;
-            result = Check_GetGasPerBlock(clonedCache, persistingBlock);
+            result = Check_GetepicpulsePerBlock(clonedCache, persistingBlock);
             result.Item2.Should().BeTrue();
             result.Item1.Should().Be(10 * NativeContract.GAS.Factor);
 
@@ -773,7 +773,7 @@ namespace Neo.UnitTests.SmartContract.Native
             state.Balance = 1000;
             state.BalanceHeight = 0;
             height.Index = persistingBlock.Index + 1;
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, persistingBlock.Index + 2).Should().Be(6500);
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, persistingBlock.Index + 2).Should().Be(6500);
         }
 
         [TestMethod]
@@ -876,22 +876,22 @@ namespace Neo.UnitTests.SmartContract.Native
                 BalanceHeight = 3,
                 Balance = 200 * 10000 - 2 * 100,
                 VoteTo = committee[2],
-                LastGasPerVote = 30000000000,
+                LastEpicPulsePerVote = 30000000000,
             }));
             NativeContract.NEO.BalanceOf(clonedCache, account).Should().Be(1999800);
             var storageKey = new KeyBuilder(NativeContract.Ledger.Id, 12);
             clonedCache.GetAndChange(storageKey).GetInteroperable<HashIndexState>().Index = 29 + 2;
-            BigInteger value = NativeContract.NEO.UnclaimedGas(clonedCache, account, 29 + 3);
+            BigInteger value = NativeContract.NEO.UnclaimedEpicPulse(clonedCache, account, 29 + 3);
             value.Should().Be(1999800 * 30000000000 / 100000000L + (1999800L * 10 * 5 * 29 / 100));
         }
 
         [TestMethod]
-        public void TestUnclaimedGas()
+        public void TestUnclaimedEpicPulse()
         {
             var clonedCache = _snapshotCache.CloneCache();
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
             clonedCache.Add(CreateStorageKey(20, UInt160.Zero.ToArray()), new StorageItem(new NeoAccountState()));
-            NativeContract.NEO.UnclaimedGas(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
+            NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
         }
 
         [TestMethod]
@@ -987,12 +987,12 @@ namespace Neo.UnitTests.SmartContract.Native
             return engine.Execute() == VMState.HALT;
         }
 
-        internal static (BigInteger Value, bool State) Check_GetGasPerBlock(DataCache clonedCache, Block persistingBlock)
+        internal static (BigInteger Value, bool State) Check_GetepicpulsePerBlock(DataCache clonedCache, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.NEO.Hash, "getGasPerBlock");
+            script.EmitDynamicCall(NativeContract.NEO.Hash, "getepicpulsePerBlock");
             engine.LoadScript(script.ToArray());
 
             if (engine.Execute() == VMState.FAULT)
@@ -1006,13 +1006,13 @@ namespace Neo.UnitTests.SmartContract.Native
             return (((VM.Types.Integer)result).GetInteger(), true);
         }
 
-        internal static (VM.Types.Boolean Value, bool State) Check_SetGasPerBlock(DataCache clonedCache, BigInteger gasPerBlock, Block persistingBlock)
+        internal static (VM.Types.Boolean Value, bool State) Check_SetepicpulsePerBlock(DataCache clonedCache, BigInteger epicpulsePerBlock, Block persistingBlock)
         {
             UInt160 committeeMultiSigAddr = NativeContract.NEO.GetCommitteeAddress(clonedCache);
             using var engine = ApplicationEngine.Create(TriggerType.Application, new Nep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.NEO.Hash, "setGasPerBlock", gasPerBlock);
+            script.EmitDynamicCall(NativeContract.NEO.Hash, "setepicpulsePerBlock", epicpulsePerBlock);
             engine.LoadScript(script.ToArray());
 
             if (engine.Execute() == VMState.FAULT)
@@ -1080,12 +1080,12 @@ namespace Neo.UnitTests.SmartContract.Native
             return (result as VM.Types.Array).Select(u => ECPoint.DecodePoint(u.GetSpan(), ECCurve.Secp256r1)).ToArray();
         }
 
-        internal static (BigInteger Value, bool State) Check_UnclaimedGas(DataCache clonedCache, byte[] address, Block persistingBlock)
+        internal static (BigInteger Value, bool State) Check_UnclaimedEpicPulse(DataCache clonedCache, byte[] address, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.NEO.Hash, "unclaimedGas", address, persistingBlock.Index);
+            script.EmitDynamicCall(NativeContract.NEO.Hash, "UnclaimedEpicPulse", address, persistingBlock.Index);
             engine.LoadScript(script.ToArray());
 
             if (engine.Execute() == VMState.FAULT)

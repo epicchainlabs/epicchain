@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// RpcUnclaimedGas.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// RpcUnclaimedEpicPulse.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -23,7 +23,7 @@ using Neo.Json;
 
 namespace Neo.Network.RPC.Models
 {
-    public class RpcUnclaimedGas
+    public class RpcUnclaimedEpicPulse
     {
         public long Unclaimed { get; set; }
 
@@ -37,9 +37,9 @@ namespace Neo.Network.RPC.Models
             return json;
         }
 
-        public static RpcUnclaimedGas FromJson(JObject json)
+        public static RpcUnclaimedEpicPulse FromJson(JObject json)
         {
-            return new RpcUnclaimedGas
+            return new RpcUnclaimedEpicPulse
             {
                 Unclaimed = long.Parse(json["unclaimed"].AsString()),
                 Address = json["address"].AsString()

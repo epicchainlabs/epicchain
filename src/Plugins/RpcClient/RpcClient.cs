@@ -466,10 +466,10 @@ namespace Neo.Network.RPC
             return RpcInvokeResult.FromJson((JObject)result);
         }
 
-        public async Task<RpcUnclaimedGas> GetUnclaimedGasAsync(string address)
+        public async Task<RpcUnclaimedEpicPulse> GetUnclaimedEpicPulseAsync(string address)
         {
             var result = await RpcSendAsync(GetRpcName(), address.AsScriptHash()).ConfigureAwait(false);
-            return RpcUnclaimedGas.FromJson((JObject)result);
+            return RpcUnclaimedEpicPulse.FromJson((JObject)result);
         }
 
 
@@ -587,7 +587,7 @@ namespace Neo.Network.RPC
         /// <summary>
         /// Gets the amount of unclaimed GAS in the wallet.
         /// </summary>
-        public async Task<BigDecimal> GetWalletUnclaimedGasAsync()
+        public async Task<BigDecimal> GetWalletUnclaimedEpicPulseAsync()
         {
             var result = await RpcSendAsync(GetRpcName()).ConfigureAwait(false);
             return BigDecimal.Parse(result.AsString(), SmartContract.Native.NativeContract.GAS.Decimals);

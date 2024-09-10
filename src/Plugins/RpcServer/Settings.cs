@@ -55,7 +55,7 @@ namespace Neo.Plugins.RpcServer
         public int KeepAliveTimeout { get; init; }
         public uint RequestHeadersTimeout { get; init; }
         // In the unit of datoshi, 1 GAS = 10^8 datoshi
-        public long MaxGasInvoke { get; init; }
+        public long maxEpicPulseInvoke { get; init; }
         // In the unit of datoshi, 1 GAS = 10^8 datoshi
         public long MaxFee { get; init; }
         public int MaxIteratorResultItems { get; init; }
@@ -71,7 +71,7 @@ namespace Neo.Plugins.RpcServer
             BindAddress = IPAddress.None,
             SslCert = string.Empty,
             SslCertPassword = string.Empty,
-            MaxGasInvoke = (long)new BigDecimal(10M, NativeContract.GAS.Decimals).Value,
+            maxEpicPulseInvoke = (long)new BigDecimal(10M, NativeContract.GAS.Decimals).Value,
             MaxFee = (long)new BigDecimal(0.1M, NativeContract.GAS.Decimals).Value,
             TrustedAuthorities = Array.Empty<string>(),
             EnableCors = true,
@@ -102,7 +102,7 @@ namespace Neo.Plugins.RpcServer
             AllowOrigins = section.GetSection(nameof(AllowOrigins)).GetChildren().Select(p => p.Get<string>()).ToArray(),
             KeepAliveTimeout = section.GetValue(nameof(KeepAliveTimeout), Default.KeepAliveTimeout),
             RequestHeadersTimeout = section.GetValue(nameof(RequestHeadersTimeout), Default.RequestHeadersTimeout),
-            MaxGasInvoke = (long)new BigDecimal(section.GetValue<decimal>("MaxGasInvoke", Default.MaxGasInvoke), NativeContract.GAS.Decimals).Value,
+            maxEpicPulseInvoke = (long)new BigDecimal(section.GetValue<decimal>("maxEpicPulseInvoke", Default.maxEpicPulseInvoke), NativeContract.GAS.Decimals).Value,
             MaxFee = (long)new BigDecimal(section.GetValue<decimal>("MaxFee", Default.MaxFee), NativeContract.GAS.Decimals).Value,
             MaxIteratorResultItems = section.GetValue("MaxIteratorResultItems", Default.MaxIteratorResultItems),
             MaxStackSize = section.GetValue("MaxStackSize", Default.MaxStackSize),

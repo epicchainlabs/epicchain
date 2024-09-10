@@ -56,7 +56,7 @@ namespace Neo.SmartContract.Native
         private const byte Prefix_VotersCount = 1;
         private const byte Prefix_Candidate = 33;
         private const byte Prefix_Committee = 14;
-        private const byte Prefix_GasPerBlock = 29;
+        private const byte Prefix_epicpulsePerBlock = 29;
         private const byte Prefix_RegisterPrice = 13;
         private const byte Prefix_VoterRewardPerCommittee = 23;
 
@@ -122,8 +122,8 @@ namespace Neo.SmartContract.Native
             if (state.VoteTo is not null)
             {
                 var keyLastest = CreateStorageKey(Prefix_VoterRewardPerCommittee).Add(state.VoteTo);
-                var latestGasPerVote = engine.SnapshotCache.TryGet(keyLastest) ?? BigInteger.Zero;
-                state.LastGasPerVote = latestGasPerVote;
+                var latestEpicPulsePerVote = engine.SnapshotCache.TryGet(keyLastest) ?? BigInteger.Zero;
+                state.LastEpicPulsePerVote = latestEpicPulsePerVote;
             }
             if (datoshi == 0) return null;
             return new EpicPulseDistribution
@@ -146,8 +146,8 @@ namespace Neo.SmartContract.Native
             if (state.VoteTo is null) return neoHolderReward;
 
             var keyLastest = CreateStorageKey(Prefix_VoterRewardPerCommittee).Add(state.VoteTo);
-            var latestGasPerVote = snapshot.TryGet(keyLastest) ?? BigInteger.Zero;
-            var voteReward = state.Balance * (latestGasPerVote - state.LastGasPerVote) / 100000000L;
+            var latestEpicPulsePerVote = snapshot.TryGet(keyLastest) ?? BigInteger.Zero;
+            var voteReward = state.Balance * (latestEpicPulsePerVote - state.LastEpicPulsePerVote) / 100000000L;
 
             return neoHolderReward + voteReward;
         }
@@ -156,16 +156,16 @@ namespace Neo.SmartContract.Native
         {
             // In the unit of datoshi, 1 EpicPulse = 10^8 datoshi
             BigInteger sum = 0;
-            foreach (var (index, gasPerBlock) in GetSortedEpicPulseRecords(snapshot, end - 1))
+            foreach (var (index, epicpulsePerBlock) in GetSortedEpicPulseRecords(snapshot, end - 1))
             {
                 if (index > start)
                 {
-                    sum += gasPerBlock * (end - index);
+                    sum += epicpulsePerBlock * (end - index);
                     end = index;
                 }
                 else
                 {
-                    sum += gasPerBlock * (end - start);
+                    sum += epicpulsePerBlock * (end - start);
                     break;
                 }
             }
@@ -196,7 +196,7 @@ namespace Neo.SmartContract.Native
                 var cachedCommittee = new CachedCommittee(engine.ProtocolSettings.StandbyCommittee.Select(p => (p, BigInteger.Zero)));
                 engine.SnapshotCache.Add(CreateStorageKey(Prefix_Committee), new StorageItem(cachedCommittee));
                 engine.SnapshotCache.Add(CreateStorageKey(Prefix_VotersCount), new StorageItem(System.Array.Empty<byte>()));
-                engine.SnapshotCache.Add(CreateStorageKey(Prefix_GasPerBlock).AddBigEndian(0u), new StorageItem(5 * GAS.Factor));
+                engine.SnapshotCache.Add(CreateStorageKey(Prefix_epicpulsePerBlock).AddBigEndian(0u), new StorageItem(5 * GAS.Factor));
                 engine.SnapshotCache.Add(CreateStorageKey(Prefix_RegisterPrice), new StorageItem(1000 * GAS.Factor));
                 return Mint(engine, Contract.GetBFTAddress(engine.ProtocolSettings.StandbyValidators), TotalAmount, false);
             }
@@ -237,22 +237,22 @@ namespace Neo.SmartContract.Native
 
         internal override async ContractTask PostPersistAsync(ApplicationEngine engine)
         {
-            // Distribute GAS for committee
+            // Distribute EpicPulse for committee
 
             int m = engine.ProtocolSettings.CommitteeMembersCount;
             int n = engine.ProtocolSettings.ValidatorsCount;
             int index = (int)(engine.PersistingBlock.Index % (uint)m);
-            var gasPerBlock = GetGasPerBlock(engine.SnapshotCache);
+            var epicpulsePerBlock = GetepicpulsePerBlock(engine.SnapshotCache);
             var committee = GetCommitteeFromCache(engine.SnapshotCache);
             var pubkey = committee[index].PublicKey;
             var account = Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash();
-            await GAS.Mint(engine, account, gasPerBlock * CommitteeRewardRatio / 100, false);
+            await GAS.Mint(engine, account, epicpulsePerBlock * CommitteeRewardRatio / 100, false);
 
             // Record the cumulative reward of the voters of committee
 
             if (ShouldRefreshCommittee(engine.PersistingBlock.Index, m))
             {
-                BigInteger voterRewardOfEachCommittee = gasPerBlock * VoterRewardRatio * 100000000L * m / (m + n) / 100; // Zoom in 100000000 times, and the final calculation should be divided 100000000L
+                BigInteger voterRewardOfEachCommittee = epicpulsePerBlock * VoterRewardRatio * 100000000L * m / (m + n) / 100; // Zoom in 100000000 times, and the final calculation should be divided 100000000L
                 for (index = 0; index < committee.Count; index++)
                 {
                     var (PublicKey, Votes) = committee[index];
@@ -269,26 +269,26 @@ namespace Neo.SmartContract.Native
         }
 
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
-        private void SetGasPerBlock(ApplicationEngine engine, BigInteger gasPerBlock)
+        private void SetepicpulsePerBlock(ApplicationEngine engine, BigInteger epicpulsePerBlock)
         {
-            if (gasPerBlock < 0 || gasPerBlock > 10 * GAS.Factor)
-                throw new ArgumentOutOfRangeException(nameof(gasPerBlock));
+            if (epicpulsePerBlock < 0 || epicpulsePerBlock > 10 * GAS.Factor)
+                throw new ArgumentOutOfRangeException(nameof(epicpulsePerBlock));
             if (!CheckCommittee(engine)) throw new InvalidOperationException();
 
             uint index = engine.PersistingBlock.Index + 1;
-            StorageItem entry = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_GasPerBlock).AddBigEndian(index), () => new StorageItem(gasPerBlock));
-            entry.Set(gasPerBlock);
+            StorageItem entry = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_epicpulsePerBlock).AddBigEndian(index), () => new StorageItem(epicpulsePerBlock));
+            entry.Set(epicpulsePerBlock);
         }
 
         /// <summary>
-        /// Gets the amount of GAS generated in each block.
+        /// Gets the amount of EpicPulse generated in each block.
         /// </summary>
         /// <param name="snapshot">The snapshot used to read data.</param>
-        /// <returns>The amount of GAS generated.</returns>
+        /// <returns>The amount of EpicPulse generated.</returns>
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
-        public BigInteger GetGasPerBlock(DataCache snapshot)
+        public BigInteger GetepicpulsePerBlock(DataCache snapshot)
         {
-            return GetSortedEpicPulseRecords(snapshot, Ledger.CurrentIndex(snapshot) + 1).First().GasPerBlock;
+            return GetSortedEpicPulseRecords(snapshot, Ledger.CurrentIndex(snapshot) + 1).First().epicpulsePerBlock;
         }
 
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
@@ -308,27 +308,27 @@ namespace Neo.SmartContract.Native
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
         public long GetRegisterPrice(DataCache snapshot)
         {
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             return (long)(BigInteger)snapshot[CreateStorageKey(Prefix_RegisterPrice)];
         }
 
-        private IEnumerable<(uint Index, BigInteger GasPerBlock)> GetSortedEpicPulseRecords(DataCache snapshot, uint end)
+        private IEnumerable<(uint Index, BigInteger epicpulsePerBlock)> GetSortedEpicPulseRecords(DataCache snapshot, uint end)
         {
-            byte[] key = CreateStorageKey(Prefix_GasPerBlock).AddBigEndian(end).ToArray();
-            byte[] boundary = CreateStorageKey(Prefix_GasPerBlock).ToArray();
+            byte[] key = CreateStorageKey(Prefix_epicpulsePerBlock).AddBigEndian(end).ToArray();
+            byte[] boundary = CreateStorageKey(Prefix_epicpulsePerBlock).ToArray();
             return snapshot.FindRange(key, boundary, SeekDirection.Backward)
                 .Select(u => (BinaryPrimitives.ReadUInt32BigEndian(u.Key.Key.Span[^sizeof(uint)..]), (BigInteger)u.Value));
         }
 
         /// <summary>
-        /// Get the amount of unclaimed GAS in the specified account.
+        /// Get the amount of unclaimed EpicPulse in the specified account.
         /// </summary>
         /// <param name="snapshot">The snapshot used to read data.</param>
         /// <param name="account">The account to check.</param>
-        /// <param name="end">The block index used when calculating GAS.</param>
-        /// <returns>The amount of unclaimed GAS.</returns>
+        /// <param name="end">The block index used when calculating EpicPulse.</param>
+        /// <returns>The amount of unclaimed EpicPulse.</returns>
         [ContractMethod(CpuFee = 1 << 17, RequiredCallFlags = CallFlags.ReadStates)]
-        public BigInteger UnclaimedGas(DataCache snapshot, UInt160 account, uint end)
+        public BigInteger UnclaimedEpicPulse(DataCache snapshot, UInt160 account, uint end)
         {
             StorageItem storage = snapshot.TryGet(CreateStorageKey(Prefix_Account).Add(account));
             if (storage is null) return BigInteger.Zero;
@@ -341,7 +341,7 @@ namespace Neo.SmartContract.Native
         {
             if (!engine.CheckWitnessInternal(Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash()))
                 return false;
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             engine.AddFee(GetRegisterPrice(engine.SnapshotCache));
             StorageKey key = CreateStorageKey(Prefix_Candidate).Add(pubkey);
             StorageItem item = engine.SnapshotCache.GetAndChange(key, () => new StorageItem(new CandidateState()));
@@ -404,8 +404,8 @@ namespace Neo.SmartContract.Native
             if (voteTo != null && voteTo != state_account.VoteTo)
             {
                 StorageKey voterRewardKey = CreateStorageKey(Prefix_VoterRewardPerCommittee).Add(voteTo);
-                var latestGasPerVote = engine.SnapshotCache.TryGet(voterRewardKey) ?? BigInteger.Zero;
-                state_account.LastGasPerVote = latestGasPerVote;
+                var latestEpicPulsePerVote = engine.SnapshotCache.TryGet(voterRewardKey) ?? BigInteger.Zero;
+                state_account.LastEpicPulsePerVote = latestEpicPulsePerVote;
             }
             ECPoint from = state_account.VoteTo;
             state_account.VoteTo = voteTo;
@@ -416,7 +416,7 @@ namespace Neo.SmartContract.Native
             }
             else
             {
-                state_account.LastGasPerVote = 0;
+                state_account.LastEpicPulsePerVote = 0;
             }
             engine.SendNotification(Hash, "Vote",
                 new VM.Types.Array(engine.ReferenceCounter) { account.ToArray(), from?.ToArray() ?? StackItem.Null, voteTo?.ToArray() ?? StackItem.Null, state_account.Balance });
@@ -579,7 +579,7 @@ namespace Neo.SmartContract.Native
             /// </summary>
             public ECPoint VoteTo;
 
-            public BigInteger LastGasPerVote;
+            public BigInteger LastEpicPulsePerVote;
 
             public override void FromStackItem(StackItem stackItem)
             {
@@ -587,7 +587,7 @@ namespace Neo.SmartContract.Native
                 Struct @struct = (Struct)stackItem;
                 BalanceHeight = (uint)@struct[1].GetInteger();
                 VoteTo = @struct[2].IsNull ? null : ECPoint.DecodePoint(@struct[2].GetSpan(), ECCurve.Secp256r1);
-                LastGasPerVote = @struct[3].GetInteger();
+                LastEpicPulsePerVote = @struct[3].GetInteger();
             }
 
             public override StackItem ToStackItem(ReferenceCounter referenceCounter)
@@ -595,7 +595,7 @@ namespace Neo.SmartContract.Native
                 Struct @struct = (Struct)base.ToStackItem(referenceCounter);
                 @struct.Add(BalanceHeight);
                 @struct.Add(VoteTo?.ToArray() ?? StackItem.Null);
-                @struct.Add(LastGasPerVote);
+                @struct.Add(LastEpicPulsePerVote);
                 return @struct;
             }
         }

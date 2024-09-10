@@ -187,7 +187,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Check
 
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -196,12 +196,12 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
 
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
-            Assert.AreEqual(1967100, verificationGas);
-            Assert.AreEqual(348000, sizeGas);
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            Assert.AreEqual(1967100, verificationEpicPulse);
+            Assert.AreEqual(348000, sizeEpicPulse);
             Assert.AreEqual(2315100, tx.NetworkFee);
         }
 
@@ -262,7 +262,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Check
 
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using var engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -271,7 +271,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
 
             // ------------------
@@ -297,14 +297,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.AreEqual(25 + 22 + 1 + 88 + 109, tx.Size);
 
             Assert.AreEqual(1000, NativeContract.Policy.GetFeePerByte(snapshotCache));
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
 
             // final check: verification_cost and tx_size
-            Assert.AreEqual(245000, sizeGas);
-            Assert.AreEqual(983520, verificationGas);
+            Assert.AreEqual(245000, sizeEpicPulse);
+            Assert.AreEqual(983520, verificationEpicPulse);
 
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]
@@ -330,7 +330,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 var value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
@@ -367,7 +367,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.IsTrue(tx.VerifyWitnesses(TestProtocolSettings.Default, snapshotCache, tx.NetworkFee));
 
             // Check
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -376,14 +376,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
-            // get sizeGas
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            // get sizeEpicPulse
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
             // final check on sum: verification_cost + tx_size
-            Assert.AreEqual(1228520, verificationGas + sizeGas);
+            Assert.AreEqual(1228520, verificationEpicPulse + sizeEpicPulse);
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]
@@ -409,7 +409,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
@@ -447,7 +447,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.IsTrue(tx.VerifyWitnesses(TestProtocolSettings.Default, snapshotCache, tx.NetworkFee));
 
             // Check
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -456,14 +456,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
-            // get sizeGas
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            // get sizeEpicPulse
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
             // final check on sum: verification_cost + tx_size
-            Assert.AreEqual(1249520, verificationGas + sizeGas);
+            Assert.AreEqual(1249520, verificationEpicPulse + sizeEpicPulse);
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]
@@ -489,14 +489,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 GAEpicPulseS
                 var value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
 
-            // trying CalledByEntry together with GAS
+            // trying CalledByEntry together with EpicPulse
             var signers = new[]{ new Signer
                 {
                     Account = acc.ScriptHash,
@@ -530,7 +530,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.IsTrue(tx.VerifyWitnesses(TestProtocolSettings.Default, snapshotCache, tx.NetworkFee));
 
             // Check
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -539,14 +539,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
-            // get sizeGas
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            // get sizeEpicPulse
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
             // final check on sum: verification_cost + tx_size
-            Assert.AreEqual(1249520, verificationGas + sizeGas);
+            Assert.AreEqual(1249520, verificationEpicPulse + sizeEpicPulse);
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]
@@ -660,7 +660,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.IsTrue(tx.VerifyWitnesses(TestProtocolSettings.Default, snapshotCache, tx.NetworkFee));
 
             // Check
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -669,14 +669,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
-            // get sizeGas
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            // get sizeEpicPulse
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
             // final check on sum: verification_cost + tx_size
-            Assert.AreEqual(1269520, verificationGas + sizeGas);
+            Assert.AreEqual(1269520, verificationEpicPulse + sizeEpicPulse);
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]
@@ -1052,7 +1052,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             Assert.IsTrue(tx.VerifyWitnesses(TestProtocolSettings.Default, snapshotCache, tx.NetworkFee));
 
             // Check
-            long verificationGas = 0;
+            long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
                 using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
@@ -1061,14 +1061,14 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 Assert.AreEqual(VMState.HALT, engine.Execute());
                 Assert.AreEqual(1, engine.ResultStack.Count);
                 Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
-                verificationGas += engine.FeeConsumed;
+                verificationEpicPulse += engine.FeeConsumed;
             }
-            // get sizeGas
-            var sizeGas = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
+            // get sizeEpicPulse
+            var sizeEpicPulse = tx.Size * NativeContract.Policy.GetFeePerByte(snapshotCache);
             // final check on sum: verification_cost + tx_size
-            Assert.AreEqual(1228520, verificationGas + sizeGas);
+            Assert.AreEqual(1228520, verificationEpicPulse + sizeEpicPulse);
             // final assert
-            Assert.AreEqual(tx.NetworkFee, verificationGas + sizeGas);
+            Assert.AreEqual(tx.NetworkFee, verificationEpicPulse + sizeEpicPulse);
         }
 
         [TestMethod]

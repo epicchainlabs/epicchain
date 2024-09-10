@@ -80,7 +80,7 @@ namespace Neo.Plugins.RpcServer
         private JObject GetInvokeResult(byte[] script, Signer[] signers = null, Witness[] witnesses = null, bool useDiagnostic = false)
         {
             JObject json = new();
-            Session session = new(system, script, signers, witnesses, settings.MaxGasInvoke, useDiagnostic ? new Diagnostic() : null);
+            Session session = new(system, script, signers, witnesses, settings.maxEpicPulseInvoke, useDiagnostic ? new Diagnostic() : null);
             try
             {
                 json["script"] = Convert.ToBase64String(script);
@@ -288,14 +288,14 @@ namespace Neo.Plugins.RpcServer
         }
 
         [RpcMethod]
-        protected internal virtual JToken GetUnclaimedGas(JArray _params)
+        protected internal virtual JToken GetUnclaimedEpicPulse(JArray _params)
         {
             string address = Result.Ok_Or(() => _params[0].AsString(), RpcError.InvalidParams.WithData($"Invalid address {nameof(address)}"));
             JObject json = new();
             UInt160 script_hash = Result.Ok_Or(() => AddressToScriptHash(address, system.Settings.AddressVersion), RpcError.InvalidParams);
 
             var snapshot = system.StoreView;
-            json["unclaimed"] = NativeContract.NEO.UnclaimedGas(snapshot, script_hash, NativeContract.Ledger.CurrentIndex(snapshot) + 1).ToString();
+            json["unclaimed"] = NativeContract.NEO.UnclaimedEpicPulse(snapshot, script_hash, NativeContract.Ledger.CurrentIndex(snapshot) + 1).ToString();
             json["address"] = script_hash.ToAddress(system.Settings.AddressVersion);
             return json;
         }

@@ -56,10 +56,10 @@ namespace Neo.Network.RPC
         /// <param name="account">address, scripthash or public key string
         /// Example: address ("Ncm9TEzrp8SSer6Wa3UCSLTRnqzwVhCfuE"), scripthash ("0xb0a31817c80ad5f87b6ed390ecb3f9d312f7ceb8"), public key ("02f9ec1fd0a98796cf75b586772a4ddd41a0af07a1dbdf86a7238f74fb72503575")</param>
         /// <returns></returns>
-        public Task<decimal> GetUnclaimedGasAsync(string account)
+        public Task<decimal> GetUnclaimedEpicPulseAsync(string account)
         {
             UInt160 accountHash = Utility.GetScriptHash(account, rpcClient.protocolSettings);
-            return GetUnclaimedGasAsync(accountHash);
+            return GetUnclaimedEpicPulseAsync(accountHash);
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace Neo.Network.RPC
         /// </summary>
         /// <param name="account">account scripthash</param>
         /// <returns></returns>
-        public async Task<decimal> GetUnclaimedGasAsync(UInt160 account)
+        public async Task<decimal> GetUnclaimedEpicPulseAsync(UInt160 account)
         {
             UInt160 scriptHash = NativeContract.NEO.Hash;
             var blockCount = await rpcClient.GetBlockCountAsync().ConfigureAwait(false);
-            var result = await nep17API.TestInvokeAsync(scriptHash, "unclaimedGas", account, blockCount - 1).ConfigureAwait(false);
+            var result = await nep17API.TestInvokeAsync(scriptHash, "UnclaimedEpicPulse", account, blockCount - 1).ConfigureAwait(false);
             BigInteger balance = result.Stack.Single().GetInteger();
             return ((decimal)balance) / (long)NativeContract.GAS.Factor;
         }

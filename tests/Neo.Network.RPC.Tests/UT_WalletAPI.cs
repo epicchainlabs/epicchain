@@ -60,12 +60,12 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestGetUnclaimedGas()
+        public async Task TestGetUnclaimedEpicPulse()
         {
-            byte[] testScript = NativeContract.NEO.Hash.MakeScript("unclaimedGas", sender, 99);
+            byte[] testScript = NativeContract.NEO.Hash.MakeScript("UnclaimedEpicPulse", sender, 99);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
 
-            var balance = await walletAPI.GetUnclaimedGasAsync(address1);
+            var balance = await walletAPI.GetUnclaimedEpicPulseAsync(address1);
             Assert.AreEqual(1.1m, balance);
         }
 

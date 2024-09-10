@@ -354,7 +354,7 @@ namespace Neo.Plugins.RpcServer
             StackItem[] resultstack;
             try
             {
-                using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: system.Settings, gas: settings.MaxGasInvoke);
+                using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: system.Settings, gas: settings.maxEpicPulseInvoke);
                 resultstack = engine.ResultStack.ToArray();
             }
             catch

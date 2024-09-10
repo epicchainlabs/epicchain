@@ -129,10 +129,10 @@ partial class UT_RpcServer
     }
 
     [TestMethod]
-    public void TestGetWalletUnclaimedGas()
+    public void TestGetWalletUnclaimedEpicPulse()
     {
         TestUtilOpenWallet();
-        var result = _rpcServer.GetWalletUnclaimedGas([]);
+        var result = _rpcServer.GetWalletUnclaimedEpicPulse([]);
         Assert.IsInstanceOfType(result, typeof(JString));
         TestUtilCloseWallet();
     }
@@ -310,10 +310,10 @@ partial class UT_RpcServer
     }
 
     [TestMethod]
-    public void TestGetWalletUnclaimedGas_WhenWalletNotOpen()
+    public void TestGetWalletUnclaimedEpicPulse_WhenWalletNotOpen()
     {
         _rpcServer.wallet = null;
-        var exception = Assert.ThrowsException<RpcException>(() => _rpcServer.GetWalletUnclaimedGas(new JArray()), "Should throw RpcException for no opened wallet");
+        var exception = Assert.ThrowsException<RpcException>(() => _rpcServer.GetWalletUnclaimedEpicPulse(new JArray()), "Should throw RpcException for no opened wallet");
         Assert.AreEqual(exception.HResult, RpcError.NoOpenedWallet.Code);
     }
 

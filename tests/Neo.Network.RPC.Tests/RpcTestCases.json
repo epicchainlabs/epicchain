@@ -653,7 +653,7 @@
                 "safe": true
               },
               {
-                "name": "getGasPerBlock",
+                "name": "getepicpulsePerBlock",
                 "parameters": [],
                 "returntype": "Integer",
                 "offset": 0,
@@ -679,10 +679,10 @@
                 "safe": false
               },
               {
-                "name": "setGasPerBlock",
+                "name": "setepicpulsePerBlock",
                 "parameters": [
                   {
-                    "name": "gasPerBlock",
+                    "name": "epicpulsePerBlock",
                     "type": "Integer"
                   }
                 ],
@@ -729,7 +729,7 @@
                 "safe": false
               },
               {
-                "name": "unclaimedGas",
+                "name": "UnclaimedEpicPulse",
                 "parameters": [
                   {
                     "name": "account",
@@ -871,7 +871,7 @@
                 "safe": true
               },
               {
-                "name": "getGasPerBlock",
+                "name": "getepicpulsePerBlock",
                 "parameters": [],
                 "returntype": "Integer",
                 "offset": 0,
@@ -897,10 +897,10 @@
                 "safe": false
               },
               {
-                "name": "setGasPerBlock",
+                "name": "setepicpulsePerBlock",
                 "parameters": [
                   {
-                    "name": "gasPerBlock",
+                    "name": "epicpulsePerBlock",
                     "type": "Integer"
                   }
                 ],
@@ -947,7 +947,7 @@
                 "safe": false
               },
               {
-                "name": "unclaimedGas",
+                "name": "UnclaimedEpicPulse",
                 "parameters": [
                   {
                     "name": "account",
@@ -1358,7 +1358,7 @@
                   "safe": true
                 },
                 {
-                  "name": "getGasPerBlock",
+                  "name": "getepicpulsePerBlock",
                   "parameters": [],
                   "returntype": "Integer",
                   "offset": 0,
@@ -1384,10 +1384,10 @@
                   "safe": false
                 },
                 {
-                  "name": "setGasPerBlock",
+                  "name": "setepicpulsePerBlock",
                   "parameters": [
                     {
-                      "name": "gasPerBlock",
+                      "name": "epicpulsePerBlock",
                       "type": "Integer"
                     }
                   ],
@@ -1434,7 +1434,7 @@
                   "safe": false
                 },
                 {
-                  "name": "unclaimedGas",
+                  "name": "UnclaimedEpicPulse",
                   "parameters": [
                     {
                       "name": "account",
@@ -2680,10 +2680,10 @@
   },
 
   {
-    "Name": "getunclaimedgasasync",
+    "Name": "getUnclaimedEpicPulseasync",
     "Request": {
       "jsonrpc": "2.0",
-      "method": "getunclaimedgas",
+      "method": "getUnclaimedEpicPulse",
       "params": [ "NPvKVTGZapmFWABLsyvfreuqn73jCjJtN1" ],
       "id": 1
     },
@@ -2870,10 +2870,10 @@
     }
   },
   {
-    "Name": "getwalletunclaimedgasasync",
+    "Name": "getwalletUnclaimedEpicPulseasync",
     "Request": {
       "jsonrpc": "2.0",
-      "method": "getwalletunclaimedgas",
+      "method": "getwalletUnclaimedEpicPulse",
       "params": [],
       "id": 1
     },

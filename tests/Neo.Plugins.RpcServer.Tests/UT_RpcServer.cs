@@ -61,7 +61,7 @@ namespace Neo.Plugins.RpcServer.Tests
             {
                 SessionEnabled = true,
                 SessionExpirationTime = TimeSpan.FromSeconds(0.3),
-                MaxGasInvoke = 1500_0000_0000,
+                maxEpicPulseInvoke = 1500_0000_0000,
                 Network = TestProtocolSettings.SoleNode.Network,
             };
             _rpcServer = new RpcServer(_EpicChainSystem, _rpcServerSettings);
