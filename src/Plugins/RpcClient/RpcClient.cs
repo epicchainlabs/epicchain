@@ -585,7 +585,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Gets the amount of unclaimed GAS in the wallet.
+        /// Gets the amount of unclaimed EpicPulse in the wallet.
         /// </summary>
         public async Task<BigDecimal> GetWalletUnclaimedEpicPulseAsync()
         {

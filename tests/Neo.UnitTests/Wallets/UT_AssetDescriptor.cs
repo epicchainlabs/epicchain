@@ -48,7 +48,7 @@ namespace Neo.UnitTests.Wallets
             descriptor.AssetId.Should().Be(NativeContract.GAS.Hash);
             descriptor.AssetName.Should().Be(nameof(EpicPulse));
             descriptor.ToString().Should().Be(nameof(EpicPulse));
-            descriptor.Symbol.Should().Be("GAS");
+            descriptor.Symbol.Should().Be("EpicPulse");
             descriptor.Decimals.Should().Be(8);
         }
 

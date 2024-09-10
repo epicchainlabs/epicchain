@@ -580,7 +580,7 @@ namespace Neo.CLI
         /// </summary>
         /// <param name="script">script</param>
         /// <param name="account">sender</param>
-        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
+        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse</param>
         private void SendTransaction(byte[] script, UInt160? account = null, long datoshi = TestModeEpicPulse)
         {
             if (NoWallet()) return;
@@ -629,7 +629,7 @@ namespace Neo.CLI
         /// <param name="verifiable">Transaction</param>
         /// <param name="contractParameters">Contract parameters</param>
         /// <param name="showStack">Show result stack if it is true</param>
-        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
+        /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse</param>
         /// <returns>Return true if it was successful</returns>
         private bool OnInvokeWithResult(UInt160 scriptHash, string operation, out StackItem result, IVerifiable? verifiable = null, JArray? contractParameters = null, bool showStack = true, long datoshi = TestModeEpicPulse)
         {

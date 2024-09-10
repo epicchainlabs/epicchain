@@ -80,12 +80,12 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestGetGasBalance()
+        public async Task TestGetepicpulseBalance()
         {
             byte[] testScript = NativeContract.GAS.Hash.MakeScript("balanceOf", sender);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
 
-            var balance = await walletAPI.GetGasBalanceAsync(address1);
+            var balance = await walletAPI.GetEpicPulseBalanceAsync(address1);
             Assert.AreEqual(1.1m, balance);
         }
 
@@ -112,7 +112,7 @@ namespace Neo.Network.RPC.Tests
             json["hash"] = UInt256.Zero.ToString();
             rpcClientMock.Setup(p => p.RpcSendAsync("sendrawtransaction", It.IsAny<JToken>())).ReturnsAsync(json);
 
-            var tranaction = await walletAPI.ClaimGasAsync(keyPair1.Export(), false);
+            var tranaction = await walletAPI.ClaimEpicPulseAsync(keyPair1.Export(), false);
             Assert.AreEqual(testScript.ToHexString(), tranaction.Script.Span.ToHexString());
         }
 

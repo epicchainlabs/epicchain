@@ -77,7 +77,7 @@ namespace Neo.Network.RPC.Tests
                 .ReturnsAsync(networkfee)
                 .Verifiable();
 
-            // MockGasBalance
+            // MockepicpulseBalance
             byte[] balanceScript = NativeContract.GAS.Hash.MakeScript("balanceOf", sender);
             var balanceResult = new ContractParameter() { Type = ContractParameterType.Integer, Value = BigInteger.Parse("10000000000000000") };
 
@@ -110,7 +110,7 @@ namespace Neo.Network.RPC.Tests
                 .ReturnsAsync(networkfee)
                 .Verifiable();
 
-            // MockGasBalance
+            // MockepicpulseBalance
             byte[] balanceScript = NativeContract.GAS.Hash.MakeScript("balanceOf", multiHash);
             var balanceResult = new ContractParameter() { Type = ContractParameterType.Integer, Value = BigInteger.Parse("10000000000000000") };
 

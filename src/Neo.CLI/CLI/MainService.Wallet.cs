@@ -576,7 +576,7 @@ namespace Neo.CLI
             ConsoleHelper.Info(
                 "Send To: ", $"{to.ToAddress(EpicChainSystem.Settings.AddressVersion)}\n",
                 "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
-                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
+                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
@@ -658,9 +658,9 @@ namespace Neo.CLI
             };
 
             ConsoleHelper.Info("Network fee: ",
-                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} GAS\t",
+                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} GAS");
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
@@ -680,7 +680,7 @@ namespace Neo.CLI
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
                 gas += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
-            ConsoleHelper.Info("Unclaimed gas: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("Unclaimed epicpulse: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
         }
 
         /// <summary>

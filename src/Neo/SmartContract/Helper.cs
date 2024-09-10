@@ -40,14 +40,14 @@ namespace Neo.SmartContract
     public static class Helper
     {
         /// <summary>
-        /// The maximum GAS that can be consumed when <see cref="VerifyWitnesses"/> is called.
-        /// The unit is datoshi, 1 datoshi = 1e-8 GAS
+        /// The maximum EpicPulse that can be consumed when <see cref="VerifyWitnesses"/> is called.
+        /// The unit is datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         public const long MaxverificationEpicPulse = 1_50000000;
 
         /// <summary>
         /// Calculates the verification fee for a signature address.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         /// <returns>The calculated cost.</returns>
         public static long SignatureContractCost() =>
@@ -57,7 +57,7 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// Calculates the verification fee for a multi-signature address.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         /// <param name="m">The minimum number of correct signatures that need to be provided in order for the verification to pass.</param>
         /// <param name="n">The number of public keys in the account.</param>
@@ -298,7 +298,7 @@ namespace Neo.SmartContract
         /// <param name="verifiable">The <see cref="IVerifiable"/> to be verified.</param>
         /// <param name="settings">The <see cref="ProtocolSettings"/> to be used for the verification.</param>
         /// <param name="snapshot">The snapshot used to read data.</param>
-        /// <param name="datoshi">The maximum GAS that can be used, in the unit of datoshi, 1 datoshi = 1e-8 GAS.</param>
+        /// <param name="datoshi">The maximum EpicPulse that can be used, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse.</param>
         /// <returns><see langword="true"/> if the <see cref="IVerifiable"/> is verified as valid; otherwise, <see langword="false"/>.</returns>
         public static bool VerifyWitnesses(this IVerifiable verifiable, ProtocolSettings settings, DataCache snapshot, long datoshi)
         {

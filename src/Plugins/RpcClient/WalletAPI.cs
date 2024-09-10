@@ -51,7 +51,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get unclaimed gas with address, scripthash or public key string
+        /// Get unclaimed epicpulse with address, scripthash or public key string
         /// </summary>
         /// <param name="account">address, scripthash or public key string
         /// Example: address ("Ncm9TEzrp8SSer6Wa3UCSLTRnqzwVhCfuE"), scripthash ("0xb0a31817c80ad5f87b6ed390ecb3f9d312f7ceb8"), public key ("02f9ec1fd0a98796cf75b586772a4ddd41a0af07a1dbdf86a7238f74fb72503575")</param>
@@ -63,7 +63,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get unclaimed gas
+        /// Get unclaimed epicpulse
         /// </summary>
         /// <param name="account">account scripthash</param>
         /// <returns></returns>
@@ -89,12 +89,12 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get Gas Balance
+        /// Get ClaimEpicPulseAsync Balance
         /// </summary>
         /// <param name="account">address, scripthash or public key string
         /// Example: address ("Ncm9TEzrp8SSer6Wa3UCSLTRnqzwVhCfuE"), scripthash ("0xb0a31817c80ad5f87b6ed390ecb3f9d312f7ceb8"), public key ("02f9ec1fd0a98796cf75b586772a4ddd41a0af07a1dbdf86a7238f74fb72503575")</param>
         /// <returns></returns>
-        public async Task<decimal> GetGasBalanceAsync(string account)
+        public async Task<decimal> GetEpicPulseBalanceAsync(string account)
         {
             BigInteger balance = await GetTokenBalanceAsync(NativeContract.GAS.Hash.ToString(), account).ConfigureAwait(false);
             return ((decimal)balance) / (long)NativeContract.GAS.Factor;
@@ -115,27 +115,27 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// The GAS is claimed when doing NEO transfer
+        /// The EpicPulse is claimed when doing EpicChain transfer
         /// This function will transfer NEO balance from account to itself
         /// </summary>
         /// <param name="key">wif or private key
         /// Example: WIF ("KyXwTh1hB76RRMquSvnxZrJzQx7h9nQP2PCRL38v6VDb5ip3nf1p"), PrivateKey ("450d6c2a04b5b470339a745427bae6828400cf048400837d73c415063835e005")</param>
         /// <param name="addAssert">Add assert at the end of the script</param>
         /// <returns>The transaction sended</returns>
-        public Task<Transaction> ClaimGasAsync(string key, bool addAssert = true)
+        public Task<Transaction> ClaimEpicPulseAsync(string key, bool addAssert = true)
         {
             KeyPair keyPair = Utility.GetKeyPair(key);
-            return ClaimGasAsync(keyPair, addAssert);
+            return ClaimEpicPulseAsync(keyPair, addAssert);
         }
 
         /// <summary>
-        /// The GAS is claimed when doing NEO transfer
-        /// This function will transfer NEO balance from account to itself
+        /// The EpicPulse is claimed when doing EpicChain transfer
+        /// This function will transfer EpicChain balance from account to itself
         /// </summary>
         /// <param name="keyPair">keyPair</param>
         /// <param name="addAssert">Add assert at the end of the script</param>
         /// <returns>The transaction sended</returns>
-        public async Task<Transaction> ClaimGasAsync(KeyPair keyPair, bool addAssert = true)
+        public async Task<Transaction> ClaimEpicPulseAsync(KeyPair keyPair, bool addAssert = true)
         {
             UInt160 toHash = Contract.CreateSignatureRedeemScript(keyPair.PublicKey).ToScriptHash();
             BigInteger balance = await nep17API.BalanceOfAsync(NativeContract.NEO.Hash, toHash).ConfigureAwait(false);

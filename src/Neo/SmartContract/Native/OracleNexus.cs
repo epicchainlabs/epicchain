@@ -73,7 +73,7 @@ namespace Neo.SmartContract.Native
         /// Gets the price for an Oracle request.
         /// </summary>
         /// <param name="snapshot">The snapshot used to read data.</param>
-        /// <returns>The price for an Oracle request, in the unit of datoshi, 1 datoshi = 1e-8 GAS.</returns>
+        /// <returns>The price for an Oracle request, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse.</returns>
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
         public long GetPrice(DataCache snapshot)
         {
@@ -175,7 +175,7 @@ namespace Neo.SmartContract.Native
                 if (!list.Remove(response.Id)) throw new InvalidOperationException();
                 if (list.Count == 0) engine.SnapshotCache.Delete(key);
 
-                //Mint GAS for oracle nodes
+                //Mint EpicPulse for oracle nodes
                 nodes ??= QuantumGuardNexus.GetDesignatedByRole(engine.SnapshotCache, Role.Oracle, engine.PersistingBlock.Index).Select(p => (Contract.CreateSignatureRedeemScript(p).ToScriptHash(), BigInteger.Zero)).ToArray();
                 if (nodes.Length > 0)
                 {
@@ -194,7 +194,7 @@ namespace Neo.SmartContract.Native
         }
 
         [ContractMethod(RequiredCallFlags = CallFlags.States | CallFlags.AllowNotify)]
-        private async ContractTask Request(ApplicationEngine engine, string url, string filter, string callback, StackItem userData, long EpicPulseForResponse /* In the unit of datoshi, 1 datoshi = 1e-8 GAS */)
+        private async ContractTask Request(ApplicationEngine engine, string url, string filter, string callback, StackItem userData, long EpicPulseForResponse /* In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse */)
         {
             //Check the arguments
             if (Utility.StrictUTF8.GetByteCount(url) > MaxUrlLength
@@ -205,7 +205,7 @@ namespace Neo.SmartContract.Native
 
             engine.AddFee(GetPrice(engine.SnapshotCache));
 
-            //Mint gas for the response
+            //Mint epicpulse for the response
             engine.AddFee(EpicPulseForResponse);
             await GAS.Mint(engine, Hash, EpicPulseForResponse, false);
 

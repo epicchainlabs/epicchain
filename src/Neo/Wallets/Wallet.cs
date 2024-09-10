@@ -490,7 +490,7 @@ namespace Neo.Wallets
             }
             Dictionary<UInt160, Signer> cosignerList = cosigners?.ToDictionary(p => p.Account) ?? new Dictionary<UInt160, Signer>();
             byte[] script;
-            List<(UInt160 Account, BigInteger Value)> balances_gas = null;
+            List<(UInt160 Account, BigInteger Value)> balances_epicpulse = null;
             using (ScriptBuilder sb = new())
             {
                 foreach (var (assetId, group, sum) in outputs.GroupBy(p => p.AssetId, (k, g) => (k, g, g.Select(p => p.Value.Value).Sum())))
@@ -533,14 +533,14 @@ namespace Neo.Wallets
                         }
                     }
                     if (assetId.Equals(NativeContract.GAS.Hash))
-                        balances_gas = balances;
+                        balances_epicpulse = balances;
                 }
                 script = sb.ToArray();
             }
-            if (balances_gas is null)
-                balances_gas = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
+            if (balances_epicpulse is null)
+                balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
 
-            return MakeTransaction(snapshot, script, cosignerList.Values.ToArray(), Array.Empty<TransactionAttribute>(), balances_gas, persistingBlock: persistingBlock);
+            return MakeTransaction(snapshot, script, cosignerList.Values.ToArray(), Array.Empty<TransactionAttribute>(), balances_epicpulse, persistingBlock: persistingBlock);
         }
 
         /// <summary>
@@ -551,7 +551,7 @@ namespace Neo.Wallets
         /// <param name="sender">The sender of the transaction.</param>
         /// <param name="cosigners">The cosigners to be added to the transaction.</param>
         /// <param name="attributes">The attributes to be added to the transaction.</param>
-        /// <param name="maxEpicPulse">The maximum gas that can be spent to execute the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS.</param>
+        /// <param name="maxEpicPulse">The maximum epicchain that can be spent to execute the script, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse.</param>
         /// <param name="persistingBlock">The block environment to execute the transaction. If null, <see cref="ApplicationEngine.CreateDummyBlock"></see> will be used.</param>
         /// <returns>The created transaction.</returns>
         public Transaction MakeTransaction(DataCache snapshot, ReadOnlyMemory<byte> script, UInt160 sender = null, Signer[] cosigners = null, TransactionAttribute[] attributes = null, long maxEpicPulse = ApplicationEngine.TestModeEpicPulse, Block persistingBlock = null)
@@ -565,14 +565,14 @@ namespace Neo.Wallets
             {
                 accounts = new[] { sender };
             }
-            var balances_gas = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
-            return MakeTransaction(snapshot, script, cosigners ?? Array.Empty<Signer>(), attributes ?? Array.Empty<TransactionAttribute>(), balances_gas, maxEpicPulse, persistingBlock: persistingBlock);
+            var balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
+            return MakeTransaction(snapshot, script, cosigners ?? Array.Empty<Signer>(), attributes ?? Array.Empty<TransactionAttribute>(), balances_epicpulse, maxEpicPulse, persistingBlock: persistingBlock);
         }
 
-        private Transaction MakeTransaction(DataCache snapshot, ReadOnlyMemory<byte> script, Signer[] cosigners, TransactionAttribute[] attributes, List<(UInt160 Account, BigInteger Value)> balances_gas, long maxEpicPulse = ApplicationEngine.TestModeEpicPulse, Block persistingBlock = null)
+        private Transaction MakeTransaction(DataCache snapshot, ReadOnlyMemory<byte> script, Signer[] cosigners, TransactionAttribute[] attributes, List<(UInt160 Account, BigInteger Value)> balances_epicpulse, long maxEpicPulse = ApplicationEngine.TestModeEpicPulse, Block persistingBlock = null)
         {
             Random rand = new();
-            foreach (var (account, value) in balances_gas)
+            foreach (var (account, value) in balances_epicpulse)
             {
                 Transaction tx = new()
                 {
@@ -597,7 +597,7 @@ namespace Neo.Wallets
                 tx.NetworkFee = tx.CalculateNetworkFee(snapshot, ProtocolSettings, (a) => GetAccount(a)?.Contract?.Script, maxEpicPulse);
                 if (value >= tx.SystemFee + tx.NetworkFee) return tx;
             }
-            throw new InvalidOperationException("Insufficient GAS");
+            throw new InvalidOperationException("Insufficient EpicPulse");
         }
 
         /// <summary>

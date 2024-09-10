@@ -42,7 +42,7 @@ namespace Neo.CLI
         [ConsoleCommand("register candidate", Category = "Vote Commands")]
         private void OnRegisterCandidateCommand(UInt160 account)
         {
-            var testGas = NativeContract.NEO.GetRegisterPrice(EpicChainSystem.StoreView) + (BigInteger)Math.Pow(10, NativeContract.GAS.Decimals) * 10;
+            var testEpicPulse = NativeContract.NEO.GetRegisterPrice(EpicChainSystem.StoreView) + (BigInteger)Math.Pow(10, NativeContract.GAS.Decimals) * 10;
             if (NoWallet()) return;
             WalletAccount currentAccount = CurrentWallet!.GetAccount(account);
 
@@ -68,7 +68,7 @@ namespace Neo.CLI
                 script = scriptBuilder.ToArray();
             }
 
-            SendTransaction(script, account, (long)testGas);
+            SendTransaction(script, account, (long)testEpicPulse);
         }
 
         /// <summary>
