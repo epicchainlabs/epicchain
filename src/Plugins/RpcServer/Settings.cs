@@ -54,9 +54,9 @@ namespace Neo.Plugins.RpcServer
         public string[] AllowOrigins { get; init; }
         public int KeepAliveTimeout { get; init; }
         public uint RequestHeadersTimeout { get; init; }
-        // In the unit of datoshi, 1 GAS = 10^8 datoshi
+        // In the unit of datoshi, 1 EpicPulse = 10^8 datoshi
         public long maxEpicPulseInvoke { get; init; }
-        // In the unit of datoshi, 1 GAS = 10^8 datoshi
+        // In the unit of datoshi, 1 EpicPulse = 10^8 datoshi
         public long MaxFee { get; init; }
         public int MaxIteratorResultItems { get; init; }
         public int MaxStackSize { get; init; }

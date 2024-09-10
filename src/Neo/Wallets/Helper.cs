@@ -90,7 +90,7 @@ namespace Neo.Wallets
 
         /// <summary>
         /// Calculates the network fee for the specified transaction.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         /// <param name="tx">The transaction to calculate.</param>
         /// <param name="snapshot">The snapshot used to read data.</param>

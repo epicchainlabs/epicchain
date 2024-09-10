@@ -128,16 +128,16 @@ namespace Neo.Plugins.RpcServer
         }
 
         /// <summary>
-        /// Gets the amount of unclaimed GAS in the wallet.
+        /// Gets the amount of unclaimed EpicPulse in the wallet.
         /// </summary>
         /// <param name="_params">An empty array.</param>
-        /// <returns>The amount of unclaimed GAS as a string.</returns>
+        /// <returns>The amount of unclaimed EpicPulse as a string.</returns>
         /// <exception cref="RpcException">Thrown when no wallet is open.</exception>
         [RpcMethod]
         protected internal virtual JToken GetWalletUnclaimedEpicPulse(JArray _params)
         {
             CheckWallet();
-            // Datoshi is the smallest unit of GAS, 1 GAS = 10^8 Datoshi
+            // Datoshi is the smallest unit of EpicPulse, 1 EpicPulse = 10^8 Datoshi
             BigInteger datoshi = BigInteger.Zero;
             using (var snapshot = system.GetSnapshotCache())
             {
@@ -530,7 +530,7 @@ namespace Neo.Plugins.RpcServer
             JObject json = new();
             json["script"] = Convert.ToBase64String(invocationScript);
             json["state"] = engine.Execute();
-            // Gas consumed in the unit of datoshi, 1 GAS = 1e8 datoshi
+            // EpicPulse consumed in the unit of datoshi, 1 GEpicPulseAS = 1e8 datoshi
             json["EpicPulseConsumed"] = engine.FeeConsumed.ToString();
             json["exception"] = GetExceptionMessage(engine.FaultException);
             try

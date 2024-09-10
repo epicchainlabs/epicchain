@@ -90,7 +90,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             {
                 try
                 {
-                    SaveNep17Balance(balanceChangeRecord, snapshot);
+                    SaveXep17Balance(balanceChangeRecord, snapshot);
                 }
                 catch (Exception e)
                 {
@@ -121,7 +121,7 @@ namespace Neo.Plugins.Trackers.NEP_17
         }
 
 
-        private void SaveNep17Balance(BalanceChangeRecord balanceChanged, DataCache snapshot)
+        private void SaveXep17Balance(BalanceChangeRecord balanceChanged, DataCache snapshot)
         {
             var key = new Xep17BalanceKey(balanceChanged.User, balanceChanged.Asset);
             using ScriptBuilder sb = new();

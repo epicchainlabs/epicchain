@@ -669,7 +669,7 @@ namespace Neo.CLI
         }
 
         /// <summary>
-        /// Process "show gas" command
+        /// Process "show epicchain command
         /// </summary>
         [ConsoleCommand("show epicpulse", Category = "Wallet Commands")]
         private void OnShowGasCommand()

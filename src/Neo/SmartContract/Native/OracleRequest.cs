@@ -37,7 +37,7 @@ namespace Neo.SmartContract.Native
         public UInt256 OriginalTxid;
 
         /// <summary>
-        /// The maximum amount of GAS that can be used when executing response callback.
+        /// The maximum amount of EpicPulse that can be used when executing response callback.
         /// </summary>
         public long EpicPulseForResponse;
 

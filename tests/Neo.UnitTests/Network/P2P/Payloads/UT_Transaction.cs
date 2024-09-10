@@ -570,7 +570,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
                 sb.Emit(OpCode.ASSERT);
@@ -617,7 +617,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
@@ -700,7 +700,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
                 sb.Emit(OpCode.ASSERT);
@@ -748,7 +748,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
@@ -783,7 +783,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 Version = 0x00,
                 Nonce = 0x01020304,
-                SystemFee = (long)BigInteger.Pow(10, 8), // 1 GAS
+                SystemFee = (long)BigInteger.Pow(10, 8), // 1 EpicPulse
                 NetworkFee = 0x0000000000000001,
                 ValidUntilBlock = 0x01020304,
                 Attributes = Array.Empty<TransactionAttribute>(),
@@ -810,7 +810,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 Version = 0x00,
                 Nonce = 0x01020304,
-                SystemFee = (long)BigInteger.Pow(10, 8), // 1 GAS
+                SystemFee = (long)BigInteger.Pow(10, 8), // 1 EpicPulse
                 NetworkFee = 0x0000000000000001,
                 ValidUntilBlock = 0x01020304,
                 Signers = [new Signer() { Account = UInt160.Zero }],
@@ -826,7 +826,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             sTx.ToHexString().Should().Be(
                 "00" + // version
                 "04030201" + // nonce
-                "00e1f50500000000" + // system fee (1 GAS)
+                "00e1f50500000000" + // system fee (1 EpicPulse)
                 "0100000000000000" + // network fee (1 datoshi)
                 "04030201" + // timelimit
                 "01000000000000000000000000000000000000000000" + // empty signer
@@ -840,7 +840,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             tx2.Version.Should().Be(0x00);
             tx2.Nonce.Should().Be(0x01020304);
             tx2.Sender.Should().Be(UInt160.Zero);
-            tx2.SystemFee.Should().Be(0x0000000005f5e100); // 1 GAS (long)BigInteger.Pow(10, 8)
+            tx2.SystemFee.Should().Be(0x0000000005f5e100); // 1 EpicPulse (long)BigInteger.Pow(10, 8)
             tx2.NetworkFee.Should().Be(0x0000000000000001);
             tx2.ValidUntilBlock.Should().Be(0x01020304);
             tx2.Attributes.Should().BeEquivalentTo(Array.Empty<TransactionAttribute>());
@@ -867,7 +867,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 Version = 0x00,
                 Nonce = 0x01020304,
-                SystemFee = (long)BigInteger.Pow(10, 8), // 1 GAS
+                SystemFee = (long)BigInteger.Pow(10, 8), // 1 EpicPulse
                 NetworkFee = 0x0000000000000001,
                 ValidUntilBlock = 0x01020304,
                 Attributes = [],
@@ -930,7 +930,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 Version = 0x00,
                 Nonce = 0x01020304,
-                SystemFee = (long)BigInteger.Pow(10, 8), // 1 GAS
+                SystemFee = (long)BigInteger.Pow(10, 8), // 1 EpicPulse
                 NetworkFee = 0x0000000000000001,
                 ValidUntilBlock = 0x01020304,
                 Attributes = [],
@@ -964,7 +964,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 Version = 0x00,
                 Nonce = 0x01020304,
-                SystemFee = (long)BigInteger.Pow(10, 8), // 1 GAS
+                SystemFee = (long)BigInteger.Pow(10, 8), // 1 EpicPulse
                 NetworkFee = 0x0000000000000001,
                 ValidUntilBlock = 0x01020304,
                 Attributes = [],
@@ -1012,7 +1012,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                // self-transfer of 1e-8 GAS
+                // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
                 sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
