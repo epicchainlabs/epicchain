@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Copyright>2021-2024 EpicChain Lab's</Copyright>
     <LangVersion>12.0</LangVersion>
-    <Authors>The Neo Project</Authors>
+    <Authors>The EpicChain Lab's</Authors>
     <IsPackable>true</IsPackable>
     <PackageIcon>neo.png</PackageIcon>
     <PackageProjectUrl>https://github.com/epicchainlabs/epiccha</PackageProjectUrl>
@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/epicchainlabs/epiccha.git</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Company>The Neo Project</Company>
+    <Company>The EpicChain Lab's</Company>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <VersionPrefix>3.7.5</VersionPrefix>
   </PropertyGroup>
