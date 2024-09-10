@@ -77,7 +77,7 @@ public partial class UT_RpcServer
         JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "totalSupply", new JArray([]), validatorSigner, true));
         Assert.AreEqual(resp.Count, 8);
         Assert.AreEqual(resp["script"], NeoTotalSupplyScript);
-        Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
+        Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
         Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.IsTrue(((JArray)resp["diagnostics"]["storagechanges"]).Count == 0);
@@ -91,7 +91,7 @@ public partial class UT_RpcServer
         resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "symbol"));
         Assert.AreEqual(resp.Count, 6);
         Assert.IsTrue(resp.ContainsProperty("script"));
-        Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
+        Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));
         Assert.AreEqual(resp["exception"], null);
         Assert.AreEqual(((JArray)resp["notifications"]).Count, 0);
@@ -107,7 +107,7 @@ public partial class UT_RpcServer
         ]), multisigSigner, true));
         Assert.AreEqual(resp.Count, 7);
         Assert.AreEqual(resp["script"], NeoTransferScript);
-        Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
+        Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
         Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.IsTrue(((JArray)resp["diagnostics"]["storagechanges"]).Count == 4);
@@ -131,7 +131,7 @@ public partial class UT_RpcServer
     {
         JObject resp = (JObject)_rpcServer.InvokeScript(new JArray(NeoTotalSupplyScript, validatorSigner, true));
         Assert.AreEqual(resp.Count, 7);
-        Assert.IsTrue(resp.ContainsProperty("gasconsumed"));
+        Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
         Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.NEO.Hash.ToString());
         Assert.AreEqual(resp["state"], nameof(VM.VMState.HALT));

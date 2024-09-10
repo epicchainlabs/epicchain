@@ -2588,7 +2588,7 @@
       "result": {
         "script": "0c1426ae7c6c9861ec418468c1f0fdc4a7f2963eb89111c00c0962616c616e63654f660c143b7d3711c6f0ccf9b1dca903d1bfa1d896f1238c41627d5b52",
         "state": "HALT",
-        "gasconsumed": "2007570",
+        "EpicPulseConsumed": "2007570",
         "stack": [
           {
             "type": "Integer",
@@ -2613,7 +2613,7 @@
       "result": {
         "script": "EMMMBG5hbWUMFDt9NxHG8Mz5sdypA9G/odiW8SOMQWJ9W1IQwwwGc3ltYm9sDBQ7fTcRxvDM+bHcqQPRv6HYlvEjjEFifVtSEMMMCGRlY2ltYWxzDBQ7fTcRxvDM+bHcqQPRv6HYlvEjjEFifVtSEMMMC3RvdGFsU3VwcGx5DBQ7fTcRxvDM+bHcqQPRv6HYlvEjjEFifVtS",
         "state": "HALT",
-        "gasconsumed": "5061560",
+        "EpicPulseConsumed": "5061560",
         "stack": [
           {
             "type": "Array",
@@ -2801,7 +2801,7 @@
       "result": {
         "script": "HxDDDAhkZWNpbWFscwwU++3+LtIiZZK2SMTal7nJzV3BpqZB7vQM2w==",
         "state": "HALT",
-        "gasconsumed": "999180",
+        "EpicPulseConsumed": "999180",
         "exception": null,
         "stack": [
           {
@@ -2828,7 +2828,7 @@
       "result": {
         "script": "EBEfDAhkZWNpbWFscwwU++3+LtIiZZK2SMTal7nJzV3BpqZBYn1bUg==",
         "state": "HALT",
-        "gasconsumed": "999180",
+        "EpicPulseConsumed": "999180",
         "exception": null,
         "stack": [
           {
@@ -3099,7 +3099,7 @@
           {
             "trigger": "OnPersist",
             "vmstate": "HALT",
-            "gasconsumed": "2031260",
+            "EpicPulseConsumed": "2031260",
             "exception": null,
             "stack": [],
             "notifications": [
@@ -3148,7 +3148,7 @@
           {
             "trigger": "PostPersist",
             "vmstate": "HALT",
-            "gasconsumed": "2031260",
+            "EpicPulseConsumed": "2031260",
             "exception": null,
             "stack": [],
             "notifications": [
@@ -3195,7 +3195,7 @@
           {
             "trigger": "OnPersist",
             "vmstate": "HALT",
-            "gasconsumed": "2031260",
+            "EpicPulseConsumed": "2031260",
             "exception": null,
             "stack": [],
             "notifications": [

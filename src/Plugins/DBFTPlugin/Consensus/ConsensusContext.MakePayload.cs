@@ -177,7 +177,7 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
             });
         }
 
-        // Related to issue https://github.com/epicchainlabs/epiccha/issues/3431
+        // Related to issue https://github.com/epicchainlabs/epicchain/issues/3431
         // Ref. https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=net-8.0
         //
         //The System.Random class relies on a seed value that can be predictable,

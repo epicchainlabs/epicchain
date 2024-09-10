@@ -89,7 +89,7 @@ namespace Neo.Network.RPC.Tests
 
             MockInvokeScript(mockRpc, policyScript, policyResult);
 
-            // MockGasConsumed
+            // MockEpicPulseConsumed
             var result = new ContractParameter();
             MockInvokeScript(mockRpc, script, result);
 
@@ -122,7 +122,7 @@ namespace Neo.Network.RPC.Tests
 
             MockInvokeScript(mockRpc, policyScript, policyResult);
 
-            // MockGasConsumed
+            // MockEpicPulseConsumed
             var result = new ContractParameter();
             MockInvokeScript(mockRpc, script, result);
 
@@ -134,7 +134,7 @@ namespace Neo.Network.RPC.Tests
             var result = new RpcInvokeResult()
             {
                 Stack = parameters.Select(p => p.ToStackItem()).ToArray(),
-                GasConsumed = 100,
+                EpicPulseConsumed = 100,
                 Script = Convert.ToBase64String(script),
                 State = VMState.HALT
             };

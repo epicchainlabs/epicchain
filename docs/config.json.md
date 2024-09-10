@@ -73,7 +73,7 @@ The `ProtocolConfiguration` section dictates the rules and parameters that gover
 
 ### **2. AddressVersion**
 - **`AddressVersion:`**
-  - This field defines the version byte used during EpicChain address generation. Changing this can lead to incompatibility between different network addresses. Default value is `53`.
+  - This field defines the version byte used during EpicChain address generation. Changing this can lead to incompatibility between different network addresses. Default value is `76`.
 
 ### **3. Block Timing**
 - **`MillisecondsPerBlock:`**
@@ -106,10 +106,10 @@ The `ProtocolConfiguration` section dictates the rules and parameters that gover
     - MainNet: `5450000`
     - TestNet: `3967000`
 
-### **7. GAS Distribution**
+### **7. EpicPulse Distribution**
 - **`InitialEpicPulseDistribution:`**
-  - The total amount of GAS initially distributed across the network. This field uses the smallest unit of GAS, called "Datoshi."
-  - Default: `50,000,000,000,000,000 Datoshi` (equivalent to `500,000,000 GAS`).
+  - The total amount of EpicPulse initially distributed across the network. This field uses the smallest unit of EpicPulse, called "Datoshi."
+  - Default: `50,000,000,000,000,000 Datoshi` (equivalent to `500,000,000 EpicPulse`).
 
 ### **8. Consensus Validators**
 - **`ValidatorsCount:`**

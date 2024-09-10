@@ -31,7 +31,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.Models
         public required TriggerType Trigger { get; init; }
         public required VMState VmState { get; init; }
         public required string Exception { get; init; }
-        public required long GasConsumed { get; init; }
+        public required long EpicPulseConsumed { get; init; }
         public required StackItem[] Stack { get; init; }
         public required BlockchainEventModel[] Notifications { get; set; }
         public required ApplicationEngineLogModel[] Logs { get; set; }
@@ -42,7 +42,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.Models
                 Trigger = trigger,
                 VmState = executionLogState.VmState,
                 Exception = executionLogState.Exception ?? string.Empty,
-                GasConsumed = executionLogState.GasConsumed,
+                EpicPulseConsumed = executionLogState.EpicPulseConsumed,
                 Stack = stack,
                 Notifications = [],
                 Logs = []

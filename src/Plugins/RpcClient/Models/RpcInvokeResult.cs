@@ -33,7 +33,7 @@ namespace Neo.Network.RPC.Models
 
         public VM.VMState State { get; set; }
 
-        public long GasConsumed { get; set; }
+        public long EpicPulseConsumed { get; set; }
 
         public StackItem[] Stack { get; set; }
 
@@ -48,7 +48,7 @@ namespace Neo.Network.RPC.Models
             JObject json = new();
             json["script"] = Script;
             json["state"] = State;
-            json["gasconsumed"] = GasConsumed.ToString();
+            json["EpicPulseConsumed"] = EpicPulseConsumed.ToString();
             if (!string.IsNullOrEmpty(Exception))
                 json["exception"] = Exception;
             try
@@ -70,7 +70,7 @@ namespace Neo.Network.RPC.Models
             {
                 Script = json["script"].AsString(),
                 State = json["state"].GetEnum<VMState>(),
-                GasConsumed = long.Parse(json["gasconsumed"].AsString()),
+                EpicPulseConsumed = long.Parse(json["EpicPulseConsumed"].AsString()),
                 Exception = json["exception"]?.AsString(),
                 Session = json["session"]?.AsString()
             };

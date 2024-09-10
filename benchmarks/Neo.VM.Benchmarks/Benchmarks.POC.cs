@@ -29,7 +29,7 @@ namespace Neo.VM.Benchmark
         [Benchmark]
         public void NeoIssue2528()
         {
-            // https://github.com/epicchainlabs/epiccha/issues/2528
+            // https://github.com/epicchainlabs/epicchain/issues/2528
             // L01: INITSLOT 1, 0
             // L02: NEWARRAY0
             // L03: DUP

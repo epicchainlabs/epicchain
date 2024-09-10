@@ -128,7 +128,7 @@ namespace Neo.SmartContract
         /// In the unit of datoshi, 1 datoshi = 1e-8 GAS, 1 GAS = 1e8 datoshi
         /// </summary>
         [Obsolete("This property is deprecated. Use FeeConsumed instead.")]
-        public long GasConsumed { get; private set; } = 0;
+        public long EpicPulseConsumed { get; private set; } = 0;
 
         /// <summary>
         /// GAS spent to execute.
@@ -270,7 +270,7 @@ namespace Neo.SmartContract
         protected internal void AddFee(long datoshi)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
-            FeeConsumed = GasConsumed = checked(FeeConsumed + datoshi);
+            FeeConsumed = EpicPulseConsumed = checked(FeeConsumed + datoshi);
 #pragma warning restore CS0618 // Type or member is obsolete
             if (FeeConsumed > _feeAmount)
                 throw new InvalidOperationException("Insufficient GAS.");
@@ -311,7 +311,7 @@ namespace Neo.SmartContract
             else
             {
                 var executingContract = IsHardforkEnabled(Hardfork.HF_Domovoi)
-                ? state.Contract // use executing contract state to avoid possible contract update/destroy side-effects, ref. https://github.com/epicchainlabs/epiccha/pull/3290.
+                ? state.Contract // use executing contract state to avoid possible contract update/destroy side-effects, ref. https://github.com/epicchainlabs/epicchain/pull/3290.
                 : NativeContract.ContractManagement.GetContract(SnapshotCache, CurrentScriptHash);
                 if (executingContract?.CanCall(contract, method.Name) == false)
                     throw new InvalidOperationException($"Cannot Call Method {method.Name} Of Contract {contract.Hash} From Contract {CurrentScriptHash}");

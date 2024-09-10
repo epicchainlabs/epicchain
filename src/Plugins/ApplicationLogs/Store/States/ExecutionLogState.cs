@@ -29,7 +29,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
     {
         public VMState VmState { get; private set; } = VMState.NONE;
         public string Exception { get; private set; } = string.Empty;
-        public long GasConsumed { get; private set; } = 0L;
+        public long EpicPulseConsumed { get; private set; } = 0L;
         public Guid[] StackItemIds { get; private set; } = [];
 
         public static ExecutionLogState Create(Blockchain.ApplicationExecuted appExecution, Guid[] stackItemIds) =>
@@ -37,7 +37,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
             {
                 VmState = appExecution.VMState,
                 Exception = appExecution.Exception?.InnerException?.Message ?? appExecution.Exception?.Message!,
-                GasConsumed = appExecution.GasConsumed,
+                EpicPulseConsumed = appExecution.EpicPulseConsumed,
                 StackItemIds = stackItemIds,
             };
 
@@ -54,7 +54,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
         {
             VmState = (VMState)reader.ReadByte();
             Exception = reader.ReadVarString();
-            GasConsumed = reader.ReadInt64();
+            EpicPulseConsumed = reader.ReadInt64();
 
             // It should be safe because it filled from a transaction's stack.
             uint aLen = reader.ReadUInt32();
@@ -67,7 +67,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
         {
             writer.Write((byte)VmState);
             writer.WriteVarString(Exception ?? string.Empty);
-            writer.Write(GasConsumed);
+            writer.Write(EpicPulseConsumed);
 
             writer.Write((uint)StackItemIds.Length);
             for (int i = 0; i < StackItemIds.Length; i++)
@@ -80,7 +80,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
 
         public bool Equals(ExecutionLogState other) =>
             VmState == other.VmState && Exception == other.Exception &&
-            GasConsumed == other.GasConsumed && StackItemIds.SequenceEqual(other.StackItemIds);
+            EpicPulseConsumed == other.EpicPulseConsumed && StackItemIds.SequenceEqual(other.StackItemIds);
 
         public override bool Equals(object obj)
         {
@@ -93,7 +93,7 @@ namespace Neo.Plugins.ApplicationLogs.Store.States
             var h = new HashCode();
             h.Add(VmState);
             h.Add(Exception);
-            h.Add(GasConsumed);
+            h.Add(EpicPulseConsumed);
             foreach (var id in StackItemIds)
                 h.Add(id);
             return h.ToHashCode();

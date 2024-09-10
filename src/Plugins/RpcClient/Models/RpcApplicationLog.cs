@@ -64,7 +64,7 @@ namespace Neo.Network.RPC.Models
 
         public VMState VMState { get; set; }
 
-        public long GasConsumed { get; set; }
+        public long EpicPulseConsumed { get; set; }
 
         public string ExceptionMessage { get; set; }
 
@@ -77,7 +77,7 @@ namespace Neo.Network.RPC.Models
             JObject json = new();
             json["trigger"] = Trigger;
             json["vmstate"] = VMState;
-            json["gasconsumed"] = GasConsumed.ToString();
+            json["EpicPulseConsumed"] = EpicPulseConsumed.ToString();
             json["exception"] = ExceptionMessage;
             json["stack"] = Stack.Select(q => q.ToJson()).ToArray();
             json["notifications"] = Notifications.Select(q => q.ToJson()).ToArray();
@@ -90,7 +90,7 @@ namespace Neo.Network.RPC.Models
             {
                 Trigger = json["trigger"].GetEnum<TriggerType>(),
                 VMState = json["vmstate"].GetEnum<VMState>(),
-                GasConsumed = long.Parse(json["gasconsumed"].AsString()),
+                EpicPulseConsumed = long.Parse(json["EpicPulseConsumed"].AsString()),
                 ExceptionMessage = json["exception"]?.AsString(),
                 Stack = ((JArray)json["stack"]).Select(p => Utility.StackItemFromJson((JObject)p)).ToList(),
                 Notifications = ((JArray)json["notifications"]).Select(p => RpcNotifyEventArgs.FromJson((JObject)p, protocolSettings)).ToList()

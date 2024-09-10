@@ -262,7 +262,7 @@ namespace Neo.Plugins.ApplicationLogs
                 ConsoleHelper.Error($"Exception: {model.Exception}");
             else
                 ConsoleHelper.Info("Exception: ", "null");
-            ConsoleHelper.Info("Gas Consumed: ", $"{new BigDecimal((BigInteger)model.GasConsumed, NativeContract.GAS.Decimals)}");
+            ConsoleHelper.Info("Gas Consumed: ", $"{new BigDecimal((BigInteger)model.EpicPulseConsumed, NativeContract.GAS.Decimals)}");
             if (model.Stack.Length == 0)
                 ConsoleHelper.Info("Stack: ", "[]");
             else
@@ -352,7 +352,7 @@ namespace Neo.Plugins.ApplicationLogs
             trigger["trigger"] = appLog.Trigger;
             trigger["vmstate"] = appLog.VmState;
             trigger["exception"] = string.IsNullOrEmpty(appLog.Exception) ? null : appLog.Exception;
-            trigger["gasconsumed"] = appLog.GasConsumed.ToString();
+            trigger["EpicPulseConsumed"] = appLog.EpicPulseConsumed.ToString();
 
             try
             {
@@ -426,7 +426,7 @@ namespace Neo.Plugins.ApplicationLogs
             JObject trigger = new();
             trigger["trigger"] = blockExecutionModel.Trigger;
             trigger["vmstate"] = blockExecutionModel.VmState;
-            trigger["gasconsumed"] = blockExecutionModel.GasConsumed.ToString();
+            trigger["EpicPulseConsumed"] = blockExecutionModel.EpicPulseConsumed.ToString();
             try
             {
                 trigger["stack"] = blockExecutionModel.Stack.Select(q => q.ToJson(Settings.Default.MaxStackSize)).ToArray();

@@ -55,7 +55,7 @@ namespace Neo.Ledger
             /// <summary>
             /// GAS spent to execute.
             /// </summary>
-            public long GasConsumed { get; }
+            public long EpicPulseConsumed { get; }
 
             /// <summary>
             /// Items on the stack of the virtual machine after execution.
@@ -72,7 +72,7 @@ namespace Neo.Ledger
                 Transaction = engine.ScriptContainer as Transaction;
                 Trigger = engine.Trigger;
                 VMState = engine.State;
-                GasConsumed = engine.FeeConsumed;
+                EpicPulseConsumed = engine.FeeConsumed;
                 Exception = engine.FaultException;
                 Stack = engine.ResultStack.ToArray();
                 Notifications = engine.Notifications.ToArray();

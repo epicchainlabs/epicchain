@@ -56,9 +56,9 @@ namespace Neo.Network.P2P.Payloads
 
         private byte version;
         private uint nonce;
-        // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         private long sysfee;
-        // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         private long netfee;
         private uint validUntilBlock;
         private Signer[] _signers;

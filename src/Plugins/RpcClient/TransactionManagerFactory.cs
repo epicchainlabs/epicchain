@@ -49,7 +49,7 @@ namespace Neo.Network.RPC
         public async Task<TransactionManager> MakeTransactionAsync(ReadOnlyMemory<byte> script, Signer[] signers = null, TransactionAttribute[] attributes = null)
         {
             RpcInvokeResult invokeResult = await rpcClient.InvokeScriptAsync(script, signers).ConfigureAwait(false);
-            return await MakeTransactionAsync(script, invokeResult.GasConsumed, signers, attributes).ConfigureAwait(false);
+            return await MakeTransactionAsync(script, invokeResult.EpicPulseConsumed, signers, attributes).ConfigureAwait(false);
         }
 
         /// <summary>
