@@ -5,10 +5,6 @@
       "ConsoleOutput": false,
       "Active": false
     },
-    "Storage": {
-      "Engine": "LevelDBStore",
-      "Path": "Data_LevelDB_{0}"
-    },
     "P2P": {
       "Port": 10111,
       "MinDesiredConnections": 10,

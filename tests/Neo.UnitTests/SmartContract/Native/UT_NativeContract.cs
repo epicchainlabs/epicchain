@@ -135,8 +135,8 @@ namespace Neo.UnitTests.SmartContract.Native
             };
             var snapshot = _snapshotCache.CloneCache();
 
-            // Ensure that native NEP17 contracts contain proper supported standards and events declared
-            // in the manifest constructed for all hardforks enabled. Ref. https://github.com/epicchainlabs/epiccha/pull/3195.
+            // Ensure that native XEP17 contracts contain proper supported standards and events declared
+            // in the manifest constructed for all hardforks enabled. Ref. https://github.com/epicchainlabs/epicchain/pull/3195.
             foreach (var h in new List<UInt160>() { NativeContract.GAS.Hash, NativeContract.NEO.Hash })
             {
                 var state = Call_GetContract(snapshot, h, persistingBlock);
