@@ -145,10 +145,10 @@ namespace Neo.SmartContract
         public static readonly InteropDescriptor System_Runtime_GetNotifications = Register("System.Runtime.GetNotifications", nameof(GetNotifications), 1 << 12, CallFlags.None);
 
         /// <summary>
-        /// The <see cref="InteropDescriptor"/> of System.Runtime.GasLeft.
+        /// The <see cref="InteropDescriptor"/> of System.Runtime.EpicPulseLeft.
         /// Gets the remaining GAS that can be spent in order to complete the execution.
         /// </summary>
-        public static readonly InteropDescriptor System_Runtime_GasLeft = Register("System.Runtime.GasLeft", nameof(GasLeft), 1 << 4, CallFlags.None);
+        public static readonly InteropDescriptor System_Runtime_EpicPulseLeft = Register("System.Runtime.EpicPulseLeft", nameof(EpicPulseLeft), 1 << 4, CallFlags.None);
 
         /// <summary>
         /// The <see cref="InteropDescriptor"/> of System.Runtime.BurnGas.

@@ -174,20 +174,20 @@ namespace Neo.UnitTests.SmartContract
         }
 
         [TestMethod]
-        public void System_Runtime_GasLeft()
+        public void System_Runtime_EpicPulseLeft()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             using (var script = new ScriptBuilder())
             {
                 script.Emit(OpCode.NOP);
-                script.EmitSysCall(ApplicationEngine.System_Runtime_GasLeft);
+                script.EmitSysCall(ApplicationEngine.System_Runtime_EpicPulseLeft);
                 script.Emit(OpCode.NOP);
-                script.EmitSysCall(ApplicationEngine.System_Runtime_GasLeft);
+                script.EmitSysCall(ApplicationEngine.System_Runtime_EpicPulseLeft);
                 script.Emit(OpCode.NOP);
                 script.Emit(OpCode.NOP);
                 script.Emit(OpCode.NOP);
-                script.EmitSysCall(ApplicationEngine.System_Runtime_GasLeft);
+                script.EmitSysCall(ApplicationEngine.System_Runtime_EpicPulseLeft);
 
                 // Execute
 
@@ -208,7 +208,7 @@ namespace Neo.UnitTests.SmartContract
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitSysCall(ApplicationEngine.System_Runtime_GasLeft);
+                script.EmitSysCall(ApplicationEngine.System_Runtime_EpicPulseLeft);
 
                 // Execute
 

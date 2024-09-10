@@ -130,7 +130,7 @@ namespace Neo.SmartContract
         /// <returns>The hash of the account.</returns>
         internal protected UInt160 CreateStandardAccount(ECPoint pubKey)
         {
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             long fee = IsHardforkEnabled(Hardfork.HF_Aspidochelone)
                 ? CheckSigPrice
                 : 1 << 8;
@@ -147,7 +147,7 @@ namespace Neo.SmartContract
         /// <returns>The hash of the account.</returns>
         internal protected UInt160 CreateMultisigAccount(int m, ECPoint[] pubKeys)
         {
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             long fee = IsHardforkEnabled(Hardfork.HF_Aspidochelone)
                 ? CheckSigPrice * pubKeys.Length
                 : 1 << 8;
