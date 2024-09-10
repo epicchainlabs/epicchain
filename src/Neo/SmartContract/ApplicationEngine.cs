@@ -46,9 +46,9 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// The maximum cost that can be spent when a contract is executed in test mode.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
-        public const long TestModeGas = 20_00000000;
+        public const long TestModeEpicPulse = 20_00000000;
 
         /// <summary>
         /// Triggered when a contract calls System.Runtime.Notify.
@@ -183,7 +183,7 @@ namespace Neo.SmartContract
         /// <param name="snapshotCache">The snapshot used by the engine during execution.</param>
         /// <param name="persistingBlock">The block being persisted. It should be <see langword="null"/> if the <paramref name="trigger"/> is <see cref="TriggerType.Verification"/>.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
-        /// <param name="gas">The maximum gas, in the unit of datoshi, used in this execution. The execution will fail when the gas is exhausted.</param>
+        /// <param name="gas">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <param name="jumpTable">The jump table to be used by the <see cref="ApplicationEngine"/>.</param>
         protected unsafe ApplicationEngine(
@@ -264,16 +264,16 @@ namespace Neo.SmartContract
         #endregion
 
         /// <summary>
-        /// Adds GAS to <see cref="FeeConsumed"/> and checks if it has exceeded the maximum limit.
+        /// Adds EpicPulse to <see cref="FeeConsumed"/> and checks if it has exceeded the maximum limit.
         /// </summary>
-        /// <param name="datoshi">The amount of GAS, in the unit of datoshi, 1 datoshi = 1e-8 GAS, to be added.</param>
+        /// <param name="datoshi">The amount of EpicPulse, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse, to be added.</param>
         protected internal void AddFee(long datoshi)
         {
 #pragma warning disable CS0618 // Type or member is obsolete
             FeeConsumed = EpicPulseConsumed = checked(FeeConsumed + datoshi);
 #pragma warning restore CS0618 // Type or member is obsolete
             if (FeeConsumed > _feeAmount)
-                throw new InvalidOperationException("Insufficient GAS.");
+                throw new InvalidOperationException("Insufficient EpicPulse.");
         }
 
         protected override void OnFault(Exception ex)
@@ -405,10 +405,10 @@ namespace Neo.SmartContract
         /// <param name="snapshot">The snapshot used by the engine during execution.</param>
         /// <param name="persistingBlock">The block being persisted. It should be <see langword="null"/> if the <paramref name="trigger"/> is <see cref="TriggerType.Verification"/>.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
-        /// <param name="gas">The maximum gas used in this execution, in the unit of datoshi. The execution will fail when the gas is exhausted.</param>
+        /// <param name="gas">The maximum epicpulse used in this execution, in the unit of datoshi. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <returns>The engine instance created.</returns>
-        public static ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock = null, ProtocolSettings settings = null, long gas = TestModeGas, IDiagnostic diagnostic = null)
+        public static ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock = null, ProtocolSettings settings = null, long gas = TestModeEpicPulse, IDiagnostic diagnostic = null)
         {
             // Adjust jump table according persistingBlock
             var jumpTable = ApplicationEngine.DefaultJumpTable;
@@ -660,10 +660,10 @@ namespace Neo.SmartContract
         /// <param name="persistingBlock">The block being persisted.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
         /// <param name="offset">The initial position of the instruction pointer.</param>
-        /// <param name="gas">The maximum gas, in the unit of datoshi, used in this execution. The execution will fail when the gas is exhausted.</param>
+        /// <param name="gas">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <returns>The engine instance created.</returns>
-        public static ApplicationEngine Run(ReadOnlyMemory<byte> script, DataCache snapshot, IVerifiable container = null, Block persistingBlock = null, ProtocolSettings settings = null, int offset = 0, long gas = TestModeGas, IDiagnostic diagnostic = null)
+        public static ApplicationEngine Run(ReadOnlyMemory<byte> script, DataCache snapshot, IVerifiable container = null, Block persistingBlock = null, ProtocolSettings settings = null, int offset = 0, long gas = TestModeEpicPulse, IDiagnostic diagnostic = null)
         {
             persistingBlock ??= CreateDummyBlock(snapshot, settings ?? ProtocolSettings.Default);
             ApplicationEngine engine = Create(TriggerType.Application, container, snapshot, persistingBlock, settings, gas, diagnostic);

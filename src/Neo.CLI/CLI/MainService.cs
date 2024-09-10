@@ -55,7 +55,7 @@ namespace Neo.CLI
     {
         public event EventHandler<Wallet?>? WalletChanged = null;
 
-        public const long TestModeGas = 20_00000000;
+        public const long TestModeEpicPulse = 20_00000000;
 
         private Wallet? _currentWallet;
 
@@ -581,7 +581,7 @@ namespace Neo.CLI
         /// <param name="script">script</param>
         /// <param name="account">sender</param>
         /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
-        private void SendTransaction(byte[] script, UInt160? account = null, long datoshi = TestModeGas)
+        private void SendTransaction(byte[] script, UInt160? account = null, long datoshi = TestModeEpicPulse)
         {
             if (NoWallet()) return;
 
@@ -631,7 +631,7 @@ namespace Neo.CLI
         /// <param name="showStack">Show result stack if it is true</param>
         /// <param name="datoshi">Max fee for running the script, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
         /// <returns>Return true if it was successful</returns>
-        private bool OnInvokeWithResult(UInt160 scriptHash, string operation, out StackItem result, IVerifiable? verifiable = null, JArray? contractParameters = null, bool showStack = true, long datoshi = TestModeGas)
+        private bool OnInvokeWithResult(UInt160 scriptHash, string operation, out StackItem result, IVerifiable? verifiable = null, JArray? contractParameters = null, bool showStack = true, long datoshi = TestModeEpicPulse)
         {
             List<ContractParameter> parameters = new();
 

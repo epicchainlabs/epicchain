@@ -98,7 +98,7 @@ namespace Neo.Wallets
         /// <param name="accountScript">Function to retrive the script's account from a hash.</param>
         /// <param name="maxExecutionCost">The maximum cost that can be spent when a contract is executed.</param>
         /// <returns>The network fee of the transaction.</returns>
-        public static long CalculateNetworkFee(this Transaction tx, DataCache snapshot, ProtocolSettings settings, Func<UInt160, byte[]> accountScript, long maxExecutionCost = ApplicationEngine.TestModeGas)
+        public static long CalculateNetworkFee(this Transaction tx, DataCache snapshot, ProtocolSettings settings, Func<UInt160, byte[]> accountScript, long maxExecutionCost = ApplicationEngine.TestModeEpicPulse)
         {
             UInt160[] hashes = tx.GetScriptHashesForVerifying(snapshot);
 
