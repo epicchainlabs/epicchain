@@ -71,7 +71,7 @@ namespace Neo.CLI
                 MaxTransactionsPerBlock = tempSetting.MaxTransactionsPerBlock,
                 MemoryPoolMaxTransactions = tempSetting.MemoryPoolMaxTransactions,
                 MaxTraceableBlocks = tempSetting.MaxTraceableBlocks,
-                InitialGasDistribution = tempSetting.InitialGasDistribution,
+                InitialEpicPulseDistribution = tempSetting.InitialEpicPulseDistribution,
                 Hardforks = tempSetting.Hardforks
             };
 

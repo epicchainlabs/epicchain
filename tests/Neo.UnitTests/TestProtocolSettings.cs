@@ -68,7 +68,7 @@ namespace Neo.UnitTests
             MaxTransactionsPerBlock = ProtocolSettings.Default.MaxTransactionsPerBlock,
             MemoryPoolMaxTransactions = ProtocolSettings.Default.MemoryPoolMaxTransactions,
             MaxTraceableBlocks = ProtocolSettings.Default.MaxTraceableBlocks,
-            InitialGasDistribution = ProtocolSettings.Default.InitialGasDistribution,
+            InitialEpicPulseDistribution = ProtocolSettings.Default.InitialEpicPulseDistribution,
             Hardforks = ProtocolSettings.Default.Hardforks
         };
 
@@ -94,7 +94,7 @@ namespace Neo.UnitTests
             MaxTransactionsPerBlock = ProtocolSettings.Default.MaxTransactionsPerBlock,
             MemoryPoolMaxTransactions = ProtocolSettings.Default.MemoryPoolMaxTransactions,
             MaxTraceableBlocks = ProtocolSettings.Default.MaxTraceableBlocks,
-            InitialGasDistribution = ProtocolSettings.Default.InitialGasDistribution,
+            InitialEpicPulseDistribution = ProtocolSettings.Default.InitialEpicPulseDistribution,
             Hardforks = ProtocolSettings.Default.Hardforks
         };
     }

@@ -140,7 +140,7 @@ namespace Neo.Plugins.RpcServer
             protocol["maxvaliduntilblockincrement"] = system.Settings.MaxValidUntilBlockIncrement;
             protocol["maxtransactionsperblock"] = system.Settings.MaxTransactionsPerBlock;
             protocol["memorypoolmaxtransactions"] = system.Settings.MemoryPoolMaxTransactions;
-            protocol["initialgasdistribution"] = system.Settings.InitialGasDistribution;
+            protocol["InitialEpicPulseDistribution"] = system.Settings.InitialEpicPulseDistribution;
             protocol["hardforks"] = new JArray(system.Settings.Hardforks.Select(hf =>
             {
                 JObject forkJson = new();

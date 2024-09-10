@@ -148,7 +148,7 @@ namespace Neo.UnitTests
     ""Hardforks"": {
       " + hf + @"
     },
-    ""InitialGasDistribution"": 5200000000000000,
+    ""InitialEpicPulseDistribution"": 5200000000000000,
     ""ValidatorsCount"": 7,
     ""StandbyCommittee"": [
       ""03b209fd4f53a7170ea4444e0cb0a6bb6a53c2bd016926989cf85f9b0fba17a70c"",
@@ -219,9 +219,9 @@ namespace Neo.UnitTests
         }
 
         [TestMethod]
-        public void TestInitialGasDistribution()
+        public void TestInitialEpicPulseDistribution()
         {
-            TestProtocolSettings.Default.InitialGasDistribution.Should().BeGreaterThan(0);
+            TestProtocolSettings.Default.InitialEpicPulseDistribution.Should().BeGreaterThan(0);
         }
 
         [TestMethod]
@@ -305,9 +305,9 @@ namespace Neo.UnitTests
         }
 
         [TestMethod]
-        public void TestDefaultInitialGasDistributionValue()
+        public void TestDefaultInitialEpicPulseDistributionValue()
         {
-            TestProtocolSettings.Default.InitialGasDistribution.Should().Be(ProtocolSettings.Default.InitialGasDistribution);
+            TestProtocolSettings.Default.InitialEpicPulseDistribution.Should().Be(ProtocolSettings.Default.InitialEpicPulseDistribution);
         }
 
         [TestMethod]
@@ -338,7 +338,7 @@ namespace Neo.UnitTests
             TestProtocolSettings.Default.MaxTransactionsPerBlock.Should().Be(loadedSetting.MaxTransactionsPerBlock);
             TestProtocolSettings.Default.MemoryPoolMaxTransactions.Should().Be(loadedSetting.MemoryPoolMaxTransactions);
             TestProtocolSettings.Default.MaxTraceableBlocks.Should().Be(loadedSetting.MaxTraceableBlocks);
-            TestProtocolSettings.Default.InitialGasDistribution.Should().Be(loadedSetting.InitialGasDistribution);
+            TestProtocolSettings.Default.InitialEpicPulseDistribution.Should().Be(loadedSetting.InitialEpicPulseDistribution);
             TestProtocolSettings.Default.Hardforks.Should().BeEquivalentTo(loadedSetting.Hardforks);
 
             // If StandbyValidators is a derived property, comparing it as well

@@ -2490,7 +2490,7 @@
           "addressversion": 0,
           "maxtransactionsperblock": 0,
           "memorypoolmaxtransactions": 0,
-          "initialgasdistribution": 0,
+          "InitialEpicPulseDistribution": 0,
           "hardforks": [
             {
               "name": "Aspidochelone",

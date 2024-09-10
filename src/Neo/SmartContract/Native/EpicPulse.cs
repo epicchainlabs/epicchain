@@ -41,7 +41,7 @@ namespace Neo.SmartContract.Native
             if (hardfork == ActiveIn)
             {
                 UInt160 account = Contract.GetBFTAddress(engine.ProtocolSettings.StandbyValidators);
-                return Mint(engine, account, engine.ProtocolSettings.InitialGasDistribution, false);
+                return Mint(engine, account, engine.ProtocolSettings.InitialEpicPulseDistribution, false);
             }
             return ContractTask.CompletedTask;
         }

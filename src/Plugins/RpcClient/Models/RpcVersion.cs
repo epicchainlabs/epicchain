@@ -39,7 +39,7 @@ namespace Neo.Network.RPC.Models
             public byte AddressVersion { get; set; }
             public uint MaxTransactionsPerBlock { get; set; }
             public int MemoryPoolMaxTransactions { get; set; }
-            public ulong InitialGasDistribution { get; set; }
+            public ulong InitialEpicPulseDistribution { get; set; }
             public IReadOnlyDictionary<Hardfork, uint> Hardforks { get; set; }
             public IReadOnlyList<string> SeedList { get; set; }
             public IReadOnlyList<ECPoint> StandbyCommittee { get; set; }
@@ -55,7 +55,7 @@ namespace Neo.Network.RPC.Models
                 json["addressversion"] = AddressVersion;
                 json["maxtransactionsperblock"] = MaxTransactionsPerBlock;
                 json["memorypoolmaxtransactions"] = MemoryPoolMaxTransactions;
-                json["initialgasdistribution"] = InitialGasDistribution;
+                json["InitialEpicPulseDistribution"] = InitialEpicPulseDistribution;
                 json["hardforks"] = new JArray(Hardforks.Select(s => new JObject()
                 {
                     // Strip HF_ prefix.
@@ -79,7 +79,7 @@ namespace Neo.Network.RPC.Models
                     AddressVersion = (byte)json["addressversion"].AsNumber(),
                     MaxTransactionsPerBlock = (uint)json["maxtransactionsperblock"].AsNumber(),
                     MemoryPoolMaxTransactions = (int)json["memorypoolmaxtransactions"].AsNumber(),
-                    InitialGasDistribution = (ulong)json["initialgasdistribution"].AsNumber(),
+                    InitialEpicPulseDistribution = (ulong)json["InitialEpicPulseDistribution"].AsNumber(),
                     Hardforks = new Dictionary<Hardfork, uint>(((JArray)json["hardforks"]).Select(s =>
                     {
                         var name = s["name"].AsString();

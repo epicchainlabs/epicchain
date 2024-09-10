@@ -107,7 +107,7 @@ The `ProtocolConfiguration` section dictates the rules and parameters that gover
     - TestNet: `3967000`
 
 ### **7. GAS Distribution**
-- **`InitialGasDistribution:`**
+- **`InitialEpicPulseDistribution:`**
   - The total amount of GAS initially distributed across the network. This field uses the smallest unit of GAS, called "Datoshi."
   - Default: `50,000,000,000,000,000 Datoshi` (equivalent to `500,000,000 GAS`).
 

@@ -187,7 +187,7 @@ namespace Neo
         /// EpicPulse is denominated in datoshi, where 1 EpicPulse equals 1e8 datoshi. This distribution is important
         /// for incentivizing validators and participants to actively engage with the network from the start.
         /// </summary>
-        public ulong InitialGasDistribution { get; init; }
+        public ulong InitialEpicPulseDistribution { get; init; }
 
         private IReadOnlyList<ECPoint> _standbyValidators;
 
@@ -221,7 +221,7 @@ namespace Neo
             MaxTransactionsPerBlock = 512,
             MemoryPoolMaxTransactions = 50_000,
             MaxTraceableBlocks = 2_102_400,
-            InitialGasDistribution = 500_000_000_00000000,
+            InitialEpicPulseDistribution = 500_000_000_00000000,
             Hardforks = EnsureOmmitedHardforks(new Dictionary<Hardfork, uint>()).ToImmutableDictionary()
         };
 
@@ -264,7 +264,7 @@ namespace Neo
                 MaxTransactionsPerBlock = section.GetValue("MaxTransactionsPerBlock", Default.MaxTransactionsPerBlock),
                 MemoryPoolMaxTransactions = section.GetValue("MemoryPoolMaxTransactions", Default.MemoryPoolMaxTransactions),
                 MaxTraceableBlocks = section.GetValue("MaxTraceableBlocks", Default.MaxTraceableBlocks),
-                InitialGasDistribution = section.GetValue("InitialGasDistribution", Default.InitialGasDistribution),
+                InitialEpicPulseDistribution = section.GetValue("InitialEpicPulseDistribution", Default.InitialEpicPulseDistribution),
                 Hardforks = section.GetSection("Hardforks").Exists()
                     ? EnsureOmmitedHardforks(section.GetSection("Hardforks").GetChildren().ToDictionary(p => Enum.Parse<Hardfork>(p.Key, true), p => uint.Parse(p.Value))).ToImmutableDictionary()
                     : Default.Hardforks
