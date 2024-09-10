@@ -228,11 +228,11 @@ namespace Neo.UnitTests.Wallets
 
             // Fake balance
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            var key = NativeContract.GAS.CreateStorageKey(20, account.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, account.ScriptHash);
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
-            wallet.GetAvailable(snapshotCache, NativeContract.GAS.Hash).Should().Be(new BigDecimal(new BigInteger(1000000000000M), 8));
+            wallet.GetAvailable(snapshotCache, NativeContract.EpicPulse.Hash).Should().Be(new BigDecimal(new BigInteger(1000000000000M), 8));
 
             entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry.GetInteroperable<AccountState>().Balance = 0;
@@ -248,12 +248,12 @@ namespace Neo.UnitTests.Wallets
 
             // Fake balance
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            var key = NativeContract.GAS.CreateStorageKey(20, account.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, account.ScriptHash);
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             wallet.GetBalance(snapshotCache, UInt160.Zero, new UInt160[] { account.ScriptHash }).Should().Be(new BigDecimal(BigInteger.Zero, 0));
-            wallet.GetBalance(snapshotCache, NativeContract.GAS.Hash, new UInt160[] { account.ScriptHash }).Should().Be(new BigDecimal(new BigInteger(1000000000000M), 8));
+            wallet.GetBalance(snapshotCache, NativeContract.EpicPulse.Hash, new UInt160[] { account.ScriptHash }).Should().Be(new BigDecimal(new BigInteger(1000000000000M), 8));
 
             entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry.GetInteroperable<AccountState>().Balance = 0;
@@ -310,7 +310,7 @@ namespace Neo.UnitTests.Wallets
             {
                 new TransferOutput()
                 {
-                     AssetId = NativeContract.GAS.Hash,
+                     AssetId = NativeContract.EpicPulse.Hash,
                      ScriptHash = account.ScriptHash,
                      Value = new BigDecimal(BigInteger.One,8),
                      Data = "Dec 12th"
@@ -322,7 +322,7 @@ namespace Neo.UnitTests.Wallets
             {
                 new TransferOutput()
                 {
-                     AssetId = NativeContract.GAS.Hash,
+                     AssetId = NativeContract.EpicPulse.Hash,
                      ScriptHash = account.ScriptHash,
                      Value = new BigDecimal(BigInteger.One,8),
                      Data = "Dec 12th"
@@ -343,9 +343,9 @@ namespace Neo.UnitTests.Wallets
             action.Should().Throw<InvalidOperationException>();
 
             // Fake balance
-            var key = NativeContract.GAS.CreateStorageKey(20, account.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, account.ScriptHash);
             var entry1 = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry1.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry1.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             key = NativeContract.NEO.CreateStorageKey(20, account.ScriptHash);
             var entry2 = snapshotCache.GetAndChange(key, () => new StorageItem(new EpicChain.NeoAccountState()));
@@ -355,7 +355,7 @@ namespace Neo.UnitTests.Wallets
             {
                 new TransferOutput()
                 {
-                     AssetId = NativeContract.GAS.Hash,
+                     AssetId = NativeContract.EpicPulse.Hash,
                      ScriptHash = account.ScriptHash,
                      Value = new BigDecimal(BigInteger.One,8)
                 }
@@ -393,9 +393,9 @@ namespace Neo.UnitTests.Wallets
             account.Lock = false;
 
             // Fake balance
-            var key = NativeContract.GAS.CreateStorageKey(20, account.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, account.ScriptHash);
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 1000000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 1000000 * NativeContract.EpicPulse.Factor;
 
             var tx = wallet.MakeTransaction(snapshotCache, Array.Empty<byte>(), account.ScriptHash, new[]{ new Signer()
             {

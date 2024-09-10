@@ -186,7 +186,7 @@ namespace Neo.Network.RPC
             Tx.NetworkFee = await rpcClient.CalculateNetworkFeeAsync(Tx).ConfigureAwait(false);
             Tx.Witnesses = null;
 
-            var epicpulseBalance = await new Nep17API(rpcClient).BalanceOfAsync(NativeContract.GAS.Hash, Tx.Sender).ConfigureAwait(false);
+            var epicpulseBalance = await new Nep17API(rpcClient).BalanceOfAsync(NativeContract.EpicPulse.Hash, Tx.Sender).ConfigureAwait(false);
             if (epicpulseBalance < Tx.SystemFee + Tx.NetworkFee)
                 throw new InvalidOperationException($"Insufficient EpicPulse in address: {Tx.Sender.ToAddress(rpcClient.protocolSettings.AddressVersion)}");
 

@@ -44,7 +44,7 @@ namespace Neo.UnitTests.SmartContract
         [TestMethod]
         public void TestIssue3300() // https://github.com/epicchainlabs/epicchain/issues/3300
         {
-            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, settings: TestProtocolSettings.Default, gas: 1100_00000000);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, null, null, settings: TestProtocolSettings.Default, epicpulse: 1100_00000000);
             using (var script = new ScriptBuilder())
             {
                 // Build call script calling disallowed method.

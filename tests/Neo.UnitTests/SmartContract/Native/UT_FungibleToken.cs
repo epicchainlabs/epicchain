@@ -33,7 +33,7 @@ namespace Neo.UnitTests.SmartContract.Native
         public void TestTotalSupply()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            NativeContract.GAS.TotalSupply(snapshotCache).Should().Be(5200000050000000);
+            NativeContract.EpicPulse.TotalSupply(snapshotCache).Should().Be(5200000050000000);
         }
     }
 }

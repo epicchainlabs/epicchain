@@ -56,9 +56,9 @@ namespace Neo.CLI
             UInt160 hash = SmartContract.Helper.GetContractHash(tx.Sender, nef.CheckSum, manifest.Name);
 
             ConsoleHelper.Info("Contract hash: ", $"{hash}");
-            ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)} EpicPulse");
-            ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse");
-            ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+            ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.EpicPulse.Decimals)} EpicPulse");
+            ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.EpicPulse.Decimals)} EpicPulse");
+            ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.EpicPulse.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
             {
                 return;
@@ -118,9 +118,9 @@ namespace Neo.CLI
             {
                 ConsoleHelper.Info("Contract hash: ", $"{scriptHash}");
                 ConsoleHelper.Info("Updated times: ", $"{contract.UpdateCounter}");
-                ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.GAS.Decimals)} EpicPulse");
-                ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse");
-                ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+                ConsoleHelper.Info("EpicPulse consumed: ", $"{new BigDecimal((BigInteger)tx.SystemFee, NativeContract.EpicPulse.Decimals)} EpicPulse");
+                ConsoleHelper.Info("Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.EpicPulse.Decimals)} EpicPulse");
+                ConsoleHelper.Info("Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.EpicPulse.Decimals)} EpicPulse");
                 if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes()) // Add this in case just want to get hash but not relay
                 {
                     return;
@@ -142,7 +142,7 @@ namespace Neo.CLI
         private void OnInvokeCommand(UInt160 scriptHash, string operation, JArray? contractParameters = null, UInt160? sender = null, UInt160[]? signerAccounts = null, decimal maxEpicPulse = 20)
         {
             // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
-            var datoshi = new BigDecimal(maxEpicPulse, NativeContract.GAS.Decimals);
+            var datoshi = new BigDecimal(maxEpicPulse, NativeContract.EpicPulse.Decimals);
             Signer[] signers = Array.Empty<Signer>();
             if (!NoWallet())
             {
@@ -187,9 +187,9 @@ namespace Neo.CLI
                 return;
             }
             ConsoleHelper.Info("Network fee: ",
-                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse\t",
+                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.EpicPulse.Decimals)} EpicPulse\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.EpicPulse.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;

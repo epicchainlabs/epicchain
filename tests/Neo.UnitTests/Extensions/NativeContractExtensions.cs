@@ -40,7 +40,7 @@ namespace Neo.UnitTests.Extensions
         /// <param name="sender">The address of the contract deployer.</param>
         /// <param name="nefFile">The <see cref="NefFile"/> file of the contract to be deployed.</param>
         /// <param name="manifest">The manifest of the contract to be deployed.</param>
-        /// <param name="datoshi">The gas fee to spend for deploying the contract in the unit of datoshi, 1 datoshi = 1e-8 GAS.</param>
+        /// <param name="datoshi">The epicpulse fee to spend for deploying the contract in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
         public static ContractState DeployContract(this DataCache snapshot, UInt160 sender, byte[] nefFile, byte[] manifest, long datoshi = 200_00000000)
@@ -49,7 +49,7 @@ namespace Neo.UnitTests.Extensions
             script.EmitDynamicCall(NativeContract.ContractManagement.Hash, "deploy", nefFile, manifest, null);
 
             var engine = ApplicationEngine.Create(TriggerType.Application,
-                sender != null ? new Transaction() { Signers = new Signer[] { new Signer() { Account = sender } }, Attributes = System.Array.Empty<TransactionAttribute>() } : null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: datoshi);
+                sender != null ? new Transaction() { Signers = new Signer[] { new Signer() { Account = sender } }, Attributes = System.Array.Empty<TransactionAttribute>() } : null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: datoshi);
             engine.LoadScript(script.ToArray());
 
             if (engine.Execute() != VMState.HALT)

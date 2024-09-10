@@ -262,7 +262,7 @@ namespace Neo.Plugins.ApplicationLogs
                 ConsoleHelper.Error($"Exception: {model.Exception}");
             else
                 ConsoleHelper.Info("Exception: ", "null");
-            ConsoleHelper.Info("EpicPulse Consumed: ", $"{new BigDecimal((BigInteger)model.EpicPulseConsumed, NativeContract.GAS.Decimals)}");
+            ConsoleHelper.Info("EpicPulse Consumed: ", $"{new BigDecimal((BigInteger)model.EpicPulseConsumed, NativeContract.EpicPulse.Decimals)}");
             if (model.Stack.Length == 0)
                 ConsoleHelper.Info("Stack: ", "[]");
             else

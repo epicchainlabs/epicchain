@@ -50,7 +50,7 @@ namespace Neo.Plugins.RpcServer
                 Script = script,
                 Witnesses = witnesses
             };
-            Engine = ApplicationEngine.Run(script, Snapshot, container: tx, settings: system.Settings, gas: datoshi, diagnostic: diagnostic);
+            Engine = ApplicationEngine.Run(script, Snapshot, container: tx, settings: system.Settings, epicpulse: datoshi, diagnostic: diagnostic);
             ResetExpiration();
         }
 

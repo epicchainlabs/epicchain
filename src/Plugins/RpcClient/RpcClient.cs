@@ -590,7 +590,7 @@ namespace Neo.Network.RPC
         public async Task<BigDecimal> GetWalletUnclaimedEpicPulseAsync()
         {
             var result = await RpcSendAsync(GetRpcName()).ConfigureAwait(false);
-            return BigDecimal.Parse(result.AsString(), SmartContract.Native.NativeContract.GAS.Decimals);
+            return BigDecimal.Parse(result.AsString(), SmartContract.Native.NativeContract.EpicPulse.Decimals);
         }
 
         /// <summary>

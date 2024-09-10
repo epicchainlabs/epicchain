@@ -302,7 +302,7 @@ namespace Neo.Wallets
                 sb.EmitDynamicCall(asset_id, "decimals", CallFlags.ReadOnly);
                 script = sb.ToArray();
             }
-            using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: ProtocolSettings, gas: 0_60000000L * accounts.Length);
+            using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: ProtocolSettings, epicpulse: 0_60000000L * accounts.Length);
             if (engine.State == VMState.FAULT)
                 return new BigDecimal(BigInteger.Zero, 0);
             byte decimals = (byte)engine.ResultStack.Pop().GetInteger();
@@ -532,13 +532,13 @@ namespace Neo.Wallets
                             sb.Emit(OpCode.ASSERT);
                         }
                     }
-                    if (assetId.Equals(NativeContract.GAS.Hash))
+                    if (assetId.Equals(NativeContract.EpicPulse.Hash))
                         balances_epicpulse = balances;
                 }
                 script = sb.ToArray();
             }
             if (balances_epicpulse is null)
-                balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
+                balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.EpicPulse.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
 
             return MakeTransaction(snapshot, script, cosignerList.Values.ToArray(), Array.Empty<TransactionAttribute>(), balances_epicpulse, persistingBlock: persistingBlock);
         }
@@ -565,7 +565,7 @@ namespace Neo.Wallets
             {
                 accounts = new[] { sender };
             }
-            var balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.GAS.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
+            var balances_epicpulse = accounts.Select(p => (Account: p, Value: NativeContract.EpicPulse.BalanceOf(snapshot, p))).Where(p => p.Value.Sign > 0).ToList();
             return MakeTransaction(snapshot, script, cosigners ?? Array.Empty<Signer>(), attributes ?? Array.Empty<TransactionAttribute>(), balances_epicpulse, maxEpicPulse, persistingBlock: persistingBlock);
         }
 
@@ -585,7 +585,7 @@ namespace Neo.Wallets
                 };
 
                 // will try to execute 'transfer' script to check if it works
-                using (ApplicationEngine engine = ApplicationEngine.Run(script, snapshot.CloneCache(), tx, settings: ProtocolSettings, gas: maxEpicPulse, persistingBlock: persistingBlock))
+                using (ApplicationEngine engine = ApplicationEngine.Run(script, snapshot.CloneCache(), tx, settings: ProtocolSettings, epicpulse: maxEpicPulse, persistingBlock: persistingBlock))
                 {
                     if (engine.State == VMState.FAULT)
                     {

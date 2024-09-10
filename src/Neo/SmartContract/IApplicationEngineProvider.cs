@@ -38,10 +38,10 @@ namespace Neo.SmartContract
         /// <param name="snapshot">The snapshot used by the engine during execution.</param>
         /// <param name="persistingBlock">The block being persisted. It should be <see langword="null"/> if the <paramref name="trigger"/> is <see cref="TriggerType.Verification"/>.</param>
         /// <param name="settings">The <see cref="ProtocolSettings"/> used by the engine.</param>
-        /// <param name="gas">The maximum epicpulse used in this execution. The execution will fail when the epicpulse is exhausted.</param>
+        /// <param name="epicpulse">The maximum epicpulse used in this execution. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <param name="jumpTable">The jump table to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <returns>The engine instance created.</returns>
-        ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock, ProtocolSettings settings, long gas, IDiagnostic diagnostic, JumpTable jumpTable);
+        ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock, ProtocolSettings settings, long epicpulse, IDiagnostic diagnostic, JumpTable jumpTable);
     }
 }

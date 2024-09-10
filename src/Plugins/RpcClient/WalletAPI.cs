@@ -73,7 +73,7 @@ namespace Neo.Network.RPC
             var blockCount = await rpcClient.GetBlockCountAsync().ConfigureAwait(false);
             var result = await nep17API.TestInvokeAsync(scriptHash, "UnclaimedEpicPulse", account, blockCount - 1).ConfigureAwait(false);
             BigInteger balance = result.Stack.Single().GetInteger();
-            return ((decimal)balance) / (long)NativeContract.GAS.Factor;
+            return ((decimal)balance) / (long)NativeContract.EpicPulse.Factor;
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace Neo.Network.RPC
         /// <returns></returns>
         public async Task<decimal> GetEpicPulseBalanceAsync(string account)
         {
-            BigInteger balance = await GetTokenBalanceAsync(NativeContract.GAS.Hash.ToString(), account).ConfigureAwait(false);
-            return ((decimal)balance) / (long)NativeContract.GAS.Factor;
+            BigInteger balance = await GetTokenBalanceAsync(NativeContract.EpicPulse.Hash.ToString(), account).ConfigureAwait(false);
+            return ((decimal)balance) / (long)NativeContract.EpicPulse.Factor;
         }
 
         /// <summary>

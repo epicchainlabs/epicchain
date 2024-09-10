@@ -67,7 +67,7 @@ namespace Neo.Ledger
         /// <returns><see langword="true"/> if the <see cref="Transaction"/> passes the check; otherwise, <see langword="false"/>.</returns>
         public bool CheckTransaction(Transaction tx, IEnumerable<Transaction> conflictingTxs, DataCache snapshot)
         {
-            BigInteger balance = NativeContract.GAS.BalanceOf(snapshot, tx.Sender);
+            BigInteger balance = NativeContract.EpicPulse.BalanceOf(snapshot, tx.Sender);
             senderFee.TryGetValue(tx.Sender, out var totalSenderFeeFromPool);
 
             BigInteger expectedFee = tx.SystemFee + tx.NetworkFee + totalSenderFeeFromPool;

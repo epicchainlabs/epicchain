@@ -126,7 +126,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             var key = new Xep17BalanceKey(balanceChanged.User, balanceChanged.Asset);
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(balanceChanged.Asset, "balanceOf", balanceChanged.User);
-            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, gas: 1700_0000);
+            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, epicpulse: 1700_0000);
 
             if (engine.State.HasFlag(VMState.FAULT) || engine.ResultStack.Count == 0)
             {

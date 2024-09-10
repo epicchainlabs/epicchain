@@ -181,7 +181,7 @@ namespace Neo.UnitTests.VMT
         [TestMethod]
         public void TestMakeScript()
         {
-            byte[] testScript = NativeContract.GAS.Hash.MakeScript("balanceOf", UInt160.Zero);
+            byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("balanceOf", UInt160.Zero);
 
             Assert.AreEqual("0c14000000000000000000000000000000000000000011c01f0c0962616c616e63654f660c14cf76e28bd0062c4a478ee35561011319f3cfa4d241627d5b52",
                             testScript.ToHexString());

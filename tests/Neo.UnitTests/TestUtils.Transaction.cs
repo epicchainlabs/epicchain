@@ -49,7 +49,7 @@ public partial class TestUtils
         var tx = wallet.MakeTransaction(snapshot, [
                 new TransferOutput
                 {
-                    AssetId = NativeContract.GAS.Hash,
+                    AssetId = NativeContract.EpicPulse.Hash,
                     ScriptHash = account,
                     Value = new BigDecimal(BigInteger.One, 8)
                 }
@@ -73,7 +73,7 @@ public partial class TestUtils
         var tx = wallet.MakeTransaction(snapshot, [
                 new TransferOutput
                 {
-                    AssetId = NativeContract.GAS.Hash,
+                    AssetId = NativeContract.EpicPulse.Hash,
                     ScriptHash = account,
                     Value = new BigDecimal(BigInteger.One, 8)
                 }

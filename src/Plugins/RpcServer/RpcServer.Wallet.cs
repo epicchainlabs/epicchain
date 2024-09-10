@@ -468,7 +468,7 @@ namespace Neo.Plugins.RpcServer
             else if (_params.Count >= 3)
             {
                 var extraFee = _params[2].AsString();
-                AssetDescriptor descriptor = new(system.StoreView, system.Settings, NativeContract.GAS.Hash);
+                AssetDescriptor descriptor = new(system.StoreView, system.Settings, NativeContract.EpicPulse.Hash);
                 (BigDecimal.TryParse(extraFee, descriptor.Decimals, out BigDecimal decimalExtraFee) && decimalExtraFee.Sign > 0).True_Or(RpcErrorFactory.InvalidParams("Incorrect amount format."));
 
                 tx.NetworkFee += (long)decimalExtraFee.Value;

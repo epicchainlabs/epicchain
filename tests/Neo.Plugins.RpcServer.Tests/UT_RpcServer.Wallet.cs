@@ -203,7 +203,7 @@ partial class UT_RpcServer
     [TestMethod]
     public void TestSendFromNoWallet()
     {
-        var assetId = NativeContract.GAS.Hash;
+        var assetId = NativeContract.EpicPulse.Hash;
         var from = _walletAccount.Address;
         var to = _walletAccount.Address;
         var amount = "1";
@@ -216,7 +216,7 @@ partial class UT_RpcServer
     public void TestSendFrom()
     {
         TestUtilOpenWallet();
-        var assetId = NativeContract.GAS.Hash;
+        var assetId = NativeContract.EpicPulse.Hash;
         var from = _walletAccount.Address;
         var to = _walletAccount.Address;
         var amount = "1";
@@ -240,7 +240,7 @@ partial class UT_RpcServer
     public void TestSendMany()
     {
         var from = _walletAccount.Address;
-        var to = new JArray { new JObject { ["asset"] = NativeContract.GAS.Hash.ToString(), ["value"] = "1", ["address"] = _walletAccount.Address } };
+        var to = new JArray { new JObject { ["asset"] = NativeContract.EpicPulse.Hash.ToString(), ["value"] = "1", ["address"] = _walletAccount.Address } };
         var paramsArray = new JArray(from, to);
         var exception = Assert.ThrowsException<RpcException>(() => _rpcServer.SendMany(paramsArray), "Should throw RpcException for insufficient funds");
         Assert.AreEqual(exception.HResult, RpcError.NoOpenedWallet.Code);
@@ -259,7 +259,7 @@ partial class UT_RpcServer
     [TestMethod]
     public void TestSendToAddress()
     {
-        var assetId = NativeContract.GAS.Hash;
+        var assetId = NativeContract.EpicPulse.Hash;
         var to = _walletAccount.Address;
         var amount = "1";
         var paramsArray = new JArray(assetId.ToString(), to, amount);
@@ -378,7 +378,7 @@ partial class UT_RpcServer
 
         // Test valid cancel
         _rpcServer.wallet = _wallet;
-        JObject resp = (JObject)_rpcServer.SendFrom(new JArray(NativeContract.GAS.Hash.ToString(), _walletAccount.Address, _walletAccount.Address, "1"));
+        JObject resp = (JObject)_rpcServer.SendFrom(new JArray(NativeContract.EpicPulse.Hash.ToString(), _walletAccount.Address, _walletAccount.Address, "1"));
         string txHash = resp["hash"].AsString();
         resp = (JObject)_rpcServer.CancelTransaction(new JArray(txHash, new JArray(ValidatorAddress), "1"));
         Assert.AreEqual(resp.Count, 12);
@@ -436,7 +436,7 @@ namespace ContractWithVerify{public class ContractWithVerify:SmartContract {
             Script = Convert.FromBase64String(deployResp["script"].AsString()),
             Witnesses = null,
         };
-        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, gas: 1200_0000_0000);
+        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, epicpulse: 1200_0000_0000);
         engine.SnapshotCache.Commit();
 
         // invoke verify without signer; should return false

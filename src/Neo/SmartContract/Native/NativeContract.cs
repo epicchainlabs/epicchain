@@ -96,7 +96,7 @@ namespace Neo.SmartContract.Native
         /// <summary>
         /// Gets the instance of the <see cref="EpicPulse"/> class.
         /// </summary>
-        public static EpicPulse GAS { get; } = new();
+        public static EpicPulse EpicPulse { get; } = new();
 
         /// <summary>
         /// Gets the instance of the <see cref="CovenantChain"/> class.
@@ -392,7 +392,7 @@ namespace Neo.SmartContract.Native
                 ExecutionContextState state = context.GetState<ExecutionContextState>();
                 if (!state.CallFlags.HasFlag(method.RequiredCallFlags))
                     throw new InvalidOperationException($"Cannot call this method with the flag {state.CallFlags}.");
-                // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+                // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
                 engine.AddFee(method.CpuFee * engine.ExecFeeFactor + method.StorageFee * engine.StoragePrice);
                 List<object> parameters = new();
                 if (method.NeedApplicationEngine) parameters.Add(engine);

@@ -41,11 +41,11 @@ namespace Neo.UnitTests.Wallets
         }
 
         [TestMethod]
-        public void Check_GAS()
+        public void Check_EpicPulse()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            var descriptor = new Neo.Wallets.AssetDescriptor(snapshotCache, TestProtocolSettings.Default, NativeContract.GAS.Hash);
-            descriptor.AssetId.Should().Be(NativeContract.GAS.Hash);
+            var descriptor = new Neo.Wallets.AssetDescriptor(snapshotCache, TestProtocolSettings.Default, NativeContract.EpicPulse.Hash);
+            descriptor.AssetId.Should().Be(NativeContract.EpicPulse.Hash);
             descriptor.AssetName.Should().Be(nameof(EpicPulse));
             descriptor.ToString().Should().Be(nameof(EpicPulse));
             descriptor.Symbol.Should().Be("EpicPulse");

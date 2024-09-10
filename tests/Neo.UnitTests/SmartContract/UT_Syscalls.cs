@@ -191,7 +191,7 @@ namespace Neo.UnitTests.SmartContract
 
                 // Execute
 
-                var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, gas: 100_000_000);
+                var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, epicpulse: 1_000_000_000);
                 engine.LoadScript(script.ToArray());
                 Assert.AreEqual(engine.Execute(), VMState.HALT);
 

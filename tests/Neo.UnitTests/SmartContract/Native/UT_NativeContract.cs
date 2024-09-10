@@ -137,7 +137,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Ensure that native XEP17 contracts contain proper supported standards and events declared
             // in the manifest constructed for all hardforks enabled. Ref. https://github.com/epicchainlabs/epicchain/pull/3195.
-            foreach (var h in new List<UInt160>() { NativeContract.GAS.Hash, NativeContract.NEO.Hash })
+            foreach (var h in new List<UInt160>() { NativeContract.EpicPulse.Hash, NativeContract.NEO.Hash })
             {
                 var state = Call_GetContract(snapshot, h, persistingBlock);
                 Assert.IsTrue(state.Manifest.SupportedStandards.Contains("XEP-17"));

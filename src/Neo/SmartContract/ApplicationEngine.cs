@@ -183,12 +183,12 @@ namespace Neo.SmartContract
         /// <param name="snapshotCache">The snapshot used by the engine during execution.</param>
         /// <param name="persistingBlock">The block being persisted. It should be <see langword="null"/> if the <paramref name="trigger"/> is <see cref="TriggerType.Verification"/>.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
-        /// <param name="gas">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
+        /// <param name="epicpulse">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <param name="jumpTable">The jump table to be used by the <see cref="ApplicationEngine"/>.</param>
         protected unsafe ApplicationEngine(
             TriggerType trigger, IVerifiable container, DataCache snapshotCache, Block persistingBlock,
-            ProtocolSettings settings, long gas, IDiagnostic diagnostic, JumpTable jumpTable = null)
+            ProtocolSettings settings, long epicpulse, IDiagnostic diagnostic, JumpTable jumpTable = null)
             : base(jumpTable ?? DefaultJumpTable)
         {
             Trigger = trigger;
@@ -196,7 +196,7 @@ namespace Neo.SmartContract
             originalSnapshotCache = snapshotCache;
             PersistingBlock = persistingBlock;
             ProtocolSettings = settings;
-            _feeAmount = gas;
+            _feeAmount = epicpulse;
             Diagnostic = diagnostic;
             ExecFeeFactor = snapshotCache is null || persistingBlock?.Index == 0 ? CovenantChain.DefaultExecFeeFactor : NativeContract.Policy.GetExecFeeFactor(snapshotCache);
             StoragePrice = snapshotCache is null || persistingBlock?.Index == 0 ? CovenantChain.DefaultStoragePrice : NativeContract.Policy.GetStoragePrice(snapshotCache);
@@ -405,16 +405,16 @@ namespace Neo.SmartContract
         /// <param name="snapshot">The snapshot used by the engine during execution.</param>
         /// <param name="persistingBlock">The block being persisted. It should be <see langword="null"/> if the <paramref name="trigger"/> is <see cref="TriggerType.Verification"/>.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
-        /// <param name="gas">The maximum epicpulse used in this execution, in the unit of datoshi. The execution will fail when the epicpulse is exhausted.</param>
+        /// <param name="epicpulse">The maximum epicpulse used in this execution, in the unit of datoshi. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <returns>The engine instance created.</returns>
-        public static ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock = null, ProtocolSettings settings = null, long gas = TestModeEpicPulse, IDiagnostic diagnostic = null)
+        public static ApplicationEngine Create(TriggerType trigger, IVerifiable container, DataCache snapshot, Block persistingBlock = null, ProtocolSettings settings = null, long epicpulse = TestModeEpicPulse, IDiagnostic diagnostic = null)
         {
             // Adjust jump table according persistingBlock
             var jumpTable = ApplicationEngine.DefaultJumpTable;
 
-            return Provider?.Create(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic, jumpTable)
-                  ?? new ApplicationEngine(trigger, container, snapshot, persistingBlock, settings, gas, diagnostic, jumpTable);
+            return Provider?.Create(trigger, container, snapshot, persistingBlock, settings, epicpulse, diagnostic, jumpTable)
+                  ?? new ApplicationEngine(trigger, container, snapshot, persistingBlock, settings, epicpulse, diagnostic, jumpTable);
         }
 
         public override void LoadContext(ExecutionContext context)
@@ -660,13 +660,13 @@ namespace Neo.SmartContract
         /// <param name="persistingBlock">The block being persisted.</param>
         /// <param name="settings">The <see cref="Neo.ProtocolSettings"/> used by the engine.</param>
         /// <param name="offset">The initial position of the instruction pointer.</param>
-        /// <param name="gas">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
+        /// <param name="epicpulse">The maximum epicpulse, in the unit of datoshi, used in this execution. The execution will fail when the epicpulse is exhausted.</param>
         /// <param name="diagnostic">The diagnostic to be used by the <see cref="ApplicationEngine"/>.</param>
         /// <returns>The engine instance created.</returns>
-        public static ApplicationEngine Run(ReadOnlyMemory<byte> script, DataCache snapshot, IVerifiable container = null, Block persistingBlock = null, ProtocolSettings settings = null, int offset = 0, long gas = TestModeEpicPulse, IDiagnostic diagnostic = null)
+        public static ApplicationEngine Run(ReadOnlyMemory<byte> script, DataCache snapshot, IVerifiable container = null, Block persistingBlock = null, ProtocolSettings settings = null, int offset = 0, long epicpulse = TestModeEpicPulse, IDiagnostic diagnostic = null)
         {
             persistingBlock ??= CreateDummyBlock(snapshot, settings ?? ProtocolSettings.Default);
-            ApplicationEngine engine = Create(TriggerType.Application, container, snapshot, persistingBlock, settings, gas, diagnostic);
+            ApplicationEngine engine = Create(TriggerType.Application, container, snapshot, persistingBlock, settings, epicpulse, diagnostic);
             engine.LoadScript(script, initialPosition: offset);
             engine.Execute();
             return engine;

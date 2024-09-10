@@ -73,10 +73,10 @@ namespace Neo.UnitTests.Ledger
             // Fake balance
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
-            BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
-            await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
-            _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 8, false);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
+            BigInteger balance = NativeContract.EpicPulse.BalanceOf(snapshotCache, UInt160.Zero);
+            await NativeContract.EpicPulse.Burn(engine, UInt160.Zero, balance);
+            _ = NativeContract.EpicPulse.Mint(engine, UInt160.Zero, 8, false);
 
             // Test
             TransactionVerificationContext verificationContext = new();
@@ -95,10 +95,10 @@ namespace Neo.UnitTests.Ledger
         public async Task TestTransactionSenderFee()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
-            BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
-            await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
-            _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 8, true);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
+            BigInteger balance = NativeContract.EpicPulse.BalanceOf(snapshotCache, UInt160.Zero);
+            await NativeContract.EpicPulse.Burn(engine, UInt160.Zero, balance);
+            _ = NativeContract.EpicPulse.Mint(engine, UInt160.Zero, 8, true);
 
             TransactionVerificationContext verificationContext = new();
             var tx = CreateTransactionWithFee(1, 2);
@@ -118,14 +118,14 @@ namespace Neo.UnitTests.Ledger
         public async Task TestTransactionSenderFeeWithConflicts()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
-            BigInteger balance = NativeContract.GAS.BalanceOf(snapshotCache, UInt160.Zero);
-            await NativeContract.GAS.Burn(engine, UInt160.Zero, balance);
-            _ = NativeContract.GAS.Mint(engine, UInt160.Zero, 3 + 3 + 1, true); // balance is enough for 2 transactions and 1 GAS is left.
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
+            BigInteger balance = NativeContract.EpicPulse.BalanceOf(snapshotCache, UInt160.Zero);
+            await NativeContract.EpicPulse.Burn(engine, UInt160.Zero, balance);
+            _ = NativeContract.EpicPulse.Mint(engine, UInt160.Zero, 3 + 3 + 1, true); // balance is enough for 2 transactions and 1 EpicPulse is left.
 
             TransactionVerificationContext verificationContext = new();
             var tx = CreateTransactionWithFee(1, 2);
-            var conflictingTx = CreateTransactionWithFee(1, 1); // costs 2 GAS
+            var conflictingTx = CreateTransactionWithFee(1, 1); // costs 2 e=EpiCpulse
 
             var conflicts = new List<Transaction>();
             verificationContext.CheckTransaction(tx, conflicts, snapshotCache).Should().BeTrue();
@@ -135,7 +135,7 @@ namespace Neo.UnitTests.Ledger
             verificationContext.CheckTransaction(tx, conflicts, snapshotCache).Should().BeFalse();
 
             conflicts.Add(conflictingTx);
-            verificationContext.CheckTransaction(tx, conflicts, snapshotCache).Should().BeTrue(); // 1 GAS is left on the balance + 2 GAS is free after conflicts removal => enough for one more trasnaction.
+            verificationContext.CheckTransaction(tx, conflicts, snapshotCache).Should().BeTrue(); // 1 EpicPulse is left on the balance + 2 EpicPulse is free after conflicts removal => enough for one more trasnaction.
         }
     }
 }

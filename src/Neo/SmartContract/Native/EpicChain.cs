@@ -108,7 +108,7 @@ namespace Neo.SmartContract.Native
             await base.PostTransferAsync(engine, from, to, amount, data, callOnPayment);
             var list = engine.CurrentContext.GetState<List<EpicPulseDistribution>>();
             foreach (var distribution in list)
-                await GAS.Mint(engine, distribution.Account, distribution.Amount, callOnPayment);
+                await EpicPulse.Mint(engine, distribution.Account, distribution.Amount, callOnPayment);
         }
 
         private EpicPulseDistribution DistributeEpicPulse(ApplicationEngine engine, UInt160 account, NeoAccountState state)
@@ -196,8 +196,8 @@ namespace Neo.SmartContract.Native
                 var cachedCommittee = new CachedCommittee(engine.ProtocolSettings.StandbyCommittee.Select(p => (p, BigInteger.Zero)));
                 engine.SnapshotCache.Add(CreateStorageKey(Prefix_Committee), new StorageItem(cachedCommittee));
                 engine.SnapshotCache.Add(CreateStorageKey(Prefix_VotersCount), new StorageItem(System.Array.Empty<byte>()));
-                engine.SnapshotCache.Add(CreateStorageKey(Prefix_epicpulsePerBlock).AddBigEndian(0u), new StorageItem(5 * GAS.Factor));
-                engine.SnapshotCache.Add(CreateStorageKey(Prefix_RegisterPrice), new StorageItem(1000 * GAS.Factor));
+                engine.SnapshotCache.Add(CreateStorageKey(Prefix_epicpulsePerBlock).AddBigEndian(0u), new StorageItem(5 * EpicPulse.Factor));
+                engine.SnapshotCache.Add(CreateStorageKey(Prefix_RegisterPrice), new StorageItem(1000 * EpicPulse.Factor));
                 return Mint(engine, Contract.GetBFTAddress(engine.ProtocolSettings.StandbyValidators), TotalAmount, false);
             }
             return ContractTask.CompletedTask;
@@ -246,7 +246,7 @@ namespace Neo.SmartContract.Native
             var committee = GetCommitteeFromCache(engine.SnapshotCache);
             var pubkey = committee[index].PublicKey;
             var account = Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash();
-            await GAS.Mint(engine, account, epicpulsePerBlock * CommitteeRewardRatio / 100, false);
+            await EpicPulse.Mint(engine, account, epicpulsePerBlock * CommitteeRewardRatio / 100, false);
 
             // Record the cumulative reward of the voters of committee
 
@@ -271,7 +271,7 @@ namespace Neo.SmartContract.Native
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
         private void SetepicpulsePerBlock(ApplicationEngine engine, BigInteger epicpulsePerBlock)
         {
-            if (epicpulsePerBlock < 0 || epicpulsePerBlock > 10 * GAS.Factor)
+            if (epicpulsePerBlock < 0 || epicpulsePerBlock > 10 * EpicPulse.Factor)
                 throw new ArgumentOutOfRangeException(nameof(epicpulsePerBlock));
             if (!CheckCommittee(engine)) throw new InvalidOperationException();
 
@@ -421,7 +421,7 @@ namespace Neo.SmartContract.Native
             engine.SendNotification(Hash, "Vote",
                 new VM.Types.Array(engine.ReferenceCounter) { account.ToArray(), from?.ToArray() ?? StackItem.Null, voteTo?.ToArray() ?? StackItem.Null, state_account.Balance });
             if (EpicPulseDistribution is not null)
-                await GAS.Mint(engine, EpicPulseDistribution.Account, EpicPulseDistribution.Amount, true);
+                await EpicPulse.Mint(engine, EpicPulseDistribution.Account, EpicPulseDistribution.Amount, true);
             return true;
         }
 

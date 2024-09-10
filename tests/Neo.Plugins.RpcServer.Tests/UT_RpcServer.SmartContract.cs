@@ -59,7 +59,7 @@ public partial class UT_RpcServer
     {
         ["account"] = ValidatorScriptHash.ToString(),
         ["scopes"] = nameof(WitnessScope.CalledByEntry),
-        ["allowedcontracts"] = new JArray([EpicChain.NEO.Hash.ToString(), EpicPulse.GAS.Hash.ToString()]),
+        ["allowedcontracts"] = new JArray([EpicChain.NEO.Hash.ToString(), EpicPulse.EpicPulse.Hash.ToString()]),
         ["allowedgroups"] = new JArray([TestProtocolSettings.SoleNode.StandbyCommittee[0].ToString()]),
         ["rules"] = new JArray([new JObject() { ["action"] = nameof(WitnessRuleAction.Allow), ["condition"] = new JObject { ["type"] = nameof(WitnessConditionType.CalledByEntry) } }]),
     }];
@@ -98,7 +98,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp["stack"][0]["type"], nameof(Neo.VM.Types.ByteString));
         Assert.AreEqual(resp["stack"][0]["value"], Convert.ToBase64String(Encoding.UTF8.GetBytes("NEO")));
 
-        // This call triggers not only NEO but also unclaimed GAS
+        // This call triggers not only NEO but also unclaimed EpicPulse
         resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.NEO.Hash.ToString(), "transfer", new JArray([
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = MultisigScriptHash.ToString() },
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = ValidatorScriptHash.ToString() },
@@ -120,7 +120,7 @@ public partial class UT_RpcServer
         Assert.AreEqual(notifications[0]["contract"].AsString(), EpicChain.NEO.Hash.ToString());
         Assert.AreEqual(notifications[0]["state"]["value"][2]["value"], "1");
         Assert.AreEqual(notifications[1]["eventname"].AsString(), "Transfer");
-        Assert.AreEqual(notifications[1]["contract"].AsString(), EpicPulse.GAS.Hash.ToString());
+        Assert.AreEqual(notifications[1]["contract"].AsString(), EpicPulse.EpicPulse.Hash.ToString());
         Assert.AreEqual(notifications[1]["state"]["value"][2]["value"], "50000000");
 
         _rpcServer.wallet = null;
@@ -176,7 +176,7 @@ public partial class UT_RpcServer
             Script = Convert.FromBase64String(resp["script"].AsString()),
             Witnesses = null,
         };
-        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, gas: 1200_0000_0000);
+        ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: _EpicChainSystem.Settings, epicpulse: 1200_0000_0000);
         engine.SnapshotCache.Commit();
 
         // GetAllCandidates that should return 1 candidate

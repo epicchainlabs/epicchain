@@ -94,13 +94,13 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         }
 
         [TestMethod]
-        public void Gas_Get()
+        public void EpicPulse_Get()
         {
             uut.SystemFee.Should().Be(0);
         }
 
         [TestMethod]
-        public void Gas_Set()
+        public void EpicPulse_Set()
         {
             long val = 4200000000;
             uut.SystemFee = val;
@@ -149,10 +149,10 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -161,7 +161,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             var tx = walletA.MakeTransaction(snapshotCache, [
                 new TransferOutput
                 {
-                    AssetId = NativeContract.GAS.Hash,
+                    AssetId = NativeContract.EpicPulse.Hash,
                     ScriptHash = acc.ScriptHash,
                     Value = new BigDecimal(BigInteger.One, 8)
                 }
@@ -190,7 +190,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -214,21 +214,21 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
             // Make transaction
 
-            // self-transfer of 1e-8 GAS
+            // self-transfer of 1e-8 EpicPulse
             var tx = wallet.MakeTransaction(snapshotCache, [
                 new TransferOutput
                 {
-                    AssetId = NativeContract.GAS.Hash,
+                    AssetId = NativeContract.EpicPulse.Hash,
                     ScriptHash = acc.ScriptHash,
                     Value = new BigDecimal(BigInteger.One, 8)
                 }
@@ -265,7 +265,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using var engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using var engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -316,11 +316,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -332,7 +332,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 var value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -370,7 +370,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -387,7 +387,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         }
 
         [TestMethod]
-        public void FeeIsSignatureContract_TestScope_CurrentHash_GAS()
+        public void FeeIsSignatureContract_TestScope_CurrentHash_EpicPulse()
         {
             var wallet = TestUtils.GenerateTestWallet("");
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
@@ -395,11 +395,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -411,7 +411,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -421,7 +421,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 {
                     Account = acc.ScriptHash,
                     Scopes = WitnessScope.CustomContracts,
-                    AllowedContracts = [NativeContract.GAS.Hash]
+                    AllowedContracts = [NativeContract.EpicPulse.Hash]
                 } };
 
             // using this...
@@ -450,7 +450,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -467,7 +467,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         }
 
         [TestMethod]
-        public void FeeIsSignatureContract_TestScope_CalledByEntry_Plus_GAS()
+        public void FeeIsSignatureContract_TestScope_CalledByEntry_Plus_EpicPulse()
         {
             var wallet = TestUtils.GenerateTestWallet("");
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
@@ -475,11 +475,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -491,7 +491,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 GAEpicPulseS
                 var value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -504,7 +504,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                     // where it's valid in both Entry and also for Custom hash provided (in any execution level)
                     // it would be better to test this in the future including situations where a deeper call level uses this custom witness successfully
                     Scopes = WitnessScope.CustomContracts | WitnessScope.CalledByEntry,
-                    AllowedContracts = [NativeContract.GAS.Hash]
+                    AllowedContracts = [NativeContract.EpicPulse.Hash]
                 } };
 
             // using this...
@@ -533,7 +533,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -558,11 +558,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             // Make transaction
             // Manually creating script
@@ -572,7 +572,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -595,7 +595,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
         }
 
         [TestMethod]
-        public void FeeIsSignatureContract_TestScope_CurrentHash_NEO_GAS()
+        public void FeeIsSignatureContract_TestScope_CurrentHash_NEO_EpicPulse()
         {
             var wallet = TestUtils.GenerateTestWallet("");
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
@@ -603,11 +603,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -619,7 +619,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -629,7 +629,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 {
                     Account = acc.ScriptHash,
                     Scopes = WitnessScope.CustomContracts,
-                    AllowedContracts = [NativeContract.NEO.Hash, NativeContract.GAS.Hash]
+                    AllowedContracts = [NativeContract.NEO.Hash, NativeContract.EpicPulse.Hash]
                 } };
 
             // using this...
@@ -663,7 +663,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -688,11 +688,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             // Make transaction
             // Manually creating script
@@ -702,7 +702,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -713,7 +713,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
                 {
                     Account = acc.ScriptHash,
                     Scopes = WitnessScope.CustomContracts,
-                    AllowedContracts = [NativeContract.NEO.Hash, NativeContract.GAS.Hash]
+                    AllowedContracts = [NativeContract.NEO.Hash, NativeContract.EpicPulse.Hash]
                 } };
 
             // using this...
@@ -734,11 +734,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -750,7 +750,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -998,11 +998,11 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
 
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -1014,7 +1014,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                 // self-transfer of 1e-8 EpicPulse
                 BigInteger value = new BigDecimal(BigInteger.One, 8).Value;
-                sb.EmitDynamicCall(NativeContract.GAS.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
+                sb.EmitDynamicCall(NativeContract.EpicPulse.Hash, "transfer", acc.ScriptHash, acc.ScriptHash, value, null);
                 sb.Emit(OpCode.ASSERT);
                 script = sb.ToArray();
             }
@@ -1055,7 +1055,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             long verificationEpicPulse = 0;
             foreach (var witness in tx.Witnesses)
             {
-                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: tx.NetworkFee);
+                using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: tx.NetworkFee);
                 engine.LoadScript(witness.VerificationScript);
                 engine.LoadScript(witness.InvocationScript);
                 Assert.AreEqual(VMState.HALT, engine.Execute());
@@ -1167,10 +1167,10 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
             var entry = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
 
-            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             snapshotCache.Commit();
 
@@ -1179,7 +1179,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             tx = walletA.MakeTransaction(snapshotCache, [
                 new TransferOutput
                 {
-                    AssetId = NativeContract.GAS.Hash,
+                    AssetId = NativeContract.EpicPulse.Hash,
                     ScriptHash = acc.ScriptHash,
                     Value = new BigDecimal(BigInteger.One, 8)
                 }
@@ -1229,7 +1229,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
 
             // Fake balance
 
-            var key = NativeContract.GAS.CreateStorageKey(20, tx.Sender);
+            var key = NativeContract.EpicPulse.CreateStorageKey(20, tx.Sender);
             var balance = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
             balance.GetInteroperable<AccountState>().Balance = tx.NetworkFee;
             var conflicts = new List<Transaction>();
@@ -1257,9 +1257,9 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             // Fake balance
 
             snapshotCache = TestBlockchain.GetTestSnapshotCache();
-            key = NativeContract.GAS.CreateStorageKey(20, acc.ScriptHash);
+            key = NativeContract.EpicPulse.CreateStorageKey(20, acc.ScriptHash);
             balance = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
-            balance.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.GAS.Factor;
+            balance.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             // Make transaction
 
@@ -1268,7 +1268,7 @@ namespace Neo.UnitTests.Network.P2P.Payloads
             {
                     new TransferOutput()
                     {
-                         AssetId = NativeContract.GAS.Hash,
+                         AssetId = NativeContract.EpicPulse.Hash,
                          ScriptHash = acc.ScriptHash,
                          Value = new BigDecimal(BigInteger.One,8)
                     }

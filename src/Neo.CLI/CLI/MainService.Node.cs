@@ -48,10 +48,10 @@ namespace Neo.CLI
                     out IEnumerable<Transaction> unverifiedTransactions);
                 ConsoleHelper.Info("Verified Transactions:");
                 foreach (Transaction tx in verifiedTransactions)
-                    Console.WriteLine($" {tx.Hash} {tx.GetType().Name} {tx.NetworkFee} GAS_NetFee");
+                    Console.WriteLine($" {tx.Hash} {tx.GetType().Name} {tx.NetworkFee} EpicPulse_NetFee");
                 ConsoleHelper.Info("Unverified Transactions:");
                 foreach (Transaction tx in unverifiedTransactions)
-                    Console.WriteLine($" {tx.Hash} {tx.GetType().Name} {tx.NetworkFee} GAS_NetFee");
+                    Console.WriteLine($" {tx.Hash} {tx.GetType().Name} {tx.NetworkFee} EpicPulse_NetFee");
 
                 verifiedCount = verifiedTransactions.Count();
                 unverifiedCount = unverifiedTransactions.Count();

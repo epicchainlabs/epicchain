@@ -127,7 +127,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             using ScriptBuilder sb = new();
             sb.EmitDynamicCall(record.asset, "balanceOf", record.from, record.tokenId);
             sb.EmitDynamicCall(record.asset, "balanceOf", record.to, record.tokenId);
-            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, gas: 3400_0000);
+            using ApplicationEngine engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings, epicpulse: 3400_0000);
             if (engine.State.HasFlag(VMState.FAULT) || engine.ResultStack.Count != 2)
             {
                 Log($"Fault: from[{record.from}] to[{record.to}] get {record.asset} token [{record.tokenId.ToHexString()}] balance fault", LogLevel.Warning);

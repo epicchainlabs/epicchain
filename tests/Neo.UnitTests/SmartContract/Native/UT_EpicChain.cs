@@ -434,7 +434,7 @@ namespace Neo.UnitTests.SmartContract.Native
             unclaim.Value.Should().Be(new BigInteger(0));
             unclaim.State.Should().BeTrue();
 
-            clonedCache.GetChangeSet().Count().Should().Be(keyCount + 4); // Gas + new balance
+            clonedCache.GetChangeSet().Count().Should().Be(keyCount + 4); // EpicPulse + new balance
 
             // Return balance
 
@@ -488,9 +488,9 @@ namespace Neo.UnitTests.SmartContract.Native
             Check_PostPersist(clonedCache, persistingBlock).Should().BeTrue();
 
             var committee = TestProtocolSettings.Default.StandbyCommittee;
-            NativeContract.GAS.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[0]).ScriptHash.ToArray()).Should().Be(50000000);
-            NativeContract.GAS.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[1]).ScriptHash.ToArray()).Should().Be(50000000);
-            NativeContract.GAS.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[2]).ScriptHash.ToArray()).Should().Be(0);
+            NativeContract.EpicPulse.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[0]).ScriptHash.ToArray()).Should().Be(50000000);
+            NativeContract.EpicPulse.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[1]).ScriptHash.ToArray()).Should().Be(50000000);
+            NativeContract.EpicPulse.BalanceOf(clonedCache, Contract.CreateSignatureContract(committee[2]).ScriptHash.ToArray()).Should().Be(0);
         }
 
         [TestMethod]
@@ -754,10 +754,10 @@ namespace Neo.UnitTests.SmartContract.Native
 
             (BigInteger, bool) result = Check_GetepicpulsePerBlock(clonedCache, persistingBlock);
             result.Item2.Should().BeTrue();
-            result.Item1.Should().Be(5 * NativeContract.GAS.Factor);
+            result.Item1.Should().Be(5 * NativeContract.EpicPulse.Factor);
 
             persistingBlock = new Block { Header = new Header { Index = 10 } };
-            (VM.Types.Boolean, bool) result1 = Check_SetepicpulsePerBlock(clonedCache, 10 * NativeContract.GAS.Factor, persistingBlock);
+            (VM.Types.Boolean, bool) result1 = Check_SetepicpulsePerBlock(clonedCache, 10 * NativeContract.EpicPulse.Factor, persistingBlock);
             result1.Item2.Should().BeTrue();
             result1.Item1.GetBoolean().Should().BeTrue();
 
@@ -765,7 +765,7 @@ namespace Neo.UnitTests.SmartContract.Native
             height.Index = persistingBlock.Index + 1;
             result = Check_GetepicpulsePerBlock(clonedCache, persistingBlock);
             result.Item2.Should().BeTrue();
-            result.Item1.Should().Be(10 * NativeContract.GAS.Factor);
+            result.Item1.Should().Be(10 * NativeContract.EpicPulse.Factor);
 
             // Check calculate bonus
             StorageItem storage = clonedCache.GetOrAdd(CreateStorageKey(20, UInt160.Zero.ToArray()), () => new StorageItem(new NeoAccountState()));
@@ -777,7 +777,7 @@ namespace Neo.UnitTests.SmartContract.Native
         }
 
         [TestMethod]
-        public void TestClaimGas()
+        public void TestClaimEpicPulse()
         {
             var clonedCache = _snapshotCache.CloneCache();
 
@@ -868,7 +868,7 @@ namespace Neo.UnitTests.SmartContract.Native
             storageItem = clonedCache.TryGet(new KeyBuilder(NativeContract.NEO.Id, 23).Add(committee[2]));
             ((BigInteger)storageItem).Should().Be(30000000000 * 2);
 
-            // Claim GAS
+            // Claim EpicPulse
 
             var account = Contract.CreateSignatureContract(committee[2]).ScriptHash;
             clonedCache.Add(new KeyBuilder(NativeContract.NEO.Id, 20).Add(account), new StorageItem(new NeoAccountState
@@ -1047,7 +1047,7 @@ namespace Neo.UnitTests.SmartContract.Native
         internal static (bool State, bool Result) Check_RegisterValidator(DataCache clonedCache, byte[] pubkey, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application,
-                new Nep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: 1100_00000000);
+                new Nep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: 1100_00000000);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.NEO.Hash, "registerCandidate", pubkey);

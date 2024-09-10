@@ -113,7 +113,7 @@ namespace Neo.CLI
             switch (input.ToLowerInvariant())
             {
                 case "epicchain": return NativeContract.NEO.Hash;
-                case "epicpulse": return NativeContract.GAS.Hash;
+                case "epicpulse": return NativeContract.EpicPulse.Hash;
             }
 
             if (input.IndexOf('.') > 0 && input.LastIndexOf('.') < input.Length)
@@ -591,7 +591,7 @@ namespace Neo.CLI
             if (account != null)
             {
                 signers = CurrentWallet!.GetAccounts()
-                .Where(p => !p.Lock && !p.WatchOnly && p.ScriptHash == account && NativeContract.GAS.BalanceOf(snapshot, p.ScriptHash).Sign > 0)
+                .Where(p => !p.Lock && !p.WatchOnly && p.ScriptHash == account && NativeContract.EpicPulse.BalanceOf(snapshot, p.ScriptHash).Sign > 0)
                 .Select(p => new Signer { Account = p.ScriptHash, Scopes = WitnessScope.CalledByEntry })
                 .ToArray();
             }
@@ -601,7 +601,7 @@ namespace Neo.CLI
                 Transaction tx = CurrentWallet!.MakeTransaction(snapshot, script, account, signers, maxEpicPulse: datoshi);
                 ConsoleHelper.Info("Invoking script with: ", $"'{Convert.ToBase64String(tx.Script.Span)}'");
 
-                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: EpicChainSystem.Settings, gas: datoshi))
+                using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, snapshot, container: tx, settings: EpicChainSystem.Settings, epicpulse: datoshi))
                 {
                     PrintExecutionOutput(engine, true);
                     if (engine.State == VMState.FAULT) return;
@@ -677,7 +677,7 @@ namespace Neo.CLI
                 tx.Script = script;
             }
 
-            using ApplicationEngine engine = ApplicationEngine.Run(script, EpicChainSystem.StoreView, container: verifiable, settings: EpicChainSystem.Settings, gas: datoshi);
+            using ApplicationEngine engine = ApplicationEngine.Run(script, EpicChainSystem.StoreView, container: verifiable, settings: EpicChainSystem.Settings, epicpulse: datoshi);
             PrintExecutionOutput(engine, showStack);
             result = engine.State == VMState.FAULT ? StackItem.Null : engine.ResultStack.Peek();
             return engine.State != VMState.FAULT;
@@ -686,7 +686,7 @@ namespace Neo.CLI
         private void PrintExecutionOutput(ApplicationEngine engine, bool showStack = true)
         {
             ConsoleHelper.Info("VM State: ", engine.State.ToString());
-            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.FeeConsumed, NativeContract.GAS.Decimals).ToString());
+            ConsoleHelper.Info("EpicPulse Consumed: ", new BigDecimal((BigInteger)engine.FeeConsumed, NativeContract.EpicPulse.Decimals).ToString());
 
             if (showStack)
                 ConsoleHelper.Info("Result Stack: ", new JArray(engine.ResultStack.Select(p => p.ToJson())).ToString());

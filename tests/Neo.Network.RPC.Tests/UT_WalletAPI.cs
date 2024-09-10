@@ -82,7 +82,7 @@ namespace Neo.Network.RPC.Tests
         [TestMethod]
         public async Task TestGetepicpulseBalance()
         {
-            byte[] testScript = NativeContract.GAS.Hash.MakeScript("balanceOf", sender);
+            byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("balanceOf", sender);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
 
             var balance = await walletAPI.GetEpicPulseBalanceAsync(address1);
@@ -100,7 +100,7 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestClaimGas()
+        public async Task TestClaimEpicPulse()
         {
             byte[] balanceScript = NativeContract.NEO.Hash.MakeScript("balanceOf", sender);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, balanceScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_00000000) });
@@ -119,10 +119,10 @@ namespace Neo.Network.RPC.Tests
         [TestMethod]
         public async Task TestTransfer()
         {
-            byte[] decimalsScript = NativeContract.GAS.Hash.MakeScript("decimals");
+            byte[] decimalsScript = NativeContract.EpicPulse.Hash.MakeScript("decimals");
             UT_TransactionManager.MockInvokeScript(rpcClientMock, decimalsScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(8) });
 
-            byte[] testScript = NativeContract.GAS.Hash.MakeScript("transfer", sender, UInt160.Zero, NativeContract.GAS.Factor * 100, null)
+            byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("transfer", sender, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, null)
                 .Concat(new[] { (byte)OpCode.ASSERT })
                 .ToArray();
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
@@ -131,22 +131,22 @@ namespace Neo.Network.RPC.Tests
             json["hash"] = UInt256.Zero.ToString();
             rpcClientMock.Setup(p => p.RpcSendAsync("sendrawtransaction", It.IsAny<JToken>())).ReturnsAsync(json);
 
-            var tranaction = await walletAPI.TransferAsync(NativeContract.GAS.Hash.ToString(), keyPair1.Export(), UInt160.Zero.ToAddress(client.protocolSettings.AddressVersion), 100, null, true);
+            var tranaction = await walletAPI.TransferAsync(NativeContract.EpicPulse.Hash.ToString(), keyPair1.Export(), UInt160.Zero.ToAddress(client.protocolSettings.AddressVersion), 100, null, true);
             Assert.AreEqual(testScript.ToHexString(), tranaction.Script.Span.ToHexString());
         }
 
         [TestMethod]
         public async Task TestTransferfromMultiSigAccount()
         {
-            byte[] balanceScript = NativeContract.GAS.Hash.MakeScript("balanceOf", multiSender);
+            byte[] balanceScript = NativeContract.EpicPulse.Hash.MakeScript("balanceOf", multiSender);
             var balanceResult = new ContractParameter() { Type = ContractParameterType.Integer, Value = BigInteger.Parse("10000000000000000") };
 
             UT_TransactionManager.MockInvokeScript(rpcClientMock, balanceScript, balanceResult);
 
-            byte[] decimalsScript = NativeContract.GAS.Hash.MakeScript("decimals");
+            byte[] decimalsScript = NativeContract.EpicPulse.Hash.MakeScript("decimals");
             UT_TransactionManager.MockInvokeScript(rpcClientMock, decimalsScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(8) });
 
-            byte[] testScript = NativeContract.GAS.Hash.MakeScript("transfer", multiSender, UInt160.Zero, NativeContract.GAS.Factor * 100, null)
+            byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("transfer", multiSender, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, null)
                 .Concat(new[] { (byte)OpCode.ASSERT })
                 .ToArray();
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
@@ -155,12 +155,12 @@ namespace Neo.Network.RPC.Tests
             json["hash"] = UInt256.Zero.ToString();
             rpcClientMock.Setup(p => p.RpcSendAsync("sendrawtransaction", It.IsAny<JToken>())).ReturnsAsync(json);
 
-            var tranaction = await walletAPI.TransferAsync(NativeContract.GAS.Hash, 1, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.GAS.Factor * 100, null, true);
+            var tranaction = await walletAPI.TransferAsync(NativeContract.EpicPulse.Hash, 1, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, null, true);
             Assert.AreEqual(testScript.ToHexString(), tranaction.Script.Span.ToHexString());
 
             try
             {
-                tranaction = await walletAPI.TransferAsync(NativeContract.GAS.Hash, 2, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.GAS.Factor * 100, null, true);
+                tranaction = await walletAPI.TransferAsync(NativeContract.EpicPulse.Hash, 2, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, null, true);
                 Assert.Fail();
             }
             catch (System.Exception e)
@@ -168,12 +168,12 @@ namespace Neo.Network.RPC.Tests
                 Assert.AreEqual(e.Message, $"Need at least 2 KeyPairs for signing!");
             }
 
-            testScript = NativeContract.GAS.Hash.MakeScript("transfer", multiSender, UInt160.Zero, NativeContract.GAS.Factor * 100, string.Empty)
+            testScript = NativeContract.EpicPulse.Hash.MakeScript("transfer", multiSender, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, string.Empty)
                 .Concat(new[] { (byte)OpCode.ASSERT })
                 .ToArray();
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_10000000) });
 
-            tranaction = await walletAPI.TransferAsync(NativeContract.GAS.Hash, 1, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.GAS.Factor * 100, string.Empty, true);
+            tranaction = await walletAPI.TransferAsync(NativeContract.EpicPulse.Hash, 1, new[] { keyPair1.PublicKey }, new[] { keyPair1 }, UInt160.Zero, NativeContract.EpicPulse.Factor * 100, string.Empty, true);
             Assert.AreEqual(testScript.ToHexString(), tranaction.Script.Span.ToHexString());
         }
 

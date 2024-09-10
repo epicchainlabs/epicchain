@@ -73,9 +73,9 @@ namespace Neo.UnitTests.Ledger
 
             // Fake balance
 
-            var key = new KeyBuilder(NativeContract.GAS.Id, 20).Add(acc.ScriptHash);
+            var key = new KeyBuilder(NativeContract.EpicPulse.Id, 20).Add(acc.ScriptHash);
             var entry = snapshot.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.EpicPulse.Factor;
             snapshot.Commit();
 
             // Make transaction
@@ -110,18 +110,18 @@ namespace Neo.UnitTests.Ledger
             var accA = walletA.CreateAccount();
             var walletB = TestUtils.GenerateTestWallet("456");
             var accB = walletB.CreateAccount();
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
             engine.LoadScript(Array.Empty<byte>());
 
             // Fake balance for accounts A and B.
-            var key = new KeyBuilder(NativeContract.GAS.Id, 20).Add(accA.ScriptHash);
+            var key = new KeyBuilder(NativeContract.EpicPulse.Id, 20).Add(accA.ScriptHash);
             var entry = snapshot.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.EpicPulse.Factor;
             snapshot.Commit();
 
-            key = new KeyBuilder(NativeContract.GAS.Id, 20).Add(accB.ScriptHash);
+            key = new KeyBuilder(NativeContract.EpicPulse.Id, 20).Add(accB.ScriptHash);
             entry = snapshot.GetAndChange(key, () => new StorageItem(new AccountState()));
-            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.GAS.Factor;
+            entry.GetInteroperable<AccountState>().Balance = 100_000_000 * NativeContract.EpicPulse.Factor;
             snapshot.Commit();
 
             // Create transactions:

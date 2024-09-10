@@ -144,14 +144,14 @@ namespace Neo.Wallets
                     size += Array.Empty<byte>().GetVarSize() + invSize;
 
                     // Check verify cost
-                    using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshot.CloneCache(), settings: settings, gas: maxExecutionCost);
+                    using ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshot.CloneCache(), settings: settings, epicpulse: maxExecutionCost);
                     engine.LoadContract(contract, md, CallFlags.ReadOnly);
                     if (invocationScript != null) engine.LoadScript(invocationScript, configureState: p => p.CallFlags = CallFlags.None);
                     if (engine.Execute() == VMState.FAULT) throw new ArgumentException($"Smart contract {contract.Hash} verification fault.");
                     if (!engine.ResultStack.Pop().GetBoolean()) throw new ArgumentException($"Smart contract {contract.Hash} returns false.");
 
                     maxExecutionCost -= engine.FeeConsumed;
-                    if (maxExecutionCost <= 0) throw new InvalidOperationException("Insufficient GAS.");
+                    if (maxExecutionCost <= 0) throw new InvalidOperationException("Insufficient EpicPulse.");
                     networkFee += engine.FeeConsumed;
                 }
                 else if (IsSignatureContract(witnessScript))

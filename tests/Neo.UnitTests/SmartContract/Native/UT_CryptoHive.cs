@@ -453,7 +453,7 @@ namespace Neo.UnitTests.SmartContract.Native
         //
         //	keccak256([4-bytes-network-magic-LE, txHash-bytes-BE])
         //
-        // The proposed witness verification script has 110 bytes length, verification costs 2154270  * 10e-8GAS including Invocation script execution.
+        // The proposed witness verification script has 110 bytes length, verification costs 2154270  * 10e-8EpicPulse including Invocation script execution.
         // The user has to sign the keccak256([4-bytes-network-magic-LE, txHash-bytes-BE]).
         [TestMethod]
         public void TestVerifyWithECDsa_CustomTxWitness_SingleSig()
@@ -520,15 +520,15 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             // Create fake balance to pay the fees.
-            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
-            _ = NativeContract.GAS.Mint(engine, acc, 5_0000_0000, false);
+            ApplicationEngine engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
+            _ = NativeContract.EpicPulse.Mint(engine, acc, 5_0000_0000, false);
             snapshotCache.Commit();
 
             var txVrfContext = new TransactionVerificationContext();
             var conflicts = new List<Transaction>();
             tx.VerifyStateDependent(TestProtocolSettings.Default, snapshotCache, txVrfContext, conflicts).Should().Be(VerifyResult.Succeed);
 
-            // The resulting witness verification cost is 2154270   * 10e-8GAS.
+            // The resulting witness verification cost is 2154270   * 10e-8EpicPulse.
             // The resulting witness Invocation script (66 bytes length):
             // NEO-VM > loadbase64 DEARoaaEjM/3VulrBDUod7eiZgWQS2iXIM0+I24iyJYmffhosZoQjfnnRymF/7+FaBPb9qvQwxLLSVo9ROlrdFdC
             // READY: loaded 66 instructions
@@ -569,7 +569,7 @@ namespace Neo.UnitTests.SmartContract.Native
         //
         //	keccak256([4-bytes-network-magic-LE, txHash-bytes-BE])
         //
-        // The proposed witness verification script has 264 bytes length, verification costs 8390070  * 10e-8GAS including Invocation script execution.
+        // The proposed witness verification script has 264 bytes length, verification costs 8390070  * 10e-8EpicPulse including Invocation script execution.
         // The users have to sign the keccak256([4-bytes-network-magic-LE, txHash-bytes-BE]).
         [TestMethod]
         public void TestVerifyWithECDsa_CustomTxWitness_MultiSig()
@@ -761,8 +761,8 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             // Create fake balance to pay the fees.
-            var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, gas: long.MaxValue);
-            _ = NativeContract.GAS.Mint(engine, acc, 5_0000_0000, false);
+            var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: long.MaxValue);
+            _ = NativeContract.EpicPulse.Mint(engine, acc, 5_0000_0000, false);
 
             // We should not use commit here cause once its committed, the value we get from the snapshot can be different
             // from the underline storage. Thought there isn't any issue triggered here, its wrong to use it this way.
@@ -774,7 +774,7 @@ namespace Neo.UnitTests.SmartContract.Native
             var conflicts = new List<Transaction>();
             tx.VerifyStateDependent(TestProtocolSettings.Default, snapshotCache, txVrfContext, conflicts).Should().Be(VerifyResult.Succeed);
 
-            // The resulting witness verification cost for 3/4 multisig is 8389470  * 10e-8GAS. Cost depends on M/N.
+            // The resulting witness verification cost for 3/4 multisig is 8389470  * 10e-8EpicPulse. Cost depends on M/N.
             // The resulting witness Invocation script (198 bytes for 3 signatures):
             // NEO-VM 0 > loadbase64 DEDM23XByPvDK9XRAHRhfGH7/Mp5jdaci3/GpTZ3D9SZx2Zw89tAaOtmQSIutXbCxRQA1kSeUD4AteJGoNXFhFzIDECgeHoey0rYdlFyTVfDJSsuS+VwzC5OtYGCVR2V/MttmLXWA/FWZH/MjmU0obgQXa9zoBxqYQUUJKefivZFxVcTDEAZT6L6ZFybeXbm8+RlVNS7KshusT54d2ImQ6vFvxETphhJOwcQ0yNL6qJKsrLAKAnzicY4az3ct0G35mI17/gQ
             // READY: loaded 198 instructions

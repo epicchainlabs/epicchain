@@ -777,12 +777,12 @@ namespace Neo.UnitTests.SmartContract
             tx.Script = new byte[] { 0x01, 0x02, 0x03 };
         }
 
-        private static ApplicationEngine GetEngine(bool hasContainer = false, bool hasSnapshot = false, bool hasBlock = false, bool addScript = true, long gas = 20_00000000)
+        private static ApplicationEngine GetEngine(bool hasContainer = false, bool hasSnapshot = false, bool hasBlock = false, bool addScript = true, long epicpulse = 20_00000000)
         {
             var tx = hasContainer ? TestUtils.GetTransaction(UInt160.Zero) : null;
             var snapshotCache = hasSnapshot ? TestBlockchain.GetTestSnapshotCache() : null;
             var block = hasBlock ? new Block { Header = new Header() } : null;
-            var engine = ApplicationEngine.Create(TriggerType.Application, tx, snapshotCache, block, TestBlockchain.TheEpicChainSystem.Settings, gas: gas);
+            var engine = ApplicationEngine.Create(TriggerType.Application, tx, snapshotCache, block, TestBlockchain.TheEpicChainSystem.Settings, epicpulse: epicpulse);
             if (addScript) engine.LoadScript(new byte[] { 0x01 });
             return engine;
         }

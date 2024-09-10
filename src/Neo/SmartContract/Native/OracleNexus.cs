@@ -156,7 +156,7 @@ namespace Neo.SmartContract.Native
 
         internal override async ContractTask PostPersistAsync(ApplicationEngine engine)
         {
-            (UInt160 Account, BigInteger GAS)[] nodes = null;
+            (UInt160 Account, BigInteger EpicPulse)[] nodes = null;
             foreach (Transaction tx in engine.PersistingBlock.Transactions)
             {
                 //Filter the response transactions
@@ -180,15 +180,15 @@ namespace Neo.SmartContract.Native
                 if (nodes.Length > 0)
                 {
                     int index = (int)(response.Id % (ulong)nodes.Length);
-                    nodes[index].GAS += GetPrice(engine.SnapshotCache);
+                    nodes[index].EpicPulse += GetPrice(engine.SnapshotCache);
                 }
             }
             if (nodes != null)
             {
-                foreach (var (account, gas) in nodes)
+                foreach (var (account, epicpulse) in nodes)
                 {
-                    if (gas.Sign > 0)
-                        await GAS.Mint(engine, account, gas, false);
+                    if (epicpulse.Sign > 0)
+                        await EpicPulse.Mint(engine, account, epicpulse, false);
                 }
             }
         }
@@ -207,7 +207,7 @@ namespace Neo.SmartContract.Native
 
             //Mint epicpulse for the response
             engine.AddFee(EpicPulseForResponse);
-            await GAS.Mint(engine, Hash, EpicPulseForResponse, false);
+            await EpicPulse.Mint(engine, Hash, EpicPulseForResponse, false);
 
             //Increase the request id
             StorageItem item_id = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_RequestId));

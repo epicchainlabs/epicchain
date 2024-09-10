@@ -440,7 +440,7 @@ namespace Neo.CLI
                 Console.WriteLine();
                 Console.WriteLine();
                 ConsoleHelper.Info("EpicChain: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.NEO.Hash, account)}");
-                ConsoleHelper.Info("EpicPulse: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.GAS.Hash, account)}");
+                ConsoleHelper.Info("EpicPulse: ", $"{CurrentWallet.GetBalance(snapshot, NativeContract.EpicPulse.Hash, account)}");
                 Console.WriteLine();
             }
             Console.WriteLine();
@@ -449,11 +449,11 @@ namespace Neo.CLI
             Console.WriteLine("----------------------------------------------------");
             Console.WriteLine();
             ConsoleHelper.Info("EpicChain hash: ", NativeContract.NEO.Hash.ToString());
-            ConsoleHelper.Info("EpicPulse hash: ", NativeContract.GAS.Hash.ToString());
+            ConsoleHelper.Info("EpicPulse hash: ", NativeContract.EpicPulse.Hash.ToString());
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("----------------------------------------------------");
-            ConsoleHelper.Info("Total:   EpicChain: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "EpicPulse: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.GAS.Hash),18}");
+            ConsoleHelper.Info("Total:   EpicChain: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.NEO.Hash),10}     ", "EpicPulse: ", $"{CurrentWallet.GetAvailable(snapshot, NativeContract.EpicPulse.Hash),18}");
             Console.WriteLine();
         }
 
@@ -575,8 +575,8 @@ namespace Neo.CLI
 
             ConsoleHelper.Info(
                 "Send To: ", $"{to.ToAddress(EpicChainSystem.Settings.AddressVersion)}\n",
-                "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)}\t",
-                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+                "Network fee: ", $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.EpicPulse.Decimals)}\t",
+                "Total fee: ", $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.EpicPulse.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
@@ -647,7 +647,7 @@ namespace Neo.CLI
             else
             {
                 var snapshot = EpicChainSystem.StoreView;
-                AssetDescriptor descriptor = new(snapshot, EpicChainSystem.Settings, NativeContract.GAS.Hash);
+                AssetDescriptor descriptor = new(snapshot, EpicChainSystem.Settings, NativeContract.EpicPulse.Hash);
                 string extracFee = ConsoleHelper.ReadUserInput("This tx is not in mempool, please input extra fee (datoshi) manually");
                 if (!BigDecimal.TryParse(extracFee, descriptor.Decimals, out BigDecimal decimalExtraFee) || decimalExtraFee.Sign <= 0)
                 {
@@ -658,9 +658,9 @@ namespace Neo.CLI
             };
 
             ConsoleHelper.Info("Network fee: ",
-                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.GAS.Decimals)} EpicPulse\t",
+                $"{new BigDecimal((BigInteger)tx.NetworkFee, NativeContract.EpicPulse.Decimals)} EpicPulse\t",
                 "Total fee: ",
-                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.GAS.Decimals)} EpicPulse");
+                $"{new BigDecimal((BigInteger)(tx.SystemFee + tx.NetworkFee), NativeContract.EpicPulse.Decimals)} EpicPulse");
             if (!ConsoleHelper.ReadUserInput("Relay tx? (no|yes)").IsYes())
             {
                 return;
@@ -672,15 +672,15 @@ namespace Neo.CLI
         /// Process "show epicchain command
         /// </summary>
         [ConsoleCommand("show epicpulse", Category = "Wallet Commands")]
-        private void OnShowGasCommand()
+        private void OnShowEpicPulseCommand()
         {
             if (NoWallet()) return;
-            BigInteger gas = BigInteger.Zero;
+            BigInteger epicpulse = BigInteger.Zero;
             var snapshot = EpicChainSystem.StoreView;
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
             foreach (UInt160 account in CurrentWallet!.GetAccounts().Select(p => p.ScriptHash))
-                gas += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
-            ConsoleHelper.Info("Unclaimed epicpulse: ", new BigDecimal(gas, NativeContract.GAS.Decimals).ToString());
+                epicpulse += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
+            ConsoleHelper.Info("Unclaimed epicpulse: ", new BigDecimal(epicpulse, NativeContract.EpicPulse.Decimals).ToString());
         }
 
         /// <summary>

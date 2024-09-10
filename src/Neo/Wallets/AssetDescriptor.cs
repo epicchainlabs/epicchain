@@ -70,7 +70,7 @@ namespace Neo.Wallets
                 sb.EmitDynamicCall(asset_id, "symbol", CallFlags.ReadOnly);
                 script = sb.ToArray();
             }
-            using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: settings, gas: 0_30000000L);
+            using ApplicationEngine engine = ApplicationEngine.Run(script, snapshot, settings: settings, epicpulse: 0_30000000L);
             if (engine.State != VMState.HALT) throw new ArgumentException(null, nameof(asset_id));
             AssetId = asset_id;
             AssetName = contract.Manifest.Name;

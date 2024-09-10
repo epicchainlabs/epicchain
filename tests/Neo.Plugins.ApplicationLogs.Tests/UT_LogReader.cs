@@ -159,7 +159,7 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
             Assert.Equal(executions[1]["trigger"], "PostPersist");
             JArray notifications = (JArray)executions[1]["notifications"];
             Assert.Equal(notifications.Count, 1);
-            Assert.Equal(notifications[0]["contract"], EpicPulse.GAS.Hash.ToString());
+            Assert.Equal(notifications[0]["contract"], EpicPulse.EpicPulse.Hash.ToString());
             Assert.Equal(notifications[0]["eventname"], "Transfer");  // from null to Validator
             Assert.Equal(notifications[0]["state"]["value"][0]["type"], nameof(ContractParameterType.Any));
             Assert.Equal(Convert.FromBase64String(notifications[0]["state"]["value"][1]["value"].AsString()), ValidatorScriptHash.ToArray());
@@ -181,7 +181,7 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
             Assert.Equal(notifications[0]["contract"].AsString(), EpicChain.NEO.Hash.ToString());
             Assert.Equal(notifications[0]["state"]["value"][2]["value"], "1");
             Assert.Equal(notifications[1]["eventname"].AsString(), "Transfer");
-            Assert.Equal(notifications[1]["contract"].AsString(), EpicPulse.GAS.Hash.ToString());
+            Assert.Equal(notifications[1]["contract"].AsString(), EpicPulse.EpicPulse.Hash.ToString());
             Assert.Equal(notifications[1]["state"]["value"][2]["value"], "50000000");
         }
 
@@ -208,7 +208,7 @@ namespace Neo.Plugins.ApplicationsLogs.Tests
                 Assert.Equal(log.Notifications[0].ScriptHash, EpicChain.NEO.Hash);
                 Assert.Equal(log.Notifications[0].State[2], 1);
                 Assert.Equal(log.Notifications[1].EventName, "Transfer");
-                Assert.Equal(log.Notifications[1].ScriptHash, EpicPulse.GAS.Hash);
+                Assert.Equal(log.Notifications[1].ScriptHash, EpicPulse.EpicPulse.Hash);
                 Assert.Equal(log.Notifications[1].State[2], 50000000);
             }
 
