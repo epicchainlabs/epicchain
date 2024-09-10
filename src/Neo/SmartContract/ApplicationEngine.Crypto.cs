@@ -30,7 +30,7 @@ namespace Neo.SmartContract
     {
         /// <summary>
         /// The price of System.Crypto.CheckSig.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         public const long CheckSigPrice = 1 << 15;
 

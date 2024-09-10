@@ -128,12 +128,12 @@ namespace Neo.SmartContract.Native
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
         private long GetMinimumDeploymentFee(DataCache snapshot)
         {
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             return (long)(BigInteger)snapshot[CreateStorageKey(Prefix_MinimumDeploymentFee)];
         }
 
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
-        private void SetMinimumDeploymentFee(ApplicationEngine engine, BigInteger value/* In the unit of datoshi, 1 datoshi = 1e-8 GAS*/)
+        private void SetMinimumDeploymentFee(ApplicationEngine engine, BigInteger value/* In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse*/)
         {
             if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
             if (!CheckCommittee(engine)) throw new InvalidOperationException();

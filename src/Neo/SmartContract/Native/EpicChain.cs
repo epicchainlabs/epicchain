@@ -88,10 +88,10 @@ namespace Neo.SmartContract.Native
 
         internal override void OnBalanceChanging(ApplicationEngine engine, UInt160 account, NeoAccountState state, BigInteger amount)
         {
-            GasDistribution distribution = DistributeGas(engine, account, state);
+            EpicPulseDistribution distribution = DistributeEpicPulse(engine, account, state);
             if (distribution is not null)
             {
-                var list = engine.CurrentContext.GetState<List<GasDistribution>>();
+                var list = engine.CurrentContext.GetState<List<EpicPulseDistribution>>();
                 list.Add(distribution);
             }
             if (amount.IsZero) return;
@@ -106,17 +106,17 @@ namespace Neo.SmartContract.Native
         private protected override async ContractTask PostTransferAsync(ApplicationEngine engine, UInt160 from, UInt160 to, BigInteger amount, StackItem data, bool callOnPayment)
         {
             await base.PostTransferAsync(engine, from, to, amount, data, callOnPayment);
-            var list = engine.CurrentContext.GetState<List<GasDistribution>>();
+            var list = engine.CurrentContext.GetState<List<EpicPulseDistribution>>();
             foreach (var distribution in list)
                 await GAS.Mint(engine, distribution.Account, distribution.Amount, callOnPayment);
         }
 
-        private GasDistribution DistributeGas(ApplicationEngine engine, UInt160 account, NeoAccountState state)
+        private EpicPulseDistribution DistributeEpicPulse(ApplicationEngine engine, UInt160 account, NeoAccountState state)
         {
             // PersistingBlock is null when running under the debugger
             if (engine.PersistingBlock is null) return null;
 
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             BigInteger datoshi = CalculateBonus(engine.SnapshotCache, state, engine.PersistingBlock.Index);
             state.BalanceHeight = engine.PersistingBlock.Index;
             if (state.VoteTo is not null)
@@ -126,7 +126,7 @@ namespace Neo.SmartContract.Native
                 state.LastGasPerVote = latestGasPerVote;
             }
             if (datoshi == 0) return null;
-            return new GasDistribution
+            return new EpicPulseDistribution
             {
                 Account = account,
                 Amount = datoshi
@@ -141,7 +141,7 @@ namespace Neo.SmartContract.Native
             var expectEnd = Ledger.CurrentIndex(snapshot) + 1;
             if (expectEnd != end) throw new ArgumentOutOfRangeException(nameof(end));
             if (state.BalanceHeight >= end) return BigInteger.Zero;
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             BigInteger neoHolderReward = CalculateNeoHolderReward(snapshot, state.Balance, state.BalanceHeight, end);
             if (state.VoteTo is null) return neoHolderReward;
 
@@ -154,9 +154,9 @@ namespace Neo.SmartContract.Native
 
         private BigInteger CalculateNeoHolderReward(DataCache snapshot, BigInteger value, uint start, uint end)
         {
-            // In the unit of datoshi, 1 GAS = 10^8 datoshi
+            // In the unit of datoshi, 1 EpicPulse = 10^8 datoshi
             BigInteger sum = 0;
-            foreach (var (index, gasPerBlock) in GetSortedGasRecords(snapshot, end - 1))
+            foreach (var (index, gasPerBlock) in GetSortedEpicPulseRecords(snapshot, end - 1))
             {
                 if (index > start)
                 {
@@ -288,7 +288,7 @@ namespace Neo.SmartContract.Native
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
         public BigInteger GetGasPerBlock(DataCache snapshot)
         {
-            return GetSortedGasRecords(snapshot, Ledger.CurrentIndex(snapshot) + 1).First().GasPerBlock;
+            return GetSortedEpicPulseRecords(snapshot, Ledger.CurrentIndex(snapshot) + 1).First().GasPerBlock;
         }
 
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
@@ -312,7 +312,7 @@ namespace Neo.SmartContract.Native
             return (long)(BigInteger)snapshot[CreateStorageKey(Prefix_RegisterPrice)];
         }
 
-        private IEnumerable<(uint Index, BigInteger GasPerBlock)> GetSortedGasRecords(DataCache snapshot, uint end)
+        private IEnumerable<(uint Index, BigInteger GasPerBlock)> GetSortedEpicPulseRecords(DataCache snapshot, uint end)
         {
             byte[] key = CreateStorageKey(Prefix_GasPerBlock).AddBigEndian(end).ToArray();
             byte[] boundary = CreateStorageKey(Prefix_GasPerBlock).ToArray();
@@ -392,7 +392,7 @@ namespace Neo.SmartContract.Native
                 else
                     item.Add(-state_account.Balance);
             }
-            GasDistribution gasDistribution = DistributeGas(engine, account, state_account);
+            EpicPulseDistribution EpicPulseDistribution = DistributeEpicPulse(engine, account, state_account);
             if (state_account.VoteTo != null)
             {
                 StorageKey key = CreateStorageKey(Prefix_Candidate).Add(state_account.VoteTo);
@@ -420,8 +420,8 @@ namespace Neo.SmartContract.Native
             }
             engine.SendNotification(Hash, "Vote",
                 new VM.Types.Array(engine.ReferenceCounter) { account.ToArray(), from?.ToArray() ?? StackItem.Null, voteTo?.ToArray() ?? StackItem.Null, state_account.Balance });
-            if (gasDistribution is not null)
-                await GAS.Mint(engine, gasDistribution.Account, gasDistribution.Amount, true);
+            if (EpicPulseDistribution is not null)
+                await GAS.Mint(engine, EpicPulseDistribution.Account, EpicPulseDistribution.Amount, true);
             return true;
         }
 
@@ -635,7 +635,7 @@ namespace Neo.SmartContract.Native
             }
         }
 
-        private record GasDistribution
+        private record EpicPulseDistribution
         {
             public UInt160 Account { get; init; }
             public BigInteger Amount { get; init; }

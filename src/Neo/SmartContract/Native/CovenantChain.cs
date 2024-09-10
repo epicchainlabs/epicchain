@@ -45,7 +45,7 @@ namespace Neo.SmartContract.Native
 
         /// <summary>
         /// The default network fee per byte of transactions.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         public const uint DefaultFeePerByte = 1000;
 

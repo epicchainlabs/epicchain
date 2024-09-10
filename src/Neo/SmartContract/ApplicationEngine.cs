@@ -61,8 +61,8 @@ namespace Neo.SmartContract
         public static event EventHandler<LogEventArgs> Log;
 
         private static Dictionary<uint, InteropDescriptor> services;
-        // Total amount of GAS spent to execute.
-        // In the unit of datoshi, 1 datoshi = 1e-8 GAS, 1 GAS = 1e8 datoshi
+        // Total amount of EpicPulse spent to execute.
+        // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse, 1 EpicPulse = 1e8 datoshi
         private readonly long _feeAmount;
         private Dictionary<Type, object> states;
         private readonly DataCache originalSnapshotCache;
@@ -71,7 +71,7 @@ namespace Neo.SmartContract
         private readonly Dictionary<UInt160, int> invocationCounter = new();
         private readonly Dictionary<ExecutionContext, ContractTaskAwaiter> contractTasks = new();
         internal readonly uint ExecFeeFactor;
-        // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         internal readonly uint StoragePrice;
         private byte[] nonceData;
 
@@ -124,21 +124,21 @@ namespace Neo.SmartContract
         public ProtocolSettings ProtocolSettings { get; }
 
         /// <summary>
-        /// GAS spent to execute.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS, 1 GAS = 1e8 datoshi
+        /// EpicPulse spent to execute.
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse, 1 EpicPulse = 1e8 datoshi
         /// </summary>
         [Obsolete("This property is deprecated. Use FeeConsumed instead.")]
         public long EpicPulseConsumed { get; private set; } = 0;
 
         /// <summary>
-        /// GAS spent to execute.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS, 1 GAS = 1e8 datoshi
+        /// EpicPulse spent to execute.
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse, 1 EpicPulse = 1e8 datoshi
         /// </summary>
         public long FeeConsumed { get; private set; } = 0;
 
         /// <summary>
-        /// The remaining GAS that can be spent in order to complete the execution.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS, 1 GAS = 1e8 datoshi
+        /// The remaining EpicPulse that can be spent in order to complete the execution.
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse, 1 EpicPulse = 1e8 datoshi
         /// </summary>
         public long EpicPulseLeft => _feeAmount - FeeConsumed;
 

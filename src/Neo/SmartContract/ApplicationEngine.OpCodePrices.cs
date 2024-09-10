@@ -233,7 +233,7 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// The prices of all the opcodes.
-        /// In the unit of datoshi, 1 datoshi = 1e-8 GAS
+        /// In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
         /// </summary>
         public static readonly long[] OpCodePriceTable = new long[byte.MaxValue];
 

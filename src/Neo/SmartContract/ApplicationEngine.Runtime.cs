@@ -146,15 +146,15 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// The <see cref="InteropDescriptor"/> of System.Runtime.EpicPulseLeft.
-        /// Gets the remaining GAS that can be spent in order to complete the execution.
+        /// Gets the remaining EpicPulse that can be spent in order to complete the execution.
         /// </summary>
         public static readonly InteropDescriptor System_Runtime_EpicPulseLeft = Register("System.Runtime.EpicPulseLeft", nameof(EpicPulseLeft), 1 << 4, CallFlags.None);
 
         /// <summary>
-        /// The <see cref="InteropDescriptor"/> of System.Runtime.BurnGas.
-        /// Burning GAS to benefit the NEO ecosystem.
+        /// The <see cref="InteropDescriptor"/> of System.Runtime.BurnEpicPulse.
+        /// Burning EpicPulse to benefit the EpicChain ecosystem.
         /// </summary>
-        public static readonly InteropDescriptor System_Runtime_BurnGas = Register("System.Runtime.BurnGas", nameof(BurnGas), 1 << 4, CallFlags.None);
+        public static readonly InteropDescriptor System_Runtime_BurnEpicPulse = Register("System.Runtime.BurnEpicPulse", nameof(BurnEpicPulse), 1 << 4, CallFlags.None);
 
         /// <summary>
         /// The <see cref="InteropDescriptor"/> of System.Runtime.CurrentSigners.
@@ -166,10 +166,10 @@ namespace Neo.SmartContract
         /// The implementation of System.Runtime.Platform.
         /// Gets the name of the current platform.
         /// </summary>
-        /// <returns>It always returns "NEO".</returns>
+        /// <returns>It always returns "EpicChain".</returns>
         internal protected static string GetPlatform()
         {
-            return "NEO";
+            return "EpicChain";
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace Neo.SmartContract
         protected internal BigInteger GetRandom()
         {
             byte[] buffer;
-            // In the unit of datoshi, 1 datoshi = 1e-8 GAS
+            // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
             long price;
             if (IsHardforkEnabled(Hardfork.HF_Aspidochelone))
             {
@@ -433,14 +433,14 @@ namespace Neo.SmartContract
         }
 
         /// <summary>
-        /// The implementation of System.Runtime.BurnGas.
-        /// Burning GAS to benefit the NEO ecosystem.
+        /// The implementation of System.Runtime.BurnEpicPulse.
+        /// Burning EpicPulse to benefit the EpicChain ecosystem.
         /// </summary>
-        /// <param name="datoshi">The amount of GAS to burn, in the unit of datoshi, 1 datoshi = 1e-8 GAS</param>
-        protected internal void BurnGas(long datoshi)
+        /// <param name="datoshi">The amount of EpicPulse to burn, in the unit of datoshi, 1 datoshi = 1e-8 EpicPulse</param>
+        protected internal void BurnEpicPulse(long datoshi)
         {
             if (datoshi <= 0)
-                throw new InvalidOperationException("GAS must be positive.");
+                throw new InvalidOperationException("EpicPulse must be positive.");
             AddFee(datoshi);
         }
 
