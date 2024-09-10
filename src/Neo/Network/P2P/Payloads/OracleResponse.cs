@@ -109,7 +109,7 @@ namespace Neo.Network.P2P.Payloads
             if (!tx.Script.Span.SequenceEqual(FixedScript)) return false;
             OracleRequest request = NativeContract.Oracle.GetRequest(snapshot, Id);
             if (request is null) return false;
-            if (tx.NetworkFee + tx.SystemFee != request.GasForResponse) return false;
+            if (tx.NetworkFee + tx.SystemFee != request.EpicPulseForResponse) return false;
             UInt160 oracleAccount = Contract.GetBFTAddress(NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, NativeContract.Ledger.CurrentIndex(snapshot) + 1));
             return tx.Signers.Any(p => p.Account.Equals(oracleAccount));
         }

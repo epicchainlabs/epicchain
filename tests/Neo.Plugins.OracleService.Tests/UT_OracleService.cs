@@ -90,7 +90,7 @@ namespace Neo.Plugins.OracleService.Tests
             OracleRequest request = new OracleRequest
             {
                 OriginalTxid = UInt256.Zero,
-                GasForResponse = 100000000 * 1,
+                EpicPulseForResponse = 100000000 * 1,
                 Url = "https://127.0.0.1/test",
                 Filter = "",
                 CallbackContract = UInt160.Zero,
@@ -116,7 +116,7 @@ namespace Neo.Plugins.OracleService.Tests
 
             // case (2) The size of attribute exceed the maximum limit
 
-            request.GasForResponse = 0_10000000;
+            request.EpicPulseForResponse = 0_10000000;
             response.Result = new byte[10250];
             tx = OracleService.CreateResponseTx(snapshotCache, request, response, oracleNodes, ProtocolSettings.Default);
             Assert.AreEqual(165, tx.Size);

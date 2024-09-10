@@ -1909,7 +1909,7 @@
                       "type": "Any"
                     },
                     {
-                      "name": "gasForResponse",
+                      "name": "EpicPulseForResponse",
                       "type": "Integer"
                     }
                   ],

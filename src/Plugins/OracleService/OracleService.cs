@@ -465,7 +465,7 @@ namespace Neo.Plugins.OracleService
                 response.Code = OracleResponseCode.ResponseTooLarge;
                 response.Result = Array.Empty<byte>();
             }
-            else if (tx.NetworkFee + (size + tx.Attributes.GetVarSize()) * feePerByte > request.GasForResponse)
+            else if (tx.NetworkFee + (size + tx.Attributes.GetVarSize()) * feePerByte > request.EpicPulseForResponse)
             {
                 response.Code = OracleResponseCode.InsufficientFunds;
                 response.Result = Array.Empty<byte>();
@@ -475,7 +475,7 @@ namespace Neo.Plugins.OracleService
 
             // Calcualte system fee
 
-            tx.SystemFee = request.GasForResponse - tx.NetworkFee;
+            tx.SystemFee = request.EpicPulseForResponse - tx.NetworkFee;
 
             return tx;
         }

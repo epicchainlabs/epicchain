@@ -53,7 +53,7 @@ namespace Neo.Ledger
             public Exception Exception { get; }
 
             /// <summary>
-            /// GAS spent to execute.
+            /// EpicPulse spent to execute.
             /// </summary>
             public long EpicPulseConsumed { get; }
 

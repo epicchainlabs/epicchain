@@ -194,20 +194,20 @@ namespace Neo.SmartContract.Native
         }
 
         [ContractMethod(RequiredCallFlags = CallFlags.States | CallFlags.AllowNotify)]
-        private async ContractTask Request(ApplicationEngine engine, string url, string filter, string callback, StackItem userData, long gasForResponse /* In the unit of datoshi, 1 datoshi = 1e-8 GAS */)
+        private async ContractTask Request(ApplicationEngine engine, string url, string filter, string callback, StackItem userData, long EpicPulseForResponse /* In the unit of datoshi, 1 datoshi = 1e-8 GAS */)
         {
             //Check the arguments
             if (Utility.StrictUTF8.GetByteCount(url) > MaxUrlLength
                 || (filter != null && Utility.StrictUTF8.GetByteCount(filter) > MaxFilterLength)
                 || Utility.StrictUTF8.GetByteCount(callback) > MaxCallbackLength || callback.StartsWith('_')
-                || gasForResponse < 0_10000000)
+                || EpicPulseForResponse < 0_10000000)
                 throw new ArgumentException();
 
             engine.AddFee(GetPrice(engine.SnapshotCache));
 
             //Mint gas for the response
-            engine.AddFee(gasForResponse);
-            await GAS.Mint(engine, Hash, gasForResponse, false);
+            engine.AddFee(EpicPulseForResponse);
+            await GAS.Mint(engine, Hash, EpicPulseForResponse, false);
 
             //Increase the request id
             StorageItem item_id = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_RequestId));
@@ -220,7 +220,7 @@ namespace Neo.SmartContract.Native
             engine.SnapshotCache.Add(CreateStorageKey(Prefix_Request).AddBigEndian(id), new StorageItem(new OracleRequest
             {
                 OriginalTxid = GetOriginalTxid(engine),
-                GasForResponse = gasForResponse,
+                EpicPulseForResponse = EpicPulseForResponse,
                 Url = url,
                 Filter = filter,
                 CallbackContract = engine.CallingScriptHash,

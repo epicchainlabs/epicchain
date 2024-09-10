@@ -39,7 +39,7 @@ namespace Neo.SmartContract.Native
         /// <summary>
         /// The maximum amount of GAS that can be used when executing response callback.
         /// </summary>
-        public long GasForResponse;
+        public long EpicPulseForResponse;
 
         /// <summary>
         /// The url of the request.
@@ -70,7 +70,7 @@ namespace Neo.SmartContract.Native
         {
             Array array = (Array)stackItem;
             OriginalTxid = new UInt256(array[0].GetSpan());
-            GasForResponse = (long)array[1].GetInteger();
+            EpicPulseForResponse = (long)array[1].GetInteger();
             Url = array[2].GetString();
             Filter = array[3].GetString();
             CallbackContract = new UInt160(array[4].GetSpan());
@@ -83,7 +83,7 @@ namespace Neo.SmartContract.Native
             return new Array(referenceCounter)
             {
                 OriginalTxid.ToArray(),
-                GasForResponse,
+                EpicPulseForResponse,
                 Url,
                 Filter ?? StackItem.Null,
                 CallbackContract.ToArray(),
