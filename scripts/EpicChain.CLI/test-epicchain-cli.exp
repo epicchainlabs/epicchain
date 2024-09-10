@@ -1,16 +1,16 @@
 #!/usr/bin/expect -d -f
 #
-# This script uses expect to test neo-cli
+# This script uses expect to test epicchain-cli
 #
 set timeout 10
 exp_internal true
 
-# Start neo-cli
-spawn dotnet ./bin/Neo.CLI/net8.0/neo-cli.dll
+# Start epicchain-cli
+spawn dotnet ./bin/EpicChain.CLI/net8.0/epicchain-cli.dll
 
 # Expect the main input prompt
 expect {
-    "neo> " { }
+    "epicchain> " { }
     "error" { exit 2 }
     timeout { exit 1 }
 }
@@ -18,7 +18,7 @@ expect {
 #
 # Test 'create wallet'
 #
-send "create wallet ./bin/Neo.CLI/test-wallet1.json\n"
+send "create wallet ./bin/EpicChain.CLI/test-wallet1.json\n"
 
 expect {
     "password:" { send "asd\n" }
@@ -42,7 +42,7 @@ expect {
 #
 # Test 'create wallet'
 #
-send "create wallet ./bin/Neo.CLI/test-wallet2.json L2ArHTuiDL4FHu4nfyhamrG8XVYB4QyRbmhj7vD6hFMB5iAMSTf6\n"
+send "create wallet ./bin/EpicChain.CLI/test-wallet2.json L2ArHTuiDL4FHu4nfyhamrG8XVYB4QyRbmhj7vD6hFMB5iAMSTf6\n"
 
 expect {
     "password:" { send "abcd\n" }
@@ -68,7 +68,7 @@ expect {
 send "list address\n"
 
 expect {
-    "neo> " { }
+    "epicchain> " { }
     "error" { exit 2 }
     timeout { exit 1 }
 }
@@ -79,7 +79,7 @@ expect {
 send "create address\n"
 
 expect {
-    "neo> " { }
+    "epicchain> " { }
     "error" { exit 2 }
     timeout { exit 1 }
 }
