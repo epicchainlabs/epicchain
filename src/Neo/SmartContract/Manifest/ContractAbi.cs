@@ -32,7 +32,7 @@ namespace Neo.SmartContract.Manifest
     /// <summary>
     /// Represents the ABI of a smart contract.
     /// </summary>
-    /// <remarks>For more details, see NEP-14.</remarks>
+    /// <remarks>For more details, see XEP-14.</remarks>
     public class ContractAbi : IInteroperable
     {
         private IReadOnlyDictionary<(string, int), ContractMethodDescriptor> methodDictionary;

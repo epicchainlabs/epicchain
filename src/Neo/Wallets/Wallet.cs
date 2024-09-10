@@ -321,9 +321,9 @@ namespace Neo.Wallets
         }
 
         /// <summary>
-        /// Decodes a private key from the specified NEP-2 string.
+        /// Decodes a private key from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The NEP-2 string to be decoded.</param>
+        /// <param name="nep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="version">The address version of NEO system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
@@ -344,9 +344,9 @@ namespace Neo.Wallets
         }
 
         /// <summary>
-        /// Decodes a private key from the specified NEP-2 string.
+        /// Decodes a private key from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The NEP-2 string to be decoded.</param>
+        /// <param name="nep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="version">The address version of NEO system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
@@ -452,9 +452,9 @@ namespace Neo.Wallets
         }
 
         /// <summary>
-        /// Imports an account from the specified NEP-2 string.
+        /// Imports an account from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The NEP-2 string to import.</param>
+        /// <param name="nep2">The XEP-2 string to import.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>

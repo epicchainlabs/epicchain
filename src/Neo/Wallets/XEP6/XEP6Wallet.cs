@@ -35,9 +35,9 @@ using System.Threading.Tasks;
 namespace Neo.Wallets.XEP6
 {
     /// <summary>
-    /// An implementation of the NEP-6 wallet standard.
+    /// An implementation of the XEP-6 wallet standard.
     /// </summary>
-    /// <remarks>https://github.com/neo-project/proposals/blob/master/nep-6.mediawiki</remarks>
+    /// <remarks>https://github.com/epicchainlabs/epicchain
     public class XEP6Wallet : Wallet
     {
         private SecureString password;
@@ -194,9 +194,9 @@ namespace Neo.Wallets.XEP6
         }
 
         /// <summary>
-        /// Decrypts the specified NEP-2 string with the password of the wallet.
+        /// Decrypts the specified XEP-2 string with the password of the wallet.
         /// </summary>
-        /// <param name="nep2key">The NEP-2 string to decrypt.</param>
+        /// <param name="nep2key">The XEP-2 string to decrypt.</param>
         /// <returns>The decrypted private key.</returns>
         internal KeyPair DecryptKey(string nep2key)
         {

@@ -7,11 +7,11 @@
     <Authors>The Neo Project</Authors>
     <IsPackable>true</IsPackable>
     <PackageIcon>neo.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/neo-project/neo</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/epicchainlabs/epiccha</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/neo-project/neo.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/epicchainlabs/epiccha.git</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Company>The Neo Project</Company>

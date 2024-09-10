@@ -216,7 +216,7 @@ namespace Neo.SmartContract.Native
                 cachedCommittee.Clear();
                 cachedCommittee.AddRange(ComputeCommitteeMembers(engine.SnapshotCache, engine.ProtocolSettings));
 
-                // Hardfork check for https://github.com/neo-project/neo/pull/3158
+                // Hardfork check for https://github.com/epicchainlabs/epiccha/pull/3158
                 // New notification will case 3.7.0 and 3.6.0 have different behavior
                 var index = engine.PersistingBlock?.Index ?? Ledger.CurrentIndex(engine.SnapshotCache);
                 if (engine.ProtocolSettings.IsHardforkEnabled(Hardfork.HF_Cockatrice, index))

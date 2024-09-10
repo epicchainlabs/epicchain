@@ -29,7 +29,7 @@ namespace Neo.VM.Benchmark
         [Benchmark]
         public void NeoIssue2528()
         {
-            // https://github.com/neo-project/neo/issues/2528
+            // https://github.com/epicchainlabs/epiccha/issues/2528
             // L01: INITSLOT 1, 0
             // L02: NEWARRAY0
             // L03: DUP
@@ -62,7 +62,7 @@ namespace Neo.VM.Benchmark
         [Benchmark]
         public void NeoVMIssue418()
         {
-            // https://github.com/neo-project/neo-vm/issues/418
+            // https://github.com/epicchainlabs/epiccha-vm/issues/418
             // L00: NEWARRAY0
             // L01: PUSH0
             // L02: PICK

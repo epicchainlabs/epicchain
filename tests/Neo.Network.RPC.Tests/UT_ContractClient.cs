@@ -72,7 +72,7 @@ namespace Neo.Network.RPC.Tests
                 },
                 Groups = new ContractGroup[0],
                 Trusts = WildcardContainer<ContractPermissionDescriptor>.Create(),
-                SupportedStandards = new string[] { "NEP-10" },
+                SupportedStandards = new string[] { "XEP-10" },
                 Extra = null,
             };
             using (ScriptBuilder sb = new ScriptBuilder())
