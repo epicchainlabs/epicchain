@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// UT_PolicyContract.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// UT_CovenantChain.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -34,7 +34,7 @@ using System.Numerics;
 namespace Neo.UnitTests.SmartContract.Native
 {
     [TestClass]
-    public class UT_PolicyContract
+    public class UT_CovenantChain
     {
         private DataCache _snapshotCache;
 
@@ -58,7 +58,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             ret = NativeContract.Policy.Call(snapshot, "getAttributeFee", new ContractParameter(ContractParameterType.Integer) { Value = (BigInteger)(byte)TransactionAttributeType.Conflicts });
             ret.Should().BeOfType<VM.Types.Integer>();
-            ret.GetInteger().Should().Be(PolicyContract.DefaultAttributeFee);
+            ret.GetInteger().Should().Be(CovenantChain.DefaultAttributeFee);
 
             Assert.ThrowsException<InvalidOperationException>(() => NativeContract.Policy.Call(snapshot, "getAttributeFee", new ContractParameter(ContractParameterType.Integer) { Value = (BigInteger)byte.MaxValue }));
         }

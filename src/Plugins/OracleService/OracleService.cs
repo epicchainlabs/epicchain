@@ -250,7 +250,7 @@ namespace Neo.Plugins.OracleService
             using (var snapshot = _system.GetSnapshotCache())
             {
                 uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
-                var oracles = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.Oracle, height);
+                var oracles = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, height);
                 oracles.Any(p => p.Equals(oraclePub)).True_Or(RpcErrorFactory.OracleNotDesignatedNode(oraclePub));
                 NativeContract.Oracle.GetRequest(snapshot, requestId).NotNull_Or(RpcError.OracleRequestNotFound);
                 byte[] data = [.. oraclePub.ToArray(), .. BitConverter.GetBytes(requestId), .. txSign];
@@ -294,7 +294,7 @@ namespace Neo.Plugins.OracleService
 
             Log($"[{req.OriginalTxid}] Process oracle request end:<{req.Url}>, responseCode:{code}, response:{data}");
 
-            var oracleNodes = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.Oracle, height);
+            var oracleNodes = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, height);
             foreach (var (requestId, request) in NativeContract.Oracle.GetRequestsByUrl(snapshot, req.Url))
             {
                 var result = Array.Empty<byte>();
@@ -317,7 +317,7 @@ namespace Neo.Plugins.OracleService
                 Log($"[{req.OriginalTxid}]-({requestId}) Built response tx[[{responseTx.Hash}]], responseCode:{code}, result:{result.ToHexString()}, validUntilBlock:{responseTx.ValidUntilBlock}, backupTx:{backupTx.Hash}-{backupTx.ValidUntilBlock}");
 
                 List<Task> tasks = new List<Task>();
-                ECPoint[] oraclePublicKeys = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.Oracle, height);
+                ECPoint[] oraclePublicKeys = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, height);
                 foreach (var account in wallet.GetAccounts())
                 {
                     var oraclePub = account.GetKey()?.PublicKey;
@@ -441,10 +441,10 @@ namespace Neo.Plugins.OracleService
 
             // Calculate network fee
 
-            var oracleContract = NativeContract.ContractManagement.GetContract(snapshot, NativeContract.Oracle.Hash);
+            var OracleNexus = NativeContract.ContractManagement.GetContract(snapshot, NativeContract.Oracle.Hash);
             var engine = ApplicationEngine.Create(TriggerType.Verification, tx, snapshot.CloneCache(), settings: settings);
-            ContractMethodDescriptor md = oracleContract.Manifest.Abi.GetMethod(ContractBasicMethod.Verify, ContractBasicMethod.VerifyPCount);
-            engine.LoadContract(oracleContract, md, CallFlags.None);
+            ContractMethodDescriptor md = OracleNexus.Manifest.Abi.GetMethod(ContractBasicMethod.Verify, ContractBasicMethod.VerifyPCount);
+            engine.LoadContract(OracleNexus, md, CallFlags.None);
             if (engine.Execute() != VMState.HALT) return null;
             tx.NetworkFee += engine.FeeConsumed;
 
@@ -541,7 +541,7 @@ namespace Neo.Plugins.OracleService
             {
                 return false;
             }
-            ECPoint[] oraclesNodes = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.Oracle, height);
+            ECPoint[] oraclesNodes = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, height);
             int neededThreshold = oraclesNodes.Length - (oraclesNodes.Length - 1) / 3;
             if (OracleSigns.Count >= neededThreshold)
             {
@@ -566,7 +566,7 @@ namespace Neo.Plugins.OracleService
         private static bool CheckOracleAvaiblable(DataCache snapshot, out ECPoint[] oracles)
         {
             uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
-            oracles = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.Oracle, height);
+            oracles = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.Oracle, height);
             return oracles.Length > 0;
         }
 

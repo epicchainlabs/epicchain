@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// UT_StdLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// UT_EssentialLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -32,42 +32,42 @@ using System.Numerics;
 namespace Neo.UnitTests.SmartContract.Native
 {
     [TestClass]
-    public class UT_StdLib
+    public class UT_EssentialLib
     {
         [TestMethod]
         public void TestBinary()
         {
             var data = System.Array.Empty<byte>();
 
-            CollectionAssert.AreEqual(data, StdLib.Base64Decode(StdLib.Base64Encode(data)));
-            CollectionAssert.AreEqual(data, StdLib.Base58Decode(StdLib.Base58Encode(data)));
+            CollectionAssert.AreEqual(data, EssentialLib.Base64Decode(EssentialLib.Base64Encode(data)));
+            CollectionAssert.AreEqual(data, EssentialLib.Base58Decode(EssentialLib.Base58Encode(data)));
 
             data = new byte[] { 1, 2, 3 };
 
-            CollectionAssert.AreEqual(data, StdLib.Base64Decode(StdLib.Base64Encode(data)));
-            CollectionAssert.AreEqual(data, StdLib.Base58Decode(StdLib.Base58Encode(data)));
-            Assert.AreEqual("AQIDBA==", StdLib.Base64Encode(new byte[] { 1, 2, 3, 4 }));
-            Assert.AreEqual("2VfUX", StdLib.Base58Encode(new byte[] { 1, 2, 3, 4 }));
+            CollectionAssert.AreEqual(data, EssentialLib.Base64Decode(EssentialLib.Base64Encode(data)));
+            CollectionAssert.AreEqual(data, EssentialLib.Base58Decode(EssentialLib.Base58Encode(data)));
+            Assert.AreEqual("AQIDBA==", EssentialLib.Base64Encode(new byte[] { 1, 2, 3, 4 }));
+            Assert.AreEqual("2VfUX", EssentialLib.Base58Encode(new byte[] { 1, 2, 3, 4 }));
         }
 
         [TestMethod]
         public void TestItoaAtoi()
         {
-            Assert.AreEqual("1", StdLib.Itoa(BigInteger.One, 10));
-            Assert.AreEqual("1", StdLib.Itoa(BigInteger.One, 16));
-            Assert.AreEqual("-1", StdLib.Itoa(BigInteger.MinusOne, 10));
-            Assert.AreEqual("f", StdLib.Itoa(BigInteger.MinusOne, 16));
-            Assert.AreEqual("3b9aca00", StdLib.Itoa(1_000_000_000, 16));
-            Assert.AreEqual(-1, StdLib.Atoi("-1", 10));
-            Assert.AreEqual(1, StdLib.Atoi("+1", 10));
-            Assert.AreEqual(-1, StdLib.Atoi("ff", 16));
-            Assert.AreEqual(-1, StdLib.Atoi("FF", 16));
-            Assert.ThrowsException<System.FormatException>(() => StdLib.Atoi("a", 10));
-            Assert.ThrowsException<System.FormatException>(() => StdLib.Atoi("g", 16));
-            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => StdLib.Atoi("a", 11));
+            Assert.AreEqual("1", EssentialLib.Itoa(BigInteger.One, 10));
+            Assert.AreEqual("1", EssentialLib.Itoa(BigInteger.One, 16));
+            Assert.AreEqual("-1", EssentialLib.Itoa(BigInteger.MinusOne, 10));
+            Assert.AreEqual("f", EssentialLib.Itoa(BigInteger.MinusOne, 16));
+            Assert.AreEqual("3b9aca00", EssentialLib.Itoa(1_000_000_000, 16));
+            Assert.AreEqual(-1, EssentialLib.Atoi("-1", 10));
+            Assert.AreEqual(1, EssentialLib.Atoi("+1", 10));
+            Assert.AreEqual(-1, EssentialLib.Atoi("ff", 16));
+            Assert.AreEqual(-1, EssentialLib.Atoi("FF", 16));
+            Assert.ThrowsException<System.FormatException>(() => EssentialLib.Atoi("a", 10));
+            Assert.ThrowsException<System.FormatException>(() => EssentialLib.Atoi("g", 16));
+            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => EssentialLib.Atoi("a", 11));
 
-            StdLib.Atoi(StdLib.Itoa(BigInteger.One, 10)).Should().Be(BigInteger.One);
-            StdLib.Atoi(StdLib.Itoa(BigInteger.MinusOne, 10)).Should().Be(BigInteger.MinusOne);
+            EssentialLib.Atoi(EssentialLib.Itoa(BigInteger.One, 10)).Should().Be(BigInteger.One);
+            EssentialLib.Atoi(EssentialLib.Itoa(BigInteger.MinusOne, 10)).Should().Be(BigInteger.MinusOne);
         }
 
         [TestMethod]
@@ -77,10 +77,10 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memoryCompare", "abc", "c");
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memoryCompare", "abc", "d");
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memoryCompare", "abc", "abc");
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memoryCompare", "abc", "abcd");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memoryCompare", "abc", "c");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memoryCompare", "abc", "d");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memoryCompare", "abc", "abc");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memoryCompare", "abc", "abcd");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -102,7 +102,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (ScriptBuilder script = new())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "base58CheckEncode", new byte[] { 1, 2, 3 });
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "base58CheckEncode", new byte[] { 1, 2, 3 });
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -115,7 +115,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (ScriptBuilder script = new())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "base58CheckDecode", "3DUz7ncyT");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "base58CheckDecode", "3DUz7ncyT");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -130,7 +130,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (ScriptBuilder script = new())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "base58CheckDecode", "AA");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "base58CheckDecode", "AA");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -140,7 +140,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (ScriptBuilder script = new())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "base58CheckDecode", null);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "base58CheckDecode", null);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -156,11 +156,11 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 0);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 1);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 2);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 3);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "d", 0);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 0);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 1);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 2);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 3);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "d", 0);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -176,11 +176,11 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 0, false);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 1, false);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 2, false);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 3, false);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "d", 0, false);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 0, false);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 1, false);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 2, false);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 3, false);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "d", 0, false);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -196,11 +196,11 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 0, true);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 1, true);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 2, true);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "c", 3, true);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "memorySearch", "abc", "d", 0, true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 0, true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 1, true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 2, true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "c", 3, true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "memorySearch", "abc", "d", 0, true);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -221,7 +221,7 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             using var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "stringSplit", "a,b", ",");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "stringSplit", "a,b", ",");
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -241,9 +241,9 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             using var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "strLen", "🦆");
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "strLen", "ã");
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "strLen", "a");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "strLen", "🦆");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "strLen", "ã");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "strLen", "a");
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -264,8 +264,8 @@ namespace Neo.UnitTests.SmartContract.Native
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
 
             using var script = new ScriptBuilder();
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "strLen", badStr);
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "strLen", badStr + "ab");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "strLen", badStr);
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "strLen", badStr + "ab");
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -285,8 +285,8 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonDeserialize", "123");
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonDeserialize", "null");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonDeserialize", "123");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonDeserialize", "null");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -302,7 +302,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (ScriptBuilder script = new())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonDeserialize", "***");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonDeserialize", "***");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -315,7 +315,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonDeserialize", "123.45");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonDeserialize", "123.45");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -334,11 +334,11 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize", 5);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize", true);
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize", "test");
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize", new object[] { null });
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize", new ContractParameter(ContractParameterType.Map)
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize", 5);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize", true);
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize", "test");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize", new object[] { null });
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize", new ContractParameter(ContractParameterType.Map)
                 {
                     Value = new List<KeyValuePair<ContractParameter, ContractParameter>>() {
                         { new KeyValuePair<ContractParameter, ContractParameter>(
@@ -365,7 +365,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             using (var script = new ScriptBuilder())
             {
-                script.EmitDynamicCall(NativeContract.StdLib.Hash, "jsonSerialize");
+                script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "jsonSerialize");
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
                 engine.LoadScript(script.ToArray());
@@ -383,8 +383,8 @@ namespace Neo.UnitTests.SmartContract.Native
             // Good
 
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "serialize", 100);
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "serialize", "test");
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "serialize", 100);
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "serialize", "test");
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -404,8 +404,8 @@ namespace Neo.UnitTests.SmartContract.Native
             // Good
 
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "deserialize", "280474657374".HexToBytes());
-            script.EmitDynamicCall(NativeContract.StdLib.Hash, "deserialize", "210164".HexToBytes());
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "deserialize", "280474657374".HexToBytes());
+            script.EmitDynamicCall(NativeContract.EssentialLib.Hash, "deserialize", "210164".HexToBytes());
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());

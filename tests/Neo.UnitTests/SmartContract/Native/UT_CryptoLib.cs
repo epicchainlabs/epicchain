@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// UT_CryptoLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// UT_CryptoHive.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -40,7 +40,7 @@ using System.Linq;
 namespace Neo.UnitTests.SmartContract.Native
 {
     [TestClass]
-    public class UT_CryptoLib
+    public class UT_CryptoHive
     {
         private readonly byte[] g1 = "97f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb".ToLower().HexToBytes();
         private readonly byte[] g2 = "93e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb8".ToLower().HexToBytes();
@@ -58,7 +58,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g1);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g1);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -72,7 +72,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g2);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g2);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -86,7 +86,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", not_g1);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", not_g1);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -98,7 +98,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", not_g2);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", not_g2);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
             engine.LoadScript(script.ToArray());
@@ -109,13 +109,13 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", gt);
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", gt);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", gt);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", gt);
             script.EmitPush(2);
             script.Emit(OpCode.PACK);
             script.EmitPush(CallFlags.All);
             script.EmitPush("bls12381Add");
-            script.EmitPush(NativeContract.CryptoLib.Hash);
+            script.EmitPush(NativeContract.CryptoHive.Hash);
             script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -135,12 +135,12 @@ namespace Neo.UnitTests.SmartContract.Native
             {
                 script.EmitPush(false);
                 script.EmitPush(data);
-                script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", gt);
+                script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", gt);
                 script.EmitPush(3);
                 script.Emit(OpCode.PACK);
                 script.EmitPush(CallFlags.All);
                 script.EmitPush("bls12381Mul");
-                script.EmitPush(NativeContract.CryptoLib.Hash);
+                script.EmitPush(NativeContract.CryptoHive.Hash);
                 script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -153,12 +153,12 @@ namespace Neo.UnitTests.SmartContract.Native
             {
                 script.EmitPush(true);
                 script.EmitPush(data);
-                script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", gt);
+                script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", gt);
                 script.EmitPush(3);
                 script.Emit(OpCode.PACK);
                 script.EmitPush(CallFlags.All);
                 script.EmitPush("bls12381Mul");
-                script.EmitPush(NativeContract.CryptoLib.Hash);
+                script.EmitPush(NativeContract.CryptoHive.Hash);
                 script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -174,13 +174,13 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g2);
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g1);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g2);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g1);
             script.EmitPush(2);
             script.Emit(OpCode.PACK);
             script.EmitPush(CallFlags.All);
             script.EmitPush("bls12381Pairing");
-            script.EmitPush(NativeContract.CryptoLib.Hash);
+            script.EmitPush(NativeContract.CryptoHive.Hash);
             script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -195,13 +195,13 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             using ScriptBuilder script = new();
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g1);
-            script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", g1);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g1);
+            script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", g1);
             script.EmitPush(2);
             script.Emit(OpCode.PACK);
             script.EmitPush(CallFlags.All);
             script.EmitPush("bls12381Equal");
-            script.EmitPush(NativeContract.CryptoLib.Hash);
+            script.EmitPush(NativeContract.CryptoHive.Hash);
             script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
             using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -227,12 +227,12 @@ namespace Neo.UnitTests.SmartContract.Native
             {
                 script.EmitPush(negative);
                 script.EmitPush(mul.ToLower().HexToBytes());
-                script.EmitDynamicCall(NativeContract.CryptoLib.Hash, "bls12381Deserialize", point.ToLower().HexToBytes());
+                script.EmitDynamicCall(NativeContract.CryptoHive.Hash, "bls12381Deserialize", point.ToLower().HexToBytes());
                 script.EmitPush(3);
                 script.Emit(OpCode.PACK);
                 script.EmitPush(CallFlags.All);
                 script.EmitPush("bls12381Mul");
-                script.EmitPush(NativeContract.CryptoLib.Hash);
+                script.EmitPush(NativeContract.CryptoHive.Hash);
                 script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshotCache, settings: TestBlockchain.TheEpicChainSystem.Settings);
@@ -367,7 +367,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "acaf3289d7b601cbd114fb36c4d29c85bbfd5e133f14cb355c3fd8d99367964f";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -381,7 +381,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "868c016b666c7d3698636ee1bd023f3f065621514ab61bf26f062c175fdbe7f2";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -396,7 +396,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "53d49d225dd2cfe77d8c5e2112bcc9efe77bea1c7aa5e5ede5798a36e99e2d29";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -411,7 +411,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "3f82db7b16b0818a1c6b2c6152e265f682d5ebcf497c9aad776ad38bc39cb6ca";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -426,7 +426,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "24115e5c2359f85f6840b42acd2f7ea47bc239583e576d766fa173bf711bdd2f";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -441,7 +441,7 @@ namespace Neo.UnitTests.SmartContract.Native
             string expectedHashHex = "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470";
 
             // Act
-            byte[] outputData = CryptoLib.Keccak256(inputData);
+            byte[] outputData = CryptoHive.Keccak256(inputData);
             string outputHashHex = Hex.ToHexString(outputData);
 
             // Assert
@@ -486,7 +486,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Continue construction of 'verifyWithECDsa' call.
             vrf.Emit(OpCode.PUSH4, OpCode.PACK); // pack arguments for 'verifyWithECDsa' call.
-            EmitAppCallNoArgs(vrf, CryptoLib.CryptoLib.Hash, "verifyWithECDsa", CallFlags.None); // emit the call to 'verifyWithECDsa' itself.
+            EmitAppCallNoArgs(vrf, CryptoHive.CryptoHive.Hash, "verifyWithECDsa", CallFlags.None); // emit the call to 'verifyWithECDsa' itself.
 
             // Account is a hash of verification script.
             var vrfScript = vrf.ToArray();
@@ -693,7 +693,7 @@ namespace Neo.UnitTests.SmartContract.Native
             vrf.Emit(OpCode.JMPIF, new ReadOnlySpan<byte>([0])); // jump to the end of the script if (sigCnt >= m || pubCnt >= n).
             var loopConditionOffset = vrf.Length;
 
-            // Loop start. Prepare arguments and call CryptoLib's verifyWithECDsa.
+            // Loop start. Prepare arguments and call CryptoHive's verifyWithECDsa.
             vrf.EmitPush((byte)NamedCurveHash.secp256k1Keccak256); // push Koblitz curve identifier and Keccak256 hasher.
             vrf.Emit(OpCode.LDLOC0,                // load signatures.
                 OpCode.LDLOC3,             // load sigCnt.
@@ -703,7 +703,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 OpCode.PICKITEM,           // pick pub at index pubCnt.
                 OpCode.LDLOC2,             // load msg.
                 OpCode.PUSH4, OpCode.PACK); // pack 4 arguments for 'verifyWithECDsa' call.
-            EmitAppCallNoArgs(vrf, CryptoLib.CryptoLib.Hash, "verifyWithECDsa", CallFlags.None); // emit the call to 'verifyWithECDsa' itself.
+            EmitAppCallNoArgs(vrf, CryptoHive.CryptoHive.Hash, "verifyWithECDsa", CallFlags.None); // emit the call to 'verifyWithECDsa' itself.
 
             // Update loop variables.
             vrf.Emit(OpCode.LDLOC3, OpCode.ADD, OpCode.STLOC3, // increment sigCnt if signature is valid.
@@ -911,7 +911,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 script.Emit(OpCode.PACK);
                 script.EmitPush(CallFlags.All);
                 script.EmitPush("verifyWithECDsa");
-                script.EmitPush(NativeContract.CryptoLib.Hash);
+                script.EmitPush(NativeContract.CryptoHive.Hash);
                 script.EmitSysCall(ApplicationEngine.System_Contract_Call);
 
                 using var engine = ApplicationEngine.Create(TriggerType.Application, null, snapshot, settings: TestBlockchain.TheEpicChainSystem.Settings);

@@ -77,11 +77,11 @@ namespace Neo.UnitTests.SmartContract.Manifest
         public void TestEquals()
         {
             var descriptor1 = ContractPermissionDescriptor.CreateWildcard();
-            var descriptor2 = ContractPermissionDescriptor.Create(LedgerContract.NEO.Hash);
+            var descriptor2 = ContractPermissionDescriptor.Create(QuantumVaultAsset.NEO.Hash);
 
             Assert.AreNotEqual(descriptor1, descriptor2);
 
-            var descriptor3 = ContractPermissionDescriptor.Create(LedgerContract.NEO.Hash);
+            var descriptor3 = ContractPermissionDescriptor.Create(QuantumVaultAsset.NEO.Hash);
 
             Assert.AreEqual(descriptor2, descriptor3);
         }

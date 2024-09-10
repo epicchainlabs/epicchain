@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// LedgerContract.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// QuantumVaultAsset.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -35,14 +35,14 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// A native contract for storing all blocks and transactions.
     /// </summary>
-    public sealed class LedgerContract : NativeContract
+    public sealed class QuantumVaultAsset : NativeContract
     {
         private const byte Prefix_BlockHash = 9;
         private const byte Prefix_CurrentBlock = 12;
         private const byte Prefix_Block = 5;
         private const byte Prefix_Transaction = 11;
 
-        internal LedgerContract() : base() { }
+        internal QuantumVaultAsset() : base() { }
 
         internal override ContractTask OnPersistAsync(ApplicationEngine engine)
         {

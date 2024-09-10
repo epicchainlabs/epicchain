@@ -143,7 +143,7 @@ namespace Neo.UnitTests.SmartContract
             Assert.AreEqual(VMState.HALT, engine.Execute());
             Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
 
-            Assert.AreEqual(Neo.SmartContract.Helper.SignatureContractCost() * PolicyContract.DefaultExecFeeFactor, engine.FeeConsumed);
+            Assert.AreEqual(Neo.SmartContract.Helper.SignatureContractCost() * CovenantChain.DefaultExecFeeFactor, engine.FeeConsumed);
         }
 
         [TestMethod]
@@ -163,7 +163,7 @@ namespace Neo.UnitTests.SmartContract
             Assert.AreEqual(VMState.HALT, engine.Execute());
             Assert.IsTrue(engine.ResultStack.Pop().GetBoolean());
 
-            Assert.AreEqual(Neo.SmartContract.Helper.MultiSignatureContractCost(1, 1) * PolicyContract.DefaultExecFeeFactor, engine.FeeConsumed);
+            Assert.AreEqual(Neo.SmartContract.Helper.MultiSignatureContractCost(1, 1) * CovenantChain.DefaultExecFeeFactor, engine.FeeConsumed);
         }
     }
 }

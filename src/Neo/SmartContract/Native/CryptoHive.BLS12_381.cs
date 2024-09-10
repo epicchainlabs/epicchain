@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// CryptoLib.BLS12_381.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// CryptoHive.BLS12_381.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -25,7 +25,7 @@ using System;
 
 namespace Neo.SmartContract.Native;
 
-partial class CryptoLib
+partial class CryptoHive
 {
     /// <summary>
     /// Serialize a bls12381 point.

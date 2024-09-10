@@ -74,19 +74,19 @@ namespace Neo.SmartContract.Native
         public static ContractManagement ContractManagement { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="Native.StdLib"/> class.
+        /// Gets the instance of the <see cref="Native.EssentialLib"/> class.
         /// </summary>
-        public static StdLib StdLib { get; } = new();
+        public static EssentialLib EssentialLib { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="Native.CryptoLib"/> class.
+        /// Gets the instance of the <see cref="Native.CryptoHive"/> class.
         /// </summary>
-        public static CryptoLib CryptoLib { get; } = new();
+        public static CryptoHive CryptoHive { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="LedgerContract"/> class.
+        /// Gets the instance of the <see cref="QuantumVaultAsset"/> class.
         /// </summary>
-        public static LedgerContract Ledger { get; } = new();
+        public static QuantumVaultAsset Ledger { get; } = new();
 
         /// <summary>
         /// Gets the instance of the <see cref="EpicChain"/> class.
@@ -99,19 +99,19 @@ namespace Neo.SmartContract.Native
         public static EpicPulse GAS { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="PolicyContract"/> class.
+        /// Gets the instance of the <see cref="CovenantChain"/> class.
         /// </summary>
-        public static PolicyContract Policy { get; } = new();
+        public static CovenantChain Policy { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="Native.RoleManagement"/> class.
+        /// Gets the instance of the <see cref="Native.QuantumGuardNexus"/> class.
         /// </summary>
-        public static RoleManagement RoleManagement { get; } = new();
+        public static QuantumGuardNexus QuantumGuardNexus { get; } = new();
 
         /// <summary>
-        /// Gets the instance of the <see cref="OracleContract"/> class.
+        /// Gets the instance of the <see cref="OracleNexus"/> class.
         /// </summary>
-        public static OracleContract Oracle { get; } = new();
+        public static OracleNexus Oracle { get; } = new();
 
         #endregion
 

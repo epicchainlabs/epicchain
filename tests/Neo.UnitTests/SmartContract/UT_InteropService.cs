@@ -799,20 +799,20 @@ namespace Neo.UnitTests.SmartContract
             var signatureR1 = Crypto.Sign(hexMessage, privateKey, Neo.Cryptography.ECC.ECCurve.Secp256r1);
             var signatureK1 = Crypto.Sign(hexMessage, privateKey, Neo.Cryptography.ECC.ECCurve.Secp256k1);
 
-            var result = CryptoLib.VerifyWithECDsaV0(hexMessage, publicKeyR1, signatureR1, NamedCurveHash.secp256r1SHA256);
+            var result = CryptoHive.VerifyWithECDsaV0(hexMessage, publicKeyR1, signatureR1, NamedCurveHash.secp256r1SHA256);
             result.Should().BeTrue();
-            result = CryptoLib.VerifyWithECDsaV0(hexMessage, publicKeyK1, signatureK1, NamedCurveHash.secp256k1SHA256);
+            result = CryptoHive.VerifyWithECDsaV0(hexMessage, publicKeyK1, signatureK1, NamedCurveHash.secp256k1SHA256);
             result.Should().BeTrue();
-            result = CryptoLib.VerifyWithECDsaV0(hexMessage, publicKeyK1, new byte[0], NamedCurveHash.secp256k1SHA256);
+            result = CryptoHive.VerifyWithECDsaV0(hexMessage, publicKeyK1, new byte[0], NamedCurveHash.secp256k1SHA256);
             result.Should().BeFalse();
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => CryptoLib.VerifyWithECDsaV0(hexMessage, publicKeyK1, new byte[64], NamedCurveHash.secp256r1Keccak256));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => CryptoHive.VerifyWithECDsaV0(hexMessage, publicKeyK1, new byte[64], NamedCurveHash.secp256r1Keccak256));
         }
 
         [TestMethod]
         public void TestSha256()
         {
             var input = "Hello, world!"u8.ToArray();
-            var actualHash = CryptoLib.Sha256(input);
+            var actualHash = CryptoHive.Sha256(input);
             var expectedHash = "315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3";
             actualHash.ToHexString().Should().Be(expectedHash);
         }
@@ -821,7 +821,7 @@ namespace Neo.UnitTests.SmartContract
         public void TestRIPEMD160()
         {
             var input = "Hello, world!"u8.ToArray();
-            var actualHash = CryptoLib.RIPEMD160(input);
+            var actualHash = CryptoHive.RIPEMD160(input);
             var expectedHash = "58262d1fbdbe4530d8865d3518c6d6e41002610f";
             actualHash.ToHexString().Should().Be(expectedHash);
         }
@@ -830,7 +830,7 @@ namespace Neo.UnitTests.SmartContract
         public void TestMurmur32()
         {
             var input = "Hello, world!"u8.ToArray();
-            var actualHash = CryptoLib.Murmur32(input, 0);
+            var actualHash = CryptoHive.Murmur32(input, 0);
             var expectedHash = "433e36c0";
             actualHash.ToHexString().Should().Be(expectedHash);
         }
@@ -839,20 +839,20 @@ namespace Neo.UnitTests.SmartContract
         public void TestGetBlockHash()
         {
             var snapshotCache = GetEngine(true, true).SnapshotCache;
-            var hash = LedgerContract.Ledger.GetBlockHash(snapshotCache, 0);
-            var hash2 = LedgerContract.Ledger.GetBlock(snapshotCache, 0).Hash;
-            var hash3 = LedgerContract.Ledger.GetHeader(snapshotCache, 0).Hash;
+            var hash = QuantumVaultAsset.Ledger.GetBlockHash(snapshotCache, 0);
+            var hash2 = QuantumVaultAsset.Ledger.GetBlock(snapshotCache, 0).Hash;
+            var hash3 = QuantumVaultAsset.Ledger.GetHeader(snapshotCache, 0).Hash;
             hash.ToString().Should().Be(hash2.ToString());
             hash.ToString().Should().Be(hash3.ToString());
             hash.ToString().Should().Be("0x1f4d1defa46faa5e7b9b8d3f79a06bec777d7c26c4aa5f6f5899a291daa87c15");
-            LedgerContract.Ledger.ContainsBlock(snapshotCache, hash).Should().BeTrue();
+            QuantumVaultAsset.Ledger.ContainsBlock(snapshotCache, hash).Should().BeTrue();
         }
 
         [TestMethod]
         public void TestGetCandidateVote()
         {
             var snapshotCache = GetEngine(true, true).SnapshotCache;
-            var vote = LedgerContract.NEO.GetCandidateVote(snapshotCache, new ECPoint());
+            var vote = QuantumVaultAsset.NEO.GetCandidateVote(snapshotCache, new ECPoint());
             vote.Should().Be(-1);
         }
 
@@ -862,7 +862,7 @@ namespace Neo.UnitTests.SmartContract
             var descriptor1 = ContractPermissionDescriptor.CreateWildcard();
             descriptor1.Equals(null).Should().BeFalse();
             descriptor1.Equals(null as object).Should().BeFalse();
-            var descriptor2 = ContractPermissionDescriptor.Create(LedgerContract.NEO.Hash);
+            var descriptor2 = ContractPermissionDescriptor.Create(QuantumVaultAsset.NEO.Hash);
             var descriptor3 = ContractPermissionDescriptor.Create(hash: null);
             descriptor1.Equals(descriptor3).Should().BeTrue();
             descriptor1.Equals(descriptor3 as object).Should().BeTrue();

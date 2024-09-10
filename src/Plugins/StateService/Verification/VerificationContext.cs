@@ -93,7 +93,7 @@ namespace Neo.Plugins.StateService.Verification
             Retries = 0;
             myIndex = -1;
             rootIndex = index;
-            verifiers = NativeContract.RoleManagement.GetDesignatedByRole(StatePlugin._system.StoreView, Role.StateValidator, index);
+            verifiers = NativeContract.QuantumGuardNexus.GetDesignatedByRole(StatePlugin._system.StoreView, Role.StateValidator, index);
             if (wallet is null) return;
             for (int i = 0; i < verifiers.Length; i++)
             {

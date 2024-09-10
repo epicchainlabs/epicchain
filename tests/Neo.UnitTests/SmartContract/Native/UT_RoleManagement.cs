@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// UT_RoleManagement.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// UT_QuantumGuardNexus.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -38,7 +38,7 @@ using System.Numerics;
 namespace Neo.UnitTests.SmartContract.Native
 {
     [TestClass]
-    public class UT_RoleManagement
+    public class UT_QuantumGuardNexus
     {
         private DataCache _snapshotCache;
 
@@ -78,7 +78,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 List<NotifyEventArgs> notifications = new List<NotifyEventArgs>();
                 EventHandler<NotifyEventArgs> ev = (o, e) => notifications.Add(e);
                 ApplicationEngine.Notify += ev;
-                var ret = NativeContract.RoleManagement.Call(
+                var ret = NativeContract.QuantumGuardNexus.Call(
                     snapshot1,
                     new Nep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr),
                     new Block { Header = new Header() },
@@ -91,7 +91,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 notifications.Count.Should().Be(1);
                 notifications[0].EventName.Should().Be("Designation");
                 var snapshot2 = _snapshotCache.CloneCache();
-                ret = NativeContract.RoleManagement.Call(
+                ret = NativeContract.QuantumGuardNexus.Call(
                     snapshot2,
                     "getDesignatedByRole",
                     new ContractParameter(ContractParameterType.Integer) { Value = new BigInteger((int)role) },
@@ -102,7 +102,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 (ret as VM.Types.Array)[0].GetSpan().ToHexString().Should().Be(publicKeys[0].ToArray().ToHexString());
                 (ret as VM.Types.Array)[1].GetSpan().ToHexString().Should().Be(publicKeys[1].ToArray().ToHexString());
 
-                ret = NativeContract.RoleManagement.Call(
+                ret = NativeContract.QuantumGuardNexus.Call(
                     snapshot2,
                     "getDesignatedByRole",
                     new ContractParameter(ContractParameterType.Integer) { Value = new BigInteger((int)role) },

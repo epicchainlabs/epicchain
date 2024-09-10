@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// CryptoLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// CryptoHive.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -29,7 +29,7 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// A native contract library that provides cryptographic algorithms.
     /// </summary>
-    public sealed partial class CryptoLib : NativeContract
+    public sealed partial class CryptoHive : NativeContract
     {
         private static readonly Dictionary<NamedCurveHash, (ECCurve Curve, Hasher Hasher)> s_curves = new()
         {
@@ -39,7 +39,7 @@ namespace Neo.SmartContract.Native
             [NamedCurveHash.secp256r1Keccak256] = (ECCurve.Secp256r1, Hasher.Keccak256),
         };
 
-        internal CryptoLib() : base() { }
+        internal CryptoHive() : base() { }
 
         /// <summary>
         /// Computes the hash value for the specified byte array using the ripemd160 algorithm.

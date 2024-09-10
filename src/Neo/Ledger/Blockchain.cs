@@ -571,7 +571,7 @@ namespace Neo.Ledger
             var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, settings.ValidatorsCount);
             builder.Add(Contract.GetBFTAddress(validators));
             builder.UnionWith(validators.Select(u => Contract.CreateSignatureRedeemScript(u).ToScriptHash()));
-            var stateValidators = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.StateValidator, currentHeight);
+            var stateValidators = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.StateValidator, currentHeight);
             if (stateValidators.Length > 0)
             {
                 builder.Add(Contract.GetBFTAddress(stateValidators));

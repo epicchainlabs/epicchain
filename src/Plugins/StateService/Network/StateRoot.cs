@@ -115,7 +115,7 @@ namespace Neo.Plugins.StateService.Network
 
         public UInt160[] GetScriptHashesForVerifying(DataCache snapshot)
         {
-            ECPoint[] validators = NativeContract.RoleManagement.GetDesignatedByRole(snapshot, Role.StateValidator, Index);
+            ECPoint[] validators = NativeContract.QuantumGuardNexus.GetDesignatedByRole(snapshot, Role.StateValidator, Index);
             if (validators.Length < 1) throw new InvalidOperationException("No script hash for state root verifying");
             return new UInt160[] { Contract.GetBFTAddress(validators) };
         }

@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// OracleContract.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// OracleNexus.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -38,7 +38,7 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// The native Oracle service for NEO system.
     /// </summary>
-    public sealed class OracleContract : NativeContract
+    public sealed class OracleNexus : NativeContract
     {
         private const int MaxUrlLength = 256;
         private const int MaxFilterLength = 128;
@@ -58,7 +58,7 @@ namespace Neo.SmartContract.Native
         [ContractEvent(1, name: "OracleResponse",
             "Id", ContractParameterType.Integer,
             "OriginalTx", ContractParameterType.Hash256)]
-        internal OracleContract() : base() { }
+        internal OracleNexus() : base() { }
 
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.States)]
         private void SetPrice(ApplicationEngine engine, long price)
@@ -176,7 +176,7 @@ namespace Neo.SmartContract.Native
                 if (list.Count == 0) engine.SnapshotCache.Delete(key);
 
                 //Mint GAS for oracle nodes
-                nodes ??= RoleManagement.GetDesignatedByRole(engine.SnapshotCache, Role.Oracle, engine.PersistingBlock.Index).Select(p => (Contract.CreateSignatureRedeemScript(p).ToScriptHash(), BigInteger.Zero)).ToArray();
+                nodes ??= QuantumGuardNexus.GetDesignatedByRole(engine.SnapshotCache, Role.Oracle, engine.PersistingBlock.Index).Select(p => (Contract.CreateSignatureRedeemScript(p).ToScriptHash(), BigInteger.Zero)).ToArray();
                 if (nodes.Length > 0)
                 {
                     int index = (int)(response.Id % (ulong)nodes.Length);

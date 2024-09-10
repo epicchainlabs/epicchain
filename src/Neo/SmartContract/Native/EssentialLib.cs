@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// StdLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// EssentialLib.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -33,11 +33,11 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// A native contract library that provides useful functions.
     /// </summary>
-    public sealed class StdLib : NativeContract
+    public sealed class EssentialLib : NativeContract
     {
         private const int MaxInputLength = 1024;
 
-        internal StdLib() : base() { }
+        internal EssentialLib() : base() { }
 
         [ContractMethod(CpuFee = 1 << 12)]
         private static byte[] Serialize(ApplicationEngine engine, StackItem item)

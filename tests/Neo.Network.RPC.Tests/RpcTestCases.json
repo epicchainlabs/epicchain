@@ -1218,7 +1218,7 @@
             "checksum": 3395482975
           },
           "manifest": {
-            "name": "LedgerContract",
+            "name": "QuantumVaultAsset",
             "groups": [],
             "features": {},
             "supportedstandards": [],
@@ -1630,7 +1630,7 @@
             "checksum": 1136340263
           },
           "manifest": {
-            "name": "PolicyContract",
+            "name": "CovenantChain",
             "groups": [],
             "features": {},
             "supportedstandards": [],
@@ -1812,7 +1812,7 @@
             "checksum": 3289425910
           },
           "manifest": {
-            "name": "RoleManagement",
+            "name": "QuantumGuardNexus",
             "groups": [],
             "features": {},
             "supportedstandards": [],
@@ -1876,7 +1876,7 @@
             "checksum": 3902663397
           },
           "manifest": {
-            "name": "OracleContract",
+            "name": "OracleNexus",
             "groups": [],
             "features": {},
             "supportedstandards": [],

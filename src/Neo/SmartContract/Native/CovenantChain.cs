@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// PolicyContract.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// CovenantChain.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -31,7 +31,7 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// A native contract that manages the system policies.
     /// </summary>
-    public sealed class PolicyContract : NativeContract
+    public sealed class CovenantChain : NativeContract
     {
         /// <summary>
         /// The default execution fee factor.
@@ -75,7 +75,7 @@ namespace Neo.SmartContract.Native
         private const byte Prefix_StoragePrice = 19;
         private const byte Prefix_AttributeFee = 20;
 
-        internal PolicyContract() : base() { }
+        internal CovenantChain() : base() { }
 
         internal override ContractTask InitializeAsync(ApplicationEngine engine, Hardfork? hardfork)
         {
