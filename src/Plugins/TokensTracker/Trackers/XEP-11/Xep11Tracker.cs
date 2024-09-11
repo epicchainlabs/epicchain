@@ -40,9 +40,9 @@ namespace Neo.Plugins.Trackers.NEP_11
 {
     class Xep11Tracker : TrackerBase
     {
-        private const byte Nep11BalancePrefix = 0xf8;
-        private const byte Nep11TransferSentPrefix = 0xf9;
-        private const byte Nep11TransferReceivedPrefix = 0xfa;
+        private const byte Xep11BalancePrefix = 0xf8;
+        private const byte Xep11TransferSentPrefix = 0xf9;
+        private const byte Xep11TransferReceivedPrefix = 0xfa;
         private uint _currentHeight;
         private Block _currentBlock;
         private readonly HashSet<string> _properties = new()
@@ -63,7 +63,7 @@ namespace Neo.Plugins.Trackers.NEP_11
         {
             _currentBlock = block;
             _currentHeight = block.Index;
-            uint nep11TransferIndex = 0;
+            uint Xep11TransferIndex = 0;
             List<TransferRecord> transfers = new();
             foreach (Blockchain.ApplicationExecuted appExecuted in applicationExecutedList)
             {
@@ -79,7 +79,7 @@ namespace Neo.Plugins.Trackers.NEP_11
                     {
                         try
                         {
-                            HandleNotificationNep11(notifyEventArgs.ScriptContainer, notifyEventArgs.ScriptHash, stateItems, transfers, ref nep11TransferIndex);
+                            HandleNotificationXep11(notifyEventArgs.ScriptContainer, notifyEventArgs.ScriptHash, stateItems, transfers, ref Xep11TransferIndex);
                         }
                         catch (Exception e)
                         {
@@ -91,7 +91,7 @@ namespace Neo.Plugins.Trackers.NEP_11
                 }
             }
 
-            // update nep11 balance
+            // update Xep11 balance
             var contracts = new Dictionary<UInt160, (bool isDivisible, ContractState state)>();
             foreach (var transferRecord in transfers)
             {
@@ -140,25 +140,25 @@ namespace Neo.Plugins.Trackers.NEP_11
                 Log($"Fault: from[{record.from}] to[{record.to}] get {record.asset} token [{record.tokenId.ToHexString()}] balance not number", LogLevel.Warning);
                 return;
             }
-            Put(Nep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = toBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
-            Put(Nep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId), new TokenBalance { Balance = fromBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
+            Put(Xep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = toBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
+            Put(Xep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId), new TokenBalance { Balance = fromBalance.GetInteger(), LastUpdatedBlock = _currentHeight });
         }
 
         private void SaveNFTBalance(TransferRecord record)
         {
             if (record.from != UInt160.Zero)
             {
-                Delete(Nep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId));
+                Delete(Xep11BalancePrefix, new Xep11BalanceKey(record.from, record.asset, record.tokenId));
             }
 
             if (record.to != UInt160.Zero)
             {
-                Put(Nep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = 1, LastUpdatedBlock = _currentHeight });
+                Put(Xep11BalancePrefix, new Xep11BalanceKey(record.to, record.asset, record.tokenId), new TokenBalance { Balance = 1, LastUpdatedBlock = _currentHeight });
             }
         }
 
 
-        private void HandleNotificationNep11(IVerifiable scriptContainer, UInt160 asset, Array stateItems, List<TransferRecord> transfers, ref uint transferIndex)
+        private void HandleNotificationXep11(IVerifiable scriptContainer, UInt160 asset, Array stateItems, List<TransferRecord> transfers, ref uint transferIndex)
         {
             if (stateItems.Count != 4) return;
             var transferRecord = GetTransferRecord(asset, stateItems);
@@ -167,17 +167,17 @@ namespace Neo.Plugins.Trackers.NEP_11
             transfers.Add(transferRecord);
             if (scriptContainer is Transaction transaction)
             {
-                RecordTransferHistoryNep11(asset, transferRecord.from, transferRecord.to, transferRecord.tokenId, transferRecord.amount, transaction.Hash, ref transferIndex);
+                RecordTransferHistoryXep11(asset, transferRecord.from, transferRecord.to, transferRecord.tokenId, transferRecord.amount, transaction.Hash, ref transferIndex);
             }
         }
 
 
-        private void RecordTransferHistoryNep11(UInt160 contractHash, UInt160 from, UInt160 to, ByteString tokenId, BigInteger amount, UInt256 txHash, ref uint transferIndex)
+        private void RecordTransferHistoryXep11(UInt160 contractHash, UInt160 from, UInt160 to, ByteString tokenId, BigInteger amount, UInt256 txHash, ref uint transferIndex)
         {
             if (!_shouldTrackHistory) return;
             if (from != UInt160.Zero)
             {
-                Put(Nep11TransferSentPrefix,
+                Put(Xep11TransferSentPrefix,
                     new Xep11TransferKey(from, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
                     new TokenTransfer
                     {
@@ -190,7 +190,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
             if (to != UInt160.Zero)
             {
-                Put(Nep11TransferReceivedPrefix,
+                Put(Xep11TransferReceivedPrefix,
                     new Xep11TransferKey(to, _currentBlock.Header.Timestamp, contractHash, tokenId, transferIndex),
                     new TokenTransfer
                     {
@@ -205,7 +205,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
 
         [RpcMethod]
-        public JToken GetNep11Transfers(JArray _params)
+        public JToken GetXep11Transfers(JArray _params)
         {
             _shouldTrackHistory.True_Or(RpcError.MethodNotFound);
             UInt160 userScriptHash = GetScriptHashFromParam(_params[0].AsString());
@@ -221,13 +221,13 @@ namespace Neo.Plugins.Trackers.NEP_11
             json["sent"] = transfersSent;
             JArray transfersReceived = new();
             json["received"] = transfersReceived;
-            AddNep11Transfers(Nep11TransferSentPrefix, userScriptHash, startTime, endTime, transfersSent);
-            AddNep11Transfers(Nep11TransferReceivedPrefix, userScriptHash, startTime, endTime, transfersReceived);
+            AddXep11Transfers(Xep11TransferSentPrefix, userScriptHash, startTime, endTime, transfersSent);
+            AddXep11Transfers(Xep11TransferReceivedPrefix, userScriptHash, startTime, endTime, transfersReceived);
             return json;
         }
 
         [RpcMethod]
-        public JToken GetNep11Balances(JArray _params)
+        public JToken GetXep11Balances(JArray _params)
         {
             UInt160 userScriptHash = GetScriptHashFromParam(_params[0].AsString());
 
@@ -238,7 +238,7 @@ namespace Neo.Plugins.Trackers.NEP_11
 
             var map = new Dictionary<UInt160, List<(string tokenid, BigInteger amount, uint height)>>();
             int count = 0;
-            byte[] prefix = Key(Nep11BalancePrefix, userScriptHash);
+            byte[] prefix = Key(Xep11BalancePrefix, userScriptHash);
             foreach (var (key, value) in _db.FindPrefix<Xep11BalanceKey, TokenBalance>(prefix))
             {
                 if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
@@ -287,13 +287,13 @@ namespace Neo.Plugins.Trackers.NEP_11
         }
 
         [RpcMethod]
-        public JToken GetNep11Properties(JArray _params)
+        public JToken GetXep11Properties(JArray _params)
         {
-            UInt160 nep11Hash = GetScriptHashFromParam(_params[0].AsString());
+            UInt160 Xep11Hash = GetScriptHashFromParam(_params[0].AsString());
             var tokenId = _params[1].AsString().HexToBytes();
 
             using ScriptBuilder sb = new();
-            sb.EmitDynamicCall(nep11Hash, "properties", CallFlags.ReadOnly, tokenId);
+            sb.EmitDynamicCall(Xep11Hash, "properties", CallFlags.ReadOnly, tokenId);
             using var snapshot = _EpicChainSystem.GetSnapshotCache();
 
             using var engine = ApplicationEngine.Run(sb.ToArray(), snapshot, settings: _EpicChainSystem.Settings);
@@ -319,7 +319,7 @@ namespace Neo.Plugins.Trackers.NEP_11
             return json;
         }
 
-        private void AddNep11Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
+        private void AddXep11Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
         {
             var transferPairs = QueryTransfers<Xep11TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
             foreach (var (key, value) in transferPairs.OrderByDescending(l => l.key.TimestampMS))
