@@ -75,7 +75,7 @@ namespace Neo.Network.RPC.Tests
             byte[] testScript = NativeContract.NEO.Hash.MakeScript("balanceOf", sender);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_00000000) });
 
-            var balance = await walletAPI.GetNeoBalanceAsync(address1);
+            var balance = await walletAPI.GetEpicChainBalanceAsync(address1);
             Assert.AreEqual(1_00000000u, balance);
         }
 

@@ -27,7 +27,7 @@ namespace Neo.VM.Benchmark
     public class Benchmarks_PoCs
     {
         [Benchmark]
-        public void NeoIssue2528()
+        public void EpicChainIssue2528()
         {
             // https://github.com/epicchainlabs/epicchain/issues/2528
             // L01: INITSLOT 1, 0
@@ -56,11 +56,11 @@ namespace Neo.VM.Benchmark
             // L24: LDLOC 0
             // L25: JMPIF_L L19
             // L26: DROP
-            Run(nameof(NeoIssue2528), "VwEAwkpKAfsHdwARwG8AnXcAbwAl9////xHAzwJwlAAAdwAQzm8AnXcAbwAl9////0U=");
+            Run(nameof(EpicChainIssue2528), "VwEAwkpKAfsHdwARwG8AnXcAbwAl9////xHAzwJwlAAAdwAQzm8AnXcAbwAl9////0U=");
         }
 
         [Benchmark]
-        public void NeoVMIssue418()
+        public void EpicChainVMIssue418()
         {
             // https://github.com/epicchainlabs/epiccha-vm/issues/418
             // L00: NEWARRAY0
@@ -91,11 +91,11 @@ namespace Neo.VM.Benchmark
             // L25: DROP
             // L26: ROT
             // L27: DROP
-            Run(nameof(NeoVMIssue418), "whBNEcARTRHAVgEB/gGdYBFNEU0SwFMSwFhKJPNFUUU=");
+            Run(nameof(EpicChainVMIssue418), "whBNEcARTRHAVgEB/gGdYBFNEU0SwFMSwFhKJPNFUUU=");
         }
 
         [Benchmark]
-        public void NeoIssue2723()
+        public void EpicChainIssue2723()
         {
             // L00: INITSSLOT 1
             // L01: PUSHINT32 130000
@@ -108,7 +108,7 @@ namespace Neo.VM.Benchmark
             // L08: DUP
             // L09: STSFLD 0
             // L10: JMPIF L03
-            Run(nameof(NeoIssue2723), "VgEC0PsBAGcAAgAAEACIRV8AnUpnACTz");
+            Run(nameof(EpicChainIssue2723), "VgEC0PsBAGcAAgAAEACIRV8AnUpnACTz");
         }
 
         private static void Run(string name, string poc)

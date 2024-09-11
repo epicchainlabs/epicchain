@@ -77,12 +77,12 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get Neo Balance
+        /// Get EpicChain Balance
         /// </summary>
         /// <param name="account">address, scripthash or public key string
         /// Example: address ("Ncm9TEzrp8SSer6Wa3UCSLTRnqzwVhCfuE"), scripthash ("0xb0a31817c80ad5f87b6ed390ecb3f9d312f7ceb8"), public key ("02f9ec1fd0a98796cf75b586772a4ddd41a0af07a1dbdf86a7238f74fb72503575")</param>
         /// <returns></returns>
-        public async Task<uint> GetNeoBalanceAsync(string account)
+        public async Task<uint> GetEpicChainBalanceAsync(string account)
         {
             BigInteger balance = await GetTokenBalanceAsync(NativeContract.NEO.Hash.ToString(), account).ConfigureAwait(false);
             return (uint)balance;
