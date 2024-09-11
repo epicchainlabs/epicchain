@@ -214,7 +214,7 @@ namespace Neo.UnitTests.SmartContract
                 Manifest = TestUtils.CreateManifest("verify", ContractParameterType.Boolean, ContractParameterType.Signature), // Offset = 0
             };
             snapshotCache3.AddContract(contract.Hash, contract);
-            var tx = new Nep17NativeContractExtensions.ManualWitness(contract.Hash)
+            var tx = new Xep17NativeContractExtensions.ManualWitness(contract.Hash)
             {
                 Witnesses = new Witness[] { new Witness() { InvocationScript = Array.Empty<byte>(), VerificationScript = Array.Empty<byte>() } }
             };

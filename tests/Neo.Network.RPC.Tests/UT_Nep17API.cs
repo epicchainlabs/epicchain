@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// UT_Nep17API.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// UT_Xep17API.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -34,12 +34,12 @@ using System.Threading.Tasks;
 namespace Neo.Network.RPC.Tests
 {
     [TestClass]
-    public class UT_Nep17API
+    public class UT_Xep17API
     {
         Mock<RpcClient> rpcClientMock;
         KeyPair keyPair1;
         UInt160 sender;
-        Nep17API nep17API;
+        Xep17API Xep17API;
 
         [TestInitialize]
         public void TestSetup()
@@ -47,7 +47,7 @@ namespace Neo.Network.RPC.Tests
             keyPair1 = new KeyPair(Wallet.GetPrivateKeyFromWIF("KyXwTh1hB76RRMquSvnxZrJzQx7h9nQP2PCRL38v6VDb5ip3nf1p"));
             sender = Contract.CreateSignatureRedeemScript(keyPair1.PublicKey).ToScriptHash();
             rpcClientMock = UT_TransactionManager.MockRpcClient(sender, new byte[0]);
-            nep17API = new Nep17API(rpcClientMock.Object);
+            Xep17API = new Xep17API(rpcClientMock.Object);
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace Neo.Network.RPC.Tests
             byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("balanceOf", UInt160.Zero);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(10000) });
 
-            var balance = await nep17API.BalanceOfAsync(NativeContract.EpicPulse.Hash, UInt160.Zero);
+            var balance = await Xep17API.BalanceOfAsync(NativeContract.EpicPulse.Hash, UInt160.Zero);
             Assert.AreEqual(10000, (int)balance);
         }
 
@@ -66,7 +66,7 @@ namespace Neo.Network.RPC.Tests
             byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("symbol");
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.String, Value = NativeContract.EpicPulse.Symbol });
 
-            var result = await nep17API.SymbolAsync(NativeContract.EpicPulse.Hash);
+            var result = await Xep17API.SymbolAsync(NativeContract.EpicPulse.Hash);
             Assert.AreEqual(NativeContract.EpicPulse.Symbol, result);
         }
 
@@ -76,7 +76,7 @@ namespace Neo.Network.RPC.Tests
             byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("decimals");
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(NativeContract.EpicPulse.Decimals) });
 
-            var result = await nep17API.DecimalsAsync(NativeContract.EpicPulse.Hash);
+            var result = await Xep17API.DecimalsAsync(NativeContract.EpicPulse.Hash);
             Assert.AreEqual(NativeContract.EpicPulse.Decimals, result);
         }
 
@@ -86,7 +86,7 @@ namespace Neo.Network.RPC.Tests
             byte[] testScript = NativeContract.EpicPulse.Hash.MakeScript("totalSupply");
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_00000000) });
 
-            var result = await nep17API.TotalSupplyAsync(NativeContract.EpicPulse.Hash);
+            var result = await Xep17API.TotalSupplyAsync(NativeContract.EpicPulse.Hash);
             Assert.AreEqual(1_00000000, (int)result);
         }
 
@@ -123,13 +123,13 @@ namespace Neo.Network.RPC.Tests
                 .Verifiable();
                 if (test.Request.Params[0].AsString() == NativeContract.EpicPulse.Hash.ToString() || test.Request.Params[0].AsString().Equals(NativeContract.EpicPulse.Name, System.StringComparison.OrdinalIgnoreCase))
                 {
-                    var result = await nep17API.GetTokenInfoAsync(NativeContract.EpicPulse.Name.ToLower());
+                    var result = await Xep17API.GetTokenInfoAsync(NativeContract.EpicPulse.Name.ToLower());
                     Assert.AreEqual(NativeContract.EpicPulse.Symbol, result.Symbol);
                     Assert.AreEqual(8, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
                     Assert.AreEqual("EpicPulse", result.Name);
 
-                    result = await nep17API.GetTokenInfoAsync(NativeContract.EpicPulse.Hash);
+                    result = await Xep17API.GetTokenInfoAsync(NativeContract.EpicPulse.Hash);
                     Assert.AreEqual(NativeContract.EpicPulse.Symbol, result.Symbol);
                     Assert.AreEqual(8, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
@@ -138,13 +138,13 @@ namespace Neo.Network.RPC.Tests
                 }
                 else if (test.Request.Params[0].AsString() == NativeContract.NEO.Hash.ToString() || test.Request.Params[0].AsString().Equals(NativeContract.NEO.Name, System.StringComparison.OrdinalIgnoreCase))
                 {
-                    var result = await nep17API.GetTokenInfoAsync(NativeContract.NEO.Name.ToLower());
+                    var result = await Xep17API.GetTokenInfoAsync(NativeContract.NEO.Name.ToLower());
                     Assert.AreEqual(NativeContract.NEO.Symbol, result.Symbol);
                     Assert.AreEqual(0, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
                     Assert.AreEqual("EpicChain", result.Name);
 
-                    result = await nep17API.GetTokenInfoAsync(NativeContract.NEO.Hash);
+                    result = await Xep17API.GetTokenInfoAsync(NativeContract.NEO.Hash);
                     Assert.AreEqual(NativeContract.NEO.Symbol, result.Symbol);
                     Assert.AreEqual(0, result.Decimals);
                     Assert.AreEqual(1_00000000, (int)result.TotalSupply);
@@ -164,14 +164,14 @@ namespace Neo.Network.RPC.Tests
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter());
 
             var client = rpcClientMock.Object;
-            var result = await nep17API.CreateTransferTxAsync(NativeContract.EpicPulse.Hash, keyPair1, UInt160.Zero, new BigInteger(1_00000000), null, true);
+            var result = await Xep17API.CreateTransferTxAsync(NativeContract.EpicPulse.Hash, keyPair1, UInt160.Zero, new BigInteger(1_00000000), null, true);
 
             testScript = NativeContract.EpicPulse.Hash.MakeScript("transfer", sender, UInt160.Zero, new BigInteger(1_00000000), string.Empty)
                 .Concat(new[] { (byte)OpCode.ASSERT })
                 .ToArray();
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter());
 
-            result = await nep17API.CreateTransferTxAsync(NativeContract.EpicPulse.Hash, keyPair1, UInt160.Zero, new BigInteger(1_00000000), string.Empty, true);
+            result = await Xep17API.CreateTransferTxAsync(NativeContract.EpicPulse.Hash, keyPair1, UInt160.Zero, new BigInteger(1_00000000), string.Empty, true);
             Assert.IsNotNull(result);
         }
     }

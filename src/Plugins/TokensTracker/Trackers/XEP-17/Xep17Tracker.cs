@@ -42,9 +42,9 @@ namespace Neo.Plugins.Trackers.NEP_17
 
     class Xep17Tracker : TrackerBase
     {
-        private const byte Nep17BalancePrefix = 0xe8;
-        private const byte Nep17TransferSentPrefix = 0xe9;
-        private const byte Nep17TransferReceivedPrefix = 0xea;
+        private const byte Xep17BalancePrefix = 0xe8;
+        private const byte Xep17TransferSentPrefix = 0xe9;
+        private const byte Xep17TransferReceivedPrefix = 0xea;
         private uint _currentHeight;
         private Block _currentBlock;
 
@@ -58,7 +58,7 @@ namespace Neo.Plugins.Trackers.NEP_17
         {
             _currentBlock = block;
             _currentHeight = block.Index;
-            uint nep17TransferIndex = 0;
+            uint Xep17TransferIndex = 0;
             var balanceChangeRecords = new HashSet<BalanceChangeRecord>();
 
             foreach (Blockchain.ApplicationExecuted appExecuted in applicationExecutedList)
@@ -74,7 +74,7 @@ namespace Neo.Plugins.Trackers.NEP_17
                     {
                         try
                         {
-                            HandleNotificationNep17(notifyEventArgs.ScriptContainer, notifyEventArgs.ScriptHash, stateItems, balanceChangeRecords, ref nep17TransferIndex);
+                            HandleNotificationXep17(notifyEventArgs.ScriptContainer, notifyEventArgs.ScriptHash, stateItems, balanceChangeRecords, ref Xep17TransferIndex);
                         }
                         catch (Exception e)
                         {
@@ -85,7 +85,7 @@ namespace Neo.Plugins.Trackers.NEP_17
                 }
             }
 
-            //update nep17 balance
+            //update Xep17 balance
             foreach (var balanceChangeRecord in balanceChangeRecords)
             {
                 try
@@ -101,7 +101,7 @@ namespace Neo.Plugins.Trackers.NEP_17
         }
 
 
-        private void HandleNotificationNep17(IVerifiable scriptContainer, UInt160 asset, Array stateItems, HashSet<BalanceChangeRecord> balanceChangeRecords, ref uint transferIndex)
+        private void HandleNotificationXep17(IVerifiable scriptContainer, UInt160 asset, Array stateItems, HashSet<BalanceChangeRecord> balanceChangeRecords, ref uint transferIndex)
         {
             if (stateItems.Count != 3) return;
             var transferRecord = GetTransferRecord(asset, stateItems);
@@ -116,7 +116,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             }
             if (scriptContainer is Transaction transaction)
             {
-                RecordTransferHistoryNep17(asset, transferRecord.from, transferRecord.to, transferRecord.amount, transaction.Hash, ref transferIndex);
+                RecordTransferHistoryXep17(asset, transferRecord.from, transferRecord.to, transferRecord.amount, transaction.Hash, ref transferIndex);
             }
         }
 
@@ -145,16 +145,16 @@ namespace Neo.Plugins.Trackers.NEP_17
 
             if (balance.IsZero)
             {
-                Delete(Nep17BalancePrefix, key);
+                Delete(Xep17BalancePrefix, key);
                 return;
             }
 
-            Put(Nep17BalancePrefix, key, new TokenBalance { Balance = balance, LastUpdatedBlock = _currentHeight });
+            Put(Xep17BalancePrefix, key, new TokenBalance { Balance = balance, LastUpdatedBlock = _currentHeight });
         }
 
 
         [RpcMethod]
-        public JToken GetNep17Transfers(JArray _params)
+        public JToken GetXep17Transfers(JArray _params)
         {
             _shouldTrackHistory.True_Or(RpcError.MethodNotFound);
             UInt160 userScriptHash = GetScriptHashFromParam(_params[0].AsString());
@@ -171,13 +171,13 @@ namespace Neo.Plugins.Trackers.NEP_17
             json["sent"] = transfersSent;
             JArray transfersReceived = new();
             json["received"] = transfersReceived;
-            AddNep17Transfers(Nep17TransferSentPrefix, userScriptHash, startTime, endTime, transfersSent);
-            AddNep17Transfers(Nep17TransferReceivedPrefix, userScriptHash, startTime, endTime, transfersReceived);
+            AddXep17Transfers(Xep17TransferSentPrefix, userScriptHash, startTime, endTime, transfersSent);
+            AddXep17Transfers(Xep17TransferReceivedPrefix, userScriptHash, startTime, endTime, transfersReceived);
             return json;
         }
 
         [RpcMethod]
-        public JToken GetNep17Balances(JArray _params)
+        public JToken GetXep17Balances(JArray _params)
         {
             UInt160 userScriptHash = GetScriptHashFromParam(_params[0].AsString());
 
@@ -187,7 +187,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             json["balance"] = balances;
 
             int count = 0;
-            byte[] prefix = Key(Nep17BalancePrefix, userScriptHash);
+            byte[] prefix = Key(Xep17BalancePrefix, userScriptHash);
             foreach (var (key, value) in _db.FindPrefix<Xep17BalanceKey, TokenBalance>(prefix))
             {
                 if (NativeContract.ContractManagement.GetContract(_EpicChainSystem.StoreView, key.AssetScriptHash) is null)
@@ -224,7 +224,7 @@ namespace Neo.Plugins.Trackers.NEP_17
             return json;
         }
 
-        private void AddNep17Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
+        private void AddXep17Transfers(byte dbPrefix, UInt160 userScriptHash, ulong startTime, ulong endTime, JArray parentJArray)
         {
             var transferPairs = QueryTransfers<Xep17TransferKey, TokenTransfer>(dbPrefix, userScriptHash, startTime, endTime).Take((int)_maxResults).ToList();
             foreach (var (key, value) in transferPairs.OrderByDescending(l => l.key.TimestampMS))
@@ -234,12 +234,12 @@ namespace Neo.Plugins.Trackers.NEP_17
         }
 
 
-        private void RecordTransferHistoryNep17(UInt160 scriptHash, UInt160 from, UInt160 to, BigInteger amount, UInt256 txHash, ref uint transferIndex)
+        private void RecordTransferHistoryXep17(UInt160 scriptHash, UInt160 from, UInt160 to, BigInteger amount, UInt256 txHash, ref uint transferIndex)
         {
             if (!_shouldTrackHistory) return;
             if (from != UInt160.Zero)
             {
-                Put(Nep17TransferSentPrefix,
+                Put(Xep17TransferSentPrefix,
                     new Xep17TransferKey(from, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
                     new TokenTransfer
                     {
@@ -252,7 +252,7 @@ namespace Neo.Plugins.Trackers.NEP_17
 
             if (to != UInt160.Zero)
             {
-                Put(Nep17TransferReceivedPrefix,
+                Put(Xep17TransferReceivedPrefix,
                     new Xep17TransferKey(to, _currentBlock.Header.Timestamp, scriptHash, transferIndex),
                     new TokenTransfer
                     {

@@ -27,13 +27,13 @@ using System.Numerics;
 
 namespace Neo.Network.RPC.Models
 {
-    public class RpcNep17Transfers
+    public class RpcXep17Transfers
     {
         public UInt160 UserScriptHash { get; set; }
 
-        public List<RpcNep17Transfer> Sent { get; set; }
+        public List<RpcXep17Transfer> Sent { get; set; }
 
-        public List<RpcNep17Transfer> Received { get; set; }
+        public List<RpcXep17Transfer> Received { get; set; }
 
         public JObject ToJson(ProtocolSettings protocolSettings)
         {
@@ -44,19 +44,19 @@ namespace Neo.Network.RPC.Models
             return json;
         }
 
-        public static RpcNep17Transfers FromJson(JObject json, ProtocolSettings protocolSettings)
+        public static RpcXep17Transfers FromJson(JObject json, ProtocolSettings protocolSettings)
         {
-            RpcNep17Transfers transfers = new()
+            RpcXep17Transfers transfers = new()
             {
-                Sent = ((JArray)json["sent"]).Select(p => RpcNep17Transfer.FromJson((JObject)p, protocolSettings)).ToList(),
-                Received = ((JArray)json["received"]).Select(p => RpcNep17Transfer.FromJson((JObject)p, protocolSettings)).ToList(),
+                Sent = ((JArray)json["sent"]).Select(p => RpcXep17Transfer.FromJson((JObject)p, protocolSettings)).ToList(),
+                Received = ((JArray)json["received"]).Select(p => RpcXep17Transfer.FromJson((JObject)p, protocolSettings)).ToList(),
                 UserScriptHash = json["address"].ToScriptHash(protocolSettings)
             };
             return transfers;
         }
     }
 
-    public class RpcNep17Transfer
+    public class RpcXep17Transfer
     {
         public ulong TimestampMS { get; set; }
 
@@ -85,9 +85,9 @@ namespace Neo.Network.RPC.Models
             return json;
         }
 
-        public static RpcNep17Transfer FromJson(JObject json, ProtocolSettings protocolSettings)
+        public static RpcXep17Transfer FromJson(JObject json, ProtocolSettings protocolSettings)
         {
-            return new RpcNep17Transfer
+            return new RpcXep17Transfer
             {
                 TimestampMS = (ulong)json["timestamp"].AsNumber(),
                 AssetHash = json["assethash"].ToScriptHash(protocolSettings),

@@ -31,7 +31,7 @@ namespace Neo.Network.RPC.Models
     {
         public UInt160 UserScriptHash { get; set; }
 
-        public List<RpcNep17Balance> Balances { get; set; }
+        public List<RpcXep17Balance> Balances { get; set; }
 
         public JObject ToJson(ProtocolSettings protocolSettings)
         {
@@ -43,16 +43,16 @@ namespace Neo.Network.RPC.Models
 
         public static RpcXep17Balances FromJson(JObject json, ProtocolSettings protocolSettings)
         {
-            RpcXep17Balances nep17Balance = new()
+            RpcXep17Balances Xep17Balance = new()
             {
-                Balances = ((JArray)json["balance"]).Select(p => RpcNep17Balance.FromJson((JObject)p, protocolSettings)).ToList(),
+                Balances = ((JArray)json["balance"]).Select(p => RpcXep17Balance.FromJson((JObject)p, protocolSettings)).ToList(),
                 UserScriptHash = json["address"].ToScriptHash(protocolSettings)
             };
-            return nep17Balance;
+            return Xep17Balance;
         }
     }
 
-    public class RpcNep17Balance
+    public class RpcXep17Balance
     {
         public UInt160 AssetHash { get; set; }
 
@@ -69,9 +69,9 @@ namespace Neo.Network.RPC.Models
             return json;
         }
 
-        public static RpcNep17Balance FromJson(JObject json, ProtocolSettings protocolSettings)
+        public static RpcXep17Balance FromJson(JObject json, ProtocolSettings protocolSettings)
         {
-            RpcNep17Balance balance = new()
+            RpcXep17Balance balance = new()
             {
                 AssetHash = json["assethash"].ToScriptHash(protocolSettings),
                 Amount = BigInteger.Parse(json["amount"].AsString()),

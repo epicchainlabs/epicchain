@@ -105,16 +105,16 @@ namespace Neo.Network.RPC.Tests
         [TestMethod()]
         public void TestRpcXep17Balances()
         {
-            JToken json = TestUtils.RpcTestCases.Find(p => p.Name == nameof(RpcClient.GetNep17BalancesAsync).ToLower()).Response.Result;
+            JToken json = TestUtils.RpcTestCases.Find(p => p.Name == nameof(RpcClient.GetXep17BalancesAsync).ToLower()).Response.Result;
             var item = RpcXep17Balances.FromJson((JObject)json, rpc.protocolSettings);
             Assert.AreEqual(json.ToString(), item.ToJson(rpc.protocolSettings).ToString());
         }
 
         [TestMethod()]
-        public void TestRpcNep17Transfers()
+        public void TestRpcXep17Transfers()
         {
-            JToken json = TestUtils.RpcTestCases.Find(p => p.Name == nameof(RpcClient.GetNep17TransfersAsync).ToLower()).Response.Result;
-            var item = RpcNep17Transfers.FromJson((JObject)json, rpc.protocolSettings);
+            JToken json = TestUtils.RpcTestCases.Find(p => p.Name == nameof(RpcClient.GetXep17TransfersAsync).ToLower()).Response.Result;
+            var item = RpcXep17Transfers.FromJson((JObject)json, rpc.protocolSettings);
             Assert.AreEqual(json.ToString(), item.ToJson(rpc.protocolSettings).ToString());
         }
 

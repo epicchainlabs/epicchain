@@ -1009,7 +1009,7 @@ namespace Neo.UnitTests.SmartContract.Native
         internal static (VM.Types.Boolean Value, bool State) Check_SetepicpulsePerBlock(DataCache clonedCache, BigInteger epicpulsePerBlock, Block persistingBlock)
         {
             UInt160 committeeMultiSigAddr = NativeContract.NEO.GetCommitteeAddress(clonedCache);
-            using var engine = ApplicationEngine.Create(TriggerType.Application, new Nep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
+            using var engine = ApplicationEngine.Create(TriggerType.Application, new Xep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.NEO.Hash, "setepicpulsePerBlock", epicpulsePerBlock);
@@ -1026,7 +1026,7 @@ namespace Neo.UnitTests.SmartContract.Native
         internal static (bool State, bool Result) Check_Vote(DataCache clonedCache, byte[] account, byte[] pubkey, bool signAccount, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application,
-                new Nep17NativeContractExtensions.ManualWitness(signAccount ? new UInt160(account) : UInt160.Zero), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
+                new Xep17NativeContractExtensions.ManualWitness(signAccount ? new UInt160(account) : UInt160.Zero), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.NEO.Hash, "vote", account, pubkey);
@@ -1047,7 +1047,7 @@ namespace Neo.UnitTests.SmartContract.Native
         internal static (bool State, bool Result) Check_RegisterValidator(DataCache clonedCache, byte[] pubkey, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application,
-                new Nep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: 1100_00000000);
+                new Xep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings, epicpulse: 1100_00000000);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.NEO.Hash, "registerCandidate", pubkey);
@@ -1137,7 +1137,7 @@ namespace Neo.UnitTests.SmartContract.Native
         internal static (bool State, bool Result) Check_UnregisterCandidate(DataCache clonedCache, byte[] pubkey, Block persistingBlock)
         {
             using var engine = ApplicationEngine.Create(TriggerType.Application,
-                new Nep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
+                new Xep17NativeContractExtensions.ManualWitness(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(pubkey, ECCurve.Secp256r1)).ToScriptHash()), clonedCache, persistingBlock, settings: TestBlockchain.TheEpicChainSystem.Settings);
 
             using var script = new ScriptBuilder();
             script.EmitDynamicCall(NativeContract.NEO.Hash, "unregisterCandidate", pubkey);

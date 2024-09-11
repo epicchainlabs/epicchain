@@ -198,9 +198,9 @@ namespace Neo.SmartContract.Native
 
             if (!callOnPayment || to is null || ContractManagement.GetContract(engine.SnapshotCache, to) is null) return;
 
-            // Call onNEP17Payment method
+            // Call onXep17Payment method
 
-            await engine.CallFromNativeContractAsync(Hash, to, "onNEP17Payment", from?.ToArray() ?? StackItem.Null, amount, data);
+            await engine.CallFromNativeContractAsync(Hash, to, "onXep17Payment", from?.ToArray() ?? StackItem.Null, amount, data);
         }
     }
 }

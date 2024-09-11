@@ -80,7 +80,7 @@ namespace Neo.UnitTests.SmartContract.Native
                 ApplicationEngine.Notify += ev;
                 var ret = NativeContract.QuantumGuardNexus.Call(
                     snapshot1,
-                    new Nep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr),
+                    new Xep17NativeContractExtensions.ManualWitness(committeeMultiSigAddr),
                     new Block { Header = new Header() },
                     "designateAsRole",
                     new ContractParameter(ContractParameterType.Integer) { Value = new BigInteger((int)role) },

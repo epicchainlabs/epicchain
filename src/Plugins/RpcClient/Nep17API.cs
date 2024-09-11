@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// Nep17API.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// Xep17API.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -33,18 +33,18 @@ using System.Threading.Tasks;
 namespace Neo.Network.RPC
 {
     /// <summary>
-    /// Call NEP17 methods with RPC API
+    /// Call Xep17 methods with RPC API
     /// </summary>
-    public class Nep17API : ContractClient
+    public class Xep17API : ContractClient
     {
         /// <summary>
-        /// Nep17API Constructor
+        /// Xep17API Constructor
         /// </summary>
         /// <param name="rpcClient">the RPC client to call NEO RPC methods</param>
-        public Nep17API(RpcClient rpcClient) : base(rpcClient) { }
+        public Xep17API(RpcClient rpcClient) : base(rpcClient) { }
 
         /// <summary>
-        /// Get balance of NEP17 token
+        /// Get balance of Xep17 token
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <param name="account">account script hash</param>
@@ -57,7 +57,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get symbol of NEP17 token
+        /// Get symbol of Xep17 token
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <returns></returns>
@@ -68,7 +68,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get decimals of NEP17 token
+        /// Get decimals of Xep17 token
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <returns></returns>
@@ -79,7 +79,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Get total supply of NEP17 token
+        /// Get total supply of Xep17 token
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <returns></returns>
@@ -135,7 +135,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Create NEP17 token transfer transaction
+        /// Create Xep17 token transfer transaction
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <param name="fromKey">from KeyPair</param>
@@ -160,7 +160,7 @@ namespace Neo.Network.RPC
         }
 
         /// <summary>
-        /// Create NEP17 token transfer transaction from multi-sig account
+        /// Create Xep17 token transfer transaction from multi-sig account
         /// </summary>
         /// <param name="scriptHash">contract script hash</param>
         /// <param name="m">multi-sig min signature count</param>

@@ -119,7 +119,7 @@ namespace Neo.UnitTests.SmartContract.Native
         }
 
         [TestMethod]
-        public void TestGenesisNEP17Manifest()
+        public void TestGenesisXep17Manifest()
         {
             var persistingBlock = new Block
             {
