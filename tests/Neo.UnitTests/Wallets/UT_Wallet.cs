@@ -260,15 +260,15 @@ namespace Neo.UnitTests.Wallets
         }
 
         [TestMethod]
-        public void TestGetPrivateKeyFromNEP2()
+        public void TestGetPrivateKeyFromXEP2()
         {
-            Action action = () => Wallet.GetPrivateKeyFromNEP2("3vQB7B6MrGQZaxCuFg4oh", "TestGetPrivateKeyFromNEP2", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            Action action = () => Wallet.GetPrivateKeyFromXEP2("3vQB7B6MrGQZaxCuFg4oh", "TestGetPrivateKeyFromXEP2", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
             action.Should().Throw<FormatException>();
 
-            action = () => Wallet.GetPrivateKeyFromNEP2(Xep2key, "Test", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            action = () => Wallet.GetPrivateKeyFromXEP2(Xep2key, "Test", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
             action.Should().Throw<FormatException>();
 
-            Wallet.GetPrivateKeyFromNEP2(Xep2key, "pwd", ProtocolSettings.Default.AddressVersion, 2, 1, 1).Should().BeEquivalentTo(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 });
+            Wallet.GetPrivateKeyFromXEP2(Xep2key, "pwd", ProtocolSettings.Default.AddressVersion, 2, 1, 1).Should().BeEquivalentTo(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 });
         }
 
         [TestMethod]

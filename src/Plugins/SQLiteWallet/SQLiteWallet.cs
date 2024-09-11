@@ -326,7 +326,7 @@ class SQLiteWallet : Wallet
             VerificationContract contract = db_contract.RawData.AsSerializable<VerificationContract>();
             SQLiteWalletAccount account = accounts[contract.ScriptHash];
             account.Contract = contract;
-            account.Key = new KeyPair(GetPrivateKeyFromNEP2(db_contract.Account.Xep2key, masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P));
+            account.Key = new KeyPair(GetPrivateKeyFromXEP2(db_contract.Account.Xep2key, masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P));
         }
         return accounts;
     }

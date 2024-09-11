@@ -330,12 +330,12 @@ namespace Neo.Wallets
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <returns>The decoded private key.</returns>
-        public static byte[] GetPrivateKeyFromNEP2(string nep2, string passphrase, byte version, int N = 16384, int r = 8, int p = 8)
+        public static byte[] GetPrivateKeyFromXEP2(string nep2, string passphrase, byte version, int N = 16384, int r = 8, int p = 8)
         {
             byte[] passphrasedata = Encoding.UTF8.GetBytes(passphrase);
             try
             {
-                return GetPrivateKeyFromNEP2(nep2, passphrasedata, version, N, r, p);
+                return GetPrivateKeyFromXEP2(nep2, passphrasedata, version, N, r, p);
             }
             finally
             {
@@ -353,7 +353,7 @@ namespace Neo.Wallets
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <returns>The decoded private key.</returns>
-        public static byte[] GetPrivateKeyFromNEP2(string nep2, byte[] passphrase, byte version, int N = 16384, int r = 8, int p = 8)
+        public static byte[] GetPrivateKeyFromXEP2(string nep2, byte[] passphrase, byte version, int N = 16384, int r = 8, int p = 8)
         {
             if (nep2 == null) throw new ArgumentNullException(nameof(nep2));
             if (passphrase == null) throw new ArgumentNullException(nameof(passphrase));
@@ -462,7 +462,7 @@ namespace Neo.Wallets
         /// <returns>The imported account.</returns>
         public virtual WalletAccount Import(string nep2, string passphrase, int N = 16384, int r = 8, int p = 8)
         {
-            byte[] privateKey = GetPrivateKeyFromNEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p);
+            byte[] privateKey = GetPrivateKeyFromXEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p);
             WalletAccount account = CreateAccount(privateKey);
             Array.Clear(privateKey, 0, privateKey.Length);
             return account;

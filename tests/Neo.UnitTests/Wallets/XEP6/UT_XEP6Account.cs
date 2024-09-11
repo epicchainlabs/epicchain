@@ -35,7 +35,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         XEP6Account _account;
         UInt160 _hash;
         XEP6Wallet _wallet;
-        private static string _nep2;
+        private static string _xep2;
         private static KeyPair _keyPair;
 
         [ClassInitialize]
@@ -44,7 +44,7 @@ namespace Neo.UnitTests.Wallets.XEP6
             byte[] privateKey = { 0x01,0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
                 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01};
             _keyPair = new KeyPair(privateKey);
-            _nep2 = _keyPair.Export("Satoshi", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            _xep2 = _keyPair.Export("Satoshi", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
         }
 
         [TestInitialize]
@@ -59,7 +59,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         [TestMethod]
         public void TestChangePassword()
         {
-            _account = new XEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _xep2);
             _account.ChangePasswordPrepare("b", "Satoshi").Should().BeTrue();
             _account.ChangePasswordCommit();
             _account.Contract = new Contract();
@@ -126,7 +126,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         public void TestGetKey()
         {
             _account.GetKey().Should().BeNull();
-            _account = new XEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _xep2);
             _account.GetKey().Should().Be(_keyPair);
         }
 
@@ -134,7 +134,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         public void TestGetKeyWithString()
         {
             _account.GetKey("Satoshi").Should().BeNull();
-            _account = new XEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _xep2);
             _account.GetKey("Satoshi").Should().Be(_keyPair);
         }
 
@@ -170,7 +170,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         [TestMethod]
         public void TestVerifyPassword()
         {
-            _account = new XEP6Account(_wallet, _hash, _nep2);
+            _account = new XEP6Account(_wallet, _hash, _xep2);
             _account.VerifyPassword("Satoshi").Should().BeTrue();
             _account.VerifyPassword("b").Should().BeFalse();
         }

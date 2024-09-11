@@ -200,7 +200,7 @@ namespace Neo.Wallets.XEP6
         /// <returns>The decrypted private key.</returns>
         internal KeyPair DecryptKey(string Xep2key)
         {
-            return new KeyPair(GetPrivateKeyFromNEP2(Xep2key, password.GetClearText(), ProtocolSettings.AddressVersion, Scrypt.N, Scrypt.R, Scrypt.P));
+            return new KeyPair(GetPrivateKeyFromXEP2(Xep2key, password.GetClearText(), ProtocolSettings.AddressVersion, Scrypt.N, Scrypt.R, Scrypt.P));
         }
 
         public override void Delete()
@@ -280,7 +280,7 @@ namespace Neo.Wallets.XEP6
 
         public override WalletAccount Import(string nep2, string passphrase, int N = 16384, int r = 8, int p = 8)
         {
-            KeyPair key = new(GetPrivateKeyFromNEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p));
+            KeyPair key = new(GetPrivateKeyFromXEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p));
             XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),

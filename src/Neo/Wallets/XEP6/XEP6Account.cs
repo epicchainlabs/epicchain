@@ -76,7 +76,7 @@ namespace Neo.Wallets.XEP6
             if (Xep2key == null) return null;
             if (key == null)
             {
-                key = new KeyPair(Wallet.GetPrivateKeyFromNEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
+                key = new KeyPair(Wallet.GetPrivateKeyFromXEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
             }
             return key;
         }
@@ -98,7 +98,7 @@ namespace Neo.Wallets.XEP6
         {
             try
             {
-                Wallet.GetPrivateKeyFromNEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
+                Wallet.GetPrivateKeyFromXEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
                 return true;
             }
             catch (FormatException)
@@ -125,7 +125,7 @@ namespace Neo.Wallets.XEP6
             {
                 try
                 {
-                    keyTemplate = new KeyPair(Wallet.GetPrivateKeyFromNEP2(Xep2key, password_old, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
+                    keyTemplate = new KeyPair(Wallet.GetPrivateKeyFromXEP2(Xep2key, password_old, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
                 }
                 catch
                 {
