@@ -348,8 +348,8 @@ namespace Neo.UnitTests.Wallets
             entry1.GetInteroperable<AccountState>().Balance = 10000 * NativeContract.EpicPulse.Factor;
 
             key = NativeContract.NEO.CreateStorageKey(20, account.ScriptHash);
-            var entry2 = snapshotCache.GetAndChange(key, () => new StorageItem(new EpicChain.NeoAccountState()));
-            entry2.GetInteroperable<EpicChain.NeoAccountState>().Balance = 10000 * NativeContract.NEO.Factor;
+            var entry2 = snapshotCache.GetAndChange(key, () => new StorageItem(new EpicChain.EpicChainAccountState()));
+            entry2.GetInteroperable<EpicChain.EpicChainAccountState>().Balance = 10000 * NativeContract.NEO.Factor;
 
             var tx = wallet.MakeTransaction(snapshotCache, new TransferOutput[]
             {
@@ -377,7 +377,7 @@ namespace Neo.UnitTests.Wallets
             entry1 = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry2 = snapshotCache.GetAndChange(key, () => new StorageItem(new AccountState()));
             entry1.GetInteroperable<AccountState>().Balance = 0;
-            entry2.GetInteroperable<EpicChain.NeoAccountState>().Balance = 0;
+            entry2.GetInteroperable<EpicChain.EpicChainAccountState>().Balance = 0;
         }
 
         [TestMethod]

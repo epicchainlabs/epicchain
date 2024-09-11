@@ -105,7 +105,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // no registered
 
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<NeoAccountState>();
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo = null;
             ret = Check_Vote(clonedCache, from, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeFalse();
@@ -118,7 +118,7 @@ namespace Neo.UnitTests.SmartContract.Native
             ret = Check_Vote(clonedCache, from, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeTrue();
             ret.State.Should().BeTrue();
-            accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(ECCurve.Secp256r1.G);
         }
 
@@ -132,21 +132,21 @@ namespace Neo.UnitTests.SmartContract.Native
             clonedCache.Add(storageKey, new StorageItem(new HashIndexState { Hash = UInt256.Zero, Index = persistingBlock.Index - 1 }));
 
             byte[] from = Contract.GetBFTAddress(TestProtocolSettings.Default.StandbyValidators).ToArray();
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<NeoAccountState>();
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<EpicChainAccountState>();
             accountState.Balance = 100;
             clonedCache.Add(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray()), new StorageItem(new CandidateState() { Registered = true }));
             var ret = Check_Vote(clonedCache, from, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeTrue();
             ret.State.Should().BeTrue();
-            accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, from)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(ECCurve.Secp256r1.G);
 
             //two account vote for the same account
             var stateValidator = clonedCache.GetAndChange(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray())).GetInteroperable<CandidateState>();
             stateValidator.Votes.Should().Be(100);
             var G_Account = Contract.CreateSignatureContract(ECCurve.Secp256r1.G).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new NeoAccountState { Balance = 200 }));
-            var secondAccount = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<NeoAccountState>();
+            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new EpicChainAccountState { Balance = 200 }));
+            var secondAccount = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<EpicChainAccountState>();
             secondAccount.Balance.Should().Be(200);
             ret = Check_Vote(clonedCache, G_Account, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeTrue();
@@ -165,21 +165,21 @@ namespace Neo.UnitTests.SmartContract.Native
             //from vote to G
             byte[] from = TestProtocolSettings.Default.StandbyValidators[0].ToArray();
             var from_Account = Contract.CreateSignatureContract(TestProtocolSettings.Default.StandbyValidators[0]).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, from_Account), new StorageItem(new NeoAccountState()));
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
+            clonedCache.Add(CreateStorageKey(20, from_Account), new StorageItem(new EpicChainAccountState()));
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.Balance = 100;
             clonedCache.Add(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray()), new StorageItem(new CandidateState() { Registered = true }));
             var ret = Check_Vote(clonedCache, from_Account, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeTrue();
             ret.State.Should().BeTrue();
-            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(ECCurve.Secp256r1.G);
 
             //from change vote to itself
             var G_stateValidator = clonedCache.GetAndChange(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray())).GetInteroperable<CandidateState>();
             G_stateValidator.Votes.Should().Be(100);
             var G_Account = Contract.CreateSignatureContract(ECCurve.Secp256r1.G).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new NeoAccountState { Balance = 200 }));
+            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new EpicChainAccountState { Balance = 200 }));
             clonedCache.Add(CreateStorageKey(33, from), new StorageItem(new CandidateState() { Registered = true }));
             ret = Check_Vote(clonedCache, from_Account, from, true, persistingBlock);
             ret.Result.Should().BeTrue();
@@ -199,15 +199,15 @@ namespace Neo.UnitTests.SmartContract.Native
             clonedCache.Add(storageKey, new StorageItem(new HashIndexState { Hash = UInt256.Zero, Index = persistingBlock.Index - 1 }));
             byte[] from = TestProtocolSettings.Default.StandbyValidators[0].ToArray();
             var from_Account = Contract.CreateSignatureContract(TestProtocolSettings.Default.StandbyValidators[0]).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, from_Account), new StorageItem(new NeoAccountState()));
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
+            clonedCache.Add(CreateStorageKey(20, from_Account), new StorageItem(new EpicChainAccountState()));
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.Balance = 100;
             clonedCache.Add(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray()), new StorageItem(new CandidateState() { Registered = true }));
             clonedCache.Add(CreateStorageKey(23, ECCurve.Secp256r1.G.ToArray()), new StorageItem(new BigInteger(100500)));
             var ret = Check_Vote(clonedCache, from_Account, ECCurve.Secp256r1.G.ToArray(), true, persistingBlock);
             ret.Result.Should().BeTrue();
             ret.State.Should().BeTrue();
-            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(ECCurve.Secp256r1.G);
             accountState.LastEpicPulsePerVote.Should().Be(100500);
 
@@ -215,14 +215,14 @@ namespace Neo.UnitTests.SmartContract.Native
             var G_stateValidator = clonedCache.GetAndChange(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray())).GetInteroperable<CandidateState>();
             G_stateValidator.Votes.Should().Be(100);
             var G_Account = Contract.CreateSignatureContract(ECCurve.Secp256r1.G).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new NeoAccountState { Balance = 200 }));
+            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new EpicChainAccountState { Balance = 200 }));
             clonedCache.Add(CreateStorageKey(33, from), new StorageItem(new CandidateState() { Registered = true }));
             ret = Check_Vote(clonedCache, from_Account, null, true, persistingBlock);
             ret.Result.Should().BeTrue();
             ret.State.Should().BeTrue();
             G_stateValidator = clonedCache.GetAndChange(CreateStorageKey(33, ECCurve.Secp256r1.G.ToArray())).GetInteroperable<CandidateState>();
             G_stateValidator.Votes.Should().Be(0);
-            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, from_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(null);
             accountState.LastEpicPulsePerVote.Should().Be(0);
         }
@@ -315,8 +315,8 @@ namespace Neo.UnitTests.SmartContract.Native
             ret = Check_RegisterValidator(clonedCache, point, _persistingBlock);
             ret.State.Should().BeTrue();
             var G_Account = Contract.CreateSignatureContract(ECCurve.Secp256r1.G).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new NeoAccountState()));
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<NeoAccountState>();
+            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new EpicChainAccountState()));
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.Balance = 100;
             Check_Vote(clonedCache, G_Account, TestProtocolSettings.Default.StandbyValidators[0].ToArray(), true, _persistingBlock);
             ret = Check_UnregisterCandidate(clonedCache, point, _persistingBlock);
@@ -332,7 +332,7 @@ namespace Neo.UnitTests.SmartContract.Native
             ret = Check_Vote(clonedCache, G_Account, TestProtocolSettings.Default.StandbyValidators[0].ToArray(), true, _persistingBlock);
             ret.State.Should().BeTrue();
             ret.Result.Should().BeFalse();
-            accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<NeoAccountState>();
+            accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.VoteTo.Should().Be(TestProtocolSettings.Default.StandbyValidators[0]);
         }
 
@@ -346,8 +346,8 @@ namespace Neo.UnitTests.SmartContract.Native
             persistingBlock.Header.Index = 1;
             //register with votes with 20000000
             var G_Account = Contract.CreateSignatureContract(ECCurve.Secp256r1.G).ScriptHash.ToArray();
-            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new NeoAccountState()));
-            var accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<NeoAccountState>();
+            clonedCache.Add(CreateStorageKey(20, G_Account), new StorageItem(new EpicChainAccountState()));
+            var accountState = clonedCache.TryGet(CreateStorageKey(20, G_Account)).GetInteroperable<EpicChainAccountState>();
             accountState.Balance = 20000000;
             var ret = Check_RegisterValidator(clonedCache, ECCurve.Secp256r1.G.ToArray(), persistingBlock);
             ret.State.Should().BeTrue();
@@ -513,7 +513,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Fault: balance < 0
 
-            clonedCache.Add(key, new StorageItem(new NeoAccountState
+            clonedCache.Add(key, new StorageItem(new EpicChainAccountState
             {
                 Balance = -100
             }));
@@ -523,7 +523,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Fault range: start >= end
 
-            clonedCache.GetAndChange(key, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(key, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 100,
                 BalanceHeight = 100
@@ -533,7 +533,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Fault range: start >= end
 
-            clonedCache.GetAndChange(key, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(key, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 100,
                 BalanceHeight = 100
@@ -543,7 +543,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Normal 1) votee is non exist
 
-            clonedCache.GetAndChange(key, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(key, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 100
             }));
@@ -557,7 +557,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Normal 2) votee is not committee
 
-            clonedCache.GetAndChange(key, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(key, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 100,
                 VoteTo = ECCurve.Secp256r1.G
@@ -567,7 +567,7 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // Normal 3) votee is committee
 
-            clonedCache.GetAndChange(key, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(key, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 100,
                 VoteTo = TestProtocolSettings.Default.StandbyCommittee[0]
@@ -768,8 +768,8 @@ namespace Neo.UnitTests.SmartContract.Native
             result.Item1.Should().Be(10 * NativeContract.EpicPulse.Factor);
 
             // Check calculate bonus
-            StorageItem storage = clonedCache.GetOrAdd(CreateStorageKey(20, UInt160.Zero.ToArray()), () => new StorageItem(new NeoAccountState()));
-            NeoAccountState state = storage.GetInteroperable<NeoAccountState>();
+            StorageItem storage = clonedCache.GetOrAdd(CreateStorageKey(20, UInt160.Zero.ToArray()), () => new StorageItem(new EpicChainAccountState()));
+            EpicChainAccountState state = storage.GetInteroperable<EpicChainAccountState>();
             state.Balance = 1000;
             state.BalanceHeight = 0;
             height.Index = persistingBlock.Index + 1;
@@ -871,7 +871,7 @@ namespace Neo.UnitTests.SmartContract.Native
             // Claim EpicPulse
 
             var account = Contract.CreateSignatureContract(committee[2]).ScriptHash;
-            clonedCache.Add(new KeyBuilder(NativeContract.NEO.Id, 20).Add(account), new StorageItem(new NeoAccountState
+            clonedCache.Add(new KeyBuilder(NativeContract.NEO.Id, 20).Add(account), new StorageItem(new EpicChainAccountState
             {
                 BalanceHeight = 3,
                 Balance = 200 * 10000 - 2 * 100,
@@ -890,7 +890,7 @@ namespace Neo.UnitTests.SmartContract.Native
         {
             var clonedCache = _snapshotCache.CloneCache();
             NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
-            clonedCache.Add(CreateStorageKey(20, UInt160.Zero.ToArray()), new StorageItem(new NeoAccountState()));
+            clonedCache.Add(CreateStorageKey(20, UInt160.Zero.ToArray()), new StorageItem(new EpicChainAccountState()));
             NativeContract.NEO.UnclaimedEpicPulse(clonedCache, UInt160.Zero, 10).Should().Be(new BigInteger(0));
         }
 
@@ -910,7 +910,7 @@ namespace Neo.UnitTests.SmartContract.Native
             ret.State.Should().BeTrue();
             ret.Result.Should().BeFalse();
 
-            clonedCache.Add(keyAccount, new StorageItem(new NeoAccountState()));
+            clonedCache.Add(keyAccount, new StorageItem(new EpicChainAccountState()));
             ret = Check_Vote(clonedCache, account.ToArray(), ECCurve.Secp256r1.G.ToArray(), true, _persistingBlock);
             ret.State.Should().BeTrue();
             ret.Result.Should().BeFalse();
@@ -919,7 +919,7 @@ namespace Neo.UnitTests.SmartContract.Native
             vote_to_null.Should().BeNull();
 
             clonedCache.Delete(keyAccount);
-            clonedCache.GetAndChange(keyAccount, () => new StorageItem(new NeoAccountState
+            clonedCache.GetAndChange(keyAccount, () => new StorageItem(new EpicChainAccountState
             {
                 Balance = 1,
                 VoteTo = ECCurve.Secp256r1.G
@@ -943,7 +943,7 @@ namespace Neo.UnitTests.SmartContract.Native
             UInt160 from = engine.ScriptContainer.GetScriptHashesForVerifying(engine.SnapshotCache)[0];
             if (addVotes)
             {
-                clonedCache.Add(CreateStorageKey(20, from.ToArray()), new StorageItem(new NeoAccountState
+                clonedCache.Add(CreateStorageKey(20, from.ToArray()), new StorageItem(new EpicChainAccountState
                 {
                     VoteTo = ECCurve.Secp256r1.G,
                     Balance = new BigInteger(1000)
@@ -952,7 +952,7 @@ namespace Neo.UnitTests.SmartContract.Native
             }
             else
             {
-                clonedCache.Add(CreateStorageKey(20, from.ToArray()), new StorageItem(new NeoAccountState
+                clonedCache.Add(CreateStorageKey(20, from.ToArray()), new StorageItem(new EpicChainAccountState
                 {
                     Balance = new BigInteger(1000)
                 }));

@@ -242,7 +242,7 @@ namespace Neo.SmartContract.Native
             // Compose nef file
             var nef = new NefFile()
             {
-                Compiler = "neo-core-v3.0",
+                Compiler = "epicchain-core-v3.0",
                 Source = string.Empty,
                 Tokens = [],
                 Script = allowedMethods.Script

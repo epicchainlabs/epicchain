@@ -38,7 +38,7 @@ namespace Neo.SmartContract.Native
     /// <summary>
     /// Represents the NEO token in the NEO system.
     /// </summary>
-    public sealed class EpicChain : FungibleToken<EpicChain.NeoAccountState>
+    public sealed class EpicChain : FungibleToken<EpicChain.EpicChainAccountState>
     {
         public override string Symbol => "XPR";
         public override byte Decimals => 0;
@@ -86,7 +86,7 @@ namespace Neo.SmartContract.Native
             return TotalAmount;
         }
 
-        internal override void OnBalanceChanging(ApplicationEngine engine, UInt160 account, NeoAccountState state, BigInteger amount)
+        internal override void OnBalanceChanging(ApplicationEngine engine, UInt160 account, EpicChainAccountState state, BigInteger amount)
         {
             EpicPulseDistribution distribution = DistributeEpicPulse(engine, account, state);
             if (distribution is not null)
@@ -111,7 +111,7 @@ namespace Neo.SmartContract.Native
                 await EpicPulse.Mint(engine, distribution.Account, distribution.Amount, callOnPayment);
         }
 
-        private EpicPulseDistribution DistributeEpicPulse(ApplicationEngine engine, UInt160 account, NeoAccountState state)
+        private EpicPulseDistribution DistributeEpicPulse(ApplicationEngine engine, UInt160 account, EpicChainAccountState state)
         {
             // PersistingBlock is null when running under the debugger
             if (engine.PersistingBlock is null) return null;
@@ -133,7 +133,7 @@ namespace Neo.SmartContract.Native
             };
         }
 
-        private BigInteger CalculateBonus(DataCache snapshot, NeoAccountState state, uint end)
+        private BigInteger CalculateBonus(DataCache snapshot, EpicChainAccountState state, uint end)
         {
             if (state.Balance.IsZero) return BigInteger.Zero;
             if (state.Balance.Sign < 0) throw new ArgumentOutOfRangeException(nameof(state.Balance));
@@ -332,7 +332,7 @@ namespace Neo.SmartContract.Native
         {
             StorageItem storage = snapshot.TryGet(CreateStorageKey(Prefix_Account).Add(account));
             if (storage is null) return BigInteger.Zero;
-            NeoAccountState state = storage.GetInteroperable<NeoAccountState>();
+            EpicChainAccountState state = storage.GetInteroperable<EpicChainAccountState>();
             return CalculateBonus(snapshot, state, end);
         }
 
@@ -374,7 +374,7 @@ namespace Neo.SmartContract.Native
         private async ContractTask<bool> Vote(ApplicationEngine engine, UInt160 account, ECPoint voteTo)
         {
             if (!engine.CheckWitnessInternal(account)) return false;
-            NeoAccountState state_account = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_Account).Add(account))?.GetInteroperable<NeoAccountState>();
+            EpicChainAccountState state_account = engine.SnapshotCache.GetAndChange(CreateStorageKey(Prefix_Account).Add(account))?.GetInteroperable<EpicChainAccountState>();
             if (state_account is null) return false;
             if (state_account.Balance == 0) return false;
             CandidateState validator_new = null;
@@ -495,9 +495,9 @@ namespace Neo.SmartContract.Native
         /// <param name="account">account</param>
         /// <returns>The state of the account.</returns>
         [ContractMethod(CpuFee = 1 << 15, RequiredCallFlags = CallFlags.ReadStates)]
-        public NeoAccountState GetAccountState(DataCache snapshot, UInt160 account)
+        public EpicChainAccountState GetAccountState(DataCache snapshot, UInt160 account)
         {
-            return snapshot.TryGet(CreateStorageKey(Prefix_Account).Add(account))?.GetInteroperable<NeoAccountState>();
+            return snapshot.TryGet(CreateStorageKey(Prefix_Account).Add(account))?.GetInteroperable<EpicChainAccountState>();
         }
 
         /// <summary>
@@ -567,7 +567,7 @@ namespace Neo.SmartContract.Native
         /// <summary>
         /// Represents the account state of <see cref="EpicChain"/>.
         /// </summary>
-        public class NeoAccountState : AccountState
+        public class EpicChainAccountState : AccountState
         {
             /// <summary>
             /// The height of the block where the balance changed last time.
