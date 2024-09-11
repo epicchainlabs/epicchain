@@ -35,7 +35,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }} 
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Build (Everything)
       run: dotnet build
@@ -43,11 +43,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install libleveldb-dev expect
-        find ./bin -name 'config.json' | xargs perl -pi -e 's|LevelDBStore|MemoryStore|g' 
+        find ./bin -name 'config.json' | xargs perl -pi -e 's|LevelDBStore|MemoryStore|g'
 
     - name: Run tests with expect
       run: expect ./scripts/Neo.CLI/test-neo-cli.exp
-      
+
   Test:
     needs: [Format]
     timeout-minutes: 15
@@ -63,11 +63,11 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
-        
+
     - name: Test
       if: matrix.os != 'ubuntu-latest'
       run: |
-        dotnet sln neo.sln remove ./tests/Neo.Plugins.Storage.Tests/Neo.Plugins.Storage.Tests.csproj
+        dotnet sln epicchain.sln remove ./tests/Neo.Plugins.Storage.Tests/Neo.Plugins.Storage.Tests.csproj
         dotnet build
         dotnet test --blame-hang --blame-crash --no-build
 

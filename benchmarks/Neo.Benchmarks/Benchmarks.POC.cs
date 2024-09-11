@@ -33,7 +33,7 @@ public class Benchmarks_PoCs
     private static readonly EpicChainSystem system = new(protocol, (string)null);
 
     [Benchmark]
-    public void NeoIssue2725()
+    public void EpicChainIssue2725()
     {
         // https://github.com/epicchainlabs/epicchain/issues/2725
         // L00: INITSSLOT 1
@@ -61,7 +61,7 @@ public class Benchmarks_PoCs
         // L22: DUP
         // L23: STSFLD0
         // L24: JMPIF L17
-        Run(nameof(NeoIssue2725), "VgHCDAVhYWFhYQH0AWBLS0GVAW9hWJ1KYCT1SUHb/qh0AUAfYEpBJ0M18UVYnUpgJPU=");
+        Run(nameof(EpicChainIssue2725), "VgHCDAVhYWFhYQH0AWBLS0GVAW9hWJ1KYCT1SUHb/qh0AUAfYEpBJ0M18UVYnUpgJPU=");
     }
 
     private static void Run(string name, string poc)

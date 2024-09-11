@@ -32,7 +32,7 @@ jobs:
 
     - name: Pack NuGet Packages
       run: |
-        dotnet pack ./neo.sln \
+        dotnet pack ./epicchain.sln \
         --configuration Release \
         --output ./sbin \
         --verbosity normal \
