@@ -1,4 +1,4 @@
-name: Release (neo-cli)
+name: Release (epicchain-cli)
 
 # Trigger the workflow on a release event when a new release is published
 on:
@@ -74,7 +74,7 @@ jobs:
         key: leveldb-${{ matrix.os }}-${{ matrix.arch }}
         enableCrossOsArchive: true
 
-  build-neo-cli:
+  build-epicchain-cli:
     needs: [build-leveldb]
     name: ${{ matrix.runtime }}
     runs-on: ubuntu-latest
@@ -89,7 +89,7 @@ jobs:
         APP_VERSION=$(echo '${{ github.event.release.tag_name }}' | cut -d 'v' -f 2)
         echo "APP_VERSION=$APP_VERSION" >> $GITHUB_ENV
 
-    # Checkout the neo-cli repository code
+    # Checkout the epicchain-cli repository code
     - name: Checkout Repository Code
       uses: actions/checkout@v4
       with:
@@ -101,8 +101,8 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # Publish the neo-cli project
-    - name: .NET Publish (neo-cli)
+    # Publish the epicchain-cli project
+    - name: .NET Publish (epicchain-cli)
       run: |
         dotnet publish ./src/Neo.CLI \
         --version-suffix ${{ matrix.runtime }} \
@@ -138,11 +138,11 @@ jobs:
     - name: Remove files (junk)
       working-directory: ${{ env.OUTPUT_PATH }}/${{ matrix.runtime }}/Plugins/LevelDBStore
       run: |
-        rm -v Neo*
+        rm -v EpicChain*
         rm -v *.pdb
         rm -v *.xml
 
-    # Remove XML comment files from the neo-cli output
+    # Remove XML comment files from the epicchain-cli output
     - name: Remove Xml Comment Files
       working-directory: ${{ env.OUTPUT_PATH }}/${{ matrix.runtime }}
       run: rm -v *.xml
@@ -180,7 +180,7 @@ jobs:
     - name: Create Tarball File (linux)
       if: ${{ startsWith(matrix.runtime, 'linux') }}
       working-directory: ${{ env.OUTPUT_PATH }}/${{ matrix.runtime }}
-      run: tar -czvf ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz .
+      run: tar -czvf ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz .
 
     # Create a tarball file for macOS distributions
     - name: Cache Distribution
@@ -194,14 +194,14 @@ jobs:
     - name: Create Zip File (win)
       if: ${{ startsWith(matrix.runtime, 'win') }}
       working-directory: ${{ env.OUTPUT_PATH }}/${{ matrix.runtime }}
-      run: zip ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip -r *
+      run: zip ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip -r *
 
     # Create checksum files for Linux distributions
     - name: Create Checksum Files (linux)
       if: ${{ startsWith(matrix.runtime, 'linux') }}
       working-directory: ${{ env.DIST_PATH }}
       env:
-        FILENAME: neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}
+        FILENAME: epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}
       run: |
           sha256sum ${{ env.FILENAME }}.tar.gz > ${{ env.FILENAME }}.sha256
 
@@ -210,7 +210,7 @@ jobs:
       if: ${{ startsWith(matrix.runtime, 'win') }}
       working-directory: ${{ env.DIST_PATH }}
       env:
-        FILENAME: neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}
+        FILENAME: epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}
       run: |
           sha256sum ${{ env.FILENAME }}.zip > ${{ env.FILENAME }}.sha256
 
@@ -228,8 +228,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz
-          asset_name: neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz
+          asset_path: ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz
+          asset_name: epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.tar.gz
           asset_content_type: application/x-gtar
 
     # Upload zip files for Windows distributions
@@ -240,8 +240,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip
-          asset_name: neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip
+          asset_path: ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip
+          asset_name: epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.zip
           asset_content_type: application/zip
 
     # Upload checksum files for all distributions
@@ -252,13 +252,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.sha256
-          asset_name: neo-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.sha256
+          asset_path: ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.sha256
+          asset_name: epicchain-cli.v${{ env.APP_VERSION }}-${{ matrix.runtime }}.sha256
           asset_content_type: text/plain
 
   code-sign:
-    needs: [build-neo-cli]
-    name: CodeSign & Publish (neo-cli) ${{ matrix.arch }}
+    needs: [build-epicchain-cli]
+    name: CodeSign & Publish (epicchain-cli) ${{ matrix.arch }}
     runs-on: macos-latest
     strategy:
       matrix:
@@ -279,9 +279,9 @@ jobs:
         enableCrossOsArchive: true
         fail-on-cache-miss: true
 
-    - name: Sign (neo-cli)
+    - name: Sign (epicchain-cli)
       working-directory: ${{ env.OUTPUT_PATH }}/osx-${{ matrix.arch }}
-      run: codesign --force --deep -s - neo-cli
+      run: codesign --force --deep -s - epicchain-cli
 
     # Create the distribution directory
     - name: Create Distribution Directory
@@ -290,13 +290,13 @@ jobs:
     # Create a tarball file for macOS distributions
     - name: Create Tarball File (osx)
       working-directory: ${{ env.OUTPUT_PATH }}/osx-${{ matrix.arch }}
-      run: tar -cJf ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz .
+      run: tar -cJf ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz .
 
     # Create checksum files for macOS distributions
     - name: Create Checksum Files (osx)
       working-directory: ${{ env.DIST_PATH }}
       env:
-        FILENAME: neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}
+        FILENAME: epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}
       run: |
           shasum -a 256 ${{ env.FILENAME }}.tar.xz > ${{ env.FILENAME }}.sha256
 
@@ -307,8 +307,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz
-          asset_name: neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz
+          asset_path: ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz
+          asset_name: epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.tar.xz
           asset_content_type: application/x-gtar
 
       # Upload checksum files for all distributions
@@ -318,23 +318,23 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ${{ env.DIST_PATH }}/neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.sha256
-          asset_name: neo-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.sha256
+          asset_path: ${{ env.DIST_PATH }}/epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.sha256
+          asset_name: epicchain-cli.v${{ env.APP_VERSION }}-osx-${{ matrix.arch }}.sha256
           asset_content_type: text/plain
 
   cleanup:
-    needs: [build-neo-cli, code-sign]
+    needs: [build-epicchain-cli, code-sign]
     runs-on: ubuntu-latest
     steps:
       # Cleanup step to delete old caches
       - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
-          
+
           echo "Fetching list of cache key"
           cacheKeysForPR=$(gh actions-cache list -R $REPO -B $BRANCH -L 100 | cut -f 1 )
 
-          ## Setting this to not fail the workflow while deleting cache keys. 
+          ## Setting this to not fail the workflow while deleting cache keys.
           set +e
           echo "Deleting caches..."
           for cacheKey in $cacheKeysForPR
