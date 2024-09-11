@@ -236,10 +236,10 @@ namespace Neo.SmartContract.Native
         /// <returns>The <see cref="ContractState"/>.</returns>
         public ContractState GetContractState(IsHardforkEnabledDelegate hfChecker, uint blockHeight)
         {
-            // Get allowed methods and nef script
+            // Get allowed methods and xef script
             var allowedMethods = GetAllowedMethods(hfChecker, blockHeight);
 
-            // Compose nef file
+            // Compose xef file
             var nef = new NefFile()
             {
                 Compiler = "epicchain-core-v3.0",

@@ -51,7 +51,7 @@ namespace Neo.SmartContract
         public UInt160 Hash;
 
         /// <summary>
-        /// The nef of the contract.
+        /// The xef of the contract.
         /// </summary>
         public NefFile Nef;
 

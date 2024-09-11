@@ -104,7 +104,7 @@ namespace Neo.SmartContract.Native
                         var oldContract = state.GetInteroperable<ContractState>(false);
                         // Increase the update counter
                         oldContract.UpdateCounter++;
-                        // Modify nef and manifest
+                        // Modify xef and manifest
                         oldContract.Nef = contractState.Nef;
                         oldContract.Manifest = contractState.Manifest;
                     }

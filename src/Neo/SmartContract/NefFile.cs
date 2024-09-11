@@ -79,7 +79,7 @@ namespace Neo.SmartContract
         public ReadOnlyMemory<byte> Script { get; set; }
 
         /// <summary>
-        /// The checksum of the nef file.
+        /// The checksum of the xef file.
         /// </summary>
         public uint CheckSum { get; set; }
 
@@ -149,19 +149,19 @@ namespace Neo.SmartContract
         }
 
         /// <summary>
-        /// Computes the checksum for the specified nef file.
+        /// Computes the checksum for the specified xef file.
         /// </summary>
-        /// <param name="file">The specified nef file.</param>
-        /// <returns>The checksum of the nef file.</returns>
+        /// <param name="file">The specified xef file.</param>
+        /// <returns>The checksum of the xef file.</returns>
         public static uint ComputeChecksum(NefFile file)
         {
             return BinaryPrimitives.ReadUInt32LittleEndian(Crypto.Hash256(file.ToArray().AsSpan(..^sizeof(uint))));
         }
 
         /// <summary>
-        /// Converts the nef file to a JSON object.
+        /// Converts the xef file to a JSON object.
         /// </summary>
-        /// <returns>The nef file represented by a JSON object.</returns>
+        /// <returns>The xef file represented by a JSON object.</returns>
         public JObject ToJson()
         {
             return new JObject
