@@ -24,5 +24,5 @@ namespace Neo.Wallets.SQLite;
 class Account
 {
     public byte[] PublicKeyHash { get; set; }
-    public string Nep2key { get; set; }
+    public string Xep2key { get; set; }
 }

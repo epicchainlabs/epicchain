@@ -42,7 +42,7 @@ namespace Neo.Plugins.StorageDumper
         private string? _lastCreateDirectory;
         protected override UnhandledExceptionPolicy ExceptionPolicy => Settings.Default?.ExceptionPolicy ?? UnhandledExceptionPolicy.Ignore;
 
-        public override string Description => "Exports Neo-CLI status data";
+        public override string Description => "Exports EpicChain-CLI status data";
 
         public override string ConfigFile => System.IO.Path.Combine(RootPath, "StorageDumper.json");
 

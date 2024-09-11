@@ -530,19 +530,19 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // The resulting witness verification cost is 2154270   * 10e-8EpicPulse.
             // The resulting witness Invocation script (66 bytes length):
-            // NEO-VM > loadbase64 DEARoaaEjM/3VulrBDUod7eiZgWQS2iXIM0+I24iyJYmffhosZoQjfnnRymF/7+FaBPb9qvQwxLLSVo9ROlrdFdC
+            // EpicChain-VM > loadbase64 DEARoaaEjM/3VulrBDUod7eiZgWQS2iXIM0+I24iyJYmffhosZoQjfnnRymF/7+FaBPb9qvQwxLLSVo9ROlrdFdC
             // READY: loaded 66 instructions
-            // NEO-VM 0 > ops
+            // EpicChain-VM 0 > ops
             // INDEX    OPCODE       PARAMETER
             // 0        PUSHDATA1    11a1a6848ccff756e96b04352877b7a26605904b689720cd3e236e22c896267df868b19a108df9e7472985ffbf856813dbf6abd0c312cb495a3d44e96b745742    <<
             //
             //
             // The resulting witness verificaiton script (110 bytes):
-            // NEO-VM 0 > loadbase64 ABhQDCEC/QqMHOWuVXD91G51mcFrF1vw69/pwXjxq4SPsW2sdKVBxfug4AMAAAAAAQAAAJ4UjUEtUQgwEM6LFMAfDA92ZXJpZnlXaXRoRUNEc2EMFBv1dasRiWiEE2EKNaEohs3gtmxyQWJ9W1I=
+            // EpicChain-VM 0 > loadbase64 ABhQDCEC/QqMHOWuVXD91G51mcFrF1vw69/pwXjxq4SPsW2sdKVBxfug4AMAAAAAAQAAAJ4UjUEtUQgwEM6LFMAfDA92ZXJpZnlXaXRoRUNEc2EMFBv1dasRiWiEE2EKNaEohs3gtmxyQWJ9W1I=
             // READY: loaded 110 instructions
-            // NEO-VM 0 > pos
+            // EpicChain-VM 0 > pos
             // Error: No help topic for 'pos'
-            // NEO-VM 0 > ops
+            // EpicChain-VM 0 > ops
             // INDEX    OPCODE       PARAMETER
             // 0        PUSHINT8     122 (7a)    <<
             // 2        SWAP
@@ -776,9 +776,9 @@ namespace Neo.UnitTests.SmartContract.Native
 
             // The resulting witness verification cost for 3/4 multisig is 8389470  * 10e-8EpicPulse. Cost depends on M/N.
             // The resulting witness Invocation script (198 bytes for 3 signatures):
-            // NEO-VM 0 > loadbase64 DEDM23XByPvDK9XRAHRhfGH7/Mp5jdaci3/GpTZ3D9SZx2Zw89tAaOtmQSIutXbCxRQA1kSeUD4AteJGoNXFhFzIDECgeHoey0rYdlFyTVfDJSsuS+VwzC5OtYGCVR2V/MttmLXWA/FWZH/MjmU0obgQXa9zoBxqYQUUJKefivZFxVcTDEAZT6L6ZFybeXbm8+RlVNS7KshusT54d2ImQ6vFvxETphhJOwcQ0yNL6qJKsrLAKAnzicY4az3ct0G35mI17/gQ
+            // EpicChain-VM 0 > loadbase64 DEDM23XByPvDK9XRAHRhfGH7/Mp5jdaci3/GpTZ3D9SZx2Zw89tAaOtmQSIutXbCxRQA1kSeUD4AteJGoNXFhFzIDECgeHoey0rYdlFyTVfDJSsuS+VwzC5OtYGCVR2V/MttmLXWA/FWZH/MjmU0obgQXa9zoBxqYQUUJKefivZFxVcTDEAZT6L6ZFybeXbm8+RlVNS7KshusT54d2ImQ6vFvxETphhJOwcQ0yNL6qJKsrLAKAnzicY4az3ct0G35mI17/gQ
             // READY: loaded 198 instructions
-            // NEO-VM 0 > ops
+            // EpicChain-VM 0 > ops
             // INDEX    OPCODE       PARAMETER
             // 0        PUSHDATA1    ccdb75c1c8fbc32bd5d10074617c61fbfcca798dd69c8b7fc6a536770fd499c76670f3db4068eb6641222eb576c2c51400d6449e503e00b5e246a0d5c5845cc8    <<
             // 66       PUSHDATA1    a0787a1ecb4ad87651724d57c3252b2e4be570cc2e4eb58182551d95fccb6d98b5d603f156647fcc8e6534a1b8105daf73a01c6a61051424a79f8af645c55713
@@ -786,9 +786,9 @@ namespace Neo.UnitTests.SmartContract.Native
             //
             //
             // Resulting witness verification script (266 bytes for 3/4 multisig):
-            // NEO-VM 0 > loadbase64 EwwhAwSGRoaDwRISWXj/6HYkWyAGv+c5rKhTm2czUHkmLLJ6DCEDDSb8KtOxquIPBAtfgzgGcPjvXCsqySG6O915/QrwUlEMIQN7TnKuhUtqCVWz4C2SZRq3+mQak2Bmd2rUOPlbtnSiaQwhArYqxMijUqiS/s6xjX4uOmLIwey6rlUj2J10ewIZJ24iFFcHAHVtwHF2Q24oAzhuwHBBxfug4AMAAAAAAQAAAJ4UjUEtUQgwEM6LchBzEHRrbrhsbbiSJEIAGGhrzmlszmoUwB8MD3ZlcmlmeVdpdGhFQ0RzYQwUG/V1qxGJaIQTYQo1oSiGzeC2bHJBYn1bUmuec2ycdCK5a26z
+            // EpicChain-VM 0 > loadbase64 EwwhAwSGRoaDwRISWXj/6HYkWyAGv+c5rKhTm2czUHkmLLJ6DCEDDSb8KtOxquIPBAtfgzgGcPjvXCsqySG6O915/QrwUlEMIQN7TnKuhUtqCVWz4C2SZRq3+mQak2Bmd2rUOPlbtnSiaQwhArYqxMijUqiS/s6xjX4uOmLIwey6rlUj2J10ewIZJ24iFFcHAHVtwHF2Q24oAzhuwHBBxfug4AMAAAAAAQAAAJ4UjUEtUQgwEM6LchBzEHRrbrhsbbiSJEIAGGhrzmlszmoUwB8MD3ZlcmlmeVdpdGhFQ0RzYQwUG/V1qxGJaIQTYQo1oSiGzeC2bHJBYn1bUmuec2ycdCK5a26z
             // READY: loaded 264 instructions
-            // NEO-VM 0 > ops
+            // EpicChain-VM 0 > ops
             // INDEX    OPCODE       PARAMETER
             // 0        PUSH3            <<
             // 1        PUSHDATA1    030486468683c112125978ffe876245b2006bfe739aca8539b67335079262cb27a

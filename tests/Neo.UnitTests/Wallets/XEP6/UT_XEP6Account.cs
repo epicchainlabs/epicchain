@@ -75,7 +75,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         }
 
         [TestMethod]
-        public void TestConstructorWithNep2Key()
+        public void TestConstructorWithXep2key()
         {
             _account.ScriptHash.Should().Be(_hash);
             _account.Decrypted.Should().BeTrue();

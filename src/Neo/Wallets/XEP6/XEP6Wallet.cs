@@ -196,11 +196,11 @@ namespace Neo.Wallets.XEP6
         /// <summary>
         /// Decrypts the specified XEP-2 string with the password of the wallet.
         /// </summary>
-        /// <param name="nep2key">The XEP-2 string to decrypt.</param>
+        /// <param name="Xep2key">The XEP-2 string to decrypt.</param>
         /// <returns>The decrypted private key.</returns>
-        internal KeyPair DecryptKey(string nep2key)
+        internal KeyPair DecryptKey(string Xep2key)
         {
-            return new KeyPair(GetPrivateKeyFromNEP2(nep2key, password.GetClearText(), ProtocolSettings.AddressVersion, Scrypt.N, Scrypt.R, Scrypt.P));
+            return new KeyPair(GetPrivateKeyFromNEP2(Xep2key, password.GetClearText(), ProtocolSettings.AddressVersion, Scrypt.N, Scrypt.R, Scrypt.P));
         }
 
         public override void Delete()

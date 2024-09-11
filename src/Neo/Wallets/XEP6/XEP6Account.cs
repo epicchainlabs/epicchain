@@ -28,19 +28,19 @@ namespace Neo.Wallets.XEP6
     sealed class XEP6Account : WalletAccount
     {
         private readonly XEP6Wallet wallet;
-        private string nep2key;
-        private string nep2KeyNew = null;
+        private string Xep2key;
+        private string Xep2keyNew = null;
         private KeyPair key;
         public JToken Extra;
 
-        public bool Decrypted => nep2key == null || key != null;
-        public override bool HasKey => nep2key != null;
+        public bool Decrypted => Xep2key == null || key != null;
+        public override bool HasKey => Xep2key != null;
 
-        public XEP6Account(XEP6Wallet wallet, UInt160 scriptHash, string nep2key = null)
+        public XEP6Account(XEP6Wallet wallet, UInt160 scriptHash, string Xep2key = null)
             : base(scriptHash, wallet.ProtocolSettings)
         {
             this.wallet = wallet;
-            this.nep2key = nep2key;
+            this.Xep2key = Xep2key;
         }
 
         public XEP6Account(XEP6Wallet wallet, UInt160 scriptHash, KeyPair key, string password)
@@ -63,20 +63,20 @@ namespace Neo.Wallets.XEP6
 
         public override KeyPair GetKey()
         {
-            if (nep2key == null) return null;
+            if (Xep2key == null) return null;
             if (key == null)
             {
-                key = wallet.DecryptKey(nep2key);
+                key = wallet.DecryptKey(Xep2key);
             }
             return key;
         }
 
         public KeyPair GetKey(string password)
         {
-            if (nep2key == null) return null;
+            if (Xep2key == null) return null;
             if (key == null)
             {
-                key = new KeyPair(Wallet.GetPrivateKeyFromNEP2(nep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
+                key = new KeyPair(Wallet.GetPrivateKeyFromNEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
             }
             return key;
         }
@@ -88,7 +88,7 @@ namespace Neo.Wallets.XEP6
             account["label"] = Label;
             account["isDefault"] = IsDefault;
             account["lock"] = Lock;
-            account["key"] = nep2key;
+            account["key"] = Xep2key;
             account["contract"] = ((XEP6Contract)Contract)?.ToJson();
             account["extra"] = Extra;
             return account;
@@ -98,7 +98,7 @@ namespace Neo.Wallets.XEP6
         {
             try
             {
-                Wallet.GetPrivateKeyFromNEP2(nep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
+                Wallet.GetPrivateKeyFromNEP2(Xep2key, password, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
                 return true;
             }
             catch (FormatException)
@@ -108,13 +108,13 @@ namespace Neo.Wallets.XEP6
         }
 
         /// <summary>
-        /// Cache draft nep2key during wallet password changing process. Should not be called alone for a single account
+        /// Cache draft Xep2key during wallet password changing process. Should not be called alone for a single account
         /// </summary>
         internal bool ChangePasswordPrepare(string password_old, string password_new)
         {
             if (WatchOnly) return true;
             KeyPair keyTemplate = key;
-            if (nep2key == null)
+            if (Xep2key == null)
             {
                 if (keyTemplate == null)
                 {
@@ -125,28 +125,28 @@ namespace Neo.Wallets.XEP6
             {
                 try
                 {
-                    keyTemplate = new KeyPair(Wallet.GetPrivateKeyFromNEP2(nep2key, password_old, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
+                    keyTemplate = new KeyPair(Wallet.GetPrivateKeyFromNEP2(Xep2key, password_old, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P));
                 }
                 catch
                 {
                     return false;
                 }
             }
-            nep2KeyNew = keyTemplate.Export(password_new, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
+            Xep2keyNew = keyTemplate.Export(password_new, ProtocolSettings.AddressVersion, wallet.Scrypt.N, wallet.Scrypt.R, wallet.Scrypt.P);
             return true;
         }
 
         internal void ChangePasswordCommit()
         {
-            if (nep2KeyNew != null)
+            if (Xep2keyNew != null)
             {
-                nep2key = Interlocked.Exchange(ref nep2KeyNew, null);
+                Xep2key = Interlocked.Exchange(ref Xep2keyNew, null);
             }
         }
 
         internal void ChangePasswordRollback()
         {
-            nep2KeyNew = null;
+            Xep2keyNew = null;
         }
     }
 }

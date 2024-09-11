@@ -130,13 +130,13 @@ class SQLiteWallet : Wallet
                 {
                     db_account = ctx.Accounts.Add(new Account
                     {
-                        Nep2key = account.Key.Export(masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P),
+                        Xep2key = account.Key.Export(masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P),
                         PublicKeyHash = account.Key.PublicKeyHash.ToArray()
                     }).Entity;
                 }
                 else
                 {
-                    db_account.Nep2key = account.Key.Export(masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P);
+                    db_account.Xep2key = account.Key.Export(masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P);
                 }
             }
             if (account.Contract != null)
@@ -326,7 +326,7 @@ class SQLiteWallet : Wallet
             VerificationContract contract = db_contract.RawData.AsSerializable<VerificationContract>();
             SQLiteWalletAccount account = accounts[contract.ScriptHash];
             account.Contract = contract;
-            account.Key = new KeyPair(GetPrivateKeyFromNEP2(db_contract.Account.Nep2key, masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P));
+            account.Key = new KeyPair(GetPrivateKeyFromNEP2(db_contract.Account.Xep2key, masterKey, ProtocolSettings.AddressVersion, scrypt.N, scrypt.R, scrypt.P));
         }
         return accounts;
     }

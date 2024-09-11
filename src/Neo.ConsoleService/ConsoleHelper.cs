@@ -103,7 +103,6 @@ namespace Neo.ConsoleService
 
             if (Console.IsInputRedirected)
             {
-                // neo-gui Console require it
                 sb.Append(Console.ReadLine());
             }
             else

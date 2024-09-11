@@ -70,7 +70,7 @@ namespace Neo.Network.RPC.Tests
         }
 
         [TestMethod]
-        public async Task TestGetNeoBalance()
+        public async Task TestGetEpicChainBalance()
         {
             byte[] testScript = NativeContract.NEO.Hash.MakeScript("balanceOf", sender);
             UT_TransactionManager.MockInvokeScript(rpcClientMock, testScript, new ContractParameter { Type = ContractParameterType.Integer, Value = new BigInteger(1_00000000) });

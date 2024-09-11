@@ -43,7 +43,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         private XEP6Wallet uut;
         private string wPath;
         private static KeyPair keyPair;
-        private static string nep2key;
+        private static string Xep2key;
         private static UInt160 testScriptHash;
         private string rootPath;
 
@@ -64,7 +64,7 @@ namespace Neo.UnitTests.Wallets.XEP6
             }
             keyPair = new KeyPair(privateKey);
             testScriptHash = Contract.CreateSignatureContract(keyPair.PublicKey).ScriptHash;
-            nep2key = keyPair.Export("123", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            Xep2key = keyPair.Export("123", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
         }
 
         private string CreateWalletFile()
@@ -238,8 +238,8 @@ namespace Neo.UnitTests.Wallets.XEP6
         [TestMethod]
         public void TestDecryptKey()
         {
-            string nep2key = keyPair.Export("123", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
-            KeyPair key1 = uut.DecryptKey(nep2key);
+            string Xep2key = keyPair.Export("123", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            KeyPair key1 = uut.DecryptKey(Xep2key);
             bool result = key1.Equals(keyPair);
             Assert.AreEqual(true, result);
         }
@@ -339,7 +339,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         {
             bool result = uut.Contains(testScriptHash);
             Assert.AreEqual(false, result);
-            uut.Import(nep2key, "123", 2, 1, 1);
+            uut.Import(Xep2key, "123", 2, 1, 1);
             result = uut.Contains(testScriptHash);
             Assert.AreEqual(true, result);
             uut.DeleteAccount(testScriptHash);
@@ -354,7 +354,7 @@ namespace Neo.UnitTests.Wallets.XEP6
             uut = new XEP6Wallet(null, "123", ProtocolSettings.Default, wallet);
             result = uut.Contains(testScriptHash);
             Assert.AreEqual(false, result);
-            uut.Import(nep2key, "123", 2, 1, 1);
+            uut.Import(Xep2key, "123", 2, 1, 1);
             result = uut.Contains(testScriptHash);
             Assert.AreEqual(true, result);
         }
@@ -419,8 +419,8 @@ namespace Neo.UnitTests.Wallets.XEP6
             wallet["accounts"] = new JArray();
             wallet["extra"] = new JObject();
             uut = new XEP6Wallet(null, "123", ProtocolSettings.Default, wallet);
-            nep2key = keyPair.Export("123", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
-            uut.Import(nep2key, "123", 2, 1, 1);
+            Xep2key = keyPair.Export("123", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            uut.Import(Xep2key, "123", 2, 1, 1);
             Assert.IsFalse(uut.VerifyPassword("1"));
             Assert.IsTrue(uut.VerifyPassword("123"));
         }

@@ -127,13 +127,13 @@ namespace Neo.UnitTests.Wallets
     public class UT_Wallet
     {
         private static KeyPair glkey;
-        private static string nep2Key;
+        private static string Xep2key;
 
         [ClassInitialize]
         public static void ClassInit(TestContext ctx)
         {
             glkey = UT_Crypto.GenerateCertainKey(32);
-            nep2Key = glkey.Export("pwd", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            Xep2key = glkey.Export("pwd", TestProtocolSettings.Default.AddressVersion, 2, 1, 1);
         }
 
         [TestMethod]
@@ -265,10 +265,10 @@ namespace Neo.UnitTests.Wallets
             Action action = () => Wallet.GetPrivateKeyFromNEP2("3vQB7B6MrGQZaxCuFg4oh", "TestGetPrivateKeyFromNEP2", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
             action.Should().Throw<FormatException>();
 
-            action = () => Wallet.GetPrivateKeyFromNEP2(nep2Key, "Test", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
+            action = () => Wallet.GetPrivateKeyFromNEP2(Xep2key, "Test", ProtocolSettings.Default.AddressVersion, 2, 1, 1);
             action.Should().Throw<FormatException>();
 
-            Wallet.GetPrivateKeyFromNEP2(nep2Key, "pwd", ProtocolSettings.Default.AddressVersion, 2, 1, 1).Should().BeEquivalentTo(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 });
+            Wallet.GetPrivateKeyFromNEP2(Xep2key, "pwd", ProtocolSettings.Default.AddressVersion, 2, 1, 1).Should().BeEquivalentTo(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 });
         }
 
         [TestMethod]
@@ -294,7 +294,7 @@ namespace Neo.UnitTests.Wallets
         public void TestImport2()
         {
             MyWallet wallet = new();
-            wallet.Import(nep2Key, "pwd", 2, 1, 1).Should().NotBeNull();
+            wallet.Import(Xep2key, "pwd", 2, 1, 1).Should().NotBeNull();
         }
 
         [TestMethod]
