@@ -24,7 +24,7 @@ using Neo.VM.Types;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.Trackers.NEP_11
+namespace Neo.Plugins.Trackers.XEP_11
 {
     public class Xep11BalanceKey : IComparable<Xep11BalanceKey>, IEquatable<Xep11BalanceKey>, ISerializable
     {

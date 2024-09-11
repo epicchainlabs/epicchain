@@ -22,7 +22,7 @@
 using Neo.IO;
 using System;
 
-namespace Neo.Plugins.Trackers.NEP_17
+namespace Neo.Plugins.Trackers.XEP_17
 {
     public class Xep17TransferKey : TokenTransferKey, IComparable<Xep17TransferKey>, IEquatable<Xep17TransferKey>, ISerializable
     {

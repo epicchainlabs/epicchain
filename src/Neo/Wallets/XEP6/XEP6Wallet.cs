@@ -278,9 +278,9 @@ namespace Neo.Wallets.XEP6
             return account;
         }
 
-        public override WalletAccount Import(string nep2, string passphrase, int N = 16384, int r = 8, int p = 8)
+        public override WalletAccount Import(string xep2, string passphrase, int N = 16384, int r = 8, int p = 8)
         {
-            KeyPair key = new(GetPrivateKeyFromXEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p));
+            KeyPair key = new(GetPrivateKeyFromXEP2(xep2, passphrase, ProtocolSettings.AddressVersion, N, r, p));
             XEP6Contract contract = new()
             {
                 Script = Contract.CreateSignatureRedeemScript(key.PublicKey),
@@ -290,7 +290,7 @@ namespace Neo.Wallets.XEP6
             };
             XEP6Account account;
             if (Scrypt.N == 16384 && Scrypt.R == 8 && Scrypt.P == 8)
-                account = new XEP6Account(this, contract.ScriptHash, nep2);
+                account = new XEP6Account(this, contract.ScriptHash, xep2);
             else
                 account = new XEP6Account(this, contract.ScriptHash, key, passphrase);
             account.Contract = contract;

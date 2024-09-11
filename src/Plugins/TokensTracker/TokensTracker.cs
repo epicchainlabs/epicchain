@@ -84,9 +84,9 @@ namespace Neo.Plugins
             string path = string.Format(_dbPath, EpicChainSystem.Settings.Network.ToString("X8"));
             _db = EpicChainSystem.LoadStore(GetFullPath(path));
             if (_enabledTrackers.Contains("XEP-11"))
-                trackers.Add(new Trackers.NEP_11.Xep11Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
+                trackers.Add(new Trackers.XEP_11.Xep11Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             if (_enabledTrackers.Contains("XEP-17"))
-                trackers.Add(new Trackers.NEP_17.Xep17Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
+                trackers.Add(new Trackers.XEP_17.Xep17Tracker(_db, _maxResults, _shouldTrackHistory, EpicChainSystem));
             foreach (TrackerBase tracker in trackers)
                 RpcServerPlugin.RegisterMethods(tracker, _network);
         }

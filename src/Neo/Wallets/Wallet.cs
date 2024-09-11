@@ -323,19 +323,19 @@ namespace Neo.Wallets
         /// <summary>
         /// Decodes a private key from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The XEP-2 string to be decoded.</param>
+        /// <param name="xep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="version">The address version of NEO system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <returns>The decoded private key.</returns>
-        public static byte[] GetPrivateKeyFromXEP2(string nep2, string passphrase, byte version, int N = 16384, int r = 8, int p = 8)
+        public static byte[] GetPrivateKeyFromXEP2(string xep2, string passphrase, byte version, int N = 16384, int r = 8, int p = 8)
         {
             byte[] passphrasedata = Encoding.UTF8.GetBytes(passphrase);
             try
             {
-                return GetPrivateKeyFromXEP2(nep2, passphrasedata, version, N, r, p);
+                return GetPrivateKeyFromXEP2(xep2, passphrasedata, version, N, r, p);
             }
             finally
             {
@@ -346,18 +346,18 @@ namespace Neo.Wallets
         /// <summary>
         /// Decodes a private key from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The XEP-2 string to be decoded.</param>
+        /// <param name="xep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="version">The address version of NEO system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <returns>The decoded private key.</returns>
-        public static byte[] GetPrivateKeyFromXEP2(string nep2, byte[] passphrase, byte version, int N = 16384, int r = 8, int p = 8)
+        public static byte[] GetPrivateKeyFromXEP2(string xep2, byte[] passphrase, byte version, int N = 16384, int r = 8, int p = 8)
         {
-            if (nep2 == null) throw new ArgumentNullException(nameof(nep2));
+            if (xep2 == null) throw new ArgumentNullException(nameof(xep2));
             if (passphrase == null) throw new ArgumentNullException(nameof(passphrase));
-            byte[] data = nep2.Base58CheckDecode();
+            byte[] data = xep2.Base58CheckDecode();
             if (data.Length != 39 || data[0] != 0x01 || data[1] != 0x42 || data[2] != 0xe0)
                 throw new FormatException();
             byte[] addresshash = new byte[4];
@@ -454,15 +454,15 @@ namespace Neo.Wallets
         /// <summary>
         /// Imports an account from the specified XEP-2 string.
         /// </summary>
-        /// <param name="nep2">The XEP-2 string to import.</param>
+        /// <param name="xep2">The XEP-2 string to import.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <returns>The imported account.</returns>
-        public virtual WalletAccount Import(string nep2, string passphrase, int N = 16384, int r = 8, int p = 8)
+        public virtual WalletAccount Import(string xep2, string passphrase, int N = 16384, int r = 8, int p = 8)
         {
-            byte[] privateKey = GetPrivateKeyFromXEP2(nep2, passphrase, ProtocolSettings.AddressVersion, N, r, p);
+            byte[] privateKey = GetPrivateKeyFromXEP2(xep2, passphrase, ProtocolSettings.AddressVersion, N, r, p);
             WalletAccount account = CreateAccount(privateKey);
             Array.Clear(privateKey, 0, privateKey.Length);
             return account;

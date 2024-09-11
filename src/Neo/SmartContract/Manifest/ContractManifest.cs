@@ -53,7 +53,7 @@ namespace Neo.SmartContract.Manifest
         public ContractGroup[] Groups { get; set; }
 
         /// <summary>
-        /// Indicates which standards the contract supports. It can be a list of NEPs.
+        /// Indicates which standards the contract supports. It can be a list of XEPs.
         /// </summary>
         public string[] SupportedStandards { get; set; }
 

@@ -335,7 +335,7 @@ namespace Neo.UnitTests.Wallets.XEP6
         }
 
         [TestMethod]
-        public void TestImportNep2()
+        public void TestImportXep2()
         {
             bool result = uut.Contains(testScriptHash);
             Assert.AreEqual(false, result);

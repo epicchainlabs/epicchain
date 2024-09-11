@@ -36,7 +36,7 @@ using System.Linq;
 using System.Numerics;
 using Array = Neo.VM.Types.Array;
 
-namespace Neo.Plugins.Trackers.NEP_11
+namespace Neo.Plugins.Trackers.XEP_11
 {
     class Xep11Tracker : TrackerBase
     {

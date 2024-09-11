@@ -36,7 +36,7 @@ using System.Linq;
 using System.Numerics;
 using Array = Neo.VM.Types.Array;
 
-namespace Neo.Plugins.Trackers.NEP_17
+namespace Neo.Plugins.Trackers.XEP_17
 {
     record BalanceChangeRecord(UInt160 User, UInt160 Asset);
 
