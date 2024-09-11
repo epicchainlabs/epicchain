@@ -26,7 +26,7 @@ using System.IO;
 namespace Neo.Network.P2P.Payloads
 {
     /// <summary>
-    /// Represents an object that can be verified in the NEO network.
+    /// Represents an object that can be verified in the EpicChain network.
     /// </summary>
     public interface IVerifiable : ISerializable
     {

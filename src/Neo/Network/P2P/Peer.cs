@@ -253,7 +253,7 @@ namespace Neo.Network.P2P
                 {
                     localAddresses.Add(UPnP.GetExternalIP());
 
-                    if (ListenerTcpPort > 0) UPnP.ForwardPort(ListenerTcpPort, ProtocolType.Tcp, "NEO Tcp");
+                    if (ListenerTcpPort > 0) UPnP.ForwardPort(ListenerTcpPort, ProtocolType.Tcp, "EpicChain Tcp");
                 }
                 catch { }
             }
@@ -336,7 +336,7 @@ namespace Neo.Network.P2P
             // Check if the number of desired connections is already enough
             if (ConnectedPeers.Count >= MinDesiredConnections) return;
 
-            // If there aren't available UnconnectedPeers, it triggers an abstract implementation of NeedMorePeers 
+            // If there aren't available UnconnectedPeers, it triggers an abstract implementation of NeedMorePeers
             if (UnconnectedPeers.Count == 0)
                 NeedMorePeers(MinDesiredConnections - ConnectedPeers.Count);
 

@@ -22,7 +22,7 @@
 namespace Neo.Network.P2P.Payloads
 {
     /// <summary>
-    /// Represents a message that can be relayed on the NEO network.
+    /// Represents a message that can be relayed on the EpicChain network.
     /// </summary>
     public interface IInventory : IVerifiable
     {

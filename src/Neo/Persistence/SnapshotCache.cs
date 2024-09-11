@@ -28,7 +28,7 @@ using System.Linq;
 namespace Neo.Persistence
 {
     /// <summary>
-    /// Represents a cache for the snapshot or database of the NEO blockchain.
+    /// Represents a cache for the snapshot or database of the EpicChain blockchain.
     /// </summary>
     public class SnapshotCache : DataCache, IDisposable
     {

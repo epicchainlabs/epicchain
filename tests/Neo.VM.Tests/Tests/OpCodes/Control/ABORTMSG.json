@@ -17,7 +17,7 @@
           ],
           "result": {
             "state": "FAULT",
-            "exceptionMessage": "ABORTMSG is executed. Reason: NEO"
+            "exceptionMessage": "ABORTMSG is executed. Reason: EpicChain"
           }
         }
       ]

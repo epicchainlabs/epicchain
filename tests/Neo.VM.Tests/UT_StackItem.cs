@@ -32,9 +32,9 @@ namespace Neo.Test
         [TestMethod]
         public void TestHashCode()
         {
-            StackItem itemA = "NEO";
-            StackItem itemB = "NEO";
-            StackItem itemC = "SmartEconomy";
+            StackItem itemA = "EpicChain";
+            StackItem itemB = "EpicChain";
+            StackItem itemC = "Next Generation Ecosystem";
 
             Assert.IsTrue(itemA.GetHashCode() == itemB.GetHashCode());
             Assert.IsTrue(itemA.GetHashCode() != itemC.GetHashCode());
@@ -102,11 +102,11 @@ namespace Neo.Test
         [TestMethod]
         public void TestEqual()
         {
-            StackItem itemA = "NEO";
-            StackItem itemB = "NEO";
-            StackItem itemC = "SmartEconomy";
-            StackItem itemD = "Smarteconomy";
-            StackItem itemE = "smarteconomy";
+            StackItem itemA = "EpicChain";
+            StackItem itemB = "EpicChain";
+            StackItem itemC = "Next Generation Ecosystem";
+            StackItem itemD = "Next Generation Ecosystem";
+            StackItem itemE = "Next Generation Ecosystem";
 
             Assert.IsTrue(itemA.Equals(itemB));
             Assert.IsFalse(itemA.Equals(itemC));
