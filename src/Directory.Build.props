@@ -6,12 +6,12 @@
     <LangVersion>12.0</LangVersion>
     <Authors>The EpicChain Lab's</Authors>
     <IsPackable>true</IsPackable>
-    <PackageIcon>neo.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/epicchainlabs/epiccha</PackageProjectUrl>
+    <PackageIcon>epicchain.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/epicchainlabs/epicchain</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/epicchainlabs/epiccha.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/epicchainlabs/epicchain.git</RepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Company>The EpicChain Lab's</Company>
@@ -20,8 +20,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)/.neo/neo.png" Pack="true" Visible="false" PackagePath=""/>
-    <None Include="$(SolutionDir)/.neo/README.md" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(SolutionDir)/.epicchain/epicchain.png" Pack="true" Visible="false" PackagePath=""/>
+    <None Include="$(SolutionDir)/.epicchain/README.md" Pack="true" Visible="false" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>

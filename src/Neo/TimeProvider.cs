@@ -24,7 +24,7 @@ using System;
 namespace Neo
 {
     /// <summary>
-    /// The time provider for the NEO system.
+    /// The time provider for the EpicChain system.
     /// </summary>
     public class TimeProvider
     {

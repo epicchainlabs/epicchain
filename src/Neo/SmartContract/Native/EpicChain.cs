@@ -36,7 +36,7 @@ using System.Numerics;
 namespace Neo.SmartContract.Native
 {
     /// <summary>
-    /// Represents the NEO token in the NEO system.
+    /// Represents the EpicChain token in the EpicChain system.
     /// </summary>
     public sealed class EpicChain : FungibleToken<EpicChain.EpicChainAccountState>
     {
@@ -44,12 +44,12 @@ namespace Neo.SmartContract.Native
         public override byte Decimals => 0;
 
         /// <summary>
-        /// Indicates the total amount of NEO.
+        /// Indicates the total amount of EpicChain.
         /// </summary>
         public BigInteger TotalAmount { get; }
 
         /// <summary>
-        /// Indicates the effective voting turnout in NEO. The voted candidates will only be effective when the voting turnout exceeds this value.
+        /// Indicates the effective voting turnout in EpicChain. The voted candidates will only be effective when the voting turnout exceeds this value.
         /// </summary>
         public const decimal EffectiveVoterTurnout = 0.2M;
 
@@ -60,7 +60,7 @@ namespace Neo.SmartContract.Native
         private const byte Prefix_RegisterPrice = 13;
         private const byte Prefix_VoterRewardPerCommittee = 23;
 
-        private const byte NeoHolderRewardRatio = 10;
+        private const byte epicchainHolderRewardRatio = 10;
         private const byte CommitteeRewardRatio = 10;
         private const byte VoterRewardRatio = 80;
 
@@ -142,17 +142,17 @@ namespace Neo.SmartContract.Native
             if (expectEnd != end) throw new ArgumentOutOfRangeException(nameof(end));
             if (state.BalanceHeight >= end) return BigInteger.Zero;
             // In the unit of datoshi, 1 datoshi = 1e-8 EpicPulse
-            BigInteger neoHolderReward = CalculateNeoHolderReward(snapshot, state.Balance, state.BalanceHeight, end);
-            if (state.VoteTo is null) return neoHolderReward;
+            BigInteger epicchainHolderReward = CalculateEpicChainHolderReward(snapshot, state.Balance, state.BalanceHeight, end);
+            if (state.VoteTo is null) return epicchainHolderReward;
 
             var keyLastest = CreateStorageKey(Prefix_VoterRewardPerCommittee).Add(state.VoteTo);
             var latestEpicPulsePerVote = snapshot.TryGet(keyLastest) ?? BigInteger.Zero;
             var voteReward = state.Balance * (latestEpicPulsePerVote - state.LastEpicPulsePerVote) / 100000000L;
 
-            return neoHolderReward + voteReward;
+            return epicchainHolderReward + voteReward;
         }
 
-        private BigInteger CalculateNeoHolderReward(DataCache snapshot, BigInteger value, uint start, uint end)
+        private BigInteger CalculateEpicChainHolderReward(DataCache snapshot, BigInteger value, uint start, uint end)
         {
             // In the unit of datoshi, 1 EpicPulse = 10^8 datoshi
             BigInteger sum = 0;
@@ -169,7 +169,7 @@ namespace Neo.SmartContract.Native
                     break;
                 }
             }
-            return value * sum * NeoHolderRewardRatio / 100 / TotalAmount;
+            return value * sum * epicchainHolderRewardRatio / 100 / TotalAmount;
         }
 
         private void CheckCandidate(DataCache snapshot, ECPoint pubkey, CandidateState candidate)
@@ -259,10 +259,10 @@ namespace Neo.SmartContract.Native
                     var factor = index < n ? 2 : 1; // The `voter` rewards of validator will double than other committee's
                     if (Votes > 0)
                     {
-                        BigInteger voterSumRewardPerNEO = factor * voterRewardOfEachCommittee / Votes;
+                        BigInteger voterSumRewardPerEpicChain = factor * voterRewardOfEachCommittee / Votes;
                         StorageKey voterRewardKey = CreateStorageKey(Prefix_VoterRewardPerCommittee).Add(PublicKey);
-                        StorageItem lastRewardPerNeo = engine.SnapshotCache.GetAndChange(voterRewardKey, () => new StorageItem(BigInteger.Zero));
-                        lastRewardPerNeo.Add(voterSumRewardPerNEO);
+                        StorageItem lastRewardPerEpicChain = engine.SnapshotCache.GetAndChange(voterRewardKey, () => new StorageItem(BigInteger.Zero));
+                        lastRewardPerEpicChain.Add(voterSumRewardPerEpicChain);
                     }
                 }
             }

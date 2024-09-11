@@ -39,7 +39,7 @@ using System.Threading;
 namespace Neo
 {
     /// <summary>
-    /// Represents the basic unit that contains all the components required for running of a NEO node.
+    /// Represents the basic unit that contains all the components required for running of a EpicChain node.
     /// </summary>
     public class EpicChainSystem : IDisposable
     {
@@ -63,7 +63,7 @@ namespace Neo
             $"remote-node-mailbox {{ mailbox-type: \"{typeof(RemoteNodeMailbox).AssemblyQualifiedName}\" }}");
 
         /// <summary>
-        /// The genesis block of the NEO blockchain.
+        /// The genesis block of the EpicChain blockchain.
         /// </summary>
         public Block GenesisBlock { get; }
 
@@ -156,9 +156,9 @@ namespace Neo
         }
 
         /// <summary>
-        /// Creates the genesis block for the NEO blockchain.
+        /// Creates the genesis block for the EpicChain blockchain.
         /// </summary>
-        /// <param name="settings">The <see cref="ProtocolSettings"/> of the NEO system.</param>
+        /// <param name="settings">The <see cref="ProtocolSettings"/> of the EpicChain system.</param>
         /// <returns>The genesis block.</returns>
         public static Block CreateGenesisBlock(ProtocolSettings settings) => new()
         {

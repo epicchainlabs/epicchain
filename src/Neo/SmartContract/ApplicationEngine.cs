@@ -38,7 +38,7 @@ using VMArray = Neo.VM.Types.Array;
 namespace Neo.SmartContract
 {
     /// <summary>
-    /// A virtual machine used to execute smart contracts in the NEO system.
+    /// A virtual machine used to execute smart contracts in the EpicChain system.
     /// </summary>
     public partial class ApplicationEngine : ExecutionEngine
     {
@@ -81,7 +81,7 @@ namespace Neo.SmartContract
         public static IApplicationEngineProvider Provider { get; set; }
 
         /// <summary>
-        /// Gets the descriptors of all interoperable services available in NEO.
+        /// Gets the descriptors of all interoperable services available in EpicChain.
         /// </summary>
         public static IReadOnlyDictionary<uint, InteropDescriptor> Services => services;
 

@@ -32,7 +32,7 @@ namespace Neo.SmartContract
 {
     /*
     ┌───────────────────────────────────────────────────────────────────────┐
-    │                    NEO Executable Format 3 (NEF3)                     │
+    │                    EpicChain Executable Format 3 (NEF3)                     │
     ├──────────┬───────────────┬────────────────────────────────────────────┤
     │  Field   │     Type      │                  Comment                   │
     ├──────────┼───────────────┼────────────────────────────────────────────┤
@@ -49,17 +49,17 @@ namespace Neo.SmartContract
     └──────────┴───────────────┴────────────────────────────────────────────┘
     */
     /// <summary>
-    /// Represents the structure of NEO Executable Format.
+    /// Represents the structure of EpicChain Executable Format.
     /// </summary>
     public class NefFile : ISerializable
     {
         /// <summary>
-        /// NEO Executable Format 3 (NEF3)
+        /// EpicChain Executable Format 3 (NEF3)
         /// </summary>
         private const uint Magic = 0x3346454E;
 
         /// <summary>
-        /// The name and version of the compiler that generated this nef file.
+        /// The name and version of the compiler that generated this xef file.
         /// </summary>
         public string Compiler { get; set; }
 

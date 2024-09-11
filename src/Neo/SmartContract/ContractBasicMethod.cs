@@ -22,7 +22,7 @@
 namespace Neo.SmartContract
 {
     /// <summary>
-    /// This class provides a guideline for basic methods used in the Neo blockchain, offering
+    /// This class provides a guideline for basic methods used in the EpicChain blockchain, offering
     /// a generalized interaction mechanism for smart contract deployment, verification, updates, and destruction.
     /// </summary>
     public record ContractBasicMethod
@@ -79,7 +79,7 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// The update method. Requires <see cref="NefFile"/> or <see cref="Manifest"/>, or both, and is passed to _deploy.
-        /// Should verify the signer's address using SYSCALL <code>Neo.Runtime.CheckWitness</code>.
+        /// Should verify the signer's address using SYSCALL <code>EpicChain.Runtime.CheckWitness</code>.
         /// <code>
         /// {
         ///   "name": "update",
@@ -106,7 +106,7 @@ namespace Neo.SmartContract
 
         /// <summary>
         /// The destruction method. Deletes all the storage of the contract.
-        /// Should verify the signer's address using SYSCALL <code>Neo.Runtime.CheckWitness</code>.
+        /// Should verify the signer's address using SYSCALL <code>EpicChain.Runtime.CheckWitness</code>.
         /// Any tokens in the contract must be transferred before destruction.
         /// <code>
         /// {
