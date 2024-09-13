@@ -102,7 +102,7 @@ jobs:
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo Package (nuget)
+    - name: Delete EpicChain Package (nuget)
       uses: actions/delete-package-versions@v4
       with:
         package-name: Neo
@@ -111,7 +111,7 @@ jobs:
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo Package (docker)
+    - name: Delete EpicChain Package (docker)
       uses: actions/delete-package-versions@v4
       with:
         package-name: Neo

@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 namespace Neo.IO
 {
     /// <summary>
-    /// A helper class for serialization of NEO objects.
+    /// A helper class for serialization of EpicChain objects.
     /// </summary>
     public static class Helper
     {

@@ -43,7 +43,7 @@ namespace Neo.UnitTests.Wallets
 
             var address = scriptHash.ToAddress(ProtocolSettings.Default.AddressVersion);
             Span<byte> data = stackalloc byte[21];
-            // NEO version is 0x17
+            // EpicChain version is 0x17
             data[0] = 0x01;
             scriptHash.ToArray().CopyTo(data[1..]);
             address = Base58.Base58CheckEncode(data);

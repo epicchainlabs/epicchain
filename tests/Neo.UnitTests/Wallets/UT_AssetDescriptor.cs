@@ -48,19 +48,19 @@ namespace Neo.UnitTests.Wallets
             descriptor.AssetId.Should().Be(NativeContract.EpicPulse.Hash);
             descriptor.AssetName.Should().Be(nameof(EpicPulse));
             descriptor.ToString().Should().Be(nameof(EpicPulse));
-            descriptor.Symbol.Should().Be("EpicPulse");
+            descriptor.Symbol.Should().Be("XPP");
             descriptor.Decimals.Should().Be(8);
         }
 
         [TestMethod]
-        public void Check_NEO()
+        public void Check_EPICCHAIN()
         {
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
             var descriptor = new Neo.Wallets.AssetDescriptor(snapshotCache, TestProtocolSettings.Default, NativeContract.NEO.Hash);
             descriptor.AssetId.Should().Be(NativeContract.NEO.Hash);
             descriptor.AssetName.Should().Be(nameof(EpicChain));
             descriptor.ToString().Should().Be(nameof(EpicChain));
-            descriptor.Symbol.Should().Be("NEO");
+            descriptor.Symbol.Should().Be("XPR");
             descriptor.Decimals.Should().Be(0);
         }
     }

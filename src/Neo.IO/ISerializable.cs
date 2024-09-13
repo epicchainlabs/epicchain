@@ -24,7 +24,7 @@ using System.IO;
 namespace Neo.IO
 {
     /// <summary>
-    /// Represents NEO objects that can be serialized.
+    /// Represents EpicChain objects that can be serialized.
     /// </summary>
     public interface ISerializable
     {

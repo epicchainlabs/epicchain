@@ -325,7 +325,7 @@ namespace Neo.Wallets
         /// </summary>
         /// <param name="xep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
-        /// <param name="version">The address version of NEO system.</param>
+        /// <param name="version">The address version of EpicChain system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
@@ -348,7 +348,7 @@ namespace Neo.Wallets
         /// </summary>
         /// <param name="xep2">The XEP-2 string to be decoded.</param>
         /// <param name="passphrase">The passphrase of the private key.</param>
-        /// <param name="version">The address version of NEO system.</param>
+        /// <param name="version">The address version of EpicChain system.</param>
         /// <param name="N">The N field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="r">The R field of the <see cref="ScryptParameters"/> to be used.</param>
         /// <param name="p">The P field of the <see cref="ScryptParameters"/> to be used.</param>
