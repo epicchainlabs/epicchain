@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <PackageId>Neo.Plugins.RpcServer</PackageId>
+    <PackageId>EpicChain.Plugins.RpcServer</PackageId>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Neo.Plugins.RpcServer.Tests" />
+    <InternalsVisibleTo Include="EpicChain.Plugins.RpcServer.Tests" />
   </ItemGroup>
 
 </Project>

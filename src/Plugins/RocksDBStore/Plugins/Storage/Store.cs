@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Persistence;
+using EpicChain.Persistence;
 using RocksDbSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     internal class Store : IStore
     {

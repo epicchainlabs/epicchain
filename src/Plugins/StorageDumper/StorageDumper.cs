@@ -19,16 +19,16 @@
 // practices.
 
 
-using Neo.ConsoleService;
-using Neo.IEventHandlers;
-using Neo.IO;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.SmartContract.Native;
+using EpicChain.ConsoleService;
+using EpicChain.IEventHandlers;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.SmartContract.Native;
 
-namespace Neo.Plugins.StorageDumper
+namespace EpicChain.Plugins.StorageDumper
 {
     public class StorageDumper : Plugin, ICommittingHandler, ICommittedHandler
     {

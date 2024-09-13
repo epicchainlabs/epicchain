@@ -104,7 +104,7 @@ jobs:
     # Publish the epicchain-cli project
     - name: .NET Publish (epicchain-cli)
       run: |
-        dotnet publish ./src/Neo.CLI \
+        dotnet publish ./src/EpicChain.CLI \
         --version-suffix ${{ matrix.runtime }} \
         --framework net8.0 \
         --configuration ${{ env.CONFIGURATION }} \

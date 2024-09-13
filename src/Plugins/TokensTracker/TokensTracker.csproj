@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Plugins.TokensTracker</PackageId>
+    <PackageId>EpicChain.Plugins.TokensTracker</PackageId>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 

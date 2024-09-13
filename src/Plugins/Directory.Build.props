@@ -4,7 +4,7 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <ItemGroup>
-    <ProjectReference Include="../../Neo/Neo.csproj" />
+    <ProjectReference Include="../../Neo/EpicChain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ jobs:
       - name: Delete versions below 3.6.1
         env:
           MYGET_FEED: 'neo'
-          PACKAGE_NAMES: 'Neo.VM,Neo.Json,Neo.IO,Neo,Neo.ConsoleService,Neo.Extensions' # Neo.Cryptography.BLS12_381 version is 0.x
+          PACKAGE_NAMES: 'EpicChain.VM,EpicChain.Json,EpicChain.IO,Neo,EpicChain.ConsoleService,EpicChain.Extensions' # EpicChain.Cryptography.BLS12_381 version is 0.x
           MYGET_API_KEY: ${{ secrets.MYGET_TOKEN }}
         run: |
           import requests
@@ -66,37 +66,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Delete Neo.Cryptography.BLS12_381 Package
+    - name: Delete EpicChain.Cryptography.BLS12_381 Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.Cryptography.BLS12_381
+        package-name: EpicChain.Cryptography.BLS12_381
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo.VM Package
+    - name: Delete EpicChain.VM Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.VM
+        package-name: EpicChain.VM
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo.Json Package
+    - name: Delete EpicChain.Json Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.Json
+        package-name: EpicChain.Json
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo.IO Package
+    - name: Delete EpicChain.IO Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.IO
+        package-name: EpicChain.IO
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
@@ -120,19 +120,19 @@ jobs:
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo.ConsoleService Package
+    - name: Delete EpicChain.ConsoleService Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.ConsoleService
+        package-name: EpicChain.ConsoleService
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
         token: "${{ secrets.GITHUB_TOKEN }}"
 
-    - name: Delete Neo.Extensions Package
+    - name: Delete EpicChain.Extensions Package
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo.Extensions
+        package-name: EpicChain.Extensions
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"

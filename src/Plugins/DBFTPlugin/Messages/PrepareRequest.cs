@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Plugins.DBFTPlugin.Types;
+using EpicChain.IO;
+using EpicChain.Plugins.DBFTPlugin.Types;
 using System;
 using System.IO;
 using System.Linq;
 
-namespace Neo.Plugins.DBFTPlugin.Messages
+namespace EpicChain.Plugins.DBFTPlugin.Messages
 {
     public class PrepareRequest : ConsensusMessage
     {

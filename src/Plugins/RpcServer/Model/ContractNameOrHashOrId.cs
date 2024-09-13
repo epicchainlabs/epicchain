@@ -21,7 +21,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Neo.Plugins.RpcServer.Model;
+namespace EpicChain.Plugins.RpcServer.Model;
 
 public class ContractNameOrHashOrId
 {

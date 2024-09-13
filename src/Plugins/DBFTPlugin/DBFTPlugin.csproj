@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Consensus.DBFT</PackageId>
-    <RootNamespace>Neo.Consensus</RootNamespace>
+    <PackageId>EpicChain.Consensus.DBFT</PackageId>
+    <RootNamespace>EpicChain.Consensus</RootNamespace>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Neo.ConsoleService\Neo.ConsoleService.csproj" />
+    <ProjectReference Include="..\..\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

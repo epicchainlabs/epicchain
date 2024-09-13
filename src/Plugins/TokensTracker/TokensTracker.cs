@@ -20,18 +20,18 @@
 
 
 using Microsoft.Extensions.Configuration;
-using Neo.IEventHandlers;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.RpcServer;
-using Neo.Plugins.Trackers;
+using EpicChain.IEventHandlers;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.RpcServer;
+using EpicChain.Plugins.Trackers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using static System.IO.Path;
 
-namespace Neo.Plugins
+namespace EpicChain.Plugins
 {
     public class TokensTracker : Plugin, ICommittingHandler, ICommittedHandler
     {

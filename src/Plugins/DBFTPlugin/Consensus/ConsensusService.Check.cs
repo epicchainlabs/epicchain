@@ -20,15 +20,15 @@
 
 
 using Akka.Actor;
-using Neo.IO;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.DBFTPlugin.Messages;
-using Neo.Plugins.DBFTPlugin.Types;
+using EpicChain.IO;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.DBFTPlugin.Messages;
+using EpicChain.Plugins.DBFTPlugin.Types;
 using System;
 using System.Linq;
 
-namespace Neo.Plugins.DBFTPlugin.Consensus
+namespace EpicChain.Plugins.DBFTPlugin.Consensus
 {
     partial class ConsensusService
     {

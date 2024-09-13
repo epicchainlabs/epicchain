@@ -20,19 +20,19 @@
 
 
 using Akka.Actor;
-using Neo.Cryptography;
-using Neo.Extensions;
-using Neo.Ledger;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.DBFTPlugin.Messages;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
+using EpicChain.Cryptography;
+using EpicChain.Extensions;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.DBFTPlugin.Messages;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Neo.Plugins.DBFTPlugin.Consensus
+namespace EpicChain.Plugins.DBFTPlugin.Consensus
 {
     partial class ConsensusService
     {

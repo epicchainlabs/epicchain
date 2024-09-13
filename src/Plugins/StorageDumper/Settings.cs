@@ -20,9 +20,9 @@
 
 
 using Microsoft.Extensions.Configuration;
-using Neo.SmartContract.Native;
+using EpicChain.SmartContract.Native;
 
-namespace Neo.Plugins.StorageDumper
+namespace EpicChain.Plugins.StorageDumper
 {
     internal class Settings : PluginSettings
     {

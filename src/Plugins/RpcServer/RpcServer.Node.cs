@@ -20,16 +20,16 @@
 
 
 using Akka.Actor;
-using Neo.IO;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
 using System;
 using System.Linq;
-using static Neo.Ledger.Blockchain;
+using static EpicChain.Ledger.Blockchain;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     partial class RpcServer
     {

@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.VM.Types;
+using EpicChain.VM.Types;
 
-namespace Neo.VM.Benchmark;
+namespace EpicChain.VM.Benchmark;
 
 public class TestStruct : TestArray
 {

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     partial class Trie
     {

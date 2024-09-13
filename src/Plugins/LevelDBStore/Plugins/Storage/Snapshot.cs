@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.IO.Data.LevelDB;
-using Neo.Persistence;
+using EpicChain.IO.Data.LevelDB;
+using EpicChain.Persistence;
 using System.Collections.Generic;
-using LSnapshot = Neo.IO.Data.LevelDB.Snapshot;
+using LSnapshot = EpicChain.IO.Data.LevelDB.Snapshot;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     internal class Snapshot : ISnapshot
     {

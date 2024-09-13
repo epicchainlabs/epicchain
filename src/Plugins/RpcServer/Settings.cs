@@ -20,13 +20,13 @@
 
 
 using Microsoft.Extensions.Configuration;
-using Neo.SmartContract.Native;
+using EpicChain.SmartContract.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     class Settings : PluginSettings
     {

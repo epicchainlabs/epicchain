@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO.Data.LevelDB;
-using Neo.Persistence;
+using EpicChain.IO.Data.LevelDB;
+using EpicChain.Persistence;
 using System.Collections.Generic;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     internal class Store : IStore
     {

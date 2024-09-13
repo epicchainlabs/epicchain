@@ -20,12 +20,12 @@
 
 
 using BenchmarkDotNet.Attributes;
-using Neo.Network.P2P.Payloads;
-using Neo.SmartContract;
-using Neo.VM;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.SmartContract;
+using EpicChain.VM;
 using System.Diagnostics;
 
-namespace Neo.Benchmark;
+namespace EpicChain.Benchmark;
 
 public class Benchmarks_PoCs
 {

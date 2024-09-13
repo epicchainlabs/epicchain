@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Extensions;
-using Neo.IO;
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.Network.RPC.Models;
-using Neo.SmartContract;
-using Neo.SmartContract.Manifest;
+using EpicChain.Extensions;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.RPC.Models;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Manifest;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,7 +38,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// The RPC client to call NEO RPC methods
@@ -119,7 +119,7 @@ namespace Neo.Network.RPC
             var requestJson = request.ToJson().ToString();
             return new HttpRequestMessage(HttpMethod.Post, baseAddress)
             {
-                Content = new StringContent(requestJson, Neo.Utility.StrictUTF8)
+                Content = new StringContent(requestJson, EpicChain.Utility.StrictUTF8)
             };
         }
 

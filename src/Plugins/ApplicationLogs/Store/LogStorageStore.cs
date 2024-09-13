@@ -19,14 +19,14 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Persistence;
-using Neo.Plugins.ApplicationLogs.Store.States;
-using Neo.SmartContract;
-using Neo.VM;
-using Neo.VM.Types;
+using EpicChain.IO;
+using EpicChain.Persistence;
+using EpicChain.Plugins.ApplicationLogs.Store.States;
+using EpicChain.SmartContract;
+using EpicChain.VM;
+using EpicChain.VM.Types;
 
-namespace Neo.Plugins.ApplicationLogs.Store
+namespace EpicChain.Plugins.ApplicationLogs.Store
 {
     public sealed class LogStorageStore : IDisposable
     {

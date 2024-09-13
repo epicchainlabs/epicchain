@@ -19,22 +19,22 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.VM.Types;
-using Neo.Wallets;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.VM.Types;
+using EpicChain.Wallets;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using Array = Neo.VM.Types.Array;
+using Array = EpicChain.VM.Types.Array;
 
-namespace Neo.Plugins.Trackers
+namespace EpicChain.Plugins.Trackers
 {
     record TransferRecord(UInt160 asset, UInt160 from, UInt160 to, byte[] tokenId, BigInteger amount);
 

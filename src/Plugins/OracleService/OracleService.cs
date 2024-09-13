@@ -21,23 +21,23 @@
 
 using Akka.Actor;
 using Akka.Util.Internal;
-using Neo.ConsoleService;
-using Neo.Cryptography;
-using Neo.Cryptography.ECC;
-using Neo.Extensions;
-using Neo.IEventHandlers;
-using Neo.IO;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.RpcServer;
-using Neo.SmartContract;
-using Neo.SmartContract.Manifest;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.Wallets;
+using EpicChain.ConsoleService;
+using EpicChain.Cryptography;
+using EpicChain.Cryptography.ECC;
+using EpicChain.Extensions;
+using EpicChain.IEventHandlers;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.RpcServer;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Manifest;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     public class OracleService : Plugin, ICommittingHandler, IServiceAddedHandler, IWalletChangedHandler
     {

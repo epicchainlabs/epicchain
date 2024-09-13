@@ -19,22 +19,22 @@
 // practices.
 
 
-using Neo.ConsoleService;
-using Neo.IEventHandlers;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.ApplicationLogs.Store;
-using Neo.Plugins.ApplicationLogs.Store.Models;
-using Neo.Plugins.RpcServer;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
+using EpicChain.ConsoleService;
+using EpicChain.IEventHandlers;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.ApplicationLogs.Store;
+using EpicChain.Plugins.ApplicationLogs.Store.Models;
+using EpicChain.Plugins.RpcServer;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
 using System.Numerics;
 using static System.IO.Path;
 
-namespace Neo.Plugins.ApplicationLogs
+namespace EpicChain.Plugins.ApplicationLogs
 {
     public class LogReader : Plugin, ICommittingHandler, ICommittedHandler, ILogHandler
     {

@@ -19,24 +19,24 @@
 // practices.
 
 
-using Neo.Extensions;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.RpcServer;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.VM.Types;
-using Neo.Wallets;
+using EpicChain.Extensions;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.RpcServer;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.VM.Types;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Array = Neo.VM.Types.Array;
+using Array = EpicChain.VM.Types.Array;
 
-namespace Neo.Plugins.Trackers.XEP_17
+namespace EpicChain.Plugins.Trackers.XEP_17
 {
     record BalanceChangeRecord(UInt160 User, UInt160 Asset);
 

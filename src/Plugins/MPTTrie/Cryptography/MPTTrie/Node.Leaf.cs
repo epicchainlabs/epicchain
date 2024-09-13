@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.SmartContract;
+using EpicChain.IO;
+using EpicChain.SmartContract;
 using System;
 using System.IO;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     partial class Node
     {

@@ -20,20 +20,20 @@
 
 
 using Akka.Actor;
-using Neo.Cryptography;
-using Neo.Cryptography.ECC;
-using Neo.IO;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.StateService.Network;
-using Neo.Plugins.StateService.Storage;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.Wallets;
+using EpicChain.Cryptography;
+using EpicChain.Cryptography.ECC;
+using EpicChain.IO;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.StateService.Network;
+using EpicChain.Plugins.StateService.Storage;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.Wallets;
 using System.Collections.Concurrent;
 using System.IO;
 
-namespace Neo.Plugins.StateService.Verification
+namespace EpicChain.Plugins.StateService.Verification
 {
     class VerificationContext
     {

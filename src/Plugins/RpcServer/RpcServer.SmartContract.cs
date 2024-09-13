@@ -19,24 +19,24 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.IO;
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Iterators;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.VM.Types;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Iterators;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.VM.Types;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Array = System.Array;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     partial class RpcServer
     {
@@ -295,7 +295,7 @@ namespace Neo.Plugins.RpcServer
             UInt160 script_hash = Result.Ok_Or(() => AddressToScriptHash(address, system.Settings.AddressVersion), RpcError.InvalidParams);
 
             var snapshot = system.StoreView;
-            json["unclaimed"] = NativeContract.NEO.UnclaimedEpicPulse(snapshot, script_hash, NativeContract.Ledger.CurrentIndex(snapshot) + 1).ToString();
+            json["unclaimed"] = NativeContract.EpicChain.UnclaimedEpicPulse(snapshot, script_hash, NativeContract.Ledger.CurrentIndex(snapshot) + 1).ToString();
             json["address"] = script_hash.ToAddress(system.Settings.AddressVersion);
             return json;
         }

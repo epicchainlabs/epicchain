@@ -19,22 +19,22 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.Extensions;
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.Network.P2P.Payloads.Conditions;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM.Types;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.Extensions;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.P2P.Payloads.Conditions;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM.Types;
+using EpicChain.Wallets;
 using System;
 using System.Linq;
 using System.Numerics;
-using Array = Neo.VM.Types.Array;
-using Buffer = Neo.VM.Types.Buffer;
+using Array = EpicChain.VM.Types.Array;
+using Buffer = EpicChain.VM.Types.Buffer;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     public static class Utility
     {

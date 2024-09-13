@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Network.RPC.Models;
+using EpicChain.Json;
+using EpicChain.Network.RPC.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     public class StateAPI
     {

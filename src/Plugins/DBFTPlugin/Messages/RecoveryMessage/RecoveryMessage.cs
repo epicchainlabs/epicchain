@@ -19,16 +19,16 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.DBFTPlugin.Consensus;
-using Neo.Plugins.DBFTPlugin.Types;
+using EpicChain.IO;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.DBFTPlugin.Consensus;
+using EpicChain.Plugins.DBFTPlugin.Types;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Neo.Plugins.DBFTPlugin.Messages
+namespace EpicChain.Plugins.DBFTPlugin.Messages
 {
     public partial class RecoveryMessage : ConsensusMessage
     {

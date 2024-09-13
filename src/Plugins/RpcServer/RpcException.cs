@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     public class RpcException : Exception
     {

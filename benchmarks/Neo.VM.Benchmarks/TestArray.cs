@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.VM.Types;
+using EpicChain.VM.Types;
 using System.Collections;
 
-namespace Neo.VM.Benchmark;
+namespace EpicChain.VM.Benchmark;
 
 public class TestArray : CompoundType, IReadOnlyList<StackItem>
 {

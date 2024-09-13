@@ -21,7 +21,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace Neo.Plugins.DBFTPlugin
+namespace EpicChain.Plugins.DBFTPlugin
 {
     public class Settings : PluginSettings
     {

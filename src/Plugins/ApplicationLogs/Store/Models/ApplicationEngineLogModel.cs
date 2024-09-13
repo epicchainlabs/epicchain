@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.Plugins.ApplicationLogs.Store.States;
+using EpicChain.Plugins.ApplicationLogs.Store.States;
 
-namespace Neo.Plugins.ApplicationLogs.Store.Models
+namespace EpicChain.Plugins.ApplicationLogs.Store.Models
 {
     public class ApplicationEngineLogModel
     {

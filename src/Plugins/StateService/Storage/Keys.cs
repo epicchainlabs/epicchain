@@ -22,7 +22,7 @@
 using System;
 using System.Buffers.Binary;
 
-namespace Neo.Plugins.StateService.Storage
+namespace EpicChain.Plugins.StateService.Storage
 {
     public static class Keys
     {

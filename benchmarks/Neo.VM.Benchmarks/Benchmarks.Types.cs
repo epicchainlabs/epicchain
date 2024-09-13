@@ -20,9 +20,9 @@
 
 
 using BenchmarkDotNet.Attributes;
-using Array = Neo.VM.Types.Array;
+using Array = EpicChain.VM.Types.Array;
 
-namespace Neo.VM.Benchmark;
+namespace EpicChain.VM.Benchmark;
 
 public class Benchmarks_Types
 {

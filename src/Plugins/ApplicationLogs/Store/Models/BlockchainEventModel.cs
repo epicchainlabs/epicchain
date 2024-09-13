@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.Plugins.ApplicationLogs.Store.States;
-using Neo.VM.Types;
+using EpicChain.Plugins.ApplicationLogs.Store.States;
+using EpicChain.VM.Types;
 
-namespace Neo.Plugins.ApplicationLogs.Store.Models
+namespace EpicChain.Plugins.ApplicationLogs.Store.Models
 {
     public class BlockchainEventModel
     {

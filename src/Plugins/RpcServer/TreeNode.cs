@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     class TreeNode<T>
     {

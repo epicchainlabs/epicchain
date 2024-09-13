@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class RpcMethodAttribute : Attribute

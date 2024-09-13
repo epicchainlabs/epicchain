@@ -22,7 +22,7 @@
 using System;
 using System.IO;
 
-namespace Neo.IO.Data.LevelDB
+namespace EpicChain.IO.Data.LevelDB
 {
     public class DB : IDisposable
     {

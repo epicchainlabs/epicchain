@@ -23,7 +23,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Neo.IO.Data.LevelDB
+namespace EpicChain.IO.Data.LevelDB
 {
     public enum CompressionType : byte
     {

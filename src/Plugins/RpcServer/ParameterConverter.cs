@@ -19,14 +19,14 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Plugins.RpcServer.Model;
-using Neo.Wallets;
+using EpicChain.Json;
+using EpicChain.Plugins.RpcServer.Model;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
-using JToken = Neo.Json.JToken;
+using JToken = EpicChain.Json.JToken;
 
-namespace Neo.Plugins.RpcServer;
+namespace EpicChain.Plugins.RpcServer;
 
 public static class ParameterConverter
 {

@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Plugins.ApplicationLogs.Store.States;
-using Neo.SmartContract;
-using Neo.VM;
-using Neo.VM.Types;
+using EpicChain.Plugins.ApplicationLogs.Store.States;
+using EpicChain.SmartContract;
+using EpicChain.VM;
+using EpicChain.VM.Types;
 
-namespace Neo.Plugins.ApplicationLogs.Store.Models
+namespace EpicChain.Plugins.ApplicationLogs.Store.Models
 {
     public class BlockchainExecutionModel
     {

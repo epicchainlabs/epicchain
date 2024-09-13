@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Cryptography.MPT</PackageId>
-    <RootNamespace>Neo.Cryptography</RootNamespace>
+    <PackageId>EpicChain.Cryptography.MPT</PackageId>
+    <RootNamespace>EpicChain.Cryptography</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>

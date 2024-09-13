@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Wallets;
+using EpicChain.Json;
+using EpicChain.Wallets;
 using System.Linq;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     partial class RpcServer
     {

@@ -19,15 +19,15 @@
 // practices.
 
 
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.ApplicationLogs.Store.Models;
-using Neo.Plugins.ApplicationLogs.Store.States;
-using Neo.SmartContract;
-using Neo.VM.Types;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.ApplicationLogs.Store.Models;
+using EpicChain.Plugins.ApplicationLogs.Store.States;
+using EpicChain.SmartContract;
+using EpicChain.VM.Types;
 
-namespace Neo.Plugins.ApplicationLogs.Store
+namespace EpicChain.Plugins.ApplicationLogs.Store
 {
     public sealed class EpicChainStore : IDisposable
     {

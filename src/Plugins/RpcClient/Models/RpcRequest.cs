@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.Json;
+using EpicChain.Json;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcRequest
     {

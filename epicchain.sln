@@ -2,15 +2,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo", "src\Neo\Neo.csproj", "{36447A9B-0311-4D4D-A3D5-AECBE9C15BBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo", "src\Neo\EpicChain.csproj", "{36447A9B-0311-4D4D-A3D5-AECBE9C15BBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Json", "src\Neo.Json\Neo.Json.csproj", "{6B709ED6-64C0-451D-B07F-8F49185AE191}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Json", "src\EpicChain.Json\EpicChain.Json.csproj", "{6B709ED6-64C0-451D-B07F-8F49185AE191}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.UnitTests", "tests\Neo.UnitTests\Neo.UnitTests.csproj", "{5B783B30-B422-4C2F-AC22-187A8D1993F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.UnitTests", "tests\EpicChain.UnitTests\EpicChain.UnitTests.csproj", "{5B783B30-B422-4C2F-AC22-187A8D1993F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Json.UnitTests", "tests\Neo.Json.UnitTests\Neo.Json.UnitTests.csproj", "{AE6C32EE-8447-4E01-8187-2AE02BB64251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Json.UnitTests", "tests\EpicChain.Json.UnitTests\EpicChain.Json.UnitTests.csproj", "{AE6C32EE-8447-4E01-8187-2AE02BB64251}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Benchmarks", "benchmarks\Neo.Benchmarks\Neo.Benchmarks.csproj", "{BCD03521-5F8F-4775-9ADF-FA361480804F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Benchmarks", "benchmarks\EpicChain.Benchmarks\EpicChain.Benchmarks.csproj", "{BCD03521-5F8F-4775-9ADF-FA361480804F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B5339DF7-5D1D-43BA-B332-74B825E1770E}"
 EndProject
@@ -18,39 +18,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EDE05FA8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{C25EB0B0-0CAC-4CC1-8F36-F9229EFB99EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.VM.Benchmarks", "benchmarks\Neo.VM.Benchmarks\Neo.VM.Benchmarks.csproj", "{E83633BA-FCF0-4A1A-B5BC-42000E24D437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.VM.Benchmarks", "benchmarks\EpicChain.VM.Benchmarks\EpicChain.VM.Benchmarks.csproj", "{E83633BA-FCF0-4A1A-B5BC-42000E24D437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.VM", "src\Neo.VM\Neo.VM.csproj", "{0603710E-E0BA-494C-AA0F-6FB0C8A8C754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.VM", "src\EpicChain.VM\EpicChain.VM.csproj", "{0603710E-E0BA-494C-AA0F-6FB0C8A8C754}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.VM.Tests", "tests\Neo.VM.Tests\Neo.VM.Tests.csproj", "{005F84EB-EA2E-449F-930A-7B4173DDC7EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.VM.Tests", "tests\EpicChain.VM.Tests\EpicChain.VM.Tests.csproj", "{005F84EB-EA2E-449F-930A-7B4173DDC7EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.ConsoleService", "src\Neo.ConsoleService\Neo.ConsoleService.csproj", "{9E886812-7243-48D8-BEAF-47AADC11C054}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.ConsoleService", "src\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj", "{9E886812-7243-48D8-BEAF-47AADC11C054}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.GUI", "src\Neo.GUI\Neo.GUI.csproj", "{02ABDE42-9880-43B4-B6F7-8D618602A277}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.GUI", "src\EpicChain.GUI\EpicChain.GUI.csproj", "{02ABDE42-9880-43B4-B6F7-8D618602A277}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.CLI", "src\Neo.CLI\Neo.CLI.csproj", "{BDFBE455-4C1F-4FC4-B5FC-1387B93A8687}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.CLI", "src\EpicChain.CLI\EpicChain.CLI.csproj", "{BDFBE455-4C1F-4FC4-B5FC-1387B93A8687}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.ConsoleService.Tests", "tests\Neo.ConsoleService.Tests\Neo.ConsoleService.Tests.csproj", "{B40F8584-5AFB-452C-AEFA-009C80CC23A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.ConsoleService.Tests", "tests\EpicChain.ConsoleService.Tests\EpicChain.ConsoleService.Tests.csproj", "{B40F8584-5AFB-452C-AEFA-009C80CC23A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Cryptography.BLS12_381", "src\Neo.Cryptography.BLS12_381\Neo.Cryptography.BLS12_381.csproj", "{D48C1FAB-3471-4CA0-8688-25E6F43F2C25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Cryptography.BLS12_381", "src\EpicChain.Cryptography.BLS12_381\EpicChain.Cryptography.BLS12_381.csproj", "{D48C1FAB-3471-4CA0-8688-25E6F43F2C25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Cryptography.BLS12_381.Tests", "tests\Neo.Cryptography.BLS12_381.Tests\Neo.Cryptography.BLS12_381.Tests.csproj", "{387CCF6C-9A26-43F6-A639-0A82E91E10D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Cryptography.BLS12_381.Tests", "tests\EpicChain.Cryptography.BLS12_381.Tests\EpicChain.Cryptography.BLS12_381.Tests.csproj", "{387CCF6C-9A26-43F6-A639-0A82E91E10D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.IO", "src\Neo.IO\Neo.IO.csproj", "{4CDAC1AA-45C6-4157-8D8E-199050433048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.IO", "src\EpicChain.IO\EpicChain.IO.csproj", "{4CDAC1AA-45C6-4157-8D8E-199050433048}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Extensions", "src\Neo.Extensions\Neo.Extensions.csproj", "{9C5213D6-3833-4570-8AE2-47E9F9017A8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Extensions", "src\EpicChain.Extensions\EpicChain.Extensions.csproj", "{9C5213D6-3833-4570-8AE2-47E9F9017A8F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{C2DC830A-327A-42A7-807D-295216D30DBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Cryptography.MPTTrie.Tests", "tests\Neo.Cryptography.MPTTrie.Tests\Neo.Cryptography.MPTTrie.Tests.csproj", "{FAF5D8AC-B6B3-4CD4-879D-0E5F6211480F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Cryptography.MPTTrie.Tests", "tests\EpicChain.Cryptography.MPTTrie.Tests\EpicChain.Cryptography.MPTTrie.Tests.csproj", "{FAF5D8AC-B6B3-4CD4-879D-0E5F6211480F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Network.RPC.Tests", "tests\Neo.Network.RPC.Tests\Neo.Network.RPC.Tests.csproj", "{0E92F219-1225-4DD0-8C4A-98840985D59C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Network.RPC.Tests", "tests\EpicChain.Network.RPC.Tests\EpicChain.Network.RPC.Tests.csproj", "{0E92F219-1225-4DD0-8C4A-98840985D59C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Plugins.OracleService.Tests", "tests\Neo.Plugins.OracleService.Tests\Neo.Plugins.OracleService.Tests.csproj", "{5D9764FB-827D-4DDE-84E3-3C05FD8ABC89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Plugins.OracleService.Tests", "tests\EpicChain.Plugins.OracleService.Tests\EpicChain.Plugins.OracleService.Tests.csproj", "{5D9764FB-827D-4DDE-84E3-3C05FD8ABC89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Plugins.RpcServer.Tests", "tests\Neo.Plugins.RpcServer.Tests\Neo.Plugins.RpcServer.Tests.csproj", "{2CBD2311-BA2E-4921-A000-FDDA59B74958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Plugins.RpcServer.Tests", "tests\EpicChain.Plugins.RpcServer.Tests\EpicChain.Plugins.RpcServer.Tests.csproj", "{2CBD2311-BA2E-4921-A000-FDDA59B74958}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Plugins.Storage.Tests", "tests\Neo.Plugins.Storage.Tests\Neo.Plugins.Storage.Tests.csproj", "{EF01E062-DBBC-47AF-AF3B-9EDEB00CFF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Plugins.Storage.Tests", "tests\EpicChain.Plugins.Storage.Tests\EpicChain.Plugins.Storage.Tests.csproj", "{EF01E062-DBBC-47AF-AF3B-9EDEB00CFF7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7F257712-D033-47FF-B439-9D4320D06599}"
 EndProject
@@ -78,9 +78,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokensTracker", "src\Plugin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcClient", "src\Plugins\RpcClient\RpcClient.csproj", "{185ADAFC-BFC6-413D-BC2E-97F9FB0A8AF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo.Plugins.ApplicationLogs.Tests", "tests\Neo.Plugins.ApplicationLogs.Tests\Neo.Plugins.ApplicationLogs.Tests.csproj", "{8C866DC8-2E55-4399-9563-2F47FD4602EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.Plugins.ApplicationLogs.Tests", "tests\EpicChain.Plugins.ApplicationLogs.Tests\EpicChain.Plugins.ApplicationLogs.Tests.csproj", "{8C866DC8-2E55-4399-9563-2F47FD4602EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neo.Extensions.Tests", "tests\Neo.Extensions.Tests\Neo.Extensions.Tests.csproj", "{77FDEE2E-9381-4BFC-B9E6-741EDBD6B90F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicChain.Extensions.Tests", "tests\EpicChain.Extensions.Tests\EpicChain.Extensions.Tests.csproj", "{77FDEE2E-9381-4BFC-B9E6-741EDBD6B90F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

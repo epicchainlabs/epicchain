@@ -20,11 +20,11 @@
 
 
 using Neo;
-using Neo.IO;
-using Neo.Ledger;
-using Neo.SmartContract;
+using EpicChain.IO;
+using EpicChain.Ledger;
+using EpicChain.SmartContract;
 
-namespace Neo.Plugins.ApplicationLogs.Store.States
+namespace EpicChain.Plugins.ApplicationLogs.Store.States
 {
     public class ContractLogState : NotifyLogState, IEquatable<ContractLogState>
     {

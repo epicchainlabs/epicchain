@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Persistence;
+using EpicChain.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Neo.IO.Data.LevelDB
+namespace EpicChain.IO.Data.LevelDB
 {
     public static class Helper
     {

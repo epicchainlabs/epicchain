@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.SmartContract.Native;
+using EpicChain.SmartContract.Native;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// Get Policy info by RPC API

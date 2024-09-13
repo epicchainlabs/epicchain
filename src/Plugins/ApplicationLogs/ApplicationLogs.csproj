@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Plugins.ApplicationLogs</PackageId>
-    <RootNamespace>Neo.Plugins</RootNamespace>
+    <PackageId>EpicChain.Plugins.ApplicationLogs</PackageId>
+    <RootNamespace>EpicChain.Plugins</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\..\Neo.ConsoleService\Neo.ConsoleService.csproj" />
+    <ProjectReference Include="..\..\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj" />
     <ProjectReference Include="..\RpcServer\RpcServer.csproj" AdditionalProperties="IncludeSettingsFileOutput=False">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>

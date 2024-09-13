@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
+using EpicChain.Cryptography.ECC;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     public static class RpcErrorFactory
     {

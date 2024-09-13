@@ -20,7 +20,7 @@
 
 
 using BenchmarkDotNet.Running;
-using Neo.Benchmark;
+using EpicChain.Benchmark;
 
 // BenchmarkRunner.Run<Benchmarks_PoCs>();
 BenchmarkRunner.Run<Benchmarks_UInt160>();

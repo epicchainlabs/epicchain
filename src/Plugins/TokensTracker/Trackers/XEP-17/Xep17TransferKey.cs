@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System;
 
-namespace Neo.Plugins.Trackers.XEP_17
+namespace EpicChain.Plugins.Trackers.XEP_17
 {
     public class Xep17TransferKey : TokenTransferKey, IComparable<Xep17TransferKey>, IEquatable<Xep17TransferKey>, ISerializable
     {

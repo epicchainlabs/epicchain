@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Cryptography.MPTTrie;
-using Neo.IO;
-using Neo.Persistence;
-using Neo.Plugins.StateService.Network;
+using EpicChain.Cryptography.MPTTrie;
+using EpicChain.IO;
+using EpicChain.Persistence;
+using EpicChain.Plugins.StateService.Network;
 using System;
 
-namespace Neo.Plugins.StateService.Storage
+namespace EpicChain.Plugins.StateService.Storage
 {
     class StateSnapshot : IDisposable
     {

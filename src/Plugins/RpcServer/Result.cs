@@ -20,7 +20,7 @@
 
 
 using System;
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     public static class Result
     {

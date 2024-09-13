@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.DBFTPlugin.Messages
+namespace EpicChain.Plugins.DBFTPlugin.Messages
 {
     partial class RecoveryMessage
     {

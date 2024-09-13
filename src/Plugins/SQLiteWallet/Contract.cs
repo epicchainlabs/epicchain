@@ -19,7 +19,7 @@
 // practices.
 
 
-namespace Neo.Wallets.SQLite;
+namespace EpicChain.Wallets.SQLite;
 
 class Contract
 {

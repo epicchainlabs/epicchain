@@ -20,17 +20,17 @@
 
 
 using Microsoft.EntityFrameworkCore;
-using Neo.Cryptography;
-using Neo.IO;
-using Neo.SmartContract;
-using Neo.Wallets.XEP6;
+using EpicChain.Cryptography;
+using EpicChain.IO;
+using EpicChain.SmartContract;
+using EpicChain.Wallets.XEP6;
 using System.Buffers.Binary;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using static System.IO.Path;
 
-namespace Neo.Wallets.SQLite;
+namespace EpicChain.Wallets.SQLite;
 
 /// <summary>
 /// A wallet implementation that uses SQLite as the underlying storage.

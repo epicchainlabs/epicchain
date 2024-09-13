@@ -21,4 +21,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Neo.Network.RPC.Tests")]
+[assembly: InternalsVisibleTo("EpicChain.Network.RPC.Tests")]

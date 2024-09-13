@@ -1,0 +1,137 @@
+// Copyright (C) 2021-2024 EpicChain Labs.
+
+//
+// ContractState.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// distributed as free software under the MIT License, allowing for wide usage and modification
+// with minimal restrictions. For comprehensive details regarding the license, please refer to
+// the LICENSE file located in the root directory of the repository or visit
+// http://www.opensource.org/licenses/mit-license.php.
+//
+// EpicChain Labs is dedicated to fostering innovation and development in the blockchain space,
+// and we believe in the open-source philosophy as a way to drive progress and collaboration.
+// This file, along with all associated code and documentation, is provided with the intention of
+// supporting and enhancing the development community.
+//
+// Redistribution and use of this file in both source and binary forms, with or without
+// modifications, are permitted. We encourage users to contribute to the project and respect the
+// guidelines outlined in the LICENSE file. By using this software, you agree to the terms and
+// conditions specified in the MIT License, ensuring the continuation of free and open software
+// practices.
+
+
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.SmartContract.Manifest;
+using EpicChain.VM;
+using EpicChain.VM.Types;
+using System;
+using System.Linq;
+using Array = EpicChain.VM.Types.Array;
+
+namespace EpicChain.SmartContract
+{
+    /// <summary>
+    /// Represents a deployed contract.
+    /// </summary>
+    public class ContractState : IInteroperableVerifiable
+    {
+        /// <summary>
+        /// The id of the contract.
+        /// </summary>
+        public int Id;
+
+        /// <summary>
+        /// Indicates the number of times the contract has been updated.
+        /// </summary>
+        public ushort UpdateCounter;
+
+        /// <summary>
+        /// The hash of the contract.
+        /// </summary>
+        public UInt160 Hash;
+
+        /// <summary>
+        /// The xef of the contract.
+        /// </summary>
+        public NefFile Nef;
+
+        /// <summary>
+        /// The manifest of the contract.
+        /// </summary>
+        public ContractManifest Manifest;
+
+        /// <summary>
+        /// The script of the contract.
+        /// </summary>
+        public ReadOnlyMemory<byte> Script => Nef.Script;
+
+        IInteroperable IInteroperable.Clone()
+        {
+            return new ContractState
+            {
+                Id = Id,
+                UpdateCounter = UpdateCounter,
+                Hash = Hash,
+                Nef = Nef,
+                Manifest = Manifest
+            };
+        }
+
+        void IInteroperable.FromReplica(IInteroperable replica)
+        {
+            var from = (ContractState)replica;
+            Id = from.Id;
+            UpdateCounter = from.UpdateCounter;
+            Hash = from.Hash;
+            Nef = from.Nef;
+            Manifest = from.Manifest;
+        }
+
+        void IInteroperable.FromStackItem(StackItem stackItem)
+        {
+            ((IInteroperableVerifiable)this).FromStackItem(stackItem, true);
+        }
+
+        void IInteroperableVerifiable.FromStackItem(StackItem stackItem, bool verify)
+        {
+            var array = (Array)stackItem;
+            Id = (int)array[0].GetInteger();
+            UpdateCounter = (ushort)array[1].GetInteger();
+            Hash = new UInt160(array[2].GetSpan());
+            Nef = NefFile.Parse(((ByteString)array[3]).Memory, verify);
+            Manifest = array[4].ToInteroperable<ContractManifest>();
+        }
+
+        /// <summary>
+        /// Determines whether the current contract has the permission to call the specified contract.
+        /// </summary>
+        /// <param name="targetContract">The contract to be called.</param>
+        /// <param name="targetMethod">The method to be called.</param>
+        /// <returns><see langword="true"/> if the contract allows to be called; otherwise, <see langword="false"/>.</returns>
+        public bool CanCall(ContractState targetContract, string targetMethod)
+        {
+            return Manifest.Permissions.Any(u => u.IsAllowed(targetContract, targetMethod));
+        }
+
+        /// <summary>
+        /// Converts the contract to a JSON object.
+        /// </summary>
+        /// <returns>The contract represented by a JSON object.</returns>
+        public JObject ToJson()
+        {
+            return new JObject
+            {
+                ["id"] = Id,
+                ["updatecounter"] = UpdateCounter,
+                ["hash"] = Hash.ToString(),
+                ["nef"] = Nef.ToJson(),
+                ["manifest"] = Manifest.ToJson()
+            };
+        }
+
+        public StackItem ToStackItem(ReferenceCounter referenceCounter)
+        {
+            return new Array(referenceCounter, new StackItem[] { Id, (int)UpdateCounter, Hash.ToArray(), Nef.ToArray(), Manifest.ToStackItem(referenceCounter) });
+        }
+    }
+}

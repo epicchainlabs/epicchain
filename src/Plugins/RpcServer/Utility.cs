@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.SmartContract.Native;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.SmartContract.Native;
 using System.Linq;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     static class Utility
     {

@@ -20,10 +20,10 @@
 
 
 using Neo;
-using Neo.IO;
-using Neo.SmartContract;
+using EpicChain.IO;
+using EpicChain.SmartContract;
 
-namespace Neo.Plugins.ApplicationLogs.Store.States
+namespace EpicChain.Plugins.ApplicationLogs.Store.States
 {
     public class NotifyLogState : ISerializable, IEquatable<NotifyLogState>
     {

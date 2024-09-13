@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Ledger;
-using Neo.VM;
+using EpicChain.IO;
+using EpicChain.Ledger;
+using EpicChain.VM;
 
-namespace Neo.Plugins.ApplicationLogs.Store.States
+namespace EpicChain.Plugins.ApplicationLogs.Store.States
 {
     public class ExecutionLogState : ISerializable, IEquatable<ExecutionLogState>
     {

@@ -21,7 +21,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace Neo.Plugins.ApplicationLogs
+namespace EpicChain.Plugins.ApplicationLogs
 {
     internal class Settings : PluginSettings
     {

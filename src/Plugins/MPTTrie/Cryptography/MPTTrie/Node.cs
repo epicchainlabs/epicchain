@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System;
 using System.IO;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     public partial class Node : ISerializable
     {

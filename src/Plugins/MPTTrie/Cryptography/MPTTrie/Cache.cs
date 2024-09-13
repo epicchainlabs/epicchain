@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Persistence;
+using EpicChain.IO;
+using EpicChain.Persistence;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     public class Cache
     {

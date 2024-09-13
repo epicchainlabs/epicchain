@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.SmartContract;
+using EpicChain.Json;
+using EpicChain.SmartContract;
 using System;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     class RpcMethodToken
     {

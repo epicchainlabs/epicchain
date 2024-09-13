@@ -19,15 +19,15 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Iterators;
-using Neo.SmartContract.Native;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Iterators;
+using EpicChain.SmartContract.Native;
 using System;
 using System.Collections.Generic;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     class Session : IDisposable
     {

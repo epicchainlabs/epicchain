@@ -23,7 +23,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     class HttpsSettings
     {

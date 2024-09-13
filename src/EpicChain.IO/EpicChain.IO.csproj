@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+    <PackageId>EpicChain.IO</PackageId>
+    <PackageTags>NEO;Blockchain;IO</PackageTags>
+    <OutputPath>../../bin/$(PackageId)</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Neo" />
+    <InternalsVisibleTo Include="EpicChain.UnitTests" />
+    <InternalsVisibleTo Include="EpicChain.Extensions" />
+    <InternalsVisibleTo Include="EpicChain.Extensions.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EpicChain.Extensions\EpicChain.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

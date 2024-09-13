@@ -26,8 +26,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.DependencyInjection;
-using Neo.Json;
-using Neo.Network.P2P;
+using EpicChain.Json;
+using EpicChain.Network.P2P;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +40,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     public partial class RpcServer : IDisposable
     {

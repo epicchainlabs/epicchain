@@ -19,20 +19,20 @@
 // practices.
 
 
-using Neo.Extensions;
-using Neo.IO;
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.RpcServer.Model;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.VM.Types;
+using EpicChain.Extensions;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.RpcServer.Model;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.VM.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     partial class RpcServer
     {
@@ -328,12 +328,12 @@ namespace Neo.Plugins.RpcServer
         protected internal virtual JToken GetNextBlockValidators()
         {
             using var snapshot = system.GetSnapshotCache();
-            var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, system.Settings.ValidatorsCount);
+            var validators = NativeContract.EpicChain.GetNextBlockValidators(snapshot, system.Settings.ValidatorsCount);
             return validators.Select(p =>
             {
                 JObject validator = new();
                 validator["publickey"] = p.ToString();
-                validator["votes"] = (int)NativeContract.NEO.GetCandidateVote(snapshot, p);
+                validator["votes"] = (int)NativeContract.EpicChain.GetCandidateVote(snapshot, p);
                 return validator;
             }).ToArray();
         }
@@ -349,7 +349,7 @@ namespace Neo.Plugins.RpcServer
             byte[] script;
             using (ScriptBuilder sb = new())
             {
-                script = sb.EmitDynamicCall(NativeContract.NEO.Hash, "getCandidates", null).ToArray();
+                script = sb.EmitDynamicCall(NativeContract.EpicChain.Hash, "getCandidates", null).ToArray();
             }
             StackItem[] resultstack;
             try
@@ -368,7 +368,7 @@ namespace Neo.Plugins.RpcServer
                 if (resultstack.Length > 0)
                 {
                     JArray jArray = new();
-                    var validators = NativeContract.NEO.GetNextBlockValidators(snapshot, system.Settings.ValidatorsCount) ?? throw new RpcException(RpcError.InternalServerError.WithData("Can't get next block validators."));
+                    var validators = NativeContract.EpicChain.GetNextBlockValidators(snapshot, system.Settings.ValidatorsCount) ?? throw new RpcException(RpcError.InternalServerError.WithData("Can't get next block validators."));
 
                     foreach (var item in resultstack)
                     {
@@ -401,7 +401,7 @@ namespace Neo.Plugins.RpcServer
         [RpcMethodWithParams]
         protected internal virtual JToken GetCommittee()
         {
-            return new JArray(NativeContract.NEO.GetCommittee(system.StoreView).Select(p => (JToken)p.ToString()));
+            return new JArray(NativeContract.EpicChain.GetCommittee(system.StoreView).Select(p => (JToken)p.ToString()));
         }
 
         /// <summary>

@@ -19,14 +19,14 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Persistence;
-using Neo.VM.Types;
+using EpicChain.IO;
+using EpicChain.Persistence;
+using EpicChain.VM.Types;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Neo.Plugins
+namespace EpicChain.Plugins
 {
     public static class Extensions
     {

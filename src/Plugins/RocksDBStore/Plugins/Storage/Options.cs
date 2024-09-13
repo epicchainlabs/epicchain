@@ -21,7 +21,7 @@
 
 using RocksDbSharp;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     public static class Options
     {

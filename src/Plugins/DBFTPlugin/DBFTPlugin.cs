@@ -20,14 +20,14 @@
 
 
 using Akka.Actor;
-using Neo.ConsoleService;
-using Neo.IEventHandlers;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.DBFTPlugin.Consensus;
-using Neo.Wallets;
+using EpicChain.ConsoleService;
+using EpicChain.IEventHandlers;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.DBFTPlugin.Consensus;
+using EpicChain.Wallets;
 
-namespace Neo.Plugins.DBFTPlugin
+namespace EpicChain.Plugins.DBFTPlugin
 {
     public class DBFTPlugin : Plugin, IServiceAddedHandler, IMessageReceivedHandler, IWalletChangedHandler
     {

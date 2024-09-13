@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Wallets;
+using EpicChain.Json;
+using EpicChain.Wallets;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcTransferOut
     {

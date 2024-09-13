@@ -19,7 +19,7 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
+using EpicChain.Network.P2P.Payloads;
 using System;
 using System.Linq;
 using System.Net;
@@ -30,7 +30,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     class OracleHttpsProtocol : IOracleProtocol
     {

@@ -22,7 +22,7 @@
 using BenchmarkDotNet.Attributes;
 using System.Diagnostics;
 
-namespace Neo.VM.Benchmark
+namespace EpicChain.VM.Benchmark
 {
     public class Benchmarks_PoCs
     {

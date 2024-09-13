@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>EpicChain.Extensions</PackageId>
+    <PackageTags>NEO;Blockchain;Extensions</PackageTags>
+    <OutputPath>../../bin/$(PackageId)</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.5.26" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Neo" />
+    <InternalsVisibleTo Include="EpicChain.IO" />
+    <InternalsVisibleTo Include="EpicChain.UnitTests" />
+  </ItemGroup>
+
+</Project>

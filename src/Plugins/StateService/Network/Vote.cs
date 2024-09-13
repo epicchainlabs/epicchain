@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.StateService.Network
+namespace EpicChain.Plugins.StateService.Network
 {
     class Vote : ISerializable
     {

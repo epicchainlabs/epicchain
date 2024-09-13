@@ -19,18 +19,18 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.IO;
-using Neo.Network.P2P.Payloads;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.IO;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// This class helps to create transaction with RPC API.

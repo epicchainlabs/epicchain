@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System.IO;
 using System.Numerics;
 
-namespace Neo.Plugins.Trackers
+namespace EpicChain.Plugins.Trackers
 {
     public class TokenTransfer : ISerializable
     {

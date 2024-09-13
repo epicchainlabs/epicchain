@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.Plugins.DBFTPlugin.Types;
+using EpicChain.IO;
+using EpicChain.Plugins.DBFTPlugin.Types;
 using System.IO;
 
-namespace Neo.Plugins.DBFTPlugin.Messages
+namespace EpicChain.Plugins.DBFTPlugin.Messages
 {
     public class RecoveryRequest : ConsensusMessage
     {

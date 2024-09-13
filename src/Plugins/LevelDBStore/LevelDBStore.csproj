@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Plugins.Storage.LevelDBStore</PackageId>
-    <RootNamespace>Neo.Plugins.Storage</RootNamespace>
+    <PackageId>EpicChain.Plugins.Storage.LevelDBStore</PackageId>
+    <RootNamespace>EpicChain.Plugins.Storage</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>

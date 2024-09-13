@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyTitle>EpicChain.CLI</AssemblyTitle>
+    <AssemblyName>neo-cli</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>EpicChain.CLI</PackageId>
+    <RootNamespace>Neo</RootNamespace>
+    <Product>EpicChain.CLI</Product>
+    <ApplicationIcon>epicchain.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
+    <OutputPath>../../bin/$(AssemblyTitle)</OutputPath>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="epicchain.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj" />
+    <ProjectReference Include="..\EpicChain.Extensions\EpicChain.Extensions.csproj" />
+    <ProjectReference Include="..\Neo\EpicChain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+      <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
+  </ItemGroup>
+
+</Project>

@@ -19,7 +19,7 @@
 // practices.
 
 
-namespace Neo.Plugins.DBFTPlugin.Types
+namespace EpicChain.Plugins.DBFTPlugin.Types
 {
     public enum ConsensusMessageType : byte
     {

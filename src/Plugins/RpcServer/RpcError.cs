@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.Json;
+using EpicChain.Json;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     public class RpcError
     {

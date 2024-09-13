@@ -1,0 +1,167 @@
+// Copyright (C) 2021-2024 EpicChain Labs.
+
+//
+// MerkleTree.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// distributed as free software under the MIT License, allowing for wide usage and modification
+// with minimal restrictions. For comprehensive details regarding the license, please refer to
+// the LICENSE file located in the root directory of the repository or visit
+// http://www.opensource.org/licenses/mit-license.php.
+//
+// EpicChain Labs is dedicated to fostering innovation and development in the blockchain space,
+// and we believe in the open-source philosophy as a way to drive progress and collaboration.
+// This file, along with all associated code and documentation, is provided with the intention of
+// supporting and enhancing the development community.
+//
+// Redistribution and use of this file in both source and binary forms, with or without
+// modifications, are permitted. We encourage users to contribute to the project and respect the
+// guidelines outlined in the LICENSE file. By using this software, you agree to the terms and
+// conditions specified in the MIT License, ensuring the continuation of free and open software
+// practices.
+
+
+using EpicChain.IO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+
+namespace EpicChain.Cryptography
+{
+    /// <summary>
+    /// Represents a merkle tree.
+    /// </summary>
+    public class MerkleTree
+    {
+        private readonly MerkleTreeNode root;
+
+        /// <summary>
+        /// The depth of the tree.
+        /// </summary>
+        public int Depth { get; }
+
+        internal MerkleTree(UInt256[] hashes)
+        {
+            root = Build(hashes.Select(p => new MerkleTreeNode { Hash = p }).ToArray());
+            if (root is null) return;
+            int depth = 1;
+            for (MerkleTreeNode i = root; i.LeftChild != null; i = i.LeftChild)
+                depth++;
+            Depth = depth;
+        }
+
+        private static MerkleTreeNode Build(MerkleTreeNode[] leaves)
+        {
+            if (leaves.Length == 0) return null;
+            if (leaves.Length == 1) return leaves[0];
+
+            Span<byte> buffer = stackalloc byte[64];
+            MerkleTreeNode[] parents = new MerkleTreeNode[(leaves.Length + 1) / 2];
+            for (int i = 0; i < parents.Length; i++)
+            {
+                parents[i] = new MerkleTreeNode
+                {
+                    LeftChild = leaves[i * 2]
+                };
+                leaves[i * 2].Parent = parents[i];
+                if (i * 2 + 1 == leaves.Length)
+                {
+                    parents[i].RightChild = parents[i].LeftChild;
+                }
+                else
+                {
+                    parents[i].RightChild = leaves[i * 2 + 1];
+                    leaves[i * 2 + 1].Parent = parents[i];
+                }
+                parents[i].Hash = Concat(buffer, parents[i].LeftChild.Hash, parents[i].RightChild.Hash);
+            }
+            return Build(parents); //TailCall
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static UInt256 Concat(Span<byte> buffer, UInt256 hash1, UInt256 hash2)
+        {
+            hash1.ToArray().CopyTo(buffer);
+            hash2.ToArray().CopyTo(buffer[32..]);
+
+            return new UInt256(Crypto.Hash256(buffer));
+        }
+
+        /// <summary>
+        /// Computes the root of the hash tree.
+        /// </summary>
+        /// <param name="hashes">The leaves of the hash tree.</param>
+        /// <returns>The root of the hash tree.</returns>
+        public static UInt256 ComputeRoot(UInt256[] hashes)
+        {
+            if (hashes.Length == 0) return UInt256.Zero;
+            if (hashes.Length == 1) return hashes[0];
+            MerkleTree tree = new(hashes);
+            return tree.root.Hash;
+        }
+
+        private static void DepthFirstSearch(MerkleTreeNode node, IList<UInt256> hashes)
+        {
+            if (node.LeftChild == null)
+            {
+                // if left is null, then right must be null
+                hashes.Add(node.Hash);
+            }
+            else
+            {
+                DepthFirstSearch(node.LeftChild, hashes);
+                DepthFirstSearch(node.RightChild, hashes);
+            }
+        }
+
+        /// <summary>
+        /// Gets all nodes of the hash tree in depth-first order.
+        /// </summary>
+        /// <returns>All nodes of the hash tree.</returns>
+        public UInt256[] ToHashArray()
+        {
+            if (root is null) return Array.Empty<UInt256>();
+            List<UInt256> hashes = new();
+            DepthFirstSearch(root, hashes);
+            return hashes.ToArray();
+        }
+
+        /// <summary>
+        /// Trims the hash tree using the specified bit array.
+        /// </summary>
+        /// <param name="flags">The bit array to be used.</param>
+        public void Trim(BitArray flags)
+        {
+            if (root is null) return;
+            flags = new BitArray(flags)
+            {
+                Length = 1 << (Depth - 1)
+            };
+            Trim(root, 0, Depth, flags);
+        }
+
+        private static void Trim(MerkleTreeNode node, int index, int depth, BitArray flags)
+        {
+            if (depth == 1) return;
+            if (node.LeftChild == null) return; // if left is null, then right must be null
+            if (depth == 2)
+            {
+                if (!flags.Get(index * 2) && !flags.Get(index * 2 + 1))
+                {
+                    node.LeftChild = null;
+                    node.RightChild = null;
+                }
+            }
+            else
+            {
+                Trim(node.LeftChild, index * 2, depth - 1, flags);
+                Trim(node.RightChild, index * 2 + 1, depth - 1, flags);
+                if (node.LeftChild.LeftChild == null && node.RightChild.RightChild == null)
+                {
+                    node.LeftChild = null;
+                    node.RightChild = null;
+                }
+            }
+        }
+    }
+}

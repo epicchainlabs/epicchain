@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.Json;
+using EpicChain.Json;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcUnclaimedEpicPulse
     {

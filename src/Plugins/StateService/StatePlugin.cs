@@ -20,29 +20,29 @@
 
 
 using Akka.Actor;
-using Neo.ConsoleService;
-using Neo.Cryptography.MPTTrie;
-using Neo.IEventHandlers;
-using Neo.IO;
-using Neo.Json;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.RpcServer;
-using Neo.Plugins.StateService.Network;
-using Neo.Plugins.StateService.Storage;
-using Neo.Plugins.StateService.Verification;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.Wallets;
+using EpicChain.ConsoleService;
+using EpicChain.Cryptography.MPTTrie;
+using EpicChain.IEventHandlers;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.RpcServer;
+using EpicChain.Plugins.StateService.Network;
+using EpicChain.Plugins.StateService.Storage;
+using EpicChain.Plugins.StateService.Verification;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.Wallets;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static Neo.Ledger.Blockchain;
+using static EpicChain.Ledger.Blockchain;
 
-namespace Neo.Plugins.StateService
+namespace EpicChain.Plugins.StateService
 {
     public class StatePlugin : Plugin, ICommittingHandler, ICommittedHandler, IWalletChangedHandler, IServiceAddedHandler
     {

@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.Json;
+using EpicChain.Cryptography.ECC;
+using EpicChain.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcVersion
     {

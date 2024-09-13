@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.Persistence;
+using EpicChain.Persistence;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     public class RocksDBStore : Plugin, IStoreProvider
     {

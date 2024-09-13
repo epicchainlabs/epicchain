@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Wallets;
+using EpicChain.Json;
+using EpicChain.Wallets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcXep17Transfers
     {

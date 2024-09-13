@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.Persistence;
+using EpicChain.Persistence;
 using System;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     public partial class Trie
     {

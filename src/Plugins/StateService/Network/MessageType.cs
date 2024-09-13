@@ -19,7 +19,7 @@
 // practices.
 
 
-namespace Neo.Plugins.StateService.Network
+namespace EpicChain.Plugins.StateService.Network
 {
     enum MessageType : byte
     {

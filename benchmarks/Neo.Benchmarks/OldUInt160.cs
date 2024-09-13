@@ -19,8 +19,8 @@
 // practices.
 
 
-using Neo.Extensions;
-using Neo.IO;
+using EpicChain.Extensions;
+using EpicChain.IO;
 using System.Globalization;
 using System.Runtime.InteropServices;
 

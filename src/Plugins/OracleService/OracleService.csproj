@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Plugins.OracleService</PackageId>
+    <PackageId>EpicChain.Plugins.OracleService</PackageId>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Neo.ConsoleService\Neo.ConsoleService.csproj" />
+    <ProjectReference Include="..\..\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj" />
     <ProjectReference Include="..\RpcServer\RpcServer.csproj">
       <Private>false</Private>
       <ExcludeAssets>runtime</ExcludeAssets>

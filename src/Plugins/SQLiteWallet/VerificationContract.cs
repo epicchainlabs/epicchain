@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.SmartContract;
+using EpicChain.IO;
+using EpicChain.SmartContract;
 
-namespace Neo.Wallets.SQLite;
+namespace EpicChain.Wallets.SQLite;
 
 class VerificationContract : SmartContract.Contract, IEquatable<VerificationContract>, ISerializable
 {

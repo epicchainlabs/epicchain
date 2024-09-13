@@ -19,22 +19,22 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.FileStorage.API.Client;
-using Neo.FileStorage.API.Cryptography;
-using Neo.FileStorage.API.Refs;
-using Neo.Network.P2P.Payloads;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.FileStorage.API.Client;
+using EpicChain.FileStorage.API.Cryptography;
+using EpicChain.FileStorage.API.Refs;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Object = Neo.FileStorage.API.Object.Object;
-using Range = Neo.FileStorage.API.Object.Range;
+using Object = EpicChain.FileStorage.API.Object.Object;
+using Range = EpicChain.FileStorage.API.Object.Range;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     class OracleNeoFSProtocol : IOracleProtocol
     {

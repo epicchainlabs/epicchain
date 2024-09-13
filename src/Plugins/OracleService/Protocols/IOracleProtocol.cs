@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
+using EpicChain.Network.P2P.Payloads;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     interface IOracleProtocol : IDisposable
     {

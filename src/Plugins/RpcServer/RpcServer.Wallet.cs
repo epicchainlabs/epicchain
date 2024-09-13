@@ -20,22 +20,22 @@
 
 
 using Akka.Actor;
-using Neo.IO;
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.Wallets;
-using Neo.Wallets.XEP6;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.Wallets;
+using EpicChain.Wallets.XEP6;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     partial class RpcServer
     {
@@ -143,7 +143,7 @@ namespace Neo.Plugins.RpcServer
             {
                 uint height = NativeContract.Ledger.CurrentIndex(snapshot) + 1;
                 foreach (UInt160 account in wallet.GetAccounts().Select(p => p.ScriptHash))
-                    datoshi += NativeContract.NEO.UnclaimedEpicPulse(snapshot, account, height);
+                    datoshi += NativeContract.EpicChain.UnclaimedEpicPulse(snapshot, account, height);
             }
             return datoshi.ToString();
         }

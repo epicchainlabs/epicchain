@@ -21,16 +21,16 @@
 
 using Akka.Actor;
 using Akka.Util.Internal;
-using Neo.IO;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.StateService.Network;
-using Neo.Wallets;
+using EpicChain.IO;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.StateService.Network;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace Neo.Plugins.StateService.Verification
+namespace EpicChain.Plugins.StateService.Verification
 {
     public class VerificationService : UntypedActor
     {

@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
-using Neo.Plugins.DBFTPlugin.Messages;
-using Neo.SmartContract;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Plugins.DBFTPlugin.Messages;
+using EpicChain.SmartContract;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Neo.Plugins.DBFTPlugin.Consensus
+namespace EpicChain.Plugins.DBFTPlugin.Consensus
 {
     partial class ConsensusContext
     {

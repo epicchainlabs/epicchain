@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcStateRoot
     {

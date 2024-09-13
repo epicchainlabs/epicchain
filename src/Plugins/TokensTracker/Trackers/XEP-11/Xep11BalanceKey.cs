@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.IO;
-using Neo.VM.Types;
+using EpicChain.IO;
+using EpicChain.VM.Types;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.Trackers.XEP_11
+namespace EpicChain.Plugins.Trackers.XEP_11
 {
     public class Xep11BalanceKey : IComparable<Xep11BalanceKey>, IEquatable<Xep11BalanceKey>, ISerializable
     {

@@ -20,17 +20,17 @@
 
 
 using Akka.Actor;
-using Neo.IO;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.StateService.Network;
-using Neo.Plugins.StateService.Verification;
+using EpicChain.IO;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.StateService.Network;
+using EpicChain.Plugins.StateService.Verification;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Neo.Plugins.StateService.Storage
+namespace EpicChain.Plugins.StateService.Storage
 {
     class StateStore : UntypedActor
     {

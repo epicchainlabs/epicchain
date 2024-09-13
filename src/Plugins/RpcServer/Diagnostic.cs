@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.SmartContract;
-using Neo.VM;
+using EpicChain.SmartContract;
+using EpicChain.VM;
 
-namespace Neo.Plugins.RpcServer
+namespace EpicChain.Plugins.RpcServer
 {
     class Diagnostic : IDiagnostic
     {

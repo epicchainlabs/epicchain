@@ -19,16 +19,16 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
-using Neo.Network.RPC.Models;
-using Neo.SmartContract;
-using Neo.SmartContract.Manifest;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.Wallets;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.RPC.Models;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Manifest;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.Wallets;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// Contract related operations through RPC API

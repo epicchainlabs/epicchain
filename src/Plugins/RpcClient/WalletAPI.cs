@@ -19,18 +19,18 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.Network.P2P.Payloads;
-using Neo.Network.RPC.Models;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.RPC.Models;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.Wallets;
 using System;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// Wallet Common APIs
@@ -69,7 +69,7 @@ namespace Neo.Network.RPC
         /// <returns></returns>
         public async Task<decimal> GetUnclaimedEpicPulseAsync(UInt160 account)
         {
-            UInt160 scriptHash = NativeContract.NEO.Hash;
+            UInt160 scriptHash = NativeContract.EpicChain.Hash;
             var blockCount = await rpcClient.GetBlockCountAsync().ConfigureAwait(false);
             var result = await Xep17API.TestInvokeAsync(scriptHash, "UnclaimedEpicPulse", account, blockCount - 1).ConfigureAwait(false);
             BigInteger balance = result.Stack.Single().GetInteger();
@@ -84,7 +84,7 @@ namespace Neo.Network.RPC
         /// <returns></returns>
         public async Task<uint> GetEpicChainBalanceAsync(string account)
         {
-            BigInteger balance = await GetTokenBalanceAsync(NativeContract.NEO.Hash.ToString(), account).ConfigureAwait(false);
+            BigInteger balance = await GetTokenBalanceAsync(NativeContract.EpicChain.Hash.ToString(), account).ConfigureAwait(false);
             return (uint)balance;
         }
 
@@ -138,8 +138,8 @@ namespace Neo.Network.RPC
         public async Task<Transaction> ClaimEpicPulseAsync(KeyPair keyPair, bool addAssert = true)
         {
             UInt160 toHash = Contract.CreateSignatureRedeemScript(keyPair.PublicKey).ToScriptHash();
-            BigInteger balance = await Xep17API.BalanceOfAsync(NativeContract.NEO.Hash, toHash).ConfigureAwait(false);
-            Transaction transaction = await Xep17API.CreateTransferTxAsync(NativeContract.NEO.Hash, keyPair, toHash, balance, null, addAssert).ConfigureAwait(false);
+            BigInteger balance = await Xep17API.BalanceOfAsync(NativeContract.EpicChain.Hash, toHash).ConfigureAwait(false);
+            Transaction transaction = await Xep17API.CreateTransferTxAsync(NativeContract.EpicChain.Hash, keyPair, toHash, balance, null, addAssert).ConfigureAwait(false);
             await rpcClient.SendRawTransactionAsync(transaction).ConfigureAwait(false);
             return transaction;
         }

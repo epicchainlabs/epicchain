@@ -19,10 +19,10 @@
 // practices.
 
 
-using Neo.Plugins;
+using EpicChain.Plugins;
 using static System.IO.Path;
 
-namespace Neo.Wallets.SQLite;
+namespace EpicChain.Wallets.SQLite;
 
 public class SQLiteWalletFactory : Plugin, IWalletFactory
 {

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo.IO.Data.LevelDB
+namespace EpicChain.IO.Data.LevelDB
 {
     public class ReadOptions
     {

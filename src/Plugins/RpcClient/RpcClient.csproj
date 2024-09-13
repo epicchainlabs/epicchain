@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <PackageId>Neo.Network.RPC.RpcClient</PackageId>
-    <RootNamespace>Neo.Network.RPC</RootNamespace>
+    <PackageId>EpicChain.Network.RPC.RpcClient</PackageId>
+    <RootNamespace>EpicChain.Network.RPC</RootNamespace>
     <OutputPath>../../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Neo\Neo.csproj" />
+    <ProjectReference Include="..\..\Neo\EpicChain.csproj" />
   </ItemGroup>
 
 </Project>

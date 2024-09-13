@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.SmartContract;
+using EpicChain.Json;
+using EpicChain.SmartContract;
 using System;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     class RpcXefFile
     {

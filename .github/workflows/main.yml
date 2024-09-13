@@ -46,7 +46,7 @@ jobs:
         find ./bin -name 'config.json' | xargs perl -pi -e 's|LevelDBStore|MemoryStore|g'
 
     - name: Run tests with expect
-      run: expect ./scripts/Neo.CLI/test-neo-cli.exp
+      run: expect ./scripts/EpicChain.CLI/test-neo-cli.exp
 
   Test:
     needs: [Format]
@@ -67,7 +67,7 @@ jobs:
     - name: Test
       if: matrix.os != 'ubuntu-latest'
       run: |
-        dotnet sln epicchain.sln remove ./tests/Neo.Plugins.Storage.Tests/Neo.Plugins.Storage.Tests.csproj
+        dotnet sln epicchain.sln remove ./tests/EpicChain.Plugins.Storage.Tests/EpicChain.Plugins.Storage.Tests.csproj
         dotnet build
         dotnet test --blame-hang --blame-crash --no-build
 
@@ -76,20 +76,20 @@ jobs:
       run: |
         sudo apt-get --assume-yes install libleveldb-dev librocksdb-dev
 
-        dotnet test ./tests/Neo.Cryptography.BLS12_381.Tests --output ./bin/tests/Neo.Cryptography.BLS12_381.Tests
-        dotnet test ./tests/Neo.ConsoleService.Tests --output ./bin/tests/Neo.ConsoleService.Tests
-        dotnet test ./tests/Neo.UnitTests --output ./bin/tests/Neo.UnitTests
-        dotnet test ./tests/Neo.VM.Tests --output ./bin/tests/Neo.VM.Tests
-        dotnet test ./tests/Neo.Json.UnitTests --output ./bin/tests/Neo.Json.UnitTests
-        dotnet test ./tests/Neo.Extensions.Tests --output ./bin/tests/Neo.Extensions.Tests
+        dotnet test ./tests/EpicChain.Cryptography.BLS12_381.Tests --output ./bin/tests/EpicChain.Cryptography.BLS12_381.Tests
+        dotnet test ./tests/EpicChain.ConsoleService.Tests --output ./bin/tests/EpicChain.ConsoleService.Tests
+        dotnet test ./tests/EpicChain.UnitTests --output ./bin/tests/EpicChain.UnitTests
+        dotnet test ./tests/EpicChain.VM.Tests --output ./bin/tests/EpicChain.VM.Tests
+        dotnet test ./tests/EpicChain.Json.UnitTests --output ./bin/tests/EpicChain.Json.UnitTests
+        dotnet test ./tests/EpicChain.Extensions.Tests --output ./bin/tests/EpicChain.Extensions.Tests
 
         # Plugins
-        dotnet test ./tests/Neo.Cryptography.MPTTrie.Tests --output ./bin/tests/Neo.Cryptography.MPTTrie.Tests
-        dotnet test ./tests/Neo.Network.RPC.Tests --output ./bin/tests/Neo.Network.RPC.Tests
-        dotnet test ./tests/Neo.Plugins.OracleService.Tests --output ./bin/tests/Neo.Plugins.OracleService.Tests
-        dotnet test ./tests/Neo.Plugins.RpcServer.Tests --output ./bin/tests/Neo.Plugins.RpcServer.Tests
-        dotnet test ./tests/Neo.Plugins.Storage.Tests --output ./bin/tests/Neo.Plugins.Storage.Tests
-        dotnet test ./tests/Neo.Plugins.ApplicationLogs.Tests --output ./bin/tests/Neo.Plugins.ApplicationLogs.Tests
+        dotnet test ./tests/EpicChain.Cryptography.MPTTrie.Tests --output ./bin/tests/EpicChain.Cryptography.MPTTrie.Tests
+        dotnet test ./tests/EpicChain.Network.RPC.Tests --output ./bin/tests/EpicChain.Network.RPC.Tests
+        dotnet test ./tests/EpicChain.Plugins.OracleService.Tests --output ./bin/tests/EpicChain.Plugins.OracleService.Tests
+        dotnet test ./tests/EpicChain.Plugins.RpcServer.Tests --output ./bin/tests/EpicChain.Plugins.RpcServer.Tests
+        dotnet test ./tests/EpicChain.Plugins.Storage.Tests --output ./bin/tests/EpicChain.Plugins.Storage.Tests
+        dotnet test ./tests/EpicChain.Plugins.ApplicationLogs.Tests --output ./bin/tests/EpicChain.Plugins.ApplicationLogs.Tests
 
     - name: Coveralls
       if: matrix.os == 'ubuntu-latest'
@@ -97,18 +97,18 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         files:
-          ${{ github.workspace }}/tests/Neo.Cryptography.BLS12_381.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.ConsoleService.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.UnitTests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.VM.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Json.UnitTests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Cryptography.MPTTrie.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Network.RPC.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Plugins.OracleService.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Plugins.RpcServer.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Plugins.Storage.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Plugins.ApplicationLogs.Tests/TestResults/coverage.info
-          ${{ github.workspace }}/tests/Neo.Extensions.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Cryptography.BLS12_381.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.ConsoleService.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.UnitTests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.VM.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Json.UnitTests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Cryptography.MPTTrie.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Network.RPC.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Plugins.OracleService.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Plugins.RpcServer.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Plugins.Storage.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Plugins.ApplicationLogs.Tests/TestResults/coverage.info
+          ${{ github.workspace }}/tests/EpicChain.Extensions.Tests/TestResults/coverage.info
 
   PublishPackage:
     if: github.ref == 'refs/heads/master' && startsWith(github.repository, 'epicchainlabs/')

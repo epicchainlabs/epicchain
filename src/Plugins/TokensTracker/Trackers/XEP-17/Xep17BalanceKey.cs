@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.Trackers.XEP_17
+namespace EpicChain.Plugins.Trackers.XEP_17
 {
     public class Xep17BalanceKey : IComparable<Xep17BalanceKey>, IEquatable<Xep17BalanceKey>, ISerializable
     {

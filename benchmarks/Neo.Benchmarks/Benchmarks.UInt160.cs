@@ -21,7 +21,7 @@
 
 using BenchmarkDotNet.Attributes;
 
-namespace Neo.Benchmark;
+namespace EpicChain.Benchmark;
 
 public class Benchmarks_UInt160
 {

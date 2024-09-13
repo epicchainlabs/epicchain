@@ -19,9 +19,9 @@
 // practices.
 
 
-using Neo.IO;
+using EpicChain.IO;
 
-namespace Neo.Plugins.ApplicationLogs.Store.States
+namespace EpicChain.Plugins.ApplicationLogs.Store.States
 {
     public class TransactionEngineLogState : ISerializable, IEquatable<TransactionEngineLogState>
     {

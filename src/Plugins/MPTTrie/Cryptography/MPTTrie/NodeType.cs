@@ -19,7 +19,7 @@
 // practices.
 
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     public enum NodeType : byte
     {

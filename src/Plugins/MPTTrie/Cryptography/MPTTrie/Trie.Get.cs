@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Neo.Cryptography.MPTTrie
+namespace EpicChain.Cryptography.MPTTrie
 {
     partial class Trie
     {

@@ -19,18 +19,18 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.Network.P2P.Payloads;
-using Neo.Network.RPC.Models;
-using Neo.SmartContract;
-using Neo.VM;
-using Neo.Wallets;
+using EpicChain.Cryptography.ECC;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.RPC.Models;
+using EpicChain.SmartContract;
+using EpicChain.VM;
+using EpicChain.Wallets;
 using System;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     /// <summary>
     /// Call Xep17 methods with RPC API

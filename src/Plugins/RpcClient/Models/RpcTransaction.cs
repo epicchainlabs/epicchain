@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.Network.P2P.Payloads;
-using Neo.VM;
+using EpicChain.Json;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.VM;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcTransaction
     {

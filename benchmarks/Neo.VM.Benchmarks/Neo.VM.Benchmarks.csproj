@@ -3,13 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <RootNamespace>Neo.VM</RootNamespace>
+    <RootNamespace>EpicChain.VM</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Neo.VM\Neo.VM.csproj" />
+    <ProjectReference Include="..\..\src\EpicChain.VM\EpicChain.VM.csproj" />
     <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
   </ItemGroup>
 

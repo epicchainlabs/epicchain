@@ -19,23 +19,23 @@
 // practices.
 
 
-using Neo.Cryptography;
-using Neo.Cryptography.ECC;
-using Neo.IO;
-using Neo.Ledger;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.Plugins.DBFTPlugin.Messages;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
-using Neo.VM;
-using Neo.Wallets;
+using EpicChain.Cryptography;
+using EpicChain.Cryptography.ECC;
+using EpicChain.IO;
+using EpicChain.Ledger;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.Plugins.DBFTPlugin.Messages;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
+using EpicChain.VM;
+using EpicChain.Wallets;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Neo.Plugins.DBFTPlugin.Consensus
+namespace EpicChain.Plugins.DBFTPlugin.Consensus
 {
     public partial class ConsensusContext : IDisposable, ISerializable
     {
@@ -214,12 +214,12 @@ namespace Neo.Plugins.DBFTPlugin.Consensus
                         Index = height + 1,
                         NextConsensus = Contract.GetBFTAddress(
                             EpicChain.ShouldRefreshCommittee(height + 1, EpicChainSystem.Settings.CommitteeMembersCount) ?
-                            NativeContract.NEO.ComputeNextBlockValidators(Snapshot, EpicChainSystem.Settings) :
-                            NativeContract.NEO.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount))
+                            NativeContract.EpicChain.ComputeNextBlockValidators(Snapshot, EpicChainSystem.Settings) :
+                            NativeContract.EpicChain.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount))
                     }
                 };
                 var pv = Validators;
-                Validators = NativeContract.NEO.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount);
+                Validators = NativeContract.EpicChain.GetNextBlockValidators(Snapshot, EpicChainSystem.Settings.ValidatorsCount);
                 if (_witnessSize == 0 || (pv != null && pv.Length != Validators.Length))
                 {
                     // Compute the expected size of the witness

@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Persistence;
+using EpicChain.Persistence;
 using RocksDbSharp;
 using System;
 using System.Collections.Generic;
 
-namespace Neo.Plugins.Storage
+namespace EpicChain.Plugins.Storage
 {
     internal class Snapshot : ISnapshot
     {

@@ -21,7 +21,7 @@
 
 using System.Numerics;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcXep17TokenInfo
     {

@@ -21,7 +21,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace Neo.Plugins.StateService
+namespace EpicChain.Plugins.StateService
 {
     internal class Settings : PluginSettings
     {

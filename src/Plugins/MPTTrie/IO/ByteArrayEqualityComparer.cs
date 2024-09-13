@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 
-namespace Neo.IO
+namespace EpicChain.IO
 {
     public class ByteArrayEqualityComparer : IEqualityComparer<byte[]>
     {

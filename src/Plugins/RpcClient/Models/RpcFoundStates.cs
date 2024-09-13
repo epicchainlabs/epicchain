@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
+using EpicChain.Json;
 using System;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcFoundStates
     {

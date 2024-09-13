@@ -28,7 +28,7 @@ jobs:
 
     - name: Build (neo-cli)
       run: |
-        dotnet publish ./src/Neo.CLI \
+        dotnet publish ./src/EpicChain.CLI \
           --framework net8.0 \
           --configuration Release \
           --runtime linux-x64 \

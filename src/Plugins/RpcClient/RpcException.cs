@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     public class RpcException : Exception
     {

@@ -19,11 +19,11 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.SmartContract;
-using Neo.SmartContract.Manifest;
+using EpicChain.Json;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Manifest;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcContractState
     {

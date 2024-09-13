@@ -19,13 +19,13 @@
 // practices.
 
 
-using Neo.Json;
-using Neo.VM;
-using Neo.VM.Types;
+using EpicChain.Json;
+using EpicChain.VM;
+using EpicChain.VM.Types;
 using System;
 using System.Linq;
 
-namespace Neo.Network.RPC.Models
+namespace EpicChain.Network.RPC.Models
 {
     public class RpcInvokeResult
     {

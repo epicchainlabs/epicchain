@@ -19,12 +19,12 @@
 // practices.
 
 
-using Neo.Network.P2P.Payloads;
-using Neo.Network.RPC.Models;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Network.RPC.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace Neo.Network.RPC
+namespace EpicChain.Network.RPC
 {
     public class TransactionManagerFactory
     {

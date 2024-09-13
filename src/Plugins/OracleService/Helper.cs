@@ -22,7 +22,7 @@
 using System.Linq;
 using System.Net;
 
-namespace Neo.Plugins.OracleService
+namespace EpicChain.Plugins.OracleService
 {
     static class Helper
     {

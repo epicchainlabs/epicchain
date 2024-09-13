@@ -19,18 +19,18 @@
 // practices.
 
 
-using Neo.Cryptography.ECC;
-using Neo.IO;
-using Neo.Json;
-using Neo.Network.P2P;
-using Neo.Network.P2P.Payloads;
-using Neo.Persistence;
-using Neo.SmartContract;
-using Neo.SmartContract.Native;
+using EpicChain.Cryptography.ECC;
+using EpicChain.IO;
+using EpicChain.Json;
+using EpicChain.Network.P2P;
+using EpicChain.Network.P2P.Payloads;
+using EpicChain.Persistence;
+using EpicChain.SmartContract;
+using EpicChain.SmartContract.Native;
 using System;
 using System.IO;
 
-namespace Neo.Plugins.StateService.Network
+namespace EpicChain.Plugins.StateService.Network
 {
     class StateRoot : IVerifiable
     {
