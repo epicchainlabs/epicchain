@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>EpicChain.Json</PackageId>
-    <PackageTags>NEO;JSON</PackageTags>
+    <PackageTags>EpicChain;JSON</PackageTags>
     <OutputPath>../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 

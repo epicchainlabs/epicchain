@@ -21,7 +21,7 @@
 
 using EpicChain.CLI;
 
-namespace Neo
+namespace EpicChain
 {
     static class Program
     {

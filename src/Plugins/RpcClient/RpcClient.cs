@@ -41,7 +41,7 @@ using System.Threading.Tasks;
 namespace EpicChain.Network.RPC
 {
     /// <summary>
-    /// The RPC client to call NEO RPC methods
+    /// The RPC client to call EpicChain RPC methods
     /// </summary>
     public class RpcClient : IDisposable
     {
@@ -358,7 +358,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Returns the next NEO consensus nodes information and voting status.
+        /// Returns the next EpicChain consensus nodes information and voting status.
         /// </summary>
         public async Task<RpcValidator[]> GetNextBlockValidatorsAsync()
         {
@@ -367,7 +367,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Returns the current NEO committee members.
+        /// Returns the current EpicChain committee members.
         /// </summary>
         public async Task<string[]> GetCommitteeAsync()
         {
@@ -407,7 +407,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Broadcasts a serialized transaction over the NEO network.
+        /// Broadcasts a serialized transaction over the EpicChain network.
         /// </summary>
         public async Task<UInt256> SendRawTransactionAsync(byte[] rawTransaction)
         {
@@ -416,7 +416,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Broadcasts a transaction over the NEO network.
+        /// Broadcasts a transaction over the EpicChain network.
         /// </summary>
         public Task<UInt256> SendRawTransactionAsync(Transaction transaction)
         {
@@ -424,7 +424,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Broadcasts a serialized block over the NEO network.
+        /// Broadcasts a serialized block over the EpicChain network.
         /// </summary>
         public async Task<UInt256> SubmitBlockAsync(byte[] block)
         {
@@ -532,7 +532,7 @@ namespace EpicChain.Network.RPC
         }
 
         /// <summary>
-        /// Verifies that the address is a correct NEO address.
+        /// Verifies that the address is a correct EpicChain address.
         /// </summary>
         public async Task<RpcValidateAddressResult> ValidateAddressAsync(string address)
         {

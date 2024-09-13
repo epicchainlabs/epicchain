@@ -23,7 +23,7 @@ using Akka.Actor;
 using Akka.Event;
 using System.Text;
 
-namespace Neo
+namespace EpicChain
 {
     public delegate void LogEventHandler(string source, LogLevel level, object message);
 
@@ -44,7 +44,7 @@ namespace Neo
         public static event LogEventHandler? Logging;
 
         /// <summary>
-        /// A strict UTF8 encoding used in NEO system.
+        /// A strict UTF8 encoding used in EpicChain system.
         /// </summary>
         public static Encoding StrictUTF8 { get; }
 

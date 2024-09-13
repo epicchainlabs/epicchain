@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PackageId>EpicChain.Extensions</PackageId>
-    <PackageTags>NEO;Blockchain;Extensions</PackageTags>
+    <PackageTags>EpicChain;Blockchain;Extensions</PackageTags>
     <OutputPath>../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Neo" />
+    <InternalsVisibleTo Include="EpicChain" />
     <InternalsVisibleTo Include="EpicChain.IO" />
     <InternalsVisibleTo Include="EpicChain.UnitTests" />
   </ItemGroup>

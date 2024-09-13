@@ -40,7 +40,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// ContractClient Constructor
         /// </summary>
-        /// <param name="rpc">the RPC client to call NEO RPC methods</param>
+        /// <param name="rpc">the RPC client to call EpicChain RPC methods</param>
         public ContractClient(RpcClient rpc)
         {
             rpcClient = rpc;
@@ -62,7 +62,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// Deploy Contract, return signed transaction
         /// </summary>
-        /// <param name="nefFile">neo contract executable file</param>
+        /// <param name="nefFile">epicchain contract executable file</param>
         /// <param name="manifest">contract manifest</param>
         /// <param name="key">sender KeyPair</param>
         /// <returns></returns>

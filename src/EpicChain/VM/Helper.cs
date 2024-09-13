@@ -35,7 +35,7 @@ using Buffer = EpicChain.VM.Types.Buffer;
 namespace EpicChain.VM
 {
     /// <summary>
-    /// A helper class related to NeoVM.
+    /// A helper class related to EpicChainVM.
     /// </summary>
     public static class Helper
     {

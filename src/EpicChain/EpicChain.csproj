@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PackageId>Neo</PackageId>
-    <PackageTags>NEO;AntShares;Blockchain;Smart Contract</PackageTags>
+    <PackageId>EpicChain</PackageId>
+    <PackageTags>EpicChain;AntShares;Blockchain;Smart Contract</PackageTags>
     <OutputPath>../../bin/$(PackageId)</OutputPath>
   </PropertyGroup>
 

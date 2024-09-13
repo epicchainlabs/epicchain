@@ -29,7 +29,7 @@ using System.IO;
 namespace EpicChain.Network.P2P
 {
     /// <summary>
-    /// Represents a message on the NEO network.
+    /// Represents a message on the EpicChain network.
     /// </summary>
     public class Message : ISerializable
     {

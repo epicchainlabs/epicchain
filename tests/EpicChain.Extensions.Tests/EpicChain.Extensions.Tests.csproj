@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Neo\EpicChain.csproj" />
+    <ProjectReference Include="..\..\src\EpicChain\EpicChain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

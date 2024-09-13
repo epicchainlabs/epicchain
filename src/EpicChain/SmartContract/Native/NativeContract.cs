@@ -91,7 +91,7 @@ namespace EpicChain.SmartContract.Native
         /// <summary>
         /// Gets the instance of the <see cref="EpicChain"/> class.
         /// </summary>
-        public static EpicChain NEO { get; } = new();
+        public static EpicChain EpicChain { get; } = new();
 
         /// <summary>
         /// Gets the instance of the <see cref="EpicPulse"/> class.

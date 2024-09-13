@@ -21,7 +21,7 @@
 
 using static Akka.Event.LogLevel;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Represents the level of logs.

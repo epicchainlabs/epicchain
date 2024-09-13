@@ -322,7 +322,7 @@ namespace EpicChain.UnitTests.SmartContract
         [TestMethod]
         public void TestRuntime_Platform()
         {
-            ApplicationEngine.GetPlatform().Should().Be("NEO");
+            ApplicationEngine.GetPlatform().Should().Be("EpicChain");
         }
 
         [TestMethod]

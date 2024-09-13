@@ -33,7 +33,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// TransactionManagerFactory Constructor
         /// </summary>
-        /// <param name="rpcClient">the RPC client to call NEO RPC API</param>
+        /// <param name="rpcClient">the RPC client to call EpicChain RPC API</param>
         public TransactionManagerFactory(RpcClient rpcClient)
         {
             this.rpcClient = rpcClient;

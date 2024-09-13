@@ -27,7 +27,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-namespace Neo
+namespace EpicChain
 {
     public class Settings
     {
@@ -167,7 +167,7 @@ namespace Neo
                     EpicChainNameService = hash;
                 }
                 else
-                    throw new ArgumentException("Neo Name Service (NNS): EpicChainNameService hash is invalid. Check your config.json.", nameof(EpicChainNameService));
+                    throw new ArgumentException("EpicChain Name Service (NNS): EpicChainNameService hash is invalid. Check your config.json.", nameof(EpicChainNameService));
             }
         }
 

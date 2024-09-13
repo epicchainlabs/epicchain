@@ -22,7 +22,7 @@
 using System;
 using System.Numerics;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Represents a fixed-point number of arbitrary precision.

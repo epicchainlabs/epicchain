@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Neo" />
+    <InternalsVisibleTo Include="EpicChain" />
     <InternalsVisibleTo Include="EpicChain.SmartContract.Testing" />
     <InternalsVisibleTo Include="EpicChain.VM.Benchmarks" />
   </ItemGroup>

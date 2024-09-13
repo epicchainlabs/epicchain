@@ -43,7 +43,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// WalletAPI Constructor
         /// </summary>
-        /// <param name="rpc">the RPC client to call NEO RPC methods</param>
+        /// <param name="rpc">the RPC client to call EpicChain RPC methods</param>
         public WalletAPI(RpcClient rpc)
         {
             rpcClient = rpc;
@@ -103,7 +103,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// Get token balance with string parameters
         /// </summary>
-        /// <param name="tokenHash">token script hash, Example: "0x43cf98eddbe047e198a3e5d57006311442a0ca15"(NEO)</param>
+        /// <param name="tokenHash">token script hash, Example: "0x43cf98eddbe047e198a3e5d57006311442a0ca15"(EpicChain)</param>
         /// <param name="account">address, scripthash or public key string
         /// Example: address ("Ncm9TEzrp8SSer6Wa3UCSLTRnqzwVhCfuE"), scripthash ("0xb0a31817c80ad5f87b6ed390ecb3f9d312f7ceb8"), public key ("02f9ec1fd0a98796cf75b586772a4ddd41a0af07a1dbdf86a7238f74fb72503575")</param>
         /// <returns></returns>
@@ -116,7 +116,7 @@ namespace EpicChain.Network.RPC
 
         /// <summary>
         /// The EpicPulse is claimed when doing EpicChain transfer
-        /// This function will transfer NEO balance from account to itself
+        /// This function will transfer EpicChain balance from account to itself
         /// </summary>
         /// <param name="key">wif or private key
         /// Example: WIF ("KyXwTh1hB76RRMquSvnxZrJzQx7h9nQP2PCRL38v6VDb5ip3nf1p"), PrivateKey ("450d6c2a04b5b470339a745427bae6828400cf048400837d73c415063835e005")</param>

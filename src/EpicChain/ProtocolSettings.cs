@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// This class encapsulates the configuration and settings related to the protocol

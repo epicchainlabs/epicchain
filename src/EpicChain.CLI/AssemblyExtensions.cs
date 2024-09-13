@@ -22,7 +22,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Extension methods

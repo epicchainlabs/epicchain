@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// The time provider for the EpicChain system.

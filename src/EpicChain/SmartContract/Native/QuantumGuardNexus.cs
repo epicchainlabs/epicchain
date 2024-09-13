@@ -30,7 +30,7 @@ using System.Linq;
 namespace EpicChain.SmartContract.Native
 {
     /// <summary>
-    /// A native contract for managing roles in NEO system.
+    /// A native contract for managing roles in EpicChain system.
     /// </summary>
     public sealed class QuantumGuardNexus : NativeContract
     {

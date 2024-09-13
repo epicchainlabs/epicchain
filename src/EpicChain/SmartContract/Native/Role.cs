@@ -22,7 +22,7 @@
 namespace EpicChain.SmartContract.Native
 {
     /// <summary>
-    /// Represents the roles in the NEO system.
+    /// Represents the roles in the EpicChain system.
     /// </summary>
     public enum Role : byte
     {
@@ -37,7 +37,7 @@ namespace EpicChain.SmartContract.Native
         Oracle = 8,
 
         /// <summary>
-        /// NeoFS Alphabet nodes.
+        /// EpicChain Alphabet nodes.
         /// </summary>
         NeoFSAlphabetNode = 16,
 

@@ -26,7 +26,7 @@ using System.IO;
 namespace EpicChain.Network.P2P.Capabilities
 {
     /// <summary>
-    /// Represents the capabilities of a NEO node.
+    /// Represents the capabilities of a EpicChain node.
     /// </summary>
     public abstract class NodeCapability : ISerializable
     {

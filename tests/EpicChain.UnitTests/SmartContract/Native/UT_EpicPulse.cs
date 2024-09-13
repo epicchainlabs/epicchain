@@ -64,7 +64,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
             byte[] from = Contract.GetBFTAddress(TestProtocolSettings.Default.StandbyValidators).ToArray();
             byte[] to = new byte[20];
             var supply = NativeContract.EpicPulse.TotalSupply(snapshot);
-            supply.Should().Be(5200000050000000); // 3000000000000000 + 50000000 (neo holder reward)
+            supply.Should().Be(5200000050000000); // 3000000000000000 + 50000000 (epicchain holder reward)
 
             var storageKey = new KeyBuilder(NativeContract.Ledger.Id, 12);
             snapshot.Add(storageKey, new StorageItem(new HashIndexState { Hash = UInt256.Zero, Index = persistingBlock.Index - 1 }));

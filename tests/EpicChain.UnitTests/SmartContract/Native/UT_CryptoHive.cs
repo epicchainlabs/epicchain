@@ -601,7 +601,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
             m.Should().BeLessThanOrEqualTo(n);
             keys.Select(k => k.Item2).Distinct().Count().Should().Be(n);
 
-            // In fact, the following algorithm is implemented via NeoVM instructions:
+            // In fact, the following algorithm is implemented via EpicChainVM instructions:
             //
             // func Check(sigs []interop.Signature) bool {
             // 	if m != len(sigs) {

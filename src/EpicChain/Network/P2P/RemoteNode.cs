@@ -38,7 +38,7 @@ using System.Net;
 namespace EpicChain.Network.P2P
 {
     /// <summary>
-    /// Represents a connection of the NEO network.
+    /// Represents a connection of the namespace namespace EpicChain network.
     /// </summary>
     public partial class RemoteNode : Connection
     {

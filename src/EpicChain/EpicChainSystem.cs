@@ -36,7 +36,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Represents the basic unit that contains all the components required for running of a EpicChain node.

@@ -19,7 +19,7 @@
 // practices.
 
 
-namespace Neo
+namespace EpicChain
 {
     public enum Hardfork : byte
     {

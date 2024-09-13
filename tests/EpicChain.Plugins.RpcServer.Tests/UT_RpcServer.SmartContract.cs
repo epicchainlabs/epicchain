@@ -96,9 +96,9 @@ public partial class UT_RpcServer
         Assert.AreEqual(resp["exception"], null);
         Assert.AreEqual(((JArray)resp["notifications"]).Count, 0);
         Assert.AreEqual(resp["stack"][0]["type"], nameof(EpicChain.VM.Types.ByteString));
-        Assert.AreEqual(resp["stack"][0]["value"], Convert.ToBase64String(Encoding.UTF8.GetBytes("NEO")));
+        Assert.AreEqual(resp["stack"][0]["value"], Convert.ToBase64String(Encoding.UTF8.GetBytes("EpicChain")));
 
-        // This call triggers not only NEO but also unclaimed EpicPulse
+        // This call triggers not only EpicChain but also unclaimed EpicPulse
         resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.EpicChain.Hash.ToString(), "transfer", new JArray([
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = MultisigScriptHash.ToString() },
             new JObject() { ["type"] = nameof(ContractParameterType.Hash160), ["value"] = ValidatorScriptHash.ToString() },

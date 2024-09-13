@@ -28,7 +28,7 @@ using System.Linq;
 namespace EpicChain.Persistence
 {
     /// <summary>
-    /// Represents a cache for the underlying storage of the NEO blockchain.
+    /// Represents a cache for the underlying storage of the EpicChain blockchain.
     /// </summary>
     public abstract class DataCache
     {

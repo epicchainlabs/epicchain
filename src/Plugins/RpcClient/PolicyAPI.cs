@@ -35,7 +35,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// PolicyAPI Constructor
         /// </summary>
-        /// <param name="rpcClient">the RPC client to call NEO RPC methods</param>
+        /// <param name="rpcClient">the RPC client to call EpicChain RPC methods</param>
         public PolicyAPI(RpcClient rpcClient) : base(rpcClient) { }
 
         /// <summary>

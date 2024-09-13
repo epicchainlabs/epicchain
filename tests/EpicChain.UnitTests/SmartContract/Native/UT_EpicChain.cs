@@ -59,7 +59,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
         public void Check_Name() => NativeContract.EpicChain.Name.Should().Be(nameof(EpicChain));
 
         [TestMethod]
-        public void Check_Symbol() => NativeContract.EpicChain.Symbol(_snapshotCache).Should().Be("NEO");
+        public void Check_Symbol() => NativeContract.EpicChain.Symbol(_snapshotCache).Should().Be("EpicChain");
 
         [TestMethod]
         public void Check_Decimals() => NativeContract.EpicChain.Decimals(_snapshotCache).Should().Be(0);
@@ -442,7 +442,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
 
             NativeContract.EpicChain.Transfer(clonedCache, to, from, BigInteger.One, true, persistingBlock).Should().BeTrue();
             NativeContract.EpicChain.BalanceOf(clonedCache, to).Should().Be(0);
-            clonedCache.GetChangeSet().Count().Should().Be(keyCount - 1);  // Remove neo balance from address two
+            clonedCache.GetChangeSet().Count().Should().Be(keyCount - 1);  // Remove EpicChain balance from address two
 
             // Bad inputs
 

@@ -40,7 +40,7 @@ namespace EpicChain.Network.RPC
         /// <summary>
         /// Xep17API Constructor
         /// </summary>
-        /// <param name="rpcClient">the RPC client to call NEO RPC methods</param>
+        /// <param name="rpcClient">the RPC client to call EpicChain RPC methods</param>
         public Xep17API(RpcClient rpcClient) : base(rpcClient) { }
 
         /// <summary>

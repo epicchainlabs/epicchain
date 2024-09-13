@@ -62,7 +62,7 @@ namespace EpicChain.Network.RPC
         /// TransactionManager Constructor
         /// </summary>
         /// <param name="tx">the transaction to manage. Typically buildt</param>
-        /// <param name="rpcClient">the RPC client to call NEO RPC API</param>
+        /// <param name="rpcClient">the RPC client to call EpicChain RPC API</param>
         public TransactionManager(Transaction tx, RpcClient rpcClient)
         {
             this.tx = tx;

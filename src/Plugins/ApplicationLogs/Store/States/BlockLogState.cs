@@ -19,7 +19,7 @@
 // practices.
 
 
-using Neo;
+using EpicChain;
 using EpicChain.IO;
 
 namespace EpicChain.Plugins.ApplicationLogs.Store.States

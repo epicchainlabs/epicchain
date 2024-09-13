@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Neo\EpicChain.csproj" />
+    <ProjectReference Include="..\..\src\EpicChain\EpicChain.csproj" />
     <ProjectReference Include="..\..\src\Plugins\RpcServer\RpcServer.csproj" />
     <ProjectReference Include="..\EpicChain.UnitTests\EpicChain.UnitTests.csproj" />
   </ItemGroup>

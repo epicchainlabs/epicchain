@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyTitle>EpicChain.CLI</AssemblyTitle>
-    <AssemblyName>neo-cli</AssemblyName>
+    <AssemblyName>epicchain-cli</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>EpicChain.CLI</PackageId>
-    <RootNamespace>Neo</RootNamespace>
+    <RootNamespace>EpicChain</RootNamespace>
     <Product>EpicChain.CLI</Product>
     <ApplicationIcon>epicchain.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
@@ -32,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj" />
     <ProjectReference Include="..\EpicChain.Extensions\EpicChain.Extensions.csproj" />
-    <ProjectReference Include="..\Neo\EpicChain.csproj" />
+    <ProjectReference Include="..\EpicChain\EpicChain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

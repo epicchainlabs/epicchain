@@ -42,7 +42,7 @@ namespace EpicChain.Wallets
         /// </summary>
         /// <param name="verifiable">The <see cref="IVerifiable"/> to sign.</param>
         /// <param name="key">The private key to be used.</param>
-        /// <param name="network">The magic number of the NEO network.</param>
+        /// <param name="network">The magic number of the EpicChain network.</param>
         /// <returns>The signature for the <see cref="IVerifiable"/>.</returns>
         public static byte[] Sign(this IVerifiable verifiable, KeyPair key, uint network)
         {

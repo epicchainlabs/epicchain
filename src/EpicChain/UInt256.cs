@@ -26,7 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Represents a 256-bit unsigned integer.

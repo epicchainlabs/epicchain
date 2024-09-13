@@ -93,7 +93,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
         [TestMethod]
         public void TestGetContract()
         {
-            Assert.IsTrue(NativeContract.NEO == NativeContract.GetContract(NativeContract.EpicChain.Hash));
+            Assert.IsTrue(NativeContract.EpicChain == NativeContract.GetContract(NativeContract.EpicChain.Hash));
         }
 
         [TestMethod]

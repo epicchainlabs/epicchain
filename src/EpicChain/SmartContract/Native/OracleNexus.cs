@@ -36,7 +36,7 @@ using System.Numerics;
 namespace EpicChain.SmartContract.Native
 {
     /// <summary>
-    /// The native Oracle service for NEO system.
+    /// The native Oracle service for EpicChain system.
     /// </summary>
     public sealed class OracleNexus : NativeContract
     {
