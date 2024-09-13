@@ -28,7 +28,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Neo
+namespace EpicChain
 {
     /// <summary>
     /// Represents a 160-bit unsigned integer.
