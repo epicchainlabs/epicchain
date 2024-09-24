@@ -17,4 +17,4 @@ RUN rm -rf /var/lib/apt/lists/*
 WORKDIR /EpicChain.CLI
 COPY  --from=Build /app .
 
-ENTRYPOINT ["screen","-DmS","node","dotnet","neo-cli.dll","-r"]
+ENTRYPOINT ["screen","-DmS","node","dotnet","epicchain-cli.dll","-r"]
