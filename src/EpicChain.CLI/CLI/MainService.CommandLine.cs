@@ -34,7 +34,7 @@ namespace EpicChain.CLI
             RootCommand rootCommand = new(Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>()!.Title)
             {
                 new Option<string>(new[] { "-c", "--config","/config" }, "Specifies the config file."),
-                new Option<string>(new[] { "-w", "--wallet","/wallet" }, "The path of the neo3 wallet [*.json]."),
+                new Option<string>(new[] { "-w", "--wallet","/wallet" }, "The path of the epicchain wallet [*.json]."),
                 new Option<string>(new[] { "-p", "--password" ,"/password" }, "Password to decrypt the wallet, either from the command line or config file."),
                 new Option<string>(new[] { "--db-engine","/db-engine" }, "Specify the db engine."),
                 new Option<string>(new[] { "--db-path","/db-path" }, "Specify the db path."),
