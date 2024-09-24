@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NeoFS.API" Version="3.5.0" />
+    <PackageReference Include="EpicChainNova.API" Version="3.5.0" />
   </ItemGroup>
 
   <ItemGroup>

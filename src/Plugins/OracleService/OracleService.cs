@@ -156,7 +156,7 @@ namespace EpicChain.Plugins.OracleService
 
             this.wallet = wallet;
             protocols["https"] = new OracleHttpsProtocol();
-            protocols["neofs"] = new OracleNeoFSProtocol(wallet, oracles);
+            protocols["EpicChainNova"] = new OracleEpicChainNovaProtocol(wallet, oracles);
             status = OracleStatus.Running;
             timer = new Timer(OnTimer, null, RefreshIntervalMilliSeconds, Timeout.Infinite);
             ConsoleHelper.Info($"Oracle started");
