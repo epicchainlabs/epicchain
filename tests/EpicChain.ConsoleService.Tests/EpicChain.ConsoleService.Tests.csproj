@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>neo_cli.Tests</RootNamespace>
+    <RootNamespace>epicchain_cli.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
