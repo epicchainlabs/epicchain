@@ -143,7 +143,7 @@ namespace EpicChain.CLI
             Console.ForegroundColor = ConsoleColor.DarkGreen;
 
             var cliV = Assembly.GetAssembly(typeof(Program))!.GetName().Version;
-            var neoV = Assembly.GetAssembly(typeof(EpicChainSystem))!.GetName().Version;
+            var epicchainV = Assembly.GetAssembly(typeof(EpicChainSystem))!.GetName().Version;
             var vmV = Assembly.GetAssembly(typeof(ExecutionEngine))!.GetName().Version;
             Console.WriteLine($"EpicChain-BlockSphere V1.0.2 - Symbolizing a robust, all-encompassing");
             Console.WriteLine();
