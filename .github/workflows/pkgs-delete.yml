@@ -20,8 +20,8 @@ jobs:
         run: pip install packaging
       - name: Delete versions below 3.6.1
         env:
-          MYGET_FEED: 'neo'
-          PACKAGE_NAMES: 'EpicChain.VM,EpicChain.Json,EpicChain.IO,Neo,EpicChain.ConsoleService,EpicChain.Extensions' # EpicChain.Cryptography.BLS12_381 version is 0.x
+          MYGET_FEED: 'epicchain'
+          PACKAGE_NAMES: 'EpicChain.VM,EpicChain.Json,EpicChain.IO,EpicChain,EpicChain.ConsoleService,EpicChain.Extensions' # EpicChain.Cryptography.BLS12_381 version is 0.x
           MYGET_API_KEY: ${{ secrets.MYGET_TOKEN }}
         run: |
           import requests
@@ -105,7 +105,7 @@ jobs:
     - name: Delete EpicChain Package (nuget)
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo
+        package-name: EpicChain
         package-type: nuget
         min-versions-to-keep: 3
         delete-only-pre-release-versions: "true"
@@ -114,7 +114,7 @@ jobs:
     - name: Delete EpicChain Package (docker)
       uses: actions/delete-package-versions@v4
       with:
-        package-name: Neo
+        package-name: EpicChain
         package-type: docker
         min-versions-to-keep: 1
         delete-only-pre-release-versions: "true"
