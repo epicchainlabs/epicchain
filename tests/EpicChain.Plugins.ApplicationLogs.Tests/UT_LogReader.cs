@@ -212,12 +212,12 @@ namespace EpicChain.Plugins.ApplicationsLogs.Tests
                 Assert.Equal(log.Notifications[1].State[2], 50000000);
             }
 
-            List<(BlockchainEventModel eventLog, UInt256 txHash)> neoLogs = _EpicChainSystemFixture.logReader._epicchainstore.GetContractLog(EpicChain.EpicChain.Hash, TriggerType.Application).ToList();
-            Assert.Equal(neoLogs.Count, 1);
-            Assert.Equal(neoLogs[0].txHash, _EpicChainSystemFixture.txs[0].Hash);
-            Assert.Equal(neoLogs[0].eventLog.EventName, "Transfer");
-            Assert.Equal(neoLogs[0].eventLog.ScriptHash, EpicChain.EpicChain.Hash);
-            Assert.Equal(neoLogs[0].eventLog.State[2], 1);
+            List<(BlockchainEventModel eventLog, UInt256 txHash)> epicchainLogs = _EpicChainSystemFixture.logReader._epicchainstore.GetContractLog(EpicChain.EpicChain.Hash, TriggerType.Application).ToList();
+            Assert.Equal(epicchainLogs.Count, 1);
+            Assert.Equal(epicchainLogs[0].txHash, _EpicChainSystemFixture.txs[0].Hash);
+            Assert.Equal(epicchainLogs[0].eventLog.EventName, "Transfer");
+            Assert.Equal(epicchainLogs[0].eventLog.ScriptHash, EpicChain.EpicChain.Hash);
+            Assert.Equal(epicchainLogs[0].eventLog.State[2], 1);
         }
     }
 }
