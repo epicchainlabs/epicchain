@@ -56,7 +56,7 @@ public partial class UT_RpcServer
         JObject resp = (JObject)_rpcServer.ValidateAddress([validAddr]);
         Assert.AreEqual(resp["address"], validAddr);
         Assert.AreEqual(resp["isvalid"], true);
-        string invalidAddr = "ANeo2toNeo3MigrationAddressxwPB2Hz";
+        string invalidAddr = "AEpicChain2toEpicChain3MigrationAddressxwPB2Hz";
         resp = (JObject)_rpcServer.ValidateAddress([invalidAddr]);
         Assert.AreEqual(resp["address"], invalidAddr);
         Assert.AreEqual(resp["isvalid"], false);
