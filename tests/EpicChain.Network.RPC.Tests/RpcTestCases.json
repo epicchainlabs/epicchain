@@ -2480,7 +2480,7 @@
         "network": 0,
         "tcpport": 20333,
         "nonce": 592651621,
-        "useragent": "/Neo:3.0.0-rc1/",
+        "useragent": "/EpicChain:3.0.0-rc1/",
         "protocol": {
           "network": 0,
           "validatorscount": 0,
