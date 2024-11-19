@@ -9,7 +9,7 @@ env:
   DIST_DIR: ./dist
 
 jobs:
-  neo-cli-build:
+  epicchain-cli-build:
     runs-on: ubuntu-latest
 
     steps:
