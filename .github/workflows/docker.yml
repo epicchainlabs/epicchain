@@ -26,7 +26,7 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Build (neo-cli)
+    - name: Build (epicchain-cli)
       run: |
         dotnet publish ./src/EpicChain.CLI \
           --framework net8.0 \
