@@ -23,4 +23,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("EpicChain.UnitTests")]
-[assembly: InternalsVisibleTo("neodebug-3-adapter")]
+[assembly: InternalsVisibleTo("epicchaindebug-3-adapter")]
