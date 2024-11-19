@@ -52,7 +52,7 @@ public partial class UT_RpcServer
     [TestMethod]
     public void TestValidateAddress()
     {
-        string validAddr = "NM7Aky765FG8NhhwtxjXRx7jEL1cnw7PBP";
+        string validAddr = "XgsJXcjSB4sLRMQgW6CGc9887Lc87MmsUu";
         JObject resp = (JObject)_rpcServer.ValidateAddress([validAddr]);
         Assert.AreEqual(resp["address"], validAddr);
         Assert.AreEqual(resp["isvalid"], true);
