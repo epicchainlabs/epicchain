@@ -40,7 +40,7 @@ namespace EpicChain.Plugins.OracleService
         {
             CustomAttributeData attribute = Assembly.GetExecutingAssembly().CustomAttributes.First(p => p.AttributeType == typeof(AssemblyInformationalVersionAttribute));
             string version = (string)attribute.ConstructorArguments[0].Value;
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("NeoOracleService", version));
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("EpicChainOracleService", version));
         }
 
         public void Configure()
