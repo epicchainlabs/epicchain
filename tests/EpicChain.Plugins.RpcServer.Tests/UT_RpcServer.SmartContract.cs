@@ -44,7 +44,7 @@ namespace EpicChain.Plugins.RpcServer.Tests;
 
 public partial class UT_RpcServer
 {
-    static readonly string NeoTotalSupplyScript = "wh8MC3RvdGFsU3VwcGx5DBT1Y\u002BpAvCg9TQ4FxI6jBbPyoHNA70FifVtS";
+    static readonly string EpicChainTotalSupplyScript = "wh8MC3RvdGFsU3VwcGx5DBT1Y\u002BpAvCg9TQ4FxI6jBbPyoHNA70FifVtS";
     static readonly string EpicChainTransferScript = "CxEMFPlu76Cuc\u002BbgteStE4ozsOWTNUdrDBQtYNweHko3YcnMFOes3ceblcI/lRTAHwwIdHJhbnNmZXIMFPVj6kC8KD1NDgXEjqMFs/Kgc0DvQWJ9W1I=";
     static readonly UInt160 ValidatorScriptHash = Contract
         .CreateSignatureRedeemScript(TestProtocolSettings.SoleNode.StandbyCommittee[0])
@@ -76,7 +76,7 @@ public partial class UT_RpcServer
 
         JObject resp = (JObject)_rpcServer.InvokeFunction(new JArray(EpicChain.EpicChain.Hash.ToString(), "totalSupply", new JArray([]), validatorSigner, true));
         Assert.AreEqual(resp.Count, 8);
-        Assert.AreEqual(resp["script"], NeoTotalSupplyScript);
+        Assert.AreEqual(resp["script"], EpicChainTotalSupplyScript);
         Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
         Assert.AreEqual(resp["diagnostics"]["invokedcontracts"]["call"][0]["hash"], EpicChain.EpicChain.Hash.ToString());
@@ -129,7 +129,7 @@ public partial class UT_RpcServer
     [TestMethod]
     public void TestInvokeScript()
     {
-        JObject resp = (JObject)_rpcServer.InvokeScript(new JArray(NeoTotalSupplyScript, validatorSigner, true));
+        JObject resp = (JObject)_rpcServer.InvokeScript(new JArray(EpicChainTotalSupplyScript, validatorSigner, true));
         Assert.AreEqual(resp.Count, 7);
         Assert.IsTrue(resp.ContainsProperty("EpicPulseConsumed"));
         Assert.IsTrue(resp.ContainsProperty("diagnostics"));
