@@ -187,7 +187,7 @@ jobs:
       uses: actions/cache/save@v4
       with:
         path: ${{ env.OUTPUT_PATH }}/${{ matrix.runtime }}/*
-        key: neo-${{ matrix.runtime }}
+        key: epicchain-${{ matrix.runtime }}
         enableCrossOsArchive: true
 
     # Create a zip file for Windows distributions
