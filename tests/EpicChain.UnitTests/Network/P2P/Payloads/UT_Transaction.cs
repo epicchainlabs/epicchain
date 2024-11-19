@@ -595,7 +595,7 @@ namespace EpicChain.UnitTests.Network.P2P.Payloads
         }
 
         [TestMethod]
-        public void FeeIsSignatureContract_TestScope_CurrentHash_NEO_EpicPulse()
+        public void FeeIsSignatureContract_TestScope_CurrentHash_EpicChain_EpicPulse()
         {
             var wallet = TestUtils.GenerateTestWallet("");
             var snapshotCache = TestBlockchain.GetTestSnapshotCache();
