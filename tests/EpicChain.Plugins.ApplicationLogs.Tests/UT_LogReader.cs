@@ -53,7 +53,7 @@ namespace EpicChain.Plugins.ApplicationsLogs.Tests
 {
     public class UT_LogReader : IClassFixture<EpicChainSystemFixture>
     {
-        static readonly string NeoTransferScript = "CxEMFPlu76Cuc\u002BbgteStE4ozsOWTNUdrDBQtYNweHko3YcnMFOes3ceblcI/lRTAHwwIdHJhbnNmZXIMFPVj6kC8KD1NDgXEjqMFs/Kgc0DvQWJ9W1I=";
+        static readonly string EpicChainTransferScript = "CxEMFPlu76Cuc\u002BbgteStE4ozsOWTNUdrDBQtYNweHko3YcnMFOes3ceblcI/lRTAHwwIdHJhbnNmZXIMFPVj6kC8KD1NDgXEjqMFs/Kgc0DvQWJ9W1I=";
         static readonly byte[] ValidatorScript = Contract.CreateSignatureRedeemScript(TestProtocolSettings.SoleNode.StandbyCommittee[0]);
         static readonly UInt160 ValidatorScriptHash = ValidatorScript.ToScriptHash();
         static readonly string ValidatorAddress = ValidatorScriptHash.ToAddress(ProtocolSettings.Default.AddressVersion);
@@ -96,7 +96,7 @@ namespace EpicChain.Plugins.ApplicationsLogs.Tests
                         ValidUntilBlock = NativeContract.Ledger.CurrentIndex(system.GetSnapshotCache()) + system.Settings.MaxValidUntilBlockIncrement,
                         Signers = [new Signer() { Account = MultisigScriptHash, Scopes = WitnessScope.CalledByEntry }],
                         Attributes = Array.Empty<TransactionAttribute>(),
-                        Script = Convert.FromBase64String(NeoTransferScript),
+                        Script = Convert.FromBase64String(EpicChainTransferScript),
                         NetworkFee = 1000_0000,
                         SystemFee = 1000_0000,
                     }
