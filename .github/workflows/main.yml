@@ -46,7 +46,7 @@ jobs:
         find ./bin -name 'config.json' | xargs perl -pi -e 's|LevelDBStore|MemoryStore|g'
 
     - name: Run tests with expect
-      run: expect ./scripts/EpicChain.CLI/test-neo-cli.exp
+      run: expect ./scripts/EpicChain.CLI/test-epicchain-cli.exp
 
   Test:
     needs: [Format]

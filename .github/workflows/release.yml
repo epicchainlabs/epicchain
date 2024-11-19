@@ -275,7 +275,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ env.OUTPUT_PATH }}/osx-${{ matrix.arch }}/*
-        key: neo-osx-${{ matrix.arch }}
+        key: epicchain-osx-${{ matrix.arch }}
         enableCrossOsArchive: true
         fail-on-cache-miss: true
 
