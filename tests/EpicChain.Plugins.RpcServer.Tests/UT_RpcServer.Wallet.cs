@@ -405,7 +405,7 @@ partial class UT_RpcServer
 
         // deploy a contract with `Verify` method;
         string _contractSourceCode = """
-using Neo;using EpicChain.SmartContract.Framework;using EpicChain.SmartContract.Framework.Services;
+using EpicChain;using EpicChain.SmartContract.Framework;using EpicChain.SmartContract.Framework.Services;
 namespace ContractWithVerify{public class ContractWithVerify:SmartContract {
         const byte PREFIX_OWNER = 0x20;
         public static void _deploy(object data, bool update) {
