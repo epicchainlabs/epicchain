@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.VM.Tests", "tests
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.ConsoleService", "src\EpicChain.ConsoleService\EpicChain.ConsoleService.csproj", "{9E886812-7243-48D8-BEAF-47AADC11C054}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.GUI", "src\EpicChain.GUI\EpicChain.GUI.csproj", "{02ABDE42-9880-43B4-B6F7-8D618602A277}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.CLI", "src\EpicChain.CLI\EpicChain.CLI.csproj", "{BDFBE455-4C1F-4FC4-B5FC-1387B93A8687}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EpicChain.ConsoleService.Tests", "tests\EpicChain.ConsoleService.Tests\EpicChain.ConsoleService.Tests.csproj", "{B40F8584-5AFB-452C-AEFA-009C80CC23A9}"
