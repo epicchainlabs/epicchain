@@ -73,5 +73,5 @@ jobs:
         docker build . \
           --file ./.epicchain/docker/epicchain-cli/Dockerfile \
           --tag ghcr.io/${{ github.repository_owner }}/epicchain-cli:latest \
-          --tag ghcr.io/${{ github.repository_owner }}/neo-cli:${{ env.APP_VERSION }} \
+          --tag ghcr.io/${{ github.repository_owner }}/epicchain-cli:${{ env.APP_VERSION }} \
           --push
