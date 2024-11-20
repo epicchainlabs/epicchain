@@ -70,7 +70,7 @@ namespace EpicChain.UnitTests.SmartContract.Native
             publicKeys[1] = key2.PublicKey;
             publicKeys = publicKeys.OrderBy(p => p).ToArray();
 
-            List<Role> roles = new List<Role>() { Role.StateValidator, Role.Oracle, Role.EpicChainNovaAlphabetNode, Role.P2PNotary };
+            List<Role> roles = new List<Role>() { Role.StateValidator, Role.Oracle, Role.NeoFSAlphabetNode, Role.P2PNotary };
             foreach (var role in roles)
             {
                 var snapshot1 = _snapshotCache.CloneCache();

@@ -39,7 +39,7 @@ namespace EpicChain.SmartContract.Native
         /// <summary>
         /// EpicChain Alphabet nodes.
         /// </summary>
-        EpicChainNovaAlphabetNode = 16,
+        NeoFSAlphabetNode = 16,
 
         /// <summary>
         /// P2P Notary nodes used to process P2P notary requests.

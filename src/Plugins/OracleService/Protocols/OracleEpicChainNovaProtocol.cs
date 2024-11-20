@@ -1,7 +1,7 @@
 // Copyright (C) 2021-2024 EpicChain Labs.
 
 //
-// OracleEpicChainNovaProtocol.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
+// OracleNeoFSProtocol.cs is a component of the EpicChain Labs project, founded by xmoohad. This file is
 // distributed as free software under the MIT License, allowing for wide usage and modification
 // with minimal restrictions. For comprehensive details regarding the license, please refer to
 // the LICENSE file located in the root directory of the repository or visit
@@ -36,11 +36,11 @@ using Range = EpicChain.FileStorage.API.Object.Range;
 
 namespace EpicChain.Plugins.OracleService
 {
-    class OracleEpicChainNovaProtocol : IOracleProtocol
+    class OracleNeoFSProtocol : IOracleProtocol
     {
         private readonly System.Security.Cryptography.ECDsa privateKey;
 
-        public OracleEpicChainNovaProtocol(Wallet wallet, ECPoint[] oracles)
+        public OracleNeoFSProtocol(Wallet wallet, ECPoint[] oracles)
         {
             byte[] key = oracles.Select(p => wallet.GetAccount(p)).Where(p => p is not null && p.HasKey && !p.Lock).FirstOrDefault().GetKey().PrivateKey;
             privateKey = key.LoadPrivateKey();
@@ -57,33 +57,33 @@ namespace EpicChain.Plugins.OracleService
 
         public async Task<(OracleResponseCode, string)> ProcessAsync(Uri uri, CancellationToken cancellation)
         {
-            Utility.Log(nameof(OracleEpicChainNovaProtocol), LogLevel.Debug, $"Request: {uri.AbsoluteUri}");
+            Utility.Log(nameof(OracleNeoFSProtocol), LogLevel.Debug, $"Request: {uri.AbsoluteUri}");
             try
             {
-                (OracleResponseCode code, string data) = await GetAsync(uri, Settings.Default.EpicChainNova.EndPoint, cancellation);
-                Utility.Log(nameof(OracleEpicChainNovaProtocol), LogLevel.Debug, $"EpicChainNova result, code: {code}, data: {data}");
+                (OracleResponseCode code, string data) = await GetAsync(uri, Settings.Default.NeoFS.EndPoint, cancellation);
+                Utility.Log(nameof(OracleNeoFSProtocol), LogLevel.Debug, $"NeoFS result, code: {code}, data: {data}");
                 return (code, data);
             }
             catch (Exception e)
             {
-                Utility.Log(nameof(OracleEpicChainNovaProtocol), LogLevel.Debug, $"EpicChainNova result: error,{e.Message}");
+                Utility.Log(nameof(OracleNeoFSProtocol), LogLevel.Debug, $"NeoFS result: error,{e.Message}");
                 return (OracleResponseCode.Error, null);
             }
         }
 
 
         /// <summary>
-        /// GetAsync returns epicchainnova object from the provided url.
+        /// GetAsync returns NeoFS object from the provided url.
         /// If Command is not provided, full object is requested.
         /// </summary>
-        /// <param name="uri">URI scheme is "epicchainnova:ContainerID/ObjectID/Command/offset|length".</param>
+        /// <param name="uri">URI scheme is "NeoFS:ContainerID/ObjectID/Command/offset|length".</param>
         /// <param name="host">Client host.</param>
         /// <param name="cancellation">Cancellation token object.</param>
-        /// <returns>Returns epicchainnova object.</returns>
+        /// <returns>Returns NeoFS object.</returns>
         private async Task<(OracleResponseCode, string)> GetAsync(Uri uri, string host, CancellationToken cancellation)
         {
             string[] ps = uri.AbsolutePath.Split("/");
-            if (ps.Length < 2) throw new FormatException("Invalid epicchainnova url");
+            if (ps.Length < 2) throw new FormatException("Invalid NeoFS url");
             ContainerID containerID = ContainerID.FromString(ps[0]);
             ObjectID objectID = ObjectID.FromString(ps[1]);
             Address objectAddr = new()
@@ -93,7 +93,7 @@ namespace EpicChain.Plugins.OracleService
             };
             using Client client = new(privateKey, host);
             var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellation);
-            tokenSource.CancelAfter(Settings.Default.EpicChainNova.Timeout);
+            tokenSource.CancelAfter(Settings.Default.NeoFS.Timeout);
             if (ps.Length == 2)
                 return GetPayload(client, objectAddr, tokenSource.Token);
             return ps[2] switch
