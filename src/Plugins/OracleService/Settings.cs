@@ -35,12 +35,12 @@ namespace EpicChain.Plugins.OracleService
         }
     }
 
-    class EpicChainSettings
+    class NeoFSSettings
     {
         public string EndPoint { get; }
         public TimeSpan Timeout { get; }
 
-        public EpicChainSettings(IConfigurationSection section)
+        public NeoFSSettings(IConfigurationSection section)
         {
             EndPoint = section.GetValue("EndPoint", "127.0.0.1:8080");
             Timeout = TimeSpan.FromMilliseconds(section.GetValue("Timeout", 15000));
@@ -56,7 +56,7 @@ namespace EpicChain.Plugins.OracleService
         public bool AllowPrivateHost { get; }
         public string[] AllowedContentTypes { get; }
         public HttpsSettings Https { get; }
-        public EpicChainSettings NeoFS { get; }
+        public NeoFSSettings NeoFS { get; }
         public bool AutoStart { get; }
 
         public static Settings Default { get; private set; }
@@ -70,7 +70,7 @@ namespace EpicChain.Plugins.OracleService
             AllowPrivateHost = section.GetValue("AllowPrivateHost", false);
             AllowedContentTypes = section.GetSection("AllowedContentTypes").GetChildren().Select(p => p.Get<string>()).ToArray();
             Https = new HttpsSettings(section.GetSection("Https"));
-            NeoFS = new EpicChainSettings(section.GetSection("NeoFS"));
+            NeoFS = new NeoFSSettings(section.GetSection("NeoFS"));
             AutoStart = section.GetValue("AutoStart", false);
         }
 
