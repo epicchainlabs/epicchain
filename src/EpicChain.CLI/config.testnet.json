@@ -39,7 +39,7 @@
     "InitialEpicPulseDistribution": 50000000000000000,
     "ValidatorsCount": 1,
     "StandbyCommittee": [
-      "023e9b32ea89b94d066e649b124fd50e396ee91369e8e2a6ae1b11c170d022256d"
+      "02e5b675ae80fbf55dec4c3c21d2106ffcd3ac0727b202fa5583a9258a891ef2f6"
     ],
     "SeedList": [
       "testnet1-seed.epic-chain.org:20111",
