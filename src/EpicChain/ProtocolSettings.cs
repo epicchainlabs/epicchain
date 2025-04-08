@@ -171,7 +171,7 @@ namespace EpicChain
 
         /// <summary>
         /// Sets the block height at which specific hardforks are activated within the EpicChain system.
-        /// A hardfork introduces significant changes to the blockchain’s protocol, which may not be backward-compatible.
+        /// A hardfork introduces significant changes to the blockchain's protocol, which may not be backward-compatible.
         /// By specifying the activation block height, the network can seamlessly transition to the updated protocol
         /// without disrupting ongoing operations. This mechanism allows the network to evolve over time,
         /// integrating new features, security enhancements, or improvements to functionality. Coordinating hardforks
@@ -189,7 +189,7 @@ namespace EpicChain
         /// </summary>
         public ulong InitialEpicPulseDistribution { get; init; }
 
-        private IReadOnlyList<ECPoint> _standbyValidators;
+        private IReadOnlyList<ECPoint>? _standbyValidators;
 
         /// <summary>
         /// Contains the public keys of the standby validators, which are selected from the standby committee.
@@ -207,7 +207,7 @@ namespace EpicChain
         /// and transaction limits. They ensure that the network operates efficiently and securely, providing
         /// a stable environment for users and developers. The protocol settings are designed to balance decentralization,
         /// performance, and scalability, fostering a robust and resilient blockchain ecosystem. These default settings
-        /// are integral to EpicChain’s smooth and sustainable operation.
+        /// are integral to EpicChain's smooth and sustainable operation.
         /// </summary>
 
         public static ProtocolSettings Default { get; } = Custom ?? new ProtocolSettings

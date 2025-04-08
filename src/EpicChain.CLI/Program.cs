@@ -19,16 +19,48 @@
 // practices.
 
 
-using EpicChain.CLI;
+using System;
+using System.Threading.Tasks;
+using EpicChain;
+using EpicChain.CLI.Commands;
+using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace EpicChain
+namespace EpicChain.CLI
 {
-    static class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            var mainService = new MainService();
-            mainService.Run(args);
+            var services = new ServiceCollection()
+                .AddSingleton<ProtocolSettings>()
+                .AddSingleton<EpicChainSystem>()
+                .AddSingleton<ConsensusEngine>()
+                .AddSingleton<IConsensusState, ConsensusState>()
+                .AddSingleton<IValidator, Validator>()
+                .AddSingleton<IBlockProducer, BlockProducer>()
+                .BuildServiceProvider();
+
+            var app = new CommandLineApplication
+            {
+                Name = "epicchain",
+                Description = "EpicChain CLI - Command line interface for EpicChain blockchain"
+            };
+
+            app.HelpOption();
+
+            app.Command("node", new NodeCommands(services).OnExecuteAsync);
+            app.Command("consensus", new ConsensusCommands(services).OnExecuteAsync);
+
+            try
+            {
+                return await app.ExecuteAsync(args);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error: {ex.Message}");
+                return 1;
+            }
         }
     }
 }

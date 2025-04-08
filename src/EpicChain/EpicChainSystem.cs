@@ -110,7 +110,7 @@ namespace EpicChain
         private ImmutableList<object> services = ImmutableList<object>.Empty;
         private readonly IStore store;
         private readonly IStoreProvider storageProvider;
-        private ChannelsConfig start_message = null;
+        private ChannelsConfig? start_message = null;
         private int suspend = 0;
 
         static EpicChainSystem()
