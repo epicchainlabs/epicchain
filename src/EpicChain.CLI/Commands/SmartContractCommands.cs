@@ -39,8 +39,8 @@ namespace EpicChain.CLI.Commands
             [Option("-p|--password", Description = "Wallet password")]
             public string Password { get; }
 
-            [Option("-g|--gas", Description = "Gas limit")]
-            public long GasLimit { get; } = 1000000;
+            [Option("-g|--epicpulse", Description = "EpicPulse limit")]
+            public long EpicPulseLimit { get; } = 1000000;
 
             public async Task OnExecuteAsync()
             {
@@ -48,16 +48,16 @@ namespace EpicChain.CLI.Commands
                 {
                     var contractManager = _serviceProvider.GetRequiredService<IContractManager>();
                     var walletManager = _serviceProvider.GetRequiredService<IWalletManager>();
-                    
+
                     var wallet = await walletManager.GetWalletAsync(Address);
                     var contract = await System.IO.File.ReadAllTextAsync(ContractFile);
-                    
-                    var result = await contractManager.DeployContractAsync(wallet, contract, GasLimit, Password);
+
+                    var result = await contractManager.DeployContractAsync(wallet, contract, EpicPulseLimit, Password);
 
                     _console.WriteLine("Contract deployed successfully:");
                     _console.WriteLine($"Contract Address: {result.ContractAddress}");
                     _console.WriteLine($"Transaction Hash: {result.TransactionHash}");
-                    _console.WriteLine($"Gas Used: {result.GasUsed}");
+                    _console.WriteLine($"EpicPulse Used: {result.EpicPulseUsed}");
                 }
                 catch (Exception ex)
                 {
@@ -90,8 +90,8 @@ namespace EpicChain.CLI.Commands
             [Option("-p|--password", Description = "Wallet password")]
             public string Password { get; }
 
-            [Option("-g|--gas", Description = "Gas limit")]
-            public long GasLimit { get; } = 1000000;
+            [Option("-g|--epicpulse", Description = "EpicPulse limit")]
+            public long EpicPulseLimit { get; } = 1000000;
 
             [Option("-d|--data", Description = "Method parameters (JSON)")]
             public string Parameters { get; }
@@ -102,20 +102,20 @@ namespace EpicChain.CLI.Commands
                 {
                     var contractManager = _serviceProvider.GetRequiredService<IContractManager>();
                     var walletManager = _serviceProvider.GetRequiredService<IWalletManager>();
-                    
+
                     var wallet = await walletManager.GetWalletAsync(Address);
                     var result = await contractManager.InvokeContractAsync(
-                        wallet, 
-                        ContractAddress, 
-                        MethodName, 
-                        Parameters, 
-                        GasLimit, 
+                        wallet,
+                        ContractAddress,
+                        MethodName,
+                        Parameters,
+                        EpicPulseLimit,
                         Password
                     );
 
                     _console.WriteLine("Contract method invoked successfully:");
                     _console.WriteLine($"Transaction Hash: {result.TransactionHash}");
-                    _console.WriteLine($"Gas Used: {result.GasUsed}");
+                    _console.WriteLine($"EpicPulse Used: {result.EpicPulseUsed}");
                     _console.WriteLine($"Return Value: {result.ReturnValue}");
                 }
                 catch (Exception ex)
@@ -199,4 +199,4 @@ namespace EpicChain.CLI.Commands
             }
         }
     }
-} 
+}
