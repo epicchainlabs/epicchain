@@ -324,7 +324,7 @@ EpicChain provides a complete developer ecosystem designed to accelerate your bl
 
 ### **Official Documentation Portal**
 
-Comprehensive documentation is available at: **[https://docs.epic-chain.org](https://docs.epic-chain.org)** (coming soon)
+Comprehensive documentation is available at: **[https://epic-chain.org/docs](https://epic-chain.org/docs)** (coming soon)
 
 **Documentation Sections:**
 - **Getting Started:** Quick start guides and tutorials for beginners
@@ -476,7 +476,7 @@ Stay informed about EpicChain's network performance:
 - **Daily Active Addresses:** Gauge user engagement
 - **Total Value Locked (TVL):** Assess DeFi ecosystem size
 
-Visit **[stats.epic-chain.org](https://stats.epic-chain.org)** for live metrics and analytics.
+Visit **[epic-chain.org](https://epic-chain.org)** for live metrics and analytics.
 
 ---
 
@@ -495,7 +495,7 @@ Special thanks to our community members, contributors, advisors, and partners wh
 - **Email:** [info@epic-chain.org](mailto:info@epic-chain.org)
 
 ### **Technical Support**
-- **Developer Email:** [dev@epic-chain.org](mailto:dev@epic-chain.org)
+- **Developer Email:** [devs@epic-chain.org](mailto:devs@epic-chain.org)
 - **GitHub Issues:** [https://github.com/epicchainlabs/epicchain/issues](https://github.com/epicchainlabs/epicchain/issues)
 
 ### **Business & Partnerships**
