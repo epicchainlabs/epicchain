@@ -1,0 +1,90 @@
+# Neo Rust Node Production Configuration
+# For Neo N3 blockchain network participation
+
+[network]
+# Network type: MainNet, TestNet, or Private
+network_type = "TestNet"
+# Magic number for network identification
+network_magic = 0x3554334E  # TestNet magic
+
+[p2p]
+# P2P listening port
+listen_port = 20333
+# Maximum number of connected peers
+max_connections = 100
+# Connection timeout in seconds
+connect_timeout = 10
+# Ping interval in seconds
+ping_interval = 30
+
+# TestNet seed nodes (official Neo infrastructure)
+seed_nodes = [
+    "seed1t.neo.org:20333",
+    "seed2t.neo.org:20333", 
+    "seed3t.neo.org:20333",
+    "seed4t.neo.org:20333",
+    "seed5t.neo.org:20333"
+]
+
+[blockchain]
+# Data directory for blockchain storage
+data_dir = "/var/neo/testnet"
+# Maximum block size in bytes
+max_block_size = 262144
+# Block time in seconds
+block_time = 15
+
+[storage]
+# Storage backend: rocksdb
+backend = "rocksdb"
+# Storage path
+path = "/var/neo/testnet/blockchain"
+# Cache size in MB
+cache_size = 512
+# Compression algorithm: lz4, snappy, zstd
+compression = "lz4"
+
+[rpc]
+# RPC server enabled
+enabled = true
+# RPC listening address
+bind_address = "127.0.0.1"
+# RPC port
+port = 20332
+# CORS enabled for web access
+cors_enabled = true
+
+[consensus]
+# Consensus participation enabled
+enabled = true
+# Minimum validator committee size
+min_committee_size = 7
+# View change timeout in milliseconds
+view_change_timeout = 20000
+
+[logging]
+# Log level: error, warn, info, debug, trace
+level = "info"
+# Log format: json, pretty
+format = "pretty"
+# Log to file
+file_enabled = true
+file_path = "/var/log/neo-node.log"
+
+[monitoring]
+# Health check interval in seconds
+health_check_interval = 30
+# Metrics collection enabled
+metrics_enabled = true
+# Prometheus metrics port
+metrics_port = 9090
+
+[security]
+# Rate limiting enabled
+rate_limiting_enabled = true
+# Maximum requests per second per peer
+max_requests_per_second = 100
+# DDoS protection enabled
+ddos_protection_enabled = true
+# Maximum message size in bytes
+max_message_size = 16777216  # 16MB

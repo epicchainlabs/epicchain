@@ -1,0 +1,33 @@
+[package]
+name = "neo-bls12-381"
+version = "0.4.0"
+edition = "2021"
+description = "BLS12-381 cryptographic operations for Neo blockchain"
+license = "MIT"
+repository = "https://github.com/r3e-network/neo-rs"
+
+[dependencies]
+# BLS12-381 cryptographic library with experimental features
+bls12_381 = { version = "0.8", features = ["experimental"] }
+group = "0.13"
+ff = "0.13"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+hex = "0.4"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Utilities
+rand = "0.8"
+
+# Hash-to-curve - use compatible digest version
+sha2 = "0.10"
+digest = "0.10"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.0"
+rand_chacha = "0.3" 

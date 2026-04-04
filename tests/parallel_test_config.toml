@@ -1,0 +1,61 @@
+# Parallel Test Configuration
+# Enhanced test infrastructure with parallelization
+
+[test]
+# Enable parallel test execution
+parallel = true
+# Number of test threads (auto-detected based on CPU cores)
+test-threads = "auto"
+# Timeout for individual tests
+timeout = 300
+
+[test.categories]
+# Test categories for selective execution
+unit = ["--lib"]
+integration = ["--test", "*integration*"]
+performance = ["--test", "*bench*", "--test", "*perf*"]
+compatibility = ["--test", "*compat*", "--test", "*c_sharp*"]
+
+[test.optimization]
+# Test execution optimizations
+compile_mode = "test"
+profile = "test"
+features = ["test-utils", "mock-storage"]
+
+# Resource pooling configuration
+[test.resources]
+# Mock blockchain height for tests
+mock_blockchain_height = 1000
+# Test data cache size
+cache_size_mb = 100
+# Connection pool size for network tests
+connection_pool_size = 10
+
+# Coverage configuration
+[test.coverage]
+# Enable coverage collection
+enabled = true
+# Coverage threshold
+minimum_coverage = 85.0
+# Include modules
+include = ["src/**/*.rs"]
+# Exclude modules
+exclude = ["src/bin/**/*.rs", "**/tests/**/*.rs"]
+
+# Performance test configuration
+[test.performance]
+# Performance regression detection
+enabled = true
+# Performance tolerance (5% regression allowed)
+tolerance = 0.05
+# Baseline file location
+baseline = "target/performance-baseline.json"
+
+# Test isolation configuration
+[test.isolation]
+# Use separate temp directories per test
+temp_dir_per_test = true
+# Clean up after tests
+cleanup = true
+# Port range for network tests
+port_range = "30000-32000"

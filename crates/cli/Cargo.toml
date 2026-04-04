@@ -1,0 +1,72 @@
+[package]
+name = "neo-cli"
+version = "0.4.0"
+edition = "2021"
+description = "Neo CLI - Command-line interface for Neo blockchain node"
+license = "MIT"
+repository = "https://github.com/r3e-network/neo-rs"
+
+[[bin]]
+name = "neo-cli"
+path = "src/main.rs"
+
+[dependencies]
+log = "0.4"# Internal crates
+epicchain-core = { workspace = true }
+neo-config = { workspace = true }
+neo-cryptography = { workspace = true }
+epicchain-io = { workspace = true }
+epicchain-vm = { workspace = true }
+# neo-smart-contract = { workspace = true }  # Temporarily disabled due to compilation errors
+neo-ledger = { workspace = true }
+neo-network = { workspace = true }
+neo-persistence = { workspace = true }
+neo-wallets = { workspace = true }
+# neo-consensus = { workspace = true }  # Temporarily disabled due to compilation errors
+neo-json = { workspace = true }
+neo-mpt-trie = { workspace = true }
+neo-rpc-client = { path = "../rpc_client", version = "0.4.0" }
+
+# External dependencies
+clap = { version = "4.4", features = ["derive", "env"] }
+tokio = { version = "1.35", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+anyhow = "1.0"
+thiserror = { workspace = true }
+dirs = "5.0"
+rpassword = "7.2"
+toml = "0.8"
+async-trait = "0.1"
+
+# RPC server dependencies
+axum = { version = "0.7", features = ["json"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+hyper = "1.0"
+reqwest = { version = "0.11", features = ["json"] }
+
+# Database
+rocksdb = "0.21"
+
+# Utilities
+uuid = { version = "1.6", features = ["v4"] }
+sha2 = "0.10"
+rand = "0.8"
+hex = { workspace = true }
+bincode = "1.3"
+
+# Console utilities
+console = "0.15"
+dialoguer = "0.11"
+indicatif = "0.17"
+
+[dev-dependencies]
+# Test utilities
+tempfile = { workspace = true }
+assert_cmd = "2.0"
+predicates = "3.0"
+tokio-test = "0.4"
+chrono = { version = "0.4", features = ["serde"] } 

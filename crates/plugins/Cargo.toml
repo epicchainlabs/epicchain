@@ -1,0 +1,50 @@
+[package]
+name = "neo-plugins"
+version = "0.1.0"
+edition = "2021"
+description = "Neo blockchain plugins collection"
+license = "MIT"
+authors = ["R3E Network <jimmy@r3e.network>"]
+
+[dependencies]
+# Neo crates
+neo-config = { path = "../config" }
+epicchain-core = { path = "../core" }
+epicchain-vm = { path = "../vm" }
+neo-ledger = { path = "../ledger" }
+neo-extensions = { path = "../extensions" }
+epicchain-io = { path = "../io" }
+neo-json = { path = "../json" }
+neo-cryptography = { path = "../cryptography" }
+neo-rpc-client = { path = "../rpc_client" }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+async-trait = "0.1"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Database
+# rusqlite = { version = "0.29", features = ["bundled"] } # Commented out due to thread safety issues
+rocksdb = "0.21"
+
+# Utilities
+uuid = { version = "1.0", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+tracing = "0.1"
+anyhow = "1.0"
+thiserror = "1.0"
+hex = "0.4"
+url = "2.0"
+bincode = "1.3"
+
+# HTTP client for Oracle service
+reqwest = { version = "0.11", features = ["json"] }
+
+# Web server for APIs
+hyper = { version = "0.14", features = ["full"] }
+
+# Temporary files for testing
+tempfile = "3"

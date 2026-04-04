@@ -1,0 +1,36 @@
+[package]
+name = "neo-extensions"
+version = "0.4.0"
+edition = "2021"
+description = "Neo Extensions framework for plugin support and utility methods"
+license = "MIT"
+repository = "https://github.com/r3e-network/neo-rs"
+
+[dependencies]
+# Internal crates
+epicchain-core = { workspace = true }
+epicchain-io = { workspace = true }
+epicchain-vm = { workspace = true }
+
+# External dependencies
+serde = { workspace = true }
+serde_json = "1.0"
+thiserror = { workspace = true }
+anyhow = "1.0"
+async-trait = "0.1"
+tokio = { workspace = true }
+tracing = "0.1"
+
+# Plugin system
+libloading = "0.8"
+inventory = "0.3"
+
+# Utilities
+hex = "0.4"
+base64 = "0.22"
+uuid = { version = "1.6", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+tokio-test = "0.4" 

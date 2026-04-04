@@ -1,0 +1,131 @@
+# Neo Rust Node MainNet Production Configuration
+# For production Neo N3 MainNet deployment
+
+[network]
+# Network type: MainNet for production
+network_type = "MainNet"
+# Magic number for MainNet
+network_magic = 0x334F454E  # MainNet magic
+
+[p2p]
+# P2P listening port (standard Neo port)
+listen_port = 10333
+# Maximum number of connected peers (production scale)
+max_connections = 200
+# Connection timeout in seconds
+connect_timeout = 15
+# Ping interval in seconds
+ping_interval = 30
+
+# MainNet seed nodes (official Neo infrastructure)
+seed_nodes = [
+    "seed1.neo.org:10333",
+    "seed2.neo.org:10333",
+    "seed3.neo.org:10333", 
+    "seed4.neo.org:10333",
+    "seed5.neo.org:10333"
+]
+
+[blockchain]
+# Data directory for blockchain storage (production path)
+data_dir = "/var/neo/mainnet"
+# Maximum block size in bytes
+max_block_size = 262144
+# Block time in seconds (Neo N3 standard)
+block_time = 15
+
+[storage]
+# Storage backend: rocksdb (production)
+backend = "rocksdb"
+# Storage path (production)
+path = "/var/neo/mainnet/blockchain"
+# Cache size in MB (production scale)
+cache_size = 2048
+# Compression algorithm for production
+compression = "lz4"
+# Write buffer size in MB
+write_buffer_size = 128
+# Max open files
+max_open_files = 1000
+
+[rpc]
+# RPC server enabled for production access
+enabled = true
+# RPC listening address (localhost only for security)
+bind_address = "127.0.0.1"
+# RPC port (standard Neo RPC port)
+port = 10332
+# CORS disabled for production security
+cors_enabled = false
+# Authentication required for sensitive operations
+auth_enabled = true
+
+[consensus]
+# Consensus participation enabled
+enabled = true
+# Minimum validator committee size (production)
+min_committee_size = 21
+# View change timeout in milliseconds (production tuned)
+view_change_timeout = 20000
+# Validator key file (when acting as validator)
+validator_key_file = "/etc/neo/validator.key"
+
+[logging]
+# Production log level
+level = "info"
+# Structured logging for production
+format = "json"
+# Production log files
+file_enabled = true
+file_path = "/var/log/neo-node.log"
+# Log rotation
+max_file_size = "100MB"
+max_files = 10
+
+[monitoring]
+# Production health monitoring
+health_check_interval = 30
+# Metrics for production monitoring
+metrics_enabled = true
+# Prometheus metrics port
+metrics_port = 9090
+# Performance monitoring
+performance_monitoring = true
+
+[security]
+# Enhanced security for production
+rate_limiting_enabled = true
+# Conservative rate limits for production
+max_requests_per_second = 50
+# DDoS protection for production
+ddos_protection_enabled = true
+# Production message size limits
+max_message_size = 16777216  # 16MB
+# Firewall integration
+firewall_enabled = true
+# SSL/TLS for RPC (production)
+tls_enabled = true
+tls_cert_file = "/etc/neo/server.crt"
+tls_key_file = "/etc/neo/server.key"
+
+[performance]
+# Production performance tuning
+worker_threads = 8
+# Memory pool size for transactions
+mempool_size = 50000
+# Block processing threads
+block_processor_threads = 4
+# Network I/O threads
+network_threads = 4
+
+[backup]
+# Automated backup for production
+enabled = true
+# Backup interval in hours
+interval = 24
+# Backup retention in days
+retention_days = 30
+# Backup location
+backup_path = "/var/backups/neo"
+# Backup compression
+compression = true

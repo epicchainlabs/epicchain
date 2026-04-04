@@ -1,0 +1,368 @@
+[workspace]
+resolver = "2"
+members = [
+    # Core infrastructure
+    "crates/core",
+    "crates/cryptography",
+    "crates/io",
+    
+    # Blockchain components
+    "crates/vm",
+    "crates/smart_contract",
+    "crates/ledger",
+    "crates/consensus",
+    
+    # Network and persistence
+    "crates/network",
+    "crates/persistence",
+    
+    # Utilities and extensions
+    "crates/json",
+    "crates/mpt_trie",
+    "crates/bls12_381",
+    "crates/extensions",
+    "crates/plugins",
+    "crates/config",
+    
+    # RPC and interfaces
+    "crates/rpc_server",
+    "crates/rpc_client",
+    
+    # Applications
+    "crates/cli",
+    "crates/wallets",
+    
+    # Node implementations
+    "node",
+]
+exclude = [
+    "target",
+    "data",
+    "docs",
+    "examples",
+    "tests",
+]
+
+[workspace.package]
+version = "0.4.0"
+edition = "2021"
+rust-version = "1.75"
+authors = [
+    "R3E Network <jimmy@r3e.network>"
+]
+homepage = "https://neo.org"
+repository = "https://github.com/r3e-network/neo-rs"
+documentation = "https://docs.rs/neo-rs"
+license = "MIT"
+keywords = ["blockchain", "neo", "smart-contracts", "cryptocurrency", "consensus"]
+categories = ["cryptography", "network-programming", "database", "development-tools"]
+readme = "README.md"
+
+[workspace.metadata]
+# Minimum supported Rust version policy
+msrv = "1.70.0"
+
+[workspace.dependencies]
+# === Internal crates ===
+epicchain-core = { path = "crates/core", version = "0.4.0" }
+neo-cryptography = { path = "crates/cryptography", version = "0.4.0" }
+epicchain-io = { path = "crates/io", version = "0.4.0" }
+epicchain-vm = { path = "crates/vm", version = "0.4.0" }
+neo-smart-contract = { path = "crates/smart_contract", version = "0.4.0" }
+neo-ledger = { path = "crates/ledger", version = "0.4.0" }
+neo-network = { path = "crates/network", version = "0.4.0" }
+neo-persistence = { path = "crates/persistence", version = "0.4.0" }
+neo-wallets = { path = "crates/wallets", version = "0.4.0" }
+neo-consensus = { path = "crates/consensus", version = "0.4.0" }
+neo-json = { path = "crates/json", version = "0.4.0" }
+neo-mpt-trie = { path = "crates/mpt_trie", version = "0.4.0" }
+neo-config = { path = "crates/config", version = "0.4.0" }
+neo-rpc-server = { path = "crates/rpc_server", version = "0.4.0" }
+neo-rpc-client = { path = "crates/rpc_client", version = "0.4.0" }
+# neo-cli = { path = "crates/cli", version = "0.4.0" } # Temporarily disabled
+neo-bls12-381 = { path = "crates/bls12_381", version = "0.4.0" }
+neo-extensions = { path = "crates/extensions", version = "0.4.0" }
+
+# === Core dependencies ===
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+toml = "0.8"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging and tracing
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+log = "0.4"
+env_logger = "0.10"
+
+# CLI
+clap = { version = "4.4", features = ["derive", "env", "unicode"] }
+
+# === Cryptography ===
+# Elliptic curve cryptography
+secp256k1 = { version = "0.28", features = ["recovery", "global-context"] }
+ed25519-dalek = { version = "2.0", features = ["rand_core"] }
+k256 = { version = "0.13", features = ["ecdsa", "sha256"] }
+p256 = { version = "0.13", features = ["ecdsa", "sha256"] }
+
+# Hashing
+sha2 = "0.10"
+sha3 = "0.10"
+ripemd = "0.1"
+blake3 = "1.5"
+
+# Random number generation
+rand = "0.8"
+rand_chacha = "0.3"
+
+# === Encoding ===
+hex = "0.4"
+bs58 = "0.5"
+base64 = "0.21"
+
+# === Utility macros ===
+derive_more = "0.99"
+lazy_static = "1.4"
+once_cell = "1.19"
+
+# === Numeric types ===
+num-bigint = { version = "0.4", features = ["serde"] }
+num-traits = "0.2"
+rust_decimal = { version = "1.33", features = ["serde"] }
+
+# === Data structures ===
+bytes = "1.5"
+hashbrown = { version = "0.14", features = ["serde"] }
+indexmap = { version = "2.1", features = ["serde"] }
+lru = "0.12"
+dashmap = "5.5"
+
+# === Storage ===
+rocksdb = { version = "0.21", features = ["snappy", "lz4"] }
+sled = "0.34"
+
+# === Network ===
+# HTTP and JSON-RPC
+hyper = { version = "0.14", features = ["full"] }
+jsonrpsee = { version = "0.21", features = ["full"] }
+reqwest = { version = "0.11", features = ["json"] }
+
+# Low-level networking
+socket2 = "0.5"
+trust-dns-resolver = "0.23"
+
+# === Utilities ===
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+url = { version = "2.4", features = ["serde"] }
+parking_lot = "0.12"
+crossbeam = "0.8"
+
+# === Development and testing ===
+tempfile = "3.8"
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.4"
+mockall = "0.12"
+
+# === Optional dependencies for features ===
+# Compression
+flate2 = "1.0"
+# zstd = "0.13" # Temporarily disabled due to C header issues
+
+# Metrics and monitoring
+prometheus = "0.13"
+sysinfo = "0.29"
+
+[package]
+name = "neo-rs"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+homepage.workspace = true
+repository.workspace = true
+documentation.workspace = true
+license.workspace = true
+keywords.workspace = true
+categories.workspace = true
+readme.workspace = true
+description = "High-performance Rust implementation of the Neo N3 blockchain protocol"
+
+[lib]
+name = "neo_rs"
+path = "src/lib.rs"
+
+[dependencies]
+# Core Neo crates
+epicchain-core.workspace = true
+neo-config.workspace = true
+neo-ledger.workspace = true
+neo-network.workspace = true
+neo-persistence.workspace = true
+# neo-cli.workspace = true
+neo-cryptography.workspace = true
+neo-smart-contract.workspace = true
+epicchain-vm.workspace = true
+
+# Runtime and async
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+# Configuration and CLI
+clap.workspace = true
+serde.workspace = true
+toml.workspace = true
+url.workspace = true
+
+# Error handling
+thiserror.workspace = true
+anyhow.workspace = true
+
+[features]
+default = ["full"]
+
+# Feature groups
+full = ["consensus", "rpc", "metrics", "compression"]
+minimal = []
+
+# Individual features
+consensus = ["neo-consensus"]
+rpc = ["neo-rpc-server", "neo-rpc-client"] 
+metrics = ["prometheus", "sysinfo"]
+compression = ["flate2"] # removed zstd due to build issues
+testing = ["tempfile", "mockall"]
+integration-tests = []
+
+# Development features
+dev = ["testing", "tracing-subscriber/json"]
+
+# Optional consensus (can be disabled for minimal builds)
+[dependencies.neo-consensus]
+workspace = true
+optional = true
+
+# Optional RPC server
+[dependencies.neo-rpc-server]
+workspace = true
+optional = true
+
+# Optional RPC client
+[dependencies.neo-rpc-client]
+workspace = true
+optional = true
+
+# Optional metrics
+[dependencies.prometheus]
+workspace = true
+optional = true
+
+[dependencies.sysinfo]
+workspace = true
+optional = true
+
+# Optional compression
+[dependencies.flate2]
+workspace = true
+optional = true
+
+# [dependencies.zstd]
+# workspace = true
+# optional = true
+# Temporarily disabled due to C header issues
+
+# Optional testing dependencies
+[dependencies.tempfile]
+workspace = true
+optional = true
+
+[dependencies.mockall]
+workspace = true
+optional = true
+
+# Development dependencies
+[dev-dependencies]
+tempfile.workspace = true
+criterion.workspace = true
+proptest.workspace = true
+mockall.workspace = true
+tokio-test = "0.4"
+log = "0.4"
+env_logger = "0.10"
+rand.workspace = true
+chrono.workspace = true
+sha2.workspace = true
+serde_json.workspace = true
+bs58.workspace = true
+futures.workspace = true
+
+# Benchmarks
+# [[bench]]
+# name = "node_performance"
+# harness = false
+# required-features = ["full"]
+
+# Examples (temporarily disabled due to API mismatches)
+# [[example]]
+# name = "live_network_test"
+# path = "examples/live_network_test.rs"
+# required-features = ["full"]
+
+# [[example]]
+# name = "network_test"
+# path = "examples/network_test.rs"
+# required-features = ["full"]
+
+# Profiles
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.dev]
+opt-level = 0
+debug = true
+overflow-checks = true
+lto = false
+
+[profile.test]
+opt-level = 1
+debug = true
+lto = false
+
+[profile.bench]
+opt-level = 3
+debug = false
+lto = true
+codegen-units = 1
+
+# Custom profile for production
+[profile.production]
+inherits = "release"
+debug = false
+strip = true
+panic = "abort"
+lto = "fat"
+
+# Documentation settings
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+# Integration tests (disabled after cleanup)
+# [[test]]
+# name = "integration_tests"
+# path = "tests/integration/mod.rs"
+# required-features = ["integration-tests"]

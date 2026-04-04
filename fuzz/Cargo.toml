@@ -1,0 +1,32 @@
+[package]
+name = "neo-rs-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+# Add your project dependencies here
+# epicchain-core = { path = "../crates/core" }
+# epicchain-vm = { path = "../crates/vm" }
+
+[[bin]]
+name = "transaction_fuzzer"
+path = "fuzz_targets/transaction_fuzzer.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "vm_fuzzer"
+path = "fuzz_targets/vm_fuzzer.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "block_fuzzer"
+path = "fuzz_targets/block_fuzzer.rs"
+test = false
+doc = false

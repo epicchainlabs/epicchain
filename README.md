@@ -507,6 +507,6 @@ Special thanks to our community members, contributors, advisors, and partners wh
 
 ---
 
-**© 2025 EpicChain Labs. All rights reserved.**
+**© 2026 EpicChain Labs. All rights reserved.**
 
 *Building the quantum-resistant blockchain infrastructure for tomorrow, today.*

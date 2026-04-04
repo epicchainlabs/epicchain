@@ -1,0 +1,21 @@
+[package]
+name = "neo-rpc-server"
+version = "0.4.0"
+edition = "2021"
+
+[dependencies]
+epicchain-core = { path = "../core" }
+neo-ledger = { path = "../ledger" }
+neo-persistence = { path = "../persistence" }
+neo-config = { path = "../config" }
+neo-rpc-client = { path = "../rpc_client" }
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+warp = "0.3"
+futures = "0.3"
+anyhow = "1.0"
+thiserror = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+hex = "0.4"

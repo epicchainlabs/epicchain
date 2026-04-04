@@ -1,0 +1,39 @@
+--- a/node/src/main.rs
++++ b/node/src/main.rs
+@@ -150,10 +150,35 @@ async fn main() -> Result<()> {
+     }
+ 
++    // Initialize real P2P networking
++    info!("🌐 Starting P2P network integration...");
++    let network_config = neo_network::NetworkConfig {
++        network_type: network,
++        listen_port: if network == NetworkType::TestNet { 20333 } else { 10333 },
++        max_connections: 50,
++        connect_timeout: Duration::from_secs(10),
++        seed_nodes: vec![
++            "168.62.167.190:20333".parse().unwrap(),  // seed1t.neo.org
++        ],
++        bind_address: "0.0.0.0".to_string(),
++        ..Default::default()
++    };
++    
++    let (event_tx, mut event_rx) = mpsc::channel(1000);
++    let mut p2p_node = P2pNode::new(network_config, event_tx).await?;
++    
++    info!("✅ P2P node created - attempting network connections...");
++    
++    // Start P2P networking
++    match p2p_node.start().await {
++        Ok(_) => info!("✅ P2P networking started successfully"),
++        Err(e) => warn!("⚠️ P2P networking failed: {} - continuing standalone", e),
++    }
++
+     // Create production peer manager for network operations
+-    let peer_manager = Arc::new(SimplePeerManager::new());
++    let peer_manager = Arc::new(RealPeerManager::new(p2p_node));
+ 
+-    // Start blockchain services with real peer synchronization
++    // Start blockchain services with real P2P synchronization
+     info!("🔄 Starting blockchain synchronization service...");
+     let sync_handle = tokio::spawn({
+         let blockchain = blockchain.clone();

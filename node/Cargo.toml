@@ -1,0 +1,61 @@
+[package]
+name = "neo-node"
+version = "0.4.0"
+edition = "2021"
+authors = ["R3E Network <jimmy@r3e.network>"]
+description = "Neo blockchain node implementation in Rust"
+homepage = "https://neo.org"
+repository = "https://github.com/r3e-network/neo-rs"
+license = "MIT"
+readme = "../README.md"
+
+[[bin]]
+name = "neo-node"
+path = "src/main.rs"
+
+[dependencies]
+# Internal crates
+epicchain-core = { path = "../crates/core" }
+neo-cryptography = { path = "../crates/cryptography" }
+epicchain-io = { path = "../crates/io" }
+epicchain-vm = { path = "../crates/vm" }
+neo-smart-contract = { path = "../crates/smart_contract" }
+neo-ledger = { path = "../crates/ledger" }
+neo-network = { path = "../crates/network" }
+neo-persistence = { path = "../crates/persistence" }
+neo-wallets = { path = "../crates/wallets" }
+neo-config = { path = "../crates/config" }
+neo-rpc-server = { path = "../crates/rpc_server" }
+neo-consensus = { path = "../crates/consensus" }
+neo-plugins = { path = "../crates/plugins" }
+neo-extensions = { path = "../crates/extensions" }
+
+# External dependencies
+tokio = { version = "1.28", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+clap = { version = "4.3", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1.0"
+uuid = { version = "1.0", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+hex = "0.4"
+tempfile = "3.8"
+futures = "0.3"
+async-trait = "0.1"
+parking_lot = "0.12"
+dashmap = "5.5"
+warp = "0.3"
+rand = "0.8"
+num-bigint = "0.4"
+num-traits = "0.2"
+# rocksdb = "0.21" # Temporarily disabled due to build issues with zstd
+num_cpus = "1.16"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["fileapi"] }

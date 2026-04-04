@@ -1,0 +1,23 @@
+[package]
+name = "neo-json"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+log = "0.4"
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+derive_more = { workspace = true }
+hashbrown = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true }
+serde_json = { workspace = true }
+
+[lib]
+name = "neo_json"
+path = "src/lib.rs" 

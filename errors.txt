@@ -1,0 +1,5187 @@
+warning: unused import: `UInt256`
+ --> crates/core/src/transaction_validator.rs:6:45
+  |
+6 | use crate::{CoreError, CoreResult, UInt160, UInt256};
+  |                                             ^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:13:21
+   |
+13 |     InvalidFormat { message: String },
+   |                     ^^^^^^^^^^^^^^^
+   |
+note: the lint level is defined here
+  --> crates/core/src/lib.rs:45:9
+   |
+45 | #![warn(missing_docs)]
+   |         ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:17:19
+   |
+17 |     InvalidData { message: String },
+   |                   ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:21:10
+   |
+21 |     Io { message: String },
+   |          ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:25:21
+   |
+25 |     Serialization { message: String },
+   |                     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:29:23
+   |
+29 |     Deserialization { message: String },
+   |                       ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:33:24
+   |
+33 |     InvalidOperation { message: String },
+   |                        ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:37:14
+   |
+37 |     System { message: String },
+   |              ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:41:23
+   |
+41 |     InsufficientGas { required: u64, available: u64 },
+   |                       ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:41:38
+   |
+41 |     InsufficientGas { required: u64, available: u64 },
+   |                                      ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:45:21
+   |
+45 |     Cryptographic { message: String },
+   |                     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:51:22
+   |
+51 |     BufferOverflow { requested: usize, available: usize },
+   |                      ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:51:40
+   |
+51 |     BufferOverflow { requested: usize, available: usize },
+   |                                        ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:59:21
+   |
+59 |     Configuration { message: String },
+   |                     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:63:15
+   |
+63 |     Network { message: String },
+   |               ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:67:15
+   |
+67 |     Timeout { duration_ms: u64 },
+   |               ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:71:16
+   |
+71 |     NotFound { resource: String },
+   |                ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:75:21
+   |
+75 |     AlreadyExists { resource: String },
+   |                     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:79:24
+   |
+79 |     ValidationFailed { reason: String },
+   |                        ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:83:22
+   |
+83 |     TypeConversion { from: String, to: String },
+   |                      ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:83:36
+   |
+83 |     TypeConversion { from: String, to: String },
+   |                                    ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/error.rs:87:18
+   |
+87 |     Validation { message: String },
+   |                  ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:43:5
+   |
+43 |     InvalidBlock(String),
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:44:5
+   |
+44 |     InvalidTransaction(String),
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:45:5
+   |
+45 |     InvalidSignature,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:46:5
+   |
+46 |     BlockNotFound(u32),
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:47:5
+   |
+47 |     ChainTipMismatch,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:48:5
+   |
+48 |     ValidationFailed(String),
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:49:5
+   |
+49 |     StateCorruption(String),
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:55:5
+   |
+55 |     ConnectionFailed(String),
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:56:5
+   |
+56 |     PeerNotFound,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:57:5
+   |
+57 |     MessageParsingError(String),
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:58:5
+   |
+58 |     ProtocolViolation(String),
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:59:5
+   |
+59 |     Timeout,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:60:5
+   |
+60 |     MaxPeersReached,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:66:5
+   |
+66 |     StackOverflow,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:67:5
+   |
+67 |     StackUnderflow,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:68:5
+   |
+68 |     InvalidOpcode(u8),
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:69:5
+   |
+69 |     OutOfGas,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:70:5
+   |
+70 |     ExecutionFailed(String),
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:71:5
+   |
+71 |     InvalidScript,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:72:5
+   |
+72 |     AccessViolation,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:78:5
+   |
+78 |     InvalidProposal,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:79:5
+   |
+79 |     InvalidVote,
+   |     ^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:80:5
+   |
+80 |     QuorumNotReached,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:81:5
+   |
+81 |     ViewChangeTimeout,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:82:5
+   |
+82 |     InvalidSignature,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:83:5
+   |
+83 |     ConsensusStateCorrupted,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:89:5
+   |
+89 |     DatabaseError(String),
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:90:5
+   |
+90 |     SerializationError(String),
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:91:5
+   |
+91 |     DeserializationError(String),
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:92:5
+   |
+92 |     CorruptedData,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:93:5
+   |
+93 |     InsufficientSpace,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/error_handling.rs:94:5
+   |
+94 |     LockTimeout,
+   |     ^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:100:5
+    |
+100 |     InvalidKey,
+    |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:101:5
+    |
+101 |     InvalidSignature,
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:102:5
+    |
+102 |     HashMismatch,
+    |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:103:5
+    |
+103 |     EncryptionFailed,
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:104:5
+    |
+104 |     DecryptionFailed,
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:105:5
+    |
+105 |     InvalidProof,
+    |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:111:5
+    |
+111 |     InvalidValue(String),
+    |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:112:5
+    |
+112 |     MissingField(String),
+    |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:113:5
+    |
+113 |     ParseError(String),
+    |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/core/src/error_handling.rs:114:5
+    |
+114 |     ValidationFailed(String),
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/error_handling.rs:234:5
+    |
+234 |     pub fn new(max_attempts: u32, backoff_ms: u64) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/error_handling.rs:241:5
+    |
+241 | /     pub async fn retry<F, Fut, T>(&self, mut f: F) -> Result<T>
+242 | |     where
+243 | |         F: FnMut() -> Fut,
+244 | |         Fut: std::future::Future<Output = Result<T>>,
+    | |_____________________________________________________^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/error_handling.rs:288:5
+    |
+288 |     pub fn new(failure_threshold: u32, success_threshold: u32, timeout_ms: u64) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/error_handling.rs:297:5
+    |
+297 | /     pub async fn call<F, Fut, T>(&self, f: F) -> Result<T>
+298 | |     where
+299 | |         F: FnOnce() -> Fut,
+300 | |         Fut: std::future::Future<Output = Result<T>>,
+    | |_____________________________________________________^
+
+warning: missing documentation for a method
+  --> crates/core/src/error_utils.rs:43:5
+   |
+43 |     fn into_error(self, context: &str) -> E;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/safe_operations.rs:145:5
+    |
+145 |     pub fn new(value: T) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/safe_operations.rs:189:5
+    |
+189 |     pub fn new(value: T) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated type
+   --> crates/core/src/safe_operations.rs:228:5
+    |
+228 |     type Output;
+    |     ^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+  --> crates/core/src/system_monitoring.rs:89:5
+   |
+89 |     pub fn new() -> Self {
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:100:5
+    |
+100 |     pub fn record_transaction(&self, size: u64, verification_time: Duration, success: bool) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:118:5
+    |
+118 |     pub fn update_mempool_size(&self, size: usize) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:122:5
+    |
+122 |     pub fn snapshot(&self) -> TransactionMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:133:5
+    |
+133 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:153:5
+    |
+153 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:164:5
+    |
+164 |     pub fn record_block(&self, height: u64, size: u64, tx_count: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:195:5
+    |
+195 |     pub fn snapshot(&self) -> BlockMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:205:5
+    |
+205 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:228:5
+    |
+228 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:240:5
+    |
+240 |     pub fn update_peer_count(&self, count: usize) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:244:5
+    |
+244 |     pub fn record_message_sent(&self, size: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:249:5
+    |
+249 |     pub fn record_message_received(&self, size: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:254:5
+    |
+254 |     pub fn record_connection_failure(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:258:5
+    |
+258 |     pub fn update_average_latency(&self, latency_ms: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:268:5
+    |
+268 |     pub fn snapshot(&self) -> NetworkMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:280:5
+    |
+280 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:301:5
+    |
+301 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:312:5
+    |
+312 |     pub fn record_execution(&self, gas: u64, time: Duration, opcodes: u64, success: bool) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:331:5
+    |
+331 |     pub fn snapshot(&self) -> VmMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:342:5
+    |
+342 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:363:5
+    |
+363 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:374:5
+    |
+374 |     pub fn record_view_change(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:378:5
+    |
+378 |     pub fn record_block_proposal(&self, accepted: bool, consensus_time: Duration) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:395:5
+    |
+395 |     pub fn record_timeout(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:399:5
+    |
+399 |     pub fn snapshot(&self) -> ConsensusMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:410:5
+    |
+410 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:433:5
+    |
+433 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:446:5
+    |
+446 |     pub fn record_read(&self, time: Duration, cache_hit: bool) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:463:5
+    |
+463 |     pub fn record_write(&self, time: Duration) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:474:5
+    |
+474 |     pub fn record_delete(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:478:5
+    |
+478 |     pub fn update_disk_usage(&self, bytes: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:482:5
+    |
+482 |     pub fn snapshot(&self) -> StorageMetricsSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:495:5
+    |
+495 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:515:5
+    |
+515 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:524:5
+    |
+524 |     pub fn record_error(&self, category: String, is_critical: bool) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:538:5
+    |
+538 |     pub fn snapshot(&self) -> ErrorTrackerSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:547:5
+    |
+547 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/system_monitoring.rs:567:5
+    |
+567 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:577:5
+    |
+577 |     pub fn update_cpu_usage(&self, percent: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:581:5
+    |
+581 |     pub fn update_memory_usage(&self, bytes: u64) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:585:5
+    |
+585 |     pub fn update_thread_count(&self, count: usize) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:589:5
+    |
+589 |     pub fn record_gc(&self, pause_time: Duration) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:596:5
+    |
+596 |     pub fn snapshot(&self) -> PerformanceTrackerSnapshot {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/core/src/system_monitoring.rs:606:5
+    |
+606 |     pub fn reset(&self) {
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:614:1
+    |
+614 | pub struct SystemMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:615:5
+    |
+615 |     pub timestamp_ms: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:616:5
+    |
+616 |     pub transactions: TransactionMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:617:5
+    |
+617 |     pub blocks: BlockMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:618:5
+    |
+618 |     pub network: NetworkMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:619:5
+    |
+619 |     pub vm: VmMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:620:5
+    |
+620 |     pub consensus: ConsensusMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:621:5
+    |
+621 |     pub storage: StorageMetricsSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:622:5
+    |
+622 |     pub errors: ErrorTrackerSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:623:5
+    |
+623 |     pub performance: PerformanceTrackerSnapshot,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:627:1
+    |
+627 | pub struct TransactionMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:628:5
+    |
+628 |     pub total_count: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:629:5
+    |
+629 |     pub verified_count: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:630:5
+    |
+630 |     pub failed_count: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:631:5
+    |
+631 |     pub total_size_bytes: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:632:5
+    |
+632 |     pub average_verification_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:633:5
+    |
+633 |     pub mempool_size: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:637:1
+    |
+637 | pub struct BlockMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:638:5
+    |
+638 |     pub total_count: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:639:5
+    |
+639 |     pub current_height: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:640:5
+    |
+640 |     pub average_block_time_ms: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:641:5
+    |
+641 |     pub average_block_size_bytes: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:642:5
+    |
+642 |     pub average_tx_per_block: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:646:1
+    |
+646 | pub struct NetworkMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:647:5
+    |
+647 |     pub peer_count: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:648:5
+    |
+648 |     pub messages_sent: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:649:5
+    |
+649 |     pub messages_received: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:650:5
+    |
+650 |     pub bytes_sent: u64,
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:651:5
+    |
+651 |     pub bytes_received: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:652:5
+    |
+652 |     pub connection_failures: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:653:5
+    |
+653 |     pub average_latency_ms: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:657:1
+    |
+657 | pub struct VmMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:658:5
+    |
+658 |     pub executions: u64,
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:659:5
+    |
+659 |     pub successful_executions: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:660:5
+    |
+660 |     pub failed_executions: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:661:5
+    |
+661 |     pub total_gas_consumed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:662:5
+    |
+662 |     pub average_execution_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:663:5
+    |
+663 |     pub opcodes_executed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:667:1
+    |
+667 | pub struct ConsensusMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:668:5
+    |
+668 |     pub view_changes: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:669:5
+    |
+669 |     pub blocks_proposed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:670:5
+    |
+670 |     pub blocks_accepted: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:671:5
+    |
+671 |     pub blocks_rejected: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:672:5
+    |
+672 |     pub average_consensus_time_ms: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:673:5
+    |
+673 |     pub timeouts: u64,
+    |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:677:1
+    |
+677 | pub struct StorageMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:678:5
+    |
+678 |     pub reads: u64,
+    |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:679:5
+    |
+679 |     pub writes: u64,
+    |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:680:5
+    |
+680 |     pub deletes: u64,
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:681:5
+    |
+681 |     pub cache_hits: u64,
+    |     ^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:682:5
+    |
+682 |     pub cache_misses: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:683:5
+    |
+683 |     pub disk_usage_bytes: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:684:5
+    |
+684 |     pub average_read_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:685:5
+    |
+685 |     pub average_write_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:689:1
+    |
+689 | pub struct ErrorTrackerSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:690:5
+    |
+690 |     pub errors_by_category: HashMap<String, u64>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:691:5
+    |
+691 |     pub total_errors: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:692:5
+    |
+692 |     pub critical_errors: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:693:5
+    |
+693 |     pub warnings: u64,
+    |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:697:1
+    |
+697 | pub struct PerformanceTrackerSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:698:5
+    |
+698 |     pub cpu_usage_percent: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:699:5
+    |
+699 |     pub memory_usage_bytes: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:700:5
+    |
+700 |     pub thread_count: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:701:5
+    |
+701 |     pub gc_collections: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/system_monitoring.rs:702:5
+    |
+702 |     pub gc_pause_time_ms: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/system_monitoring.rs:706:1
+    |
+706 | / lazy_static::lazy_static! {
+707 | |     pub static ref SYSTEM_MONITOR: SystemMonitor = SystemMonitor::new();
+708 | | }
+    | |_^
+    |
+    = note: this warning originates in the macro `lazy_static::lazy_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for a function
+   --> crates/core/src/system_monitoring.rs:715:1
+    |
+715 | pub fn record_block(height: u64, size: u64, tx_count: u64) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a function
+   --> crates/core/src/system_monitoring.rs:719:1
+    |
+719 | pub fn record_vm_execution(gas: u64, time: Duration, opcodes: u64, success: bool) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a function
+   --> crates/core/src/system_monitoring.rs:723:1
+    |
+723 | pub fn record_error(category: impl Into<String>, is_critical: bool) {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a function
+   --> crates/core/src/system_monitoring.rs:727:1
+    |
+727 | pub fn get_metrics_snapshot() -> SystemMetricsSnapshot {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct
+   --> crates/core/src/metrics.rs:13:1
+    |
+13  | / lazy_static! {
+14  | |     pub static ref REGISTRY: RwLock<Registry> = RwLock::new(Registry::new());
+...   |
+128 | |     ).expect("metric can be created");
+129 | | }
+    | |_^
+    |
+    = note: this warning originates in the macro `lazy_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/alerting.rs:193:5
+    |
+193 |     pub fn new(name: String) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/alerting.rs:242:5
+    |
+242 |     pub fn new(name: String, url: String) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/health.rs:178:5
+    |
+178 |     pub fn new(max_block_lag: u64) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/health.rs:222:5
+    |
+222 |     pub fn new(min_peers: usize) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/health.rs:271:5
+    |
+271 |     pub fn new(min_free_space: u64) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/core/src/monitoring/health.rs:333:5
+    |
+333 |     pub fn new(max_memory: u64) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:20:5
+   |
+20 |     fn height(&self) -> u32;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:21:5
+   |
+21 |     fn best_block_hash(&self) -> UInt256;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:26:5
+   |
+26 |     fn transaction_count(&self) -> usize;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:27:5
+   |
+27 |     fn contains(&self, hash: &UInt256) -> bool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:32:5
+   |
+32 |     fn peer_count(&self) -> usize;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/core/src/neo_system.rs:37:5
+   |
+37 |     fn is_running(&self) -> bool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/neo_system.rs:170:5
+    |
+170 |     pub blockchain: Option<Arc<dyn BlockchainTrait>>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/neo_system.rs:171:5
+    |
+171 |     pub mempool: Option<Arc<dyn MempoolTrait>>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/neo_system.rs:172:5
+    |
+172 |     pub network: Option<Arc<dyn NetworkTrait>>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/neo_system.rs:173:5
+    |
+173 |     pub consensus: Option<Arc<dyn ConsensusTrait>>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/shutdown.rs:24:5
+   |
+24 |     Timeout,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/shutdown.rs:27:5
+   |
+27 |     ComponentError(String),
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/shutdown.rs:30:5
+   |
+30 |     AlreadyInProgress,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/core/src/shutdown.rs:33:5
+   |
+33 |     Cancelled,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:83:9
+   |
+83 |         reason: String,
+   |         ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:84:9
+   |
+84 |         timestamp: std::time::SystemTime,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:88:9
+   |
+88 |         stage: ShutdownStage,
+   |         ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:89:9
+   |
+89 |         timestamp: std::time::SystemTime,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:93:9
+   |
+93 |         stage: ShutdownStage,
+   |         ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:94:9
+   |
+94 |         duration: Duration,
+   |         ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:95:9
+   |
+95 |         timestamp: std::time::SystemTime,
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/shutdown.rs:99:9
+   |
+99 |         stage: ShutdownStage,
+   |         ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:100:9
+    |
+100 |         error: String,
+    |         ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:101:9
+    |
+101 |         timestamp: std::time::SystemTime,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:105:9
+    |
+105 |         total_duration: Duration,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:106:9
+    |
+106 |         timestamp: std::time::SystemTime,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:110:9
+    |
+110 |         error: String,
+    |         ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/core/src/shutdown.rs:111:9
+    |
+111 |         timestamp: std::time::SystemTime,
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:49:15
+   |
+49 |     Boolean { value: bool },
+   |               ^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:51:11
+   |
+51 |     Not { condition: Box<WitnessCondition> },
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:53:11
+   |
+53 |     And { conditions: Vec<WitnessCondition> },
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:55:10
+   |
+55 |     Or { conditions: Vec<WitnessCondition> },
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:57:18
+   |
+57 |     ScriptHash { hash: crate::UInt160 },
+   |                  ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:59:13
+   |
+59 |     Group { group: Vec<u8> }, // ECPoint serialized as bytes (matches C# ECPoint exactly)
+   |             ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:63:24
+   |
+63 |     CalledByContract { hash: crate::UInt160 },
+   |                        ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/core/src/witness_rule.rs:65:21
+   |
+65 |     CalledByGroup { group: Vec<u8> }, // ECPoint serialized as bytes (matches C# ECPoint exactly)
+   |                     ^^^^^^^^^^^^^^
+
+warning: `epicchain-core` (lib) generated 254 warnings (24 duplicates) (run `cargo fix --lib -p epicchain-core` to apply 1 suggestion)
+warning: unused doc comment
+   --> crates/vm/src/memory_pool.rs:179:1
+    |
+179 | /// Thread-local storage for memory pools
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ rustdoc does not generate documentation for macro invocations
+    |
+    = help: to document an item produced by a macro, the macro must produce the documentation as part of its expansion
+    = note: `#[warn(unused_doc_comments)]` on by default
+
+warning: unused import: `crate::execution_context::ExecutionContext`
+ --> crates/vm/src/memory_pool.rs:9:5
+  |
+9 | use crate::execution_context::ExecutionContext;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `VmError` and `VmResult`
+ --> crates/vm/src/safe_type_conversion.rs:6:13
+  |
+6 | use crate::{VmResult, VmError};
+  |             ^^^^^^^^  ^^^^^^^
+
+warning: unused imports: `OracleResponseCode`, `UInt256`, and `WitnessScope`
+ --> crates/vm/src/safe_type_conversion.rs:7:77
+  |
+7 | use neo_core::{Signer as CoreSigner, TransactionAttribute as CoreAttribute, OracleResponseCode, UInt256, WitnessScope};
+  |                                                                             ^^^^^^^^^^^^^^^^^^  ^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `std::convert::TryFrom`
+ --> crates/vm/src/safe_type_conversion.rs:8:5
+  |
+8 | use std::convert::TryFrom;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unreachable pattern
+  --> crates/vm/src/jump_table/control/oracle.rs:25:13
+   |
+17 |             TransactionAttribute::OracleResponse { id, code, result } => {
+   |             --------------------------------------------------------- matches all the relevant values
+...
+25 |             _ => None,
+   |             ^ no value can reach this
+   |
+   = note: `#[warn(unreachable_patterns)]` on by default
+
+warning: unused variable: `i`
+   --> crates/vm/src/jump_table/stack.rs:193:9
+    |
+193 |     for i in 0..n {
+    |         ^ help: if this is intentional, prefix it with an underscore: `_i`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `i`
+   --> crates/vm/src/stack_item/stack_item.rs:156:41
+    |
+156 |             StackItem::InteropInterface(i) => Ok(true),
+    |                                         ^ help: if this is intentional, prefix it with an underscore: `_i`
+
+warning: unused variable: `interface`
+   --> crates/vm/src/stack_item/stack_item.rs:242:21
+    |
+242 |                 let interface = Arc::as_ref(i);
+    |                     ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_interface`
+
+warning: unused variable: `self_discriminant`
+   --> crates/vm/src/stack_item/stack_item.rs:531:21
+    |
+531 |                 let self_discriminant = std::mem::discriminant(self);
+    |                     ^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_self_discriminant`
+
+warning: unused variable: `other_discriminant`
+   --> crates/vm/src/stack_item/stack_item.rs:532:21
+    |
+532 |                 let other_discriminant = std::mem::discriminant(other);
+    |                     ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_other_discriminant`
+
+warning: constant `HASH_SIZE` is never used
+ --> crates/vm/src/instruction.rs:8:7
+  |
+8 | const HASH_SIZE: usize = 32;
+  |       ^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: constant `HASH_SIZE` is never used
+ --> crates/vm/src/jump_table/control/control_ops.rs:8:7
+  |
+8 | const HASH_SIZE: usize = 32;
+  |       ^^^^^^^^^
+
+warning: constant `HASH_SIZE` is never used
+ --> crates/vm/src/jump_table/control/exception_handling.rs:9:7
+  |
+9 | const HASH_SIZE: usize = 32;
+  |       ^^^^^^^^^
+
+warning: constant `ONE_MEGABYTE` is never used
+ --> crates/vm/src/jump_table/control/syscall.rs:7:7
+  |
+7 | const ONE_MEGABYTE: usize = 1024 * 1024;
+  |       ^^^^^^^^^^^^
+
+warning: constant `SECONDS_PER_BLOCK` is never used
+  --> crates/vm/src/jump_table/control/syscall.rs:10:7
+   |
+10 | const SECONDS_PER_BLOCK: u64 = 15;
+   |       ^^^^^^^^^^^^^^^^^
+
+warning: constant `HASH_SIZE` is never used
+  --> crates/vm/src/jump_table/crypto.rs:11:7
+   |
+11 | const HASH_SIZE: usize = 32;
+   |       ^^^^^^^^^
+
+warning: function `verify` is never used
+  --> crates/vm/src/jump_table/crypto.rs:31:4
+   |
+31 | fn verify(engine: &mut ExecutionEngine, _instruction: &Instruction) -> VmResult<()> {
+   |    ^^^^^^
+
+warning: function `verify_signature` is never used
+  --> crates/vm/src/jump_table/crypto.rs:59:4
+   |
+59 | fn verify_signature(message: &[u8], signature: &[u8], public_key: &[u8]) -> VmResult<bool> {
+   |    ^^^^^^^^^^^^^^^^
+
+warning: methods `process_zero_referred_items`, `process_item_child_references`, `remove_item`, and `decrement_reference` are never used
+   --> crates/vm/src/reference_counter.rs:315:8
+    |
+29  | impl ReferenceCounter {
+    | --------------------- methods in this implementation
+...
+315 |     fn process_zero_referred_items(&self) {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+358 |     fn process_item_child_references(&self, item_id: usize, item_data: &[u8]) {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+398 |     fn remove_item(&self, item_id: usize) {
+    |        ^^^^^^^^^^^
+...
+428 |     fn decrement_reference(&self, item_id: usize) {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: field `reference_id` is never read
+  --> crates/vm/src/stack_item/array.rs:16:5
+   |
+12 | pub struct Array {
+   |            ----- field in this struct
+...
+16 |     reference_id: Option<usize>,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `Array` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `reference_id` is never read
+  --> crates/vm/src/stack_item/map.rs:19:5
+   |
+15 | pub struct Map {
+   |            --- field in this struct
+...
+19 |     reference_id: Option<usize>,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `Map` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: field `reference_id` is never read
+  --> crates/vm/src/stack_item/struct_item.rs:18:5
+   |
+14 | pub struct Struct {
+   |            ------ field in this struct
+...
+18 |     reference_id: Option<usize>,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `Struct` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/application_engine.rs:61:5
+    |
+61  |     pub block_height: u32,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+    |
+note: the lint level is defined here
+   --> crates/vm/src/lib.rs:101:9
+    |
+101 | #![warn(missing_docs)]
+    |         ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/application_engine.rs:62:5
+   |
+62 |     pub timestamp: u64,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/vm/src/application_engine.rs:66:5
+   |
+66 |     pub fn block_height(&self) -> u32 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/vm/src/application_engine.rs:70:5
+   |
+70 |     pub fn timestamp(&self) -> u64 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/application_engine.rs:78:5
+   |
+78 |     pub current_height: u32,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/application_engine.rs:79:5
+   |
+79 |     pub block_timestamp: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/vm/src/application_engine.rs:83:5
+   |
+83 |     pub fn get_current_height(&self) -> u32 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/vm/src/application_engine.rs:87:5
+   |
+87 |     pub fn get_block_timestamp(&self) -> u64 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/application_engine.rs:95:5
+   |
+95 |     pub current_height: u32,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/application_engine.rs:96:5
+   |
+96 |     pub persisting_block_time: u64,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/application_engine.rs:100:5
+    |
+100 |     pub fn get_current_height(&self) -> u32 {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/application_engine.rs:104:5
+    |
+104 |     pub fn get_persisting_block_time(&self) -> u64 {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:13:13
+   |
+13 |     Parse { message: String },
+   |             ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:17:26
+   |
+17 |     InvalidInstruction { opcode: u8, reason: String },
+   |                          ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:17:38
+   |
+17 |     InvalidInstruction { opcode: u8, reason: String },
+   |                                      ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:21:21
+   |
+21 |     InvalidOpCode { opcode: u8 },
+   |                     ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:25:28
+   |
+25 |     UnsupportedOperation { operation: String },
+   |                            ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:29:24
+   |
+29 |     InvalidOperation { operation: String, reason: String },
+   |                        ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:29:43
+   |
+29 |     InvalidOperation { operation: String, reason: String },
+   |                                           ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:33:22
+   |
+33 |     InvalidOperand { expected: String, actual: String },
+   |                      ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:33:40
+   |
+33 |     InvalidOperand { expected: String, actual: String },
+   |                                        ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:37:21
+   |
+37 |     InvalidScript { reason: String },
+   |                     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:43:22
+   |
+43 |     StackUnderflow { requested: usize, available: usize },
+   |                      ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:43:40
+   |
+43 |     StackUnderflow { requested: usize, available: usize },
+   |                                        ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:47:21
+   |
+47 |     StackOverflow { max_size: usize },
+   |                     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:51:16
+   |
+51 |     Overflow { operation: String },
+   |                ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:55:17
+   |
+55 |     Underflow { operation: String },
+   |                 ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:59:22
+   |
+59 |     DivisionByZero { operation: String },
+   |                      ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:63:30
+   |
+63 |     InsufficientStackItems { required: usize, available: usize },
+   |                              ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:63:47
+   |
+63 |     InsufficientStackItems { required: usize, available: usize },
+   |                                               ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:67:19
+   |
+67 |     InvalidType { from: String, to: String },
+   |                   ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:67:33
+   |
+67 |     InvalidType { from: String, to: String },
+   |                                 ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:71:23
+   |
+71 |     ExecutionHalted { reason: String },
+   |                       ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:75:15
+   |
+75 |     VmFault { fault_type: String, details: String },
+   |               ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:75:35
+   |
+75 |     VmFault { fault_type: String, details: String },
+   |                                   ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:79:10
+   |
+79 |     Io { message: String },
+   |          ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:83:27
+   |
+83 |     MemoryLimitExceeded { used: usize, limit: usize },
+   |                           ^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:83:40
+   |
+83 |     MemoryLimitExceeded { used: usize, limit: usize },
+   |                                        ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:87:32
+   |
+87 |     InstructionLimitExceeded { executed: u64, limit: u64 },
+   |                                ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:87:47
+   |
+87 |     InstructionLimitExceeded { executed: u64, limit: u64 },
+   |                                               ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:91:30
+   |
+91 |     CallDepthLimitExceeded { depth: usize, limit: usize },
+   |                              ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:91:44
+   |
+91 |     CallDepthLimitExceeded { depth: usize, limit: usize },
+   |                                            ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:95:28
+   |
+95 |     InvalidContractState { reason: String },
+   |                            ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:99:22
+   |
+99 |     InteropService { service: String, error: String },
+   |                      ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/error.rs:99:39
+   |
+99 |     InteropService { service: String, error: String },
+   |                                       ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:103:24
+    |
+103 |     ExecutionTimeout { timeout_ms: u64 },
+    |                        ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:107:25
+    |
+107 |     InvalidScriptHash { hash: String },
+    |                         ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:111:24
+    |
+111 |     ContractNotFound { hash: String },
+    |                        ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:115:22
+    |
+115 |     MethodNotFound { contract: String, method: String },
+    |                      ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:115:40
+    |
+115 |     MethodNotFound { contract: String, method: String },
+    |                                        ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:119:25
+    |
+119 |     InvalidParameters { expected: String, actual: String },
+    |                         ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:119:43
+    |
+119 |     InvalidParameters { expected: String, actual: String },
+    |                                           ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:123:20
+    |
+123 |     GasExhausted { used: u64, limit: u64 },
+    |                    ^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:123:31
+    |
+123 |     GasExhausted { used: u64, limit: u64 },
+    |                               ^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:127:22
+    |
+127 |     InvalidWitness { reason: String },
+    |                      ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/error.rs:131:26
+    |
+131 |     VerificationFailed { reason: String },
+    |                          ^^^^^^^^^^^^^^
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/vm/src/evaluation_stack.rs:176:17
+    |
+176 |     pub fn iter(&self) -> std::slice::Iter<StackItem> {
+    |                 ^^^^^     --------------------------- the same lifetime is hidden here
+    |                 |
+    |                 the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+176 |     pub fn iter(&self) -> std::slice::Iter<'_, StackItem> {
+    |                                            +++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/vm/src/evaluation_stack.rs:181:21
+    |
+181 |     pub fn iter_mut(&mut self) -> std::slice::IterMut<StackItem> {
+    |                     ^^^^^^^^^     ------------------------------ the same lifetime is hidden here
+    |                     |
+    |                     the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+181 |     pub fn iter_mut(&mut self) -> std::slice::IterMut<'_, StackItem> {
+    |                                                       +++
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/memory_pool.rs:174:5
+    |
+174 |     pub byte_buffers_pooled: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/memory_pool.rs:175:5
+    |
+175 |     pub instruction_buffers_pooled: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/memory_pool.rs:176:5
+    |
+176 |     pub stack_item_vecs_pooled: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:209:5
+    |
+209 |     pub count: u64,
+    |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:210:5
+    |
+210 |     pub total_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:211:5
+    |
+211 |     pub min_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:212:5
+    |
+212 |     pub max_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:248:5
+    |
+248 |     pub timestamp: Instant,
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:249:5
+    |
+249 |     pub instructions_executed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:250:5
+    |
+250 |     pub gas_consumed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:251:5
+    |
+251 |     pub scripts_executed: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:252:5
+    |
+252 |     pub successful_executions: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:253:5
+    |
+253 |     pub failed_executions: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:254:5
+    |
+254 |     pub total_execution_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:255:5
+    |
+255 |     pub average_execution_time_us: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:256:5
+    |
+256 |     pub peak_stack_depth: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:257:5
+    |
+257 |     pub current_stack_depth: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:258:5
+    |
+258 |     pub memory_allocations: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:259:5
+    |
+259 |     pub memory_deallocations: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:260:5
+    |
+260 |     pub peak_memory_bytes: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:261:5
+    |
+261 |     pub current_memory_bytes: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:262:5
+    |
+262 |     pub operation_timings: HashMap<String, OperationMetrics>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/metrics.rs:263:5
+    |
+263 |     pub syscall_counts: HashMap<String, u64>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/execution_context.rs:104:5
+    |
+104 |     pub script: crate::script::Script,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/execution_context.rs:105:5
+    |
+105 |     pub evaluation_stack: crate::evaluation_stack::EvaluationStack,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/execution_context.rs:106:5
+    |
+106 |     pub static_fields: Option<Slot>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/execution_context.rs:107:5
+    |
+107 |     pub reference_counter: ReferenceCounter,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/vm/src/execution_context.rs:123:5
+    |
+123 |     pub fn new(script: crate::script::Script, reference_counter: ReferenceCounter) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:135:5
+    |
+135 |     pub fn reference_counter(&self) -> &ReferenceCounter {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:139:5
+    |
+139 |     pub fn script(&self) -> &crate::script::Script {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:143:5
+    |
+143 |     pub fn evaluation_stack(&self) -> &crate::evaluation_stack::EvaluationStack {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:147:5
+    |
+147 |     pub fn evaluation_stack_mut(&mut self) -> &mut crate::evaluation_stack::EvaluationStack {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:151:5
+    |
+151 |     pub fn static_fields(&self) -> Option<&Slot> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:155:5
+    |
+155 |     pub fn static_fields_mut(&mut self) -> &mut Option<Slot> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/execution_context.rs:159:5
+    |
+159 |     pub fn set_static_fields(&mut self, static_fields: Option<Slot>) {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/vm/src/jump_table/control/types.rs:12:5
+   |
+12 |     fn as_any(&self) -> &dyn std::any::Any;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:43:5
+   |
+43 |     pub script_hash: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:44:5
+   |
+44 |     pub is_read_only: bool,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:45:5
+   |
+45 |     pub id: i32,
+   |     ^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:61:5
+   |
+61 |     pub script_hash: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:62:5
+   |
+62 |     pub key: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/jump_table/control/types.rs:68:5
+   |
+68 |     pub value: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:74:5
+   |
+74 |     Boolean,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:75:5
+   |
+75 |     Integer,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:76:5
+   |
+76 |     ByteArray,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:77:5
+   |
+77 |     String,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:78:5
+   |
+78 |     Hash160,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:79:5
+   |
+79 |     Array,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:80:5
+   |
+80 |     InteropInterface,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:81:5
+   |
+81 |     Any,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:82:5
+   |
+82 |     Void,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:88:5
+   |
+88 |     Boolean(bool),
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:89:5
+   |
+89 |     Integer(i64),
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:90:5
+   |
+90 |     ByteArray(Vec<u8>),
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:91:5
+   |
+91 |     String(String),
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:92:5
+   |
+92 |     Hash160(Vec<u8>),
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:93:5
+   |
+93 |     Array(Vec<InteropParameter>),
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:94:5
+   |
+94 |     InteropInterface(StackItem),
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/jump_table/control/types.rs:95:5
+   |
+95 |     Any(StackItem),
+   |     ^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:101:5
+    |
+101 |     pub name: String,
+    |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:102:5
+    |
+102 |     pub fixed_price: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:103:5
+    |
+103 |     pub required_call_flags: CallFlags,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:104:5
+    |
+104 |     pub parameters: Vec<ParameterType>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:105:5
+    |
+105 |     pub return_type: ParameterType,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:111:5
+    |
+111 |     pub catch_offset: Option<usize>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:112:5
+    |
+112 |     pub finally_offset: Option<usize>,
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:113:5
+    |
+113 |     pub stack_depth: usize,
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/jump_table/control/types.rs:130:5
+    |
+130 |     Transaction(Transaction),
+    |     ^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/jump_table/control/types.rs:131:5
+    |
+131 |     Block(Block),
+    |     ^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/vm/src/jump_table/control/types.rs:141:5
+    |
+141 |     pub fn from_core(signer: neo_core::Signer) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/jump_table/control/types.rs:145:5
+    |
+145 |     pub fn account(&self) -> &UInt160 {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/jump_table/control/types.rs:149:5
+    |
+149 |     pub fn get_all_rules(&self) -> Vec<WitnessRule> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/vm/src/jump_table/control/types.rs:166:5
+    |
+166 |     pub fn from_core(rule: neo_core::WitnessRule) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/jump_table/control/types.rs:170:5
+    |
+170 |     pub fn condition(&self) -> &neo_core::WitnessCondition {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/jump_table/control/types.rs:174:5
+    |
+174 |     pub fn action(&self) -> neo_core::WitnessRuleAction {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+   --> crates/vm/src/jump_table/control/types.rs:178:5
+    |
+178 |     pub fn matches(&self, _engine: &crate::execution_engine::ExecutionEngine) -> VmResult<bool> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:215:22
+    |
+215 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+    |                      ^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:215:31
+    |
+215 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+    |                               ^^^^^^^^
+
+warning: missing documentation for a struct field
+   --> crates/vm/src/jump_table/control/types.rs:215:41
+    |
+215 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+    |                                         ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:11:5
+   |
+11 |     PUSHINT8 = 0x00,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:12:5
+   |
+12 |     PUSHINT16 = 0x01,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:13:5
+   |
+13 |     PUSHINT32 = 0x02,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:14:5
+   |
+14 |     PUSHINT64 = 0x03,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:15:5
+   |
+15 |     PUSHINT128 = 0x04,
+   |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:16:5
+   |
+16 |     PUSHINT256 = 0x05,
+   |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:17:5
+   |
+17 |     PUSHT = 0x08,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:18:5
+   |
+18 |     PUSHF = 0x09,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:19:5
+   |
+19 |     PUSHA = 0x0A,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:20:5
+   |
+20 |     PUSHNULL = 0x0B,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:21:5
+   |
+21 |     PUSHDATA1 = 0x0C,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:22:5
+   |
+22 |     PUSHDATA2 = 0x0D,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:23:5
+   |
+23 |     PUSHDATA4 = 0x0E,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:24:5
+   |
+24 |     PUSHM1 = 0x0F,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:25:5
+   |
+25 |     PUSH0 = 0x10,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:26:5
+   |
+26 |     PUSH1 = 0x11,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:27:5
+   |
+27 |     PUSH2 = 0x12,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:28:5
+   |
+28 |     PUSH3 = 0x13,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:29:5
+   |
+29 |     PUSH4 = 0x14,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:30:5
+   |
+30 |     PUSH5 = 0x15,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:31:5
+   |
+31 |     PUSH6 = 0x16,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:32:5
+   |
+32 |     PUSH7 = 0x17,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:33:5
+   |
+33 |     PUSH8 = 0x18,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:34:5
+   |
+34 |     PUSH9 = 0x19,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:35:5
+   |
+35 |     PUSH10 = 0x1A,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:36:5
+   |
+36 |     PUSH11 = 0x1B,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:37:5
+   |
+37 |     PUSH12 = 0x1C,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:38:5
+   |
+38 |     PUSH13 = 0x1D,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:39:5
+   |
+39 |     PUSH14 = 0x1E,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:40:5
+   |
+40 |     PUSH15 = 0x1F,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:41:5
+   |
+41 |     PUSH16 = 0x20,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:44:5
+   |
+44 |     NOP = 0x21,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:45:5
+   |
+45 |     JMP = 0x22,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:46:5
+   |
+46 |     JmpL = 0x23,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:47:5
+   |
+47 |     JMPIF = 0x24,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:48:5
+   |
+48 |     JmpifL = 0x25,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:49:5
+   |
+49 |     JMPIFNOT = 0x26,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:50:5
+   |
+50 |     JmpifnotL = 0x27,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:51:5
+   |
+51 |     JMPEQ = 0x28,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:52:5
+   |
+52 |     JmpeqL = 0x29,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:53:5
+   |
+53 |     JMPNE = 0x2A,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:54:5
+   |
+54 |     JmpneL = 0x2B,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:55:5
+   |
+55 |     JMPGT = 0x2C,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:56:5
+   |
+56 |     JmpgtL = 0x2D,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:57:5
+   |
+57 |     JMPGE = 0x2E,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:58:5
+   |
+58 |     JmpgeL = 0x2F,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:59:5
+   |
+59 |     JMPLT = 0x30,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:60:5
+   |
+60 |     JmpltL = 0x31,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:61:5
+   |
+61 |     JMPLE = 0x32,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:62:5
+   |
+62 |     JmpleL = 0x33,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:63:5
+   |
+63 |     CALL = 0x34,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:64:5
+   |
+64 |     CallL = 0x35,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:65:5
+   |
+65 |     CALLA = 0x36,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:66:5
+   |
+66 |     CALLT = 0x37,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:67:5
+   |
+67 |     ABORT = 0x38,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:68:5
+   |
+68 |     ASSERT = 0x39,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:69:5
+   |
+69 |     THROW = 0x3A,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:70:5
+   |
+70 |     TRY = 0x3B,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:71:5
+   |
+71 |     TryL = 0x3C,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:72:5
+   |
+72 |     ENDTRY = 0x3D,
+   |     ^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:73:5
+   |
+73 |     EndtryL = 0x3E,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:74:5
+   |
+74 |     ENDFINALLY = 0x3F,
+   |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:75:5
+   |
+75 |     RET = 0x40,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:76:5
+   |
+76 |     SYSCALL = 0x41,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:79:5
+   |
+79 |     DEPTH = 0x43,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:80:5
+   |
+80 |     DROP = 0x45,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:81:5
+   |
+81 |     NIP = 0x46,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:82:5
+   |
+82 |     XDROP = 0x48,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:83:5
+   |
+83 |     CLEAR = 0x49,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:84:5
+   |
+84 |     DUP = 0x4A,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:85:5
+   |
+85 |     OVER = 0x4B,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:87:5
+   |
+87 |     PICK = 0x4D,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:88:5
+   |
+88 |     TUCK = 0x4E,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:90:5
+   |
+90 |     SWAP = 0x50,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:91:5
+   |
+91 |     ROT = 0x51,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:92:5
+   |
+92 |     ROLL = 0x52,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:93:5
+   |
+93 |     REVERSE3 = 0x53,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:94:5
+   |
+94 |     REVERSE4 = 0x54,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:95:5
+   |
+95 |     REVERSEN = 0x55,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:98:5
+   |
+98 |     INITSSLOT = 0x56,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/op_code/op_code.rs:99:5
+   |
+99 |     INITSLOT = 0x57,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:100:5
+    |
+100 |     LDSFLD0 = 0x58,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:101:5
+    |
+101 |     LDSFLD1 = 0x59,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:102:5
+    |
+102 |     LDSFLD2 = 0x5A,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:103:5
+    |
+103 |     LDSFLD3 = 0x5B,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:104:5
+    |
+104 |     LDSFLD4 = 0x5C,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:105:5
+    |
+105 |     LDSFLD5 = 0x5D,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:106:5
+    |
+106 |     LDSFLD6 = 0x5E,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:107:5
+    |
+107 |     LDSFLD = 0x5F,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:108:5
+    |
+108 |     STSFLD0 = 0x60,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:109:5
+    |
+109 |     STSFLD1 = 0x61,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:110:5
+    |
+110 |     STSFLD2 = 0x62,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:111:5
+    |
+111 |     STSFLD3 = 0x63,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:112:5
+    |
+112 |     STSFLD4 = 0x64,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:113:5
+    |
+113 |     STSFLD5 = 0x65,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:114:5
+    |
+114 |     STSFLD6 = 0x66,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:115:5
+    |
+115 |     STSFLD = 0x67,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:116:5
+    |
+116 |     LDLOC0 = 0x68,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:117:5
+    |
+117 |     LDLOC1 = 0x69,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:118:5
+    |
+118 |     LDLOC2 = 0x6A,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:119:5
+    |
+119 |     LDLOC3 = 0x6B,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:120:5
+    |
+120 |     LDLOC4 = 0x6C,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:121:5
+    |
+121 |     LDLOC5 = 0x6D,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:122:5
+    |
+122 |     LDLOC6 = 0x6E,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:123:5
+    |
+123 |     LDLOC = 0x6F,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:124:5
+    |
+124 |     STLOC0 = 0x70,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:125:5
+    |
+125 |     STLOC1 = 0x71,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:126:5
+    |
+126 |     STLOC2 = 0x72,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:127:5
+    |
+127 |     STLOC3 = 0x73,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:128:5
+    |
+128 |     STLOC4 = 0x74,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:129:5
+    |
+129 |     STLOC5 = 0x75,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:130:5
+    |
+130 |     STLOC6 = 0x76,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:131:5
+    |
+131 |     STLOC = 0x77,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:132:5
+    |
+132 |     LDARG0 = 0x78,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:133:5
+    |
+133 |     LDARG1 = 0x79,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:134:5
+    |
+134 |     LDARG2 = 0x7A,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:135:5
+    |
+135 |     LDARG3 = 0x7B,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:136:5
+    |
+136 |     LDARG4 = 0x7C,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:137:5
+    |
+137 |     LDARG5 = 0x7D,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:138:5
+    |
+138 |     LDARG6 = 0x7E,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:139:5
+    |
+139 |     LDARG = 0x7F,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:140:5
+    |
+140 |     STARG0 = 0x80,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:141:5
+    |
+141 |     STARG1 = 0x81,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:142:5
+    |
+142 |     STARG2 = 0x82,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:143:5
+    |
+143 |     STARG3 = 0x83,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:144:5
+    |
+144 |     STARG4 = 0x84,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:145:5
+    |
+145 |     STARG5 = 0x85,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:146:5
+    |
+146 |     STARG6 = 0x86,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:147:5
+    |
+147 |     STARG = 0x87,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:150:5
+    |
+150 |     NEWBUFFER = 0x88,
+    |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:151:5
+    |
+151 |     MEMCPY = 0x89,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:153:5
+    |
+153 |     CAT = 0x8B,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:154:5
+    |
+154 |     SUBSTR = 0x8C,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:155:5
+    |
+155 |     LEFT = 0x8D,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:156:5
+    |
+156 |     RIGHT = 0x8E,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:159:5
+    |
+159 |     INVERT = 0x90,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:160:5
+    |
+160 |     AND = 0x91,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:161:5
+    |
+161 |     OR = 0x92,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:162:5
+    |
+162 |     XOR = 0x93,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:163:5
+    |
+163 |     EQUAL = 0x97,
+    |     ^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:164:5
+    |
+164 |     NOTEQUAL = 0x98,
+    |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:167:5
+    |
+167 |     SIGN = 0x99,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:168:5
+    |
+168 |     ABS = 0x9A,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:169:5
+    |
+169 |     NEGATE = 0x9B,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:170:5
+    |
+170 |     INC = 0x9C,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:171:5
+    |
+171 |     DEC = 0x9D,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:172:5
+    |
+172 |     ADD = 0x9E,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:173:5
+    |
+173 |     SUB = 0x9F,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:174:5
+    |
+174 |     MUL = 0xA0,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:175:5
+    |
+175 |     DIV = 0xA1,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:176:5
+    |
+176 |     MOD = 0xA2,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:177:5
+    |
+177 |     POW = 0xA3,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:178:5
+    |
+178 |     SQRT = 0xA4,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:179:5
+    |
+179 |     MODMUL = 0xA5,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:180:5
+    |
+180 |     MODPOW = 0xA6,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:181:5
+    |
+181 |     SHL = 0xA8,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:182:5
+    |
+182 |     SHR = 0xA9,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:183:5
+    |
+183 |     NOT = 0xAA,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:184:5
+    |
+184 |     BOOLAND = 0xAB,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:185:5
+    |
+185 |     BOOLOR = 0xAC,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:186:5
+    |
+186 |     NZ = 0xB1,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:187:5
+    |
+187 |     NUMEQUAL = 0xB3,
+    |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:188:5
+    |
+188 |     NUMNOTEQUAL = 0xB4,
+    |     ^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:189:5
+    |
+189 |     LT = 0xB5,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:190:5
+    |
+190 |     LE = 0xB6,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:191:5
+    |
+191 |     GT = 0xB7,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:192:5
+    |
+192 |     GE = 0xB8,
+    |     ^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:193:5
+    |
+193 |     MIN = 0xB9,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:194:5
+    |
+194 |     MAX = 0xBA,
+    |     ^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:195:5
+    |
+195 |     WITHIN = 0xBB,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:198:5
+    |
+198 |     PACKMAP = 0xBE,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:199:5
+    |
+199 |     PACKSTRUCT = 0xBF,
+    |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:200:5
+    |
+200 |     PACK = 0xC0,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:201:5
+    |
+201 |     UNPACK = 0xC1,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:202:5
+    |
+202 |     NEWARRAY0 = 0xC2,
+    |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:203:5
+    |
+203 |     NEWARRAY = 0xC3,
+    |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:204:5
+    |
+204 |     NewarrayT = 0xC4,
+    |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:205:5
+    |
+205 |     NEWSTRUCT0 = 0xC5,
+    |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:206:5
+    |
+206 |     NEWSTRUCT = 0xC6,
+    |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:207:5
+    |
+207 |     NEWMAP = 0xC8,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:208:5
+    |
+208 |     SIZE = 0xCA,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:209:5
+    |
+209 |     HASKEY = 0xCB,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:210:5
+    |
+210 |     KEYS = 0xCC,
+    |     ^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:211:5
+    |
+211 |     VALUES = 0xCD,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:212:5
+    |
+212 |     PICKITEM = 0xCE,
+    |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:213:5
+    |
+213 |     APPEND = 0xCF,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:214:5
+    |
+214 |     SETITEM = 0xD0,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:215:5
+    |
+215 |     REVERSEITEMS = 0xD1,
+    |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:216:5
+    |
+216 |     REMOVE = 0xD2,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:217:5
+    |
+217 |     CLEARITEMS = 0xD3,
+    |     ^^^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:218:5
+    |
+218 |     POPITEM = 0xD4,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:221:5
+    |
+221 |     ISNULL = 0xD8,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:222:5
+    |
+222 |     ISTYPE = 0xD9,
+    |     ^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:223:5
+    |
+223 |     CONVERT = 0xDB,
+    |     ^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:226:5
+    |
+226 |     ABORTMSG = 0xE0,
+    |     ^^^^^^^^
+
+warning: missing documentation for a variant
+   --> crates/vm/src/op_code/op_code.rs:227:5
+    |
+227 |     ASSERTMSG = 0xE1,
+    |     ^^^^^^^^^
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/vm/src/script.rs:376:25
+    |
+376 |     pub fn instructions(&self) -> InstructionIterator {
+    |                         ^^^^^     ------------------- the same lifetime is hidden here
+    |                         |
+    |                         the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+376 |     pub fn instructions(&self) -> InstructionIterator<'_> {
+    |                                                      ++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/vm/src/stack_item/array.rs:109:17
+    |
+109 |     pub fn iter(&self) -> std::slice::Iter<StackItem> {
+    |                 ^^^^^     --------------------------- the same lifetime is hidden here
+    |                 |
+    |                 the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+109 |     pub fn iter(&self) -> std::slice::Iter<'_, StackItem> {
+    |                                            +++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates/vm/src/stack_item/array.rs:114:21
+    |
+114 |     pub fn iter_mut(&mut self) -> std::slice::IterMut<StackItem> {
+    |                     ^^^^^^^^^     ------------------------------ the same lifetime is hidden here
+    |                     |
+    |                     the lifetime is elided here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+help: use `'_` for type paths
+    |
+114 |     pub fn iter_mut(&mut self) -> std::slice::IterMut<'_, StackItem> {
+    |                                                       +++
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:40:5
+   |
+40 |     pub account: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:41:5
+   |
+41 |     pub scopes: u8,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:42:5
+   |
+42 |     pub allowed_contracts: Vec<Vec<u8>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:43:5
+   |
+43 |     pub allowed_groups: Vec<Vec<u8>>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:44:5
+   |
+44 |     pub rules: Vec<WitnessRule>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/safe_type_conversion.rs:67:5
+   |
+67 |     HighPriority,
+   |     ^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/safe_type_conversion.rs:68:5
+   |
+68 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:68:22
+   |
+68 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+   |                      ^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:68:31
+   |
+68 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+   |                               ^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:68:41
+   |
+68 |     OracleResponse { id: u64, code: u8, result: Vec<u8> },
+   |                                         ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/safe_type_conversion.rs:69:5
+   |
+69 |     NotValidBefore { height: u32 },
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:69:22
+   |
+69 |     NotValidBefore { height: u32 },
+   |                      ^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/vm/src/safe_type_conversion.rs:70:5
+   |
+70 |     Conflicts { hash: Vec<u8> },
+   |     ^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:70:17
+   |
+70 |     Conflicts { hash: Vec<u8> },
+   |                 ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:98:5
+   |
+98 |     pub action: u8,
+   |     ^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/vm/src/safe_type_conversion.rs:99:5
+   |
+99 |     pub condition: Vec<u8>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `epicchain-vm` (lib) generated 375 warnings (run `cargo fix --lib -p epicchain-vm` to apply 4 suggestions)
+warning: unused variable: `snapshot`
+   --> crates/persistence/src/lib.rs:383:13
+    |
+383 |         let snapshot = self.get_snapshot();
+    |             ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_snapshot`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: field `provider` is never read
+   --> crates/persistence/src/lib.rs:206:5
+    |
+205 | pub struct Storage {
+    |            ------- field in this struct
+206 |     provider: Arc<dyn StorageProvider>,
+    |     ^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: field `config` is never read
+  --> crates/persistence/src/index.rs:66:5
+   |
+56 | pub struct BTreeIndex<K, V>
+   |            ---------- field in this struct
+...
+66 |     config: IndexConfig,
+   |     ^^^^^^
+
+warning: field `config` is never read
+   --> crates/persistence/src/index.rs:226:5
+    |
+216 | pub struct HashIndex<K, V>
+    |            --------- field in this struct
+...
+226 |     config: IndexConfig,
+    |     ^^^^^^
+
+warning: field `config` is never read
+   --> crates/persistence/src/migration.rs:237:5
+    |
+235 | pub struct MigrationManager {
+    |            ---------------- field in this struct
+236 |     /// Configuration
+237 |     config: MigrationConfig,
+    |     ^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/persistence/src/rocksdb/mod.rs:122:5
+    |
+122 |     pub fn new(db: Arc<DB>) -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: the lint level is defined here
+   --> crates/persistence/src/lib.rs:136:9
+    |
+136 | #![warn(missing_docs)]
+    |         ^^^^^^^^^^^^
+
+warning: missing documentation for an associated function
+   --> crates/persistence/src/rocksdb/mod.rs:256:5
+    |
+256 |     pub fn new() -> Self {
+    |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:12:5
+   |
+12 |     Forward,
+   |     ^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:13:5
+   |
+13 |     Backward,
+   |     ^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:19:5
+   |
+19 |     None,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:20:5
+   |
+20 |     Lz4,
+   |     ^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:21:5
+   |
+21 |     Zstd,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:27:5
+   |
+27 |     Level,
+   |     ^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:28:5
+   |
+28 |     Universal,
+   |     ^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:29:5
+   |
+29 |     Fifo,
+   |     ^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:35:5
+   |
+35 |     Put { key: Vec<u8>, value: Vec<u8> },
+   |     ^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:35:11
+   |
+35 |     Put { key: Vec<u8>, value: Vec<u8> },
+   |           ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:35:25
+   |
+35 |     Put { key: Vec<u8>, value: Vec<u8> },
+   |                         ^^^^^^^^^^^^^^
+
+warning: missing documentation for a variant
+  --> crates/persistence/src/storage.rs:36:5
+   |
+36 |     Delete { key: Vec<u8> },
+   |     ^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:36:14
+   |
+36 |     Delete { key: Vec<u8> },
+   |              ^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:42:5
+   |
+42 |     pub path: PathBuf,
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:43:5
+   |
+43 |     pub compression_algorithm: CompressionAlgorithm,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:44:5
+   |
+44 |     pub compaction_strategy: CompactionStrategy,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:45:5
+   |
+45 |     pub max_open_files: Option<u32>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:46:5
+   |
+46 |     pub cache_size: Option<usize>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:47:5
+   |
+47 |     pub write_buffer_size: Option<usize>,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/storage.rs:48:5
+   |
+48 |     pub enable_statistics: bool,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/cache.rs:34:5
+   |
+34 |     pub hits: u64,
+   |     ^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/cache.rs:35:5
+   |
+35 |     pub misses: u64,
+   |     ^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/cache.rs:36:5
+   |
+36 |     pub evictions: u64,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/cache.rs:37:5
+   |
+37 |     pub entries: usize,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a method
+  --> crates/persistence/src/cache.rs:41:5
+   |
+41 |     pub fn hit_rate(&self) -> f64 {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/index.rs:48:5
+   |
+48 |     pub entries: usize,
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/index.rs:49:5
+   |
+49 |     pub lookups: u64,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/index.rs:50:5
+   |
+50 |     pub inserts: u64,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/index.rs:51:5
+   |
+51 |     pub deletes: u64,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: missing documentation for a struct field
+  --> crates/persistence/src/index.rs:52:5
+   |
+52 |     pub memory_usage: usize,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `neo-persistence` (lib) generated 37 warnings
+warning: unused import: `Result`
+ --> crates/ledger/src/block/block.rs:9:13
+  |
+9 | use crate::{Result, VerifyResult};
+  |             ^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Error` and `Result`
+ --> crates/ledger/src/block/header.rs:7:13
+  |
+7 | use crate::{Error, Result, VerifyResult};
+  |             ^^^^^  ^^^^^^
+
+warning: unused import: `ADDRESS_SIZE`
+ --> crates/ledger/src/block/header.rs:8:18
+  |
+8 | use neo_config::{ADDRESS_SIZE, MILLISECONDS_PER_BLOCK};
+  |                  ^^^^^^^^^^^^
+
+warning: unused imports: `Signer`, `WitnessCondition`, and `WitnessScope`
+ --> crates/ledger/src/block/header.rs:9:16
+  |
+9 | use neo_core::{Signer, UInt160, UInt256, Witness, WitnessCondition, WitnessScope};
+  |                ^^^^^^                             ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `neo_cryptography::ECPoint`
+  --> crates/ledger/src/block/header.rs:10:5
+   |
+10 | use neo_cryptography::ECPoint;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `neo_vm::ApplicationEngine`
+  --> crates/ledger/src/block/header.rs:12:5
+   |
+12 | use neo_vm::ApplicationEngine;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Error`
+ --> crates/ledger/src/block/verification.rs:7:13
+  |
+7 | use crate::{Error, Result, VerifyResult};
+  |             ^^^^^
+
+warning: unused imports: `Signer`, `WitnessCondition`, and `WitnessScope`
+  --> crates/ledger/src/block/verification.rs:10:16
+   |
+10 | use neo_core::{Signer, UInt160, UInt256, Witness, WitnessCondition, WitnessScope};
+   |                ^^^^^^                             ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `Error`, `Result`, and `VerifyResult`
+  --> crates/ledger/src/block/mod.rs:21:13
+   |
+21 | use crate::{Error, Result, VerifyResult};
+   |             ^^^^^  ^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `RocksDBStorage`, `StorageItem`, and `StorageKey`
+ --> crates/ledger/src/blockchain/blockchain.rs:9:15
+  |
+9 |     storage::{RocksDBStorage, Storage, StorageItem, StorageKey},
+  |               ^^^^^^^^^^^^^^           ^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `BlockHeader`
+  --> crates/ledger/src/blockchain/blockchain.rs:12:20
+   |
+12 | use crate::{Block, BlockHeader, Error, NetworkType, Result};
+   |                    ^^^^^^^^^^^
+
+warning: unused import: `UInt160`
+  --> crates/ledger/src/blockchain/blockchain.rs:14:29
+   |
+14 | use neo_core::{Transaction, UInt160, UInt256};
+   |                             ^^^^^^^
+
+warning: unused import: `UInt160`
+ --> crates/ledger/src/blockchain/persistence.rs:8:29
+  |
+8 | use neo_core::{Transaction, UInt160, UInt256};
+  |                             ^^^^^^^
+
+warning: unused import: `std::pin::Pin`
+  --> crates/ledger/src/blockchain/persistence.rs:10:5
+   |
+10 | use std::pin::Pin;
+   |     ^^^^^^^^^^^^^
+
+warning: unused import: `UInt256`
+  --> crates/ledger/src/blockchain/state.rs:12:38
+   |
+12 | use neo_core::{Transaction, UInt160, UInt256};
+   |                                      ^^^^^^^
+
+warning: unused import: `neo_io::Serializable`
+    --> crates/ledger/src/blockchain/state.rs:1152:13
+     |
+1152 |         use neo_io::Serializable;
+     |             ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Snapshot`
+ --> crates/ledger/src/blockchain/storage.rs:7:24
+  |
+7 | use rocksdb::{Options, Snapshot, DB};
+  |                        ^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> crates/ledger/src/blockchain/storage.rs:8:5
+  |
+8 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::RwLock`
+  --> crates/ledger/src/blockchain/storage.rs:10:5
+   |
+10 | use tokio::sync::RwLock;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `UInt160` and `UInt256`
+ --> crates/ledger/src/blockchain/verification.rs:7:29
+  |
+7 | use neo_core::{Transaction, UInt160, UInt256, Witness};
+  |                             ^^^^^^^  ^^^^^^^
+
+warning: unused variable: `tx_index`
+   --> crates/ledger/src/blockchain/persistence.rs:278:17
+    |
+278 |         let mut tx_index = 0u32;
+    |                 ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_tx_index`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: variable does not need to be mutable
+   --> crates/ledger/src/blockchain/persistence.rs:277:13
+    |
+277 |         let mut transactions = Vec::new();
+    |             ----^^^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: variable does not need to be mutable
+   --> crates/ledger/src/blockchain/persistence.rs:278:13
+    |
+278 |         let mut tx_index = 0u32;
+    |             ----^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `e`
+   --> crates/ledger/src/blockchain/persistence.rs:315:25
+    |
+315 |                     Err(e) => {
+    |                         ^ help: if this is intentional, prefix it with an underscore: `_e`
+
+warning: unused import: `Digest`
+   --> crates/ledger/src/block/block.rs:519:20
+    |
+519 |         use sha2::{Digest, Sha256};
+    |                    ^^^^^^
+
+warning: unused import: `Digest`
+  --> crates/ledger/src/block/verification.rs:18:12
+   |
+18 | use sha2::{Digest, Sha256};
+   |            ^^^^^^
+
+warning: unused import: `Digest`
+  --> crates/ledger/src/block/mod.rs:38:20
+   |
+38 |         use sha2::{Digest, Sha256};
+   |                    ^^^^^^
+
+warning: unreachable pattern
+   --> crates/ledger/src/block/block.rs:265:13
+    |
+265 |             _ => {
+    |             ^ no value can reach this
+    |
+note: multiple earlier patterns match some of the same values
+   --> crates/ledger/src/block/block.rs:265:13
+    |
+249 |             neo_core::TransactionAttributeType::HighPriority => {
+    |             ------------------------------------------------ matches some of the same values
+...
+253 |             neo_core::TransactionAttributeType::OracleResponse => {
+    |             -------------------------------------------------- matches some of the same values
+...
+257 |             neo_core::TransactionAttributeType::NotValidBefore => {
+    |             -------------------------------------------------- matches some of the same values
+...
+261 |             neo_core::TransactionAttributeType::Conflicts => {
+    |             --------------------------------------------- matches some of the same values
+...
+265 |             _ => {
+    |             ^ collectively making this unreachable
+    = note: `#[warn(unreachable_patterns)]` on by default
+
+warning: unused variable: `transaction`
+   --> crates/ledger/src/block/block.rs:701:9
+    |
+701 |         transaction: &Transaction,
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_transaction`
+
+warning: unused variable: `transaction`
+   --> crates/ledger/src/block/block.rs:833:9
+    |
+833 |         transaction: &Transaction,
+    |         ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_transaction`
+
+warning: unused variable: `engine`
+   --> crates/ledger/src/block/verification.rs:714:25
+    |
+714 |         if let Some(mut engine) = self.get_application_engine() {
+    |                         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: variable does not need to be mutable
+   --> crates/ledger/src/block/verification.rs:714:21
+    |
+714 |         if let Some(mut engine) = self.get_application_engine() {
+    |                     ----^^^^^^
+    |                     |
+    |                     help: remove this `mut`
+
+warning: unused variable: `index`
+   --> crates/ledger/src/blockchain/persistence.rs:425:13
+    |
+425 |         let index =
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_index`
+
+warning: unused variable: `value`
+   --> crates/ledger/src/blockchain/state.rs:968:51
+    |
+968 |             neo_core::WitnessCondition::Boolean { value } => {
+    |                                                   ^^^^^ help: try ignoring the field: `value: _`
+
+warning: unused variable: `storage_key_string`
+    --> crates/ledger/src/blockchain/state.rs:1514:13
+     |
+1514 |         let storage_key_string = format!(
+     |             ^^^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_storage_key_string`
+
+warning: unused variable: `candidate_prefix`
+    --> crates/ledger/src/blockchain/state.rs:1582:13
+     |
+1582 |         let candidate_prefix = b"candidate:".to_vec(); // NEO contract candidate prefix
+     |             ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_candidate_prefix`
+
+warning: methods `calculate_script_hash`, `is_valid_witness_script`, and `validate_transaction_uniqueness` are never used
+   --> crates/ledger/src/block/block.rs:517:8
+    |
+27  | impl Block {
+    | ---------- methods in this implementation
+...
+517 |     fn calculate_script_hash(&self, script: &[u8]) -> neo_core::UInt160 {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+...
+591 |     fn is_valid_witness_script(&self, script: &[u8]) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^
+...
+617 |     fn validate_transaction_uniqueness(&self) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: methods `verify_ecdsa_signature`, `extract_signature_from_invocation`, `extract_public_key_from_verification`, `verify_secp256r1_ecdsa_signature_production`, `validate_signature_component_range`, and `execute_p256_ecdsa_signature_verification` are never used
+   --> crates/ledger/src/block/verification.rs:396:8
+    |
+23  | impl WitnessVerifier {
+    | -------------------- methods in this implementation
+...
+396 |     fn verify_ecdsa_signature(&self, witness: &Witness, message_hash: &UInt256) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+...
+419 |     fn extract_signature_from_invocation(&self, invocation_script: &[u8]) -> Option<Vec<u8>> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+432 |     fn extract_public_key_from_verification(&self, verification_script: &[u8]) -> Option<Vec<u8>> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+445 |     fn verify_secp256r1_ecdsa_signature_production(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+477 |     fn validate_signature_component_range(&self, component: &[u8]) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+509 |     fn execute_p256_ecdsa_signature_verification(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `GENESIS_TIMESTAMP_MS` is never used
+ --> crates/ledger/src/blockchain/genesis.rs:7:7
+  |
+7 | const GENESIS_TIMESTAMP_MS: u64 = 1468595301000;
+  |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: associated items `new` and `mark_dirty` are never used
+  --> crates/ledger/src/blockchain/persistence.rs:42:8
+   |
+40 | impl CacheItem {
+   | -------------- associated items in this implementation
+41 |     /// Creates a new cache item
+42 |     fn new(item: StorageItem) -> Self {
+   |        ^^^
+...
+69 |     fn mark_dirty(&mut self) {
+   |        ^^^^^^^^^^
+
+warning: methods `get_transaction_sign_data`, `get_network_magic`, `get_default_committee`, `create_minimal_committee`, and `cache_committee` are never used
+    --> crates/ledger/src/blockchain/state.rs:1151:8
+     |
+177  | impl BlockchainState {
+     | -------------------- methods in this implementation
+...
+1151 |     fn get_transaction_sign_data(&self, transaction: &Transaction) -> Result<Vec<u8>> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1167 |     fn get_network_magic(&self) -> u32 {
+     |        ^^^^^^^^^^^^^^^^^
+...
+1254 |     fn get_default_committee(&self) -> Vec<neo_cryptography::ECPoint> {
+     |        ^^^^^^^^^^^^^^^^^^^^^
+...
+1295 |     fn create_minimal_committee(&self) -> Vec<neo_cryptography::ECPoint> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1311 |     async fn cache_committee(&mut self, members: Vec<neo_cryptography::ECPoint>) -> Result<()> {
+     |              ^^^^^^^^^^^^^^^
+
+warning: methods `create_multisig_redeem_script_from_committee` and `create_multisig_redeem_script_from_next_validators` are never used
+   --> crates/ledger/src/blockchain/verification.rs:279:8
+    |
+38  | impl BlockchainVerifier {
+    | ----------------------- methods in this implementation
+...
+279 |     fn create_multisig_redeem_script_from_committee(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+289 |     fn create_multisig_redeem_script_from_next_validators(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `neo-ledger` (lib) generated 42 warnings (run `cargo fix --lib -p neo-ledger` to apply 23 suggestions)
+    Checking neo-network v0.3.0 (/home/ubuntu/neo-rs/crates/network)
+warning: unused import: `std::collections::HashMap`
+  --> crates/wallets/src/wallet.rs:15:5
+   |
+15 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::path::Path`
+  --> crates/wallets/src/wallet.rs:16:5
+   |
+16 | use std::path::Path;
+   |     ^^^^^^^^^^^^^^^
+
+warning: unused imports: `Signer` and `UInt256`
+ --> crates/wallets/src/wallet_account.rs:8:16
+  |
+8 | use neo_core::{Signer, Transaction, UInt160, UInt256, Witness};
+  |                ^^^^^^                        ^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+ --> crates/wallets/src/wallet_account.rs:9:5
+  |
+9 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused imports: `debug`, `error`, `info`, and `warn`
+  --> crates/wallets/src/wallet_factory.rs:11:11
+   |
+11 | use log::{debug, error, info, warn};
+   |           ^^^^^  ^^^^^  ^^^^  ^^^^
+
+warning: unused import: `UInt256`
+  --> crates/wallets/src/lib.rs:30:25
+   |
+30 | use neo_core::{UInt160, UInt256};
+   |                         ^^^^^^^
+
+warning: unused variable: `scrypt`
+   --> crates/wallets/src/nep6.rs:773:9
+    |
+773 |         scrypt: &ScryptParameters,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_scrypt`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `password`
+   --> crates/wallets/src/nep6.rs:774:9
+    |
+774 |         password: &str,
+    |         ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_password`
+
+warning: unused import: `IWalletFactory`
+  --> crates/wallets/src/nep6.rs:12:22
+   |
+12 |     wallet_factory::{IWalletFactory, WalletFactory},
+   |                      ^^^^^^^^^^^^^^
+
+warning: unused variable: `flags`
+   --> crates/wallets/src/key_pair.rs:251:13
+    |
+251 |         let flags = encrypted_key[2];
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_flags`
+
+warning: unused variable: `password`
+   --> crates/wallets/src/nep6.rs:566:40
+    |
+566 |     async fn export(&self, path: &str, password: &str) -> WalletResult<()> {
+    |                                        ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_password`
+
+warning: unused variable: `tx_hash`
+   --> crates/wallets/src/nep6.rs:673:13
+    |
+673 |         let tx_hash = transaction.hash().map_err(|e| {
+    |             ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_tx_hash`
+
+warning: type `Nep6AccountFile` is more private than the item `Nep6Account::from_file`
+   --> crates/wallets/src/nep6.rs:771:5
+    |
+771 | /     pub async fn from_file(
+772 | |         account_file: Nep6AccountFile,
+773 | |         scrypt: &ScryptParameters,
+774 | |         password: &str,
+775 | |     ) -> WalletResult<Self> {
+    | |___________________________^ associated function `Nep6Account::from_file` is reachable at visibility `pub`
+    |
+note: but type `Nep6AccountFile` is only usable at visibility `pub(self)`
+   --> crates/wallets/src/nep6.rs:50:1
+    |
+50  | struct Nep6AccountFile {
+    | ^^^^^^^^^^^^^^^^^^^^^^
+    = note: `#[warn(private_interfaces)]` on by default
+
+warning: type `Nep6AccountFile` is more private than the item `Nep6Account::to_file`
+   --> crates/wallets/src/nep6.rs:803:5
+    |
+803 |     pub fn to_file(&self) -> crate::Result<Nep6AccountFile> {
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ method `Nep6Account::to_file` is reachable at visibility `pub`
+    |
+note: but type `Nep6AccountFile` is only usable at visibility `pub(self)`
+   --> crates/wallets/src/nep6.rs:50:1
+    |
+50  | struct Nep6AccountFile {
+    | ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `contract` and `deployed` are never read
+  --> crates/wallets/src/nep6.rs:82:5
+   |
+81 | pub struct Nep6Contract {
+   |            ------------ fields in this struct
+82 |     contract: Contract,
+   |     ^^^^^^^^
+83 |     deployed: bool,
+   |     ^^^^^^^^
+   |
+   = note: `Nep6Contract` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: constant `ONE_MEGABYTE` is never used
+  --> crates/wallets/src/scrypt_parameters.rs:10:7
+   |
+10 | const ONE_MEGABYTE: usize = 1024 * 1024;
+   |       ^^^^^^^^^^^^
+
+warning: method `parse_uint160` is never used
+   --> crates/rpc_client/src/neo_rpc.rs:419:8
+    |
+12  | impl RpcClient {
+    | -------------- method in this implementation
+...
+419 |     fn parse_uint160(&self, value: &Value) -> RpcResult<UInt160> {
+    |        ^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: unexpected `cfg` condition value: `std`
+   --> crates/smart_contract/src/application_engine/gas.rs:120:15
+    |
+120 |         #[cfg(feature = "std")]
+    |               ^^^^^^^^^^^^^^^ help: remove the condition
+    |
+    = note: no expected values for `feature`
+    = help: consider adding `std` as a feature in `Cargo.toml`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unused import: `neo_core::constants::MAX_STORAGE_KEY_SIZE`
+ --> crates/smart_contract/src/application_engine/storage.rs:8:5
+  |
+8 | use neo_core::constants::MAX_STORAGE_KEY_SIZE;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `neo_core::constants::MAX_STORAGE_VALUE_SIZE`
+ --> crates/smart_contract/src/application_engine/storage.rs:9:5
+  |
+9 | use neo_core::constants::MAX_STORAGE_VALUE_SIZE;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `NefFile`
+  --> crates/smart_contract/src/application_engine.rs:17:44
+   |
+17 | use crate::contract_state::{ContractState, NefFile};
+   |                                            ^^^^^^^
+
+warning: unused import: `crate::manifest::ContractManifest`
+  --> crates/smart_contract/src/application_engine.rs:19:5
+   |
+19 | use crate::manifest::ContractManifest;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `EventError`
+ --> crates/smart_contract/src/events.rs:6:20
+  |
+6 | use crate::{Error, EventError, Result};
+  |                    ^^^^^^^^^^
+
+warning: unused import: `std::time::Duration`
+  --> crates/smart_contract/src/events.rs:14:5
+   |
+14 | use std::time::Duration;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `neo_vm::TriggerType`
+  --> crates/smart_contract/src/interop/contract.rs:12:5
+   |
+12 | use neo_vm::TriggerType;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ADDRESS_SIZE` and `HASH_SIZE`
+ --> crates/smart_contract/src/interop/crypto.rs:6:18
+  |
+6 | use neo_config::{ADDRESS_SIZE, HASH_SIZE, SECONDS_PER_BLOCK};
+  |                  ^^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `neo_vm::TriggerType`
+ --> crates/smart_contract/src/interop/runtime.rs:8:5
+  |
+8 | use neo_vm::TriggerType;
+  |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ContractState` and `NefFile`
+ --> crates/smart_contract/src/interop/storage.rs:4:29
+  |
+4 | use crate::contract_state::{ContractState, NefFile};
+  |                             ^^^^^^^^^^^^^  ^^^^^^^
+
+warning: unused import: `crate::manifest::ContractManifest`
+ --> crates/smart_contract/src/interop/storage.rs:6:5
+  |
+6 | use crate::manifest::ContractManifest;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `neo_core::UInt160`
+  --> crates/smart_contract/src/interop/storage.rs:10:5
+   |
+10 | use neo_core::UInt160;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `neo_vm::TriggerType`
+  --> crates/smart_contract/src/interop/storage.rs:11:5
+   |
+11 | use neo_vm::TriggerType;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ADDRESS_SIZE` and `HASH_SIZE`
+ --> crates/smart_contract/src/manifest/contract_abi.rs:6:18
+  |
+6 | use neo_config::{ADDRESS_SIZE, HASH_SIZE};
+  |                  ^^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `HASH_SIZE`
+ --> crates/smart_contract/src/manifest/contract_group.rs:7:32
+  |
+7 | use neo_config::{ADDRESS_SIZE, HASH_SIZE};
+  |                                ^^^^^^^^^
+
+warning: unused imports: `ContractGroup` and `ContractManifest`
+ --> crates/smart_contract/src/manifest/contract_permission.rs:6:13
+  |
+6 | use super::{ContractGroup, ContractManifest, WildcardContainer};
+  |             ^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused import: `HASH_SIZE`
+  --> crates/smart_contract/src/native/contract_management.rs:11:18
+   |
+11 | use neo_config::{HASH_SIZE, MAX_SCRIPT_SIZE};
+   |                  ^^^^^^^^^
+
+warning: unused import: `Deserialize`
+  --> crates/smart_contract/src/native/contract_management.rs:14:13
+   |
+14 | use serde::{Deserialize, Serialize};
+   |             ^^^^^^^^^^^
+
+warning: unused imports: `ECPoint` and `ecc::ECCurve`
+ --> crates/smart_contract/src/native/crypto_lib.rs:7:24
+  |
+7 | use neo_cryptography::{ecc::ECCurve, ECPoint};
+  |                        ^^^^^^^^^^^^  ^^^^^^^
+
+warning: unused import: `crate::application_engine::StorageContext`
+ --> crates/smart_contract/src/native/gas_token.rs:4:5
+  |
+4 | use crate::application_engine::StorageContext;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `DB` and `Options`
+ --> crates/smart_contract/src/native/gas_token.rs:9:15
+  |
+9 | use rocksdb::{Options, DB};
+  |               ^^^^^^^  ^^
+
+warning: unused imports: `SystemTime` and `UNIX_EPOCH`
+  --> crates/smart_contract/src/native/gas_token.rs:11:17
+   |
+11 | use std::time::{SystemTime, UNIX_EPOCH};
+   |                 ^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `neo_vm::TriggerType`
+  --> crates/smart_contract/src/native/neo_token.rs:17:5
+   |
+17 | use neo_vm::TriggerType;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `BTreeMap`
+  --> crates/smart_contract/src/native/neo_token.rs:21:24
+   |
+21 | use std::collections::{BTreeMap, HashMap};
+   |                        ^^^^^^^^
+
+warning: unused import: `std::str::FromStr`
+  --> crates/smart_contract/src/native/neo_token.rs:22:5
+   |
+22 | use std::str::FromStr;
+   |     ^^^^^^^^^^^^^^^^^
+
+warning: unused import: `UInt256`
+  --> crates/smart_contract/src/native/oracle_contract.rs:11:25
+   |
+11 | use neo_core::{UInt160, UInt256};
+   |                         ^^^^^^^
+
+warning: unused import: `HASH_SIZE`
+ --> crates/smart_contract/src/native/role_management.rs:9:18
+  |
+9 | use neo_config::{HASH_SIZE, SECONDS_PER_BLOCK};
+  |                  ^^^^^^^^^
+
+warning: unused import: `MAX_SCRIPT_SIZE`
+ --> crates/smart_contract/src/performance.rs:6:32
+  |
+6 | use neo_config::{ADDRESS_SIZE, MAX_SCRIPT_SIZE, SECONDS_PER_BLOCK};
+  |                                ^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::manifest::ContractParameterType`
+ --> crates/smart_contract/src/validation.rs:9:5
+  |
+9 | use crate::manifest::ContractParameterType;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `Serializable`
+  --> crates/smart_contract/src/manifest/contract_manifest.rs:10:42
+   |
+10 | use neo_io::{BinaryWriter, MemoryReader, Serializable};
+   |                                          ^^^^^^^^^^^^
+
+warning: unused import: `Serializable`
+  --> crates/smart_contract/src/native/contract_management.rs:13:42
+   |
+13 | use neo_io::{BinaryWriter, MemoryReader, Serializable};
+   |                                          ^^^^^^^^^^^^
+
+warning: unused import: `Serialize`
+  --> crates/smart_contract/src/native/contract_management.rs:14:26
+   |
+14 | use serde::{Deserialize, Serialize};
+   |                          ^^^^^^^^^
+
+warning: unused variable: `args`
+    --> crates/smart_contract/src/application_engine.rs:1015:9
+     |
+1015 |         args: &[Vec<u8>],
+     |         ^^^^ help: if this is intentional, prefix it with an underscore: `_args`
+     |
+     = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `sender`
+   --> crates/smart_contract/src/deployment.rs:224:9
+    |
+224 |         sender: UInt160,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_sender`
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/interop/contract.rs:248:9
+    |
+248 |         engine: &ApplicationEngine,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `script`
+   --> crates/smart_contract/src/interop/contract.rs:509:39
+    |
+509 |     fn validate_script_opcodes(&self, script: &[u8]) -> Result<bool> {
+    |                                       ^^^^^^ help: if this is intentional, prefix it with an underscore: `_script`
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/interop/crypto.rs:308:25
+    |
+308 | pub fn verify_signature(engine: &mut ApplicationEngine, args: &[Vec<u8>]) -> Result<Vec<u8>> {
+    |                         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `current_contract`
+   --> crates/smart_contract/src/interop/storage.rs:131:13
+    |
+131 |         let current_contract = engine
+    |             ^^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_contract`
+
+warning: unused variable: `results`
+   --> crates/smart_contract/src/interop/storage.rs:136:13
+    |
+136 |         let results: Vec<(Vec<u8>, StorageItem)> = Vec::new();
+    |             ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_results`
+
+warning: unused variable: `storage_prefix`
+   --> crates/smart_contract/src/interop/storage.rs:145:13
+    |
+145 |         let storage_prefix = StorageKey::new(current_contract.hash, prefix.clone());
+    |             ^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_storage_prefix`
+
+warning: unused variable: `result`
+   --> crates/smart_contract/src/native/crypto_lib.rs:229:13
+    |
+229 |         let result = bls12_381::pairing(&g1_point.into(), &g2_point.into());
+    |             ^^^^^^ help: if this is intentional, prefix it with an underscore: `_result`
+
+warning: variable does not need to be mutable
+   --> crates/smart_contract/src/native/crypto_lib.rs:233:13
+    |
+233 |         let mut bytes = vec![0u8; 576];
+    |             ----^^^^^
+    |             |
+    |             help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` on by default
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/native/crypto_lib.rs:533:9
+    |
+533 |         engine: &mut ApplicationEngine,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `block`
+   --> crates/smart_contract/src/native/ledger_contract.rs:285:26
+    |
+285 |                     Some(block) => {
+    |                          ^^^^^ help: if this is intentional, prefix it with an underscore: `_block`
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/native/ledger_contract.rs:395:26
+    |
+395 |     fn on_persist(&self, engine: &mut ApplicationEngine) -> Result<()> {
+    |                          ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/native/neo_token.rs:563:9
+    |
+563 |         engine: &mut ApplicationEngine,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `storage_key`
+   --> crates/smart_contract/src/native/neo_token.rs:676:13
+    |
+676 |         let storage_key = self.create_account_storage_key(account);
+    |             ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_storage_key`
+
+warning: unused variable: `engine`
+  --> crates/smart_contract/src/native/std_lib.rs:52:9
+   |
+52 |         engine: &mut ApplicationEngine,
+   |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: unused variable: `engine`
+   --> crates/smart_contract/src/validation.rs:399:9
+    |
+399 |         engine: &ApplicationEngine,
+    |         ^^^^^^ help: if this is intentional, prefix it with an underscore: `_engine`
+
+warning: constant `PREFIX_MINIMUM_DEPLOYMENT_FEE` is never used
+  --> crates/smart_contract/src/native/contract_management.rs:20:7
+   |
+20 | const PREFIX_MINIMUM_DEPLOYMENT_FEE: u8 = 20;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: constant `PREFIX_NEXT_AVAILABLE_ID` is never used
+  --> crates/smart_contract/src/native/contract_management.rs:22:7
+   |
+22 | const PREFIX_NEXT_AVAILABLE_ID: u8 = 15;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_CONTRACT` is never used
+  --> crates/smart_contract/src/native/contract_management.rs:24:7
+   |
+24 | const PREFIX_CONTRACT: u8 = 8;
+   |       ^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_CONTRACT_HASH` is never used
+  --> crates/smart_contract/src/native/contract_management.rs:26:7
+   |
+26 | const PREFIX_CONTRACT_HASH: u8 = 12;
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_CONTRACT_COUNT` is never used
+  --> crates/smart_contract/src/native/contract_management.rs:28:7
+   |
+28 | const PREFIX_CONTRACT_COUNT: u8 = 16;
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_BLOCK` is never used
+  --> crates/smart_contract/src/native/ledger_contract.rs:15:7
+   |
+15 | const PREFIX_BLOCK: u8 = 9;
+   |       ^^^^^^^^^^^^
+
+warning: constant `PREFIX_TRANSACTION` is never used
+  --> crates/smart_contract/src/native/ledger_contract.rs:17:7
+   |
+17 | const PREFIX_TRANSACTION: u8 = 11;
+   |       ^^^^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_CURRENT_BLOCK` is never used
+  --> crates/smart_contract/src/native/ledger_contract.rs:19:7
+   |
+19 | const PREFIX_CURRENT_BLOCK: u8 = 12;
+   |       ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `PREFIX_BLOCK_HASH_LIST` is never used
+  --> crates/smart_contract/src/native/ledger_contract.rs:21:7
+   |
+21 | const PREFIX_BLOCK_HASH_LIST: u8 = 14;
+   |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: fields `committee_state`, `vote_tracker`, `account_states`, and `candidate_states` are never read
+  --> crates/smart_contract/src/native/neo_token.rs:35:5
+   |
+31 | pub struct NeoToken {
+   |            -------- fields in this struct
+...
+35 |     committee_state: Arc<RwLock<CommitteeState>>,
+   |     ^^^^^^^^^^^^^^^
+36 |     /// Vote tracker for governance
+37 |     vote_tracker: Arc<RwLock<VoteTracker>>,
+   |     ^^^^^^^^^^^^
+38 |     /// Account states cache
+39 |     account_states: Arc<RwLock<HashMap<UInt160, NeoAccountState>>>,
+   |     ^^^^^^^^^^^^^^
+40 |     /// Candidate states cache  
+41 |     candidate_states: Arc<RwLock<HashMap<ECPoint, CandidateState>>>,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: multiple methods are never used
+   --> crates/smart_contract/src/validation.rs:529:8
+    |
+59  | impl ContractValidator {
+    | ---------------------- methods in this implementation
+...
+529 |     fn validate_called_by_entry_scope(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+549 |     fn validate_transaction_entry_scope(&self, engine: &ApplicationEngine) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+564 |     fn validate_custom_witness_scope(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+660 |     fn calculate_contract_storage_fee(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+712 |     fn estimate_complexity_from_manifest(&self, manifest: &ContractManifest) -> Result<i64> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+886 |     fn validate_generic_container_entry_scope(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+901 |     fn validate_execution_context_entry_scope(&self, _engine: &ApplicationEngine) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+906 |     fn validate_container_witness(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+915 |     fn validate_custom_groups_scope(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+924 |     fn validate_witness_rules_scope(
+    |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/interop/contract.rs:230:9
+    |
+230 |         engine.emit_event("Deploy", vec![contract_hash.as_bytes().to_vec()]);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+    = note: `#[warn(unused_must_use)]` on by default
+help: use `let _ = ...` to ignore the resulting value
+    |
+230 |         let _ = engine.emit_event("Deploy", vec![contract_hash.as_bytes().to_vec()]);
+    |         +++++++
+
+warning: unused `std::result::Result` that must be used
+  --> crates/smart_contract/src/interop/runtime.rs:74:9
+   |
+74 | /         _engine.emit_event(
+75 | |             "Log",
+76 | |             vec![
+77 | |                 current_contract.as_bytes().to_vec(),
+78 | |                 message.as_bytes().to_vec(),
+79 | |             ],
+80 | |         );
+   | |_________^
+   |
+   = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+   |
+74 |         let _ = _engine.emit_event(
+   |         +++++++
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> crates/smart_contract/src/manifest/wildcard_container.rs:93:17
+   |
+93 |     pub fn iter(&self) -> std::slice::Iter<T> {
+   |                 ^^^^^     ------------------- the same lifetime is hidden here
+   |                 |
+   |                 the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+93 |     pub fn iter(&self) -> std::slice::Iter<'_, T> {
+   |                                            +++
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/native/gas_token.rs:298:9
+    |
+298 | /         engine.emit_event(
+299 | |             "Transfer",
+300 | |             vec![
+301 | |                 vec![],                        // from: null (mint)
+...   |
+304 | |             ],
+305 | |         );
+    | |_________^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+298 |         let _ = engine.emit_event(
+    |         +++++++
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/native/gas_token.rs:380:9
+    |
+380 | /         engine.emit_event(
+381 | |             "Transfer",
+382 | |             vec![
+383 | |                 account.to_vec(),              // from: account
+...   |
+386 | |             ],
+387 | |         );
+    | |_________^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+380 |         let _ = engine.emit_event(
+    |         +++++++
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/native/gas_token.rs:436:9
+    |
+436 | /         engine.emit_event(
+437 | |             "FeeBurned",
+438 | |             vec![
+439 | |                 amount.to_le_bytes().to_vec(), // amount
+440 | |             ],
+441 | |         );
+    | |_________^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+436 |         let _ = engine.emit_event(
+    |         +++++++
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/native/gas_token.rs:511:9
+    |
+511 | /         engine.emit_event(
+512 | |             "ValidatorReward",
+513 | |             vec![
+514 | |                 validator.to_vec(),            // validator
+515 | |                 amount.to_le_bytes().to_vec(), // amount
+516 | |             ],
+517 | |         );
+    | |_________^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+511 |         let _ = engine.emit_event(
+    |         +++++++
+
+warning: unused `std::result::Result` that must be used
+   --> crates/smart_contract/src/native/neo_token.rs:360:9
+    |
+360 |         engine.emit_event("CandidateRegistered", vec![public_key.to_vec()]);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+help: use `let _ = ...` to ignore the resulting value
+    |
+360 |         let _ = engine.emit_event("CandidateRegistered", vec![public_key.to_vec()]);
+    |         +++++++
+
+warning: `neo-wallets` (lib) generated 16 warnings (run `cargo fix --lib -p neo-wallets` to apply 6 suggestions)
+warning: `neo-rpc-client` (lib) generated 1 warning
+warning: `neo-smart-contract` (lib) generated 69 warnings (run `cargo fix --lib -p neo-smart-contract` to apply 30 suggestions)
+warning: unused import: `error`
+  --> crates/rpc_server/src/lib.rs:11:15
+   |
+11 | use tracing::{error, info, warn};
+   |               ^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `warn`
+  --> crates/rpc_server/src/methods.rs:11:22
+   |
+11 | use tracing::{debug, warn};
+   |                      ^^^^
+
+warning: unused import: `RpcPeer`
+  --> crates/rpc_server/src/methods.rs:19:15
+   |
+19 |     RpcBlock, RpcPeer, RpcPeers, RpcSigner, RpcTransaction, RpcVersion, RpcWitness,
+   |               ^^^^^^^
+
+warning: fields `ledger`, `storage`, and `shutdown_receiver` are never read
+  --> crates/rpc_server/src/lib.rs:23:5
+   |
+21 | pub struct RpcServer {
+   |            --------- fields in this struct
+22 |     config: RpcServerConfig,
+23 |     ledger: Arc<Ledger>,
+   |     ^^^^^^
+24 |     storage: Arc<RocksDbStore>,
+   |     ^^^^^^^
+25 |     shutdown_receiver: Option<broadcast::Receiver<()>>,
+   |     ^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: field `0` is never read
+   --> crates/rpc_server/src/lib.rs:173:17
+    |
+173 | struct RpcError(String);
+    |        -------- ^^^^^^
+    |        |
+    |        field in this struct
+    |
+    = help: consider removing this field
+    = note: `RpcError` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: field `storage` is never read
+  --> crates/rpc_server/src/methods.rs:26:5
+   |
+24 | pub struct RpcMethods {
+   |            ---------- field in this struct
+25 |     ledger: Arc<Ledger>,
+26 |     storage: Arc<RocksDbStore>,
+   |     ^^^^^^^
+   |
+   = note: `RpcMethods` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+
+warning: constant `NEO_VERSION` is never used
+   --> crates/rpc_server/src/methods.rs:218:15
+    |
+218 |         const NEO_VERSION: &str = "3.6.0";
+    |               ^^^^^^^^^^^
+
+warning: `neo-rpc-server` (lib) generated 7 warnings (run `cargo fix --lib -p neo-rpc-server` to apply 3 suggestions)
+crates/network/src/messages/protocol.rs:767:60: error: expected `;`, found `writer`: help: add `;` here
+crates/network/src/messages/protocol.rs:772:63: error: expected `;`, found `writer`: help: add `;` here
+crates/network/src/error_handling.rs:6:27: warning: unused imports: `NetworkMessage` and `PeerEvent`
+crates/network/src/error_handling.rs:15:22: warning: unused import: `error`
+crates/network/src/handlers/transaction_handler.rs:9:22: warning: unused import: `warn`
+crates/network/src/messages/header.rs:8:5: warning: unused import: `neo_config::MAX_SCRIPT_SIZE`
+crates/network/src/messages/protocol.rs:7:43: warning: unused import: `MAX_SCRIPT_LENGTH`
+crates/network/src/messages/validation.rs:7:18: warning: unused import: `MAX_SCRIPT_SIZE`
+crates/network/src/messages/validation.rs:12:29: warning: unused import: `UInt160`
+crates/network/src/messages/validation.rs:16:22: warning: unused import: `error`
+crates/network/src/messages/mod.rs:23:46: warning: unused import: `Serializable`
+crates/network/src/p2p/events.rs:5:13: warning: unused imports: `NetworkError` and `NetworkMessage as Message`
+crates/network/src/p2p/events.rs:7:5: warning: unused import: `neo_config::ADDRESS_SIZE`
+crates/network/src/p2p/events.rs:8:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/p2p/events.rs:9:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/p2p/events.rs:10:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/p2p/events.rs:11:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/p2p/local_test_framework.rs:7:5: warning: unused imports: `NetworkConfig` and `P2pNode`
+crates/network/src/p2p/local_test_framework.rs:11:38: warning: unused import: `Blockchain`
+crates/network/src/p2p/local_test_framework.rs:15:19: warning: unused import: `broadcast`
+crates/network/src/p2p/protocol.rs:6:13: warning: unused imports: `NetworkError as Error` and `NetworkResult as Result`
+crates/network/src/p2p/protocol.rs:7:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/p2p/protocol.rs:8:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/p2p/protocol.rs:9:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/p2p/protocol.rs:10:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/p2p_node.rs:13:5: warning: unused import: `neo_config::ADDRESS_SIZE`
+crates/network/src/p2p_node.rs:14:25: warning: unused import: `UInt256`
+crates/network/src/peer_manager.rs:6:5: warning: unused import: `crate::messages::commands::varlen`
+crates/network/src/peer_manager.rs:7:5: warning: unused import: `crate::messages::header::Neo3Message`
+crates/network/src/peer_manager.rs:16:25: warning: unused import: `UInt256`
+crates/network/src/peer_manager.rs:19:16: warning: unused imports: `IpAddr` and `Ipv4Addr`
+crates/network/src/peers.rs:8:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/peers.rs:9:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/peers.rs:10:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/peers.rs:11:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/peers.rs:14:33: warning: unused import: `HashSet`
+crates/network/src/rpc.rs:13:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/rpc.rs:14:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/rpc.rs:15:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/rpc.rs:16:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/rpc.rs:20:18: warning: unused import: `Block`
+crates/network/src/server.rs:11:78: warning: unused import: `PeerManager`
+crates/network/src/server.rs:14:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/server.rs:15:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/server.rs:16:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/server.rs:17:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/server.rs:19:30: warning: unused import: `Ledger`
+crates/network/src/shutdown_impl.rs:6:13: warning: unused imports: `NetworkError` and `NetworkResult as Result`
+crates/network/src/shutdown_impl.rs:7:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/shutdown_impl.rs:8:5: warning: unused import: `neo_config::DEFAULT_RPC_PORT`
+crates/network/src/shutdown_impl.rs:9:5: warning: unused import: `neo_config::DEFAULT_TESTNET_PORT`
+crates/network/src/shutdown_impl.rs:10:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/snapshot_config.rs:6:5: warning: unused import: `neo_core::UInt256`
+crates/network/src/sync.rs:23:5: warning: unused import: `tokio::time::sleep`
+crates/network/src/transaction_relay.rs:17:22: warning: unused import: `error`
+crates/network/src/safe_p2p.rs:7:37: warning: unused imports: `SafeError`, `SafeExpect`, and `SafeUnwrap`
+crates/network/src/lib.rs:259:5: warning: unused import: `neo_config::DEFAULT_NEO_PORT`
+crates/network/src/lib.rs:262:5: warning: unused import: `neo_config::DEFAULT_TESTNET_RPC_PORT`
+crates/network/src/p2p/local_test_framework.rs:206:17: warning: unused variable: `timestamp`: help: try ignoring the field: `timestamp: _`
+crates/network/src/p2p/local_test_framework.rs:207:17: warning: unused variable: `port`: help: try ignoring the field: `port: _`
+crates/network/src/p2p/local_test_framework.rs:209:17: warning: unused variable: `user_agent`: help: try ignoring the field: `user_agent: _`
+crates/network/src/p2p/local_test_framework.rs:292:23: warning: unused variable: `node`: help: if this is intentional, prefix it with an underscore: `_node`
+crates/network/src/p2p/local_test_framework.rs:311:40: warning: unused variable: `address`: help: if this is intentional, prefix it with an underscore: `_address`
+crates/network/src/p2p/local_test_framework.rs:313:13: warning: unused variable: `router`: help: if this is intentional, prefix it with an underscore: `_router`
+crates/network/src/p2p/tasks.rs:83:9: warning: unused variable: `magic`: help: if this is intentional, prefix it with an underscore: `_magic`
+crates/network/src/p2p_node.rs:507:21: warning: variable does not need to be mutable
+crates/network/src/p2p_node.rs:719:29: warning: unused variable: `message_handler`: help: if this is intentional, prefix it with an underscore: `_message_handler`
+crates/network/src/peer_manager.rs:773:20: warning: unused variable: `e`: help: if this is intentional, prefix it with an underscore: `_e`
+crates/network/src/peer_manager.rs:814:20: warning: unused variable: `e`: help: if this is intentional, prefix it with an underscore: `_e`
+crates/network/src/peer_manager.rs:2017:13: warning: unused variable: `n`: help: if this is intentional, prefix it with an underscore: `_n`
+crates/network/src/p2p_node.rs:806:13: warning: unused variable: `peer_manager`: help: if this is intentional, prefix it with an underscore: `_peer_manager`
+crates/network/src/p2p_node.rs:1038:13: warning: unused variable: `event_sender`: help: if this is intentional, prefix it with an underscore: `_event_sender`
+crates/network/src/p2p_node.rs:1072:13: warning: unused variable: `peer_manager_clone`: help: if this is intentional, prefix it with an underscore: `_peer_manager_clone`
+crates/network/src/peer_manager.rs:232:13: warning: unused variable: `stats`: help: if this is intentional, prefix it with an underscore: `_stats`
+crates/network/src/peer_manager.rs:286:13: warning: unused variable: `message_tx_clone`: help: if this is intentional, prefix it with an underscore: `_message_tx_clone`
+crates/network/src/peer_manager.rs:1387:20: warning: unused variable: `e`: help: if this is intentional, prefix it with an underscore: `_e`
+crates/network/src/sync.rs:718:43: warning: unused variable: `path`: help: if this is intentional, prefix it with an underscore: `_path`
+crates/network/src/sync.rs:718:55: warning: unused variable: `height`: help: if this is intentional, prefix it with an underscore: `_height`
+crates/network/src/sync.rs:727:43: warning: unused variable: `path`: help: if this is intentional, prefix it with an underscore: `_path`
+crates/network/src/sync.rs:727:55: warning: unused variable: `height`: help: if this is intentional, prefix it with an underscore: `_height`
+crates/network/src/peer_manager.rs:352:13: warning: unused variable: `peer`: help: if this is intentional, prefix it with an underscore: `_peer`
+crates/network/src/peer_manager.rs:461:39: warning: unused variable: `address`: help: if this is intentional, prefix it with an underscore: `_address`
+crates/network/src/peer_manager.rs:461:60: warning: unused variable: `nonce`: help: if this is intentional, prefix it with an underscore: `_nonce`
+crates/network/src/peer_manager.rs:2698:13: warning: unused variable: `event_sender`: help: if this is intentional, prefix it with an underscore: `_event_sender`
+crates/network/src/peers.rs:368:62: warning: unused variable: `reason`: help: if this is intentional, prefix it with an underscore: `_reason`
+crates/network/src/rpc.rs:831:5: warning: unused variable: `state`: help: if this is intentional, prefix it with an underscore: `_state`
+crates/network/src/server.rs:347:21: warning: unused variable: `rpc_server`: help: if this is intentional, prefix it with an underscore: `_rpc_server`
+crates/network/src/server.rs:435:13: warning: unused variable: `sync_manager`: help: if this is intentional, prefix it with an underscore: `_sync_manager`
+crates/network/src/safe_p2p.rs:80:9: warning: variable does not need to be mutable
+crates/network/src/p2p/protocol.rs:12:12: warning: unused import: `Digest`
+crates/network/src/rpc.rs:849:21: warning: unused import: `neo_io::Serializable`
+crates/network/src/error.rs:650:32: warning: unused variable: `msg`: help: if this is intentional, prefix it with an underscore: `_msg`
+crates/network/src/error.rs:657:35: warning: unused variable: `msg`: help: if this is intentional, prefix it with an underscore: `_msg`
+crates/network/src/error.rs:669:37: warning: unused variable: `msg`: help: if this is intentional, prefix it with an underscore: `_msg`
+crates/network/src/handlers/transaction_handler.rs:33:13: warning: unused variable: `protocol_message`: help: if this is intentional, prefix it with an underscore: `_protocol_message`
+crates/network/src/messages/network.rs:305:13: warning: unused variable: `checksum`: help: if this is intentional, prefix it with an underscore: `_checksum`
+crates/network/src/messages/validation.rs:245:9: warning: unused variable: `timestamp`: help: if this is intentional, prefix it with an underscore: `_timestamp`
+crates/network/src/messages/validation.rs:250:9: warning: unused variable: `relay`: help: if this is intentional, prefix it with an underscore: `_relay`
+crates/network/src/messages/validation.rs:484:9: warning: unused variable: `hash_stop`: help: if this is intentional, prefix it with an underscore: `_hash_stop`
+crates/network/src/messages/validation.rs:661:14: warning: unused variable: `i`: help: if this is intentional, prefix it with an underscore: `_i`
+crates/network/src/server.rs:186:14: warning: unused variable: `command_sender`: help: if this is intentional, prefix it with an underscore: `_command_sender`
+crates/network/src/safe_p2p.rs:176:46: warning: unused variable: `context`: help: if this is intentional, prefix it with an underscore: `_context`
+warning: `neo-network` (lib) generated 100 warnings
+error: could not compile `neo-network` (lib) due to 2 previous errors; 100 warnings emitted

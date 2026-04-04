@@ -1,0 +1,21 @@
+# Rustfmt configuration for Neo-RS (Stable Rust only)
+# Only includes stable rustfmt features
+
+# === Basic formatting ===
+edition = "2021"
+max_width = 100
+hard_tabs = false
+tab_spaces = 4
+
+# === Imports ===
+reorder_imports = true
+
+# === Types and generics ===
+use_small_heuristics = "Default"
+
+# === Advanced options ===
+newline_style = "Unix"
+
+# === Neo-RS preferences ===
+array_width = 60
+chain_width = 60

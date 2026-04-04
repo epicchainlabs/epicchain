@@ -1,0 +1,43 @@
+[package]
+name = "neo-rpc-client"
+version = "0.4.0"
+edition = "2021"
+description = "Neo N3 RPC Client implementation matching C# Neo.Network.RPC exactly"
+license = "MIT"
+repository = "https://github.com/r3e-network/neo-rs"
+
+[dependencies]
+# Core Neo dependencies
+neo-config = { path = "../config" }
+epicchain-core = { path = "../core" }
+neo-json = { path = "../json" }
+epicchain-io = { path = "../io" }
+
+# HTTP and JSON-RPC dependencies
+reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-features = false }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Async utilities
+futures = "0.3"
+
+# Logging
+tracing = "0.1"
+
+# URL handling
+url = "2.4"
+
+# Base64 encoding/decoding
+base64 = "0.21"
+
+# Hex encoding/decoding
+hex = "0.4"
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockito = "1.2" 

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  neo-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: neo-rust-node:latest
+    container_name: neo-rust-node
+    restart: unless-stopped
+    ports:
+      # TestNet P2P
+      - "20333:20333"
+      # TestNet RPC
+      - "20332:20332"
+      # MainNet P2P (when using mainnet)
+      - "10333:10333"
+      # MainNet RPC (when using mainnet)
+      - "10332:10332"
+    volumes:
+      - neo-data:/data
+      - ./config:/config:ro
+    environment:
+      - NEO_NETWORK=${NEO_NETWORK:-testnet}
+      - NEO_DATA_DIR=/data
+      - RUST_LOG=${RUST_LOG:-info}
+      - NEO_RPC_ENABLED=true
+      - NEO_RPC_MAX_CONNECTIONS=100
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:20332/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - neo-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Optional: Neo monitoring dashboard
+  neo-monitor:
+    image: grafana/grafana:latest
+    container_name: neo-monitor
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - neo-network
+    depends_on:
+      - neo-node
+
+volumes:
+  neo-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  neo-network:
+    driver: bridge
